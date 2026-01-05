@@ -1,6 +1,6 @@
 # LegacyShield
 
-A project for legacy system protection and maintenance.
+Swiss Bank like protection for your most important documents
 
 ## Project Structure
 
