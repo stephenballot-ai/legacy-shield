@@ -1,0 +1,282 @@
+// Legacy Shield Database Schema
+// PostgreSQL with Prisma ORM
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================================
+// USER & AUTHENTICATION
+// ============================================================================
+
+model User {
+  id       String   @id @default(uuid())
+  email    String   @unique
+  passwordHash String
+
+  // Account status
+  emailVerified Boolean   @default(false)
+  tier          UserTier  @default(FREE)
+
+  // Subscription
+  stripeCustomerId     String?   @unique
+  stripeSubscriptionId String?   @unique
+  lifetimePurchase     Boolean   @default(false)
+  lifetimePurchaseDate DateTime?
+  subscriptionEndsAt   DateTime?
+
+  // Security
+  twoFactorSecret  String?
+  twoFactorEnabled Boolean  @default(false)
+  recoveryCodes    String[]
+
+  // Emergency access
+  emergencyKeyEncrypted String?
+  emergencyKeySalt      String?
+  emergencyPhraseHash   String?
+
+  // Metadata
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  lastLoginAt DateTime?
+
+  // Relations
+  files             File[]
+  emergencyContacts EmergencyContact[]
+  sessions          Session[]
+  auditLogs         AuditLog[]
+
+  @@index([email])
+}
+
+enum UserTier {
+  FREE // 15 docs, 1 emergency contact
+  PRO  // 100 docs, 5 emergency contacts
+}
+
+// ============================================================================
+// FILES & DOCUMENTS
+// ============================================================================
+
+model File {
+  id     String @id @default(uuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // File info
+  filename      String
+  fileSizeBytes Int
+  mimeType      String
+  storageKey    String @unique // Hetzner Object Storage key
+  storageBucket String
+
+  // Encryption
+  ownerEncryptedKey     String
+  emergencyEncryptedKey String?
+  iv                    String
+  authTag               String
+
+  // Organization
+  category            FileCategory?
+  tags                String[]
+  isFavorite          Boolean       @default(false)
+  isEmergencyPriority Boolean       @default(false)
+
+  // Expiration tracking
+  expiresAt              DateTime?
+  expirationReminderSent Boolean   @default(false)
+
+  // Metadata
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime? // Soft delete
+
+  // Relations
+  relatedFiles   FileRelation[] @relation("sourceFile")
+  relatedToFiles FileRelation[] @relation("targetFile")
+  auditLogs      AuditLog[]
+
+  @@index([userId, deletedAt])
+  @@index([category])
+  @@index([expiresAt])
+}
+
+enum FileCategory {
+  IDENTITY
+  PROPERTY
+  FINANCIAL
+  INSURANCE
+  MEDICAL
+  LEGAL
+  TAX
+  TRAVEL
+  FAMILY
+  DIGITAL_ASSETS
+  OTHER
+}
+
+model FileRelation {
+  id           String @id @default(uuid())
+  sourceFileId String
+  targetFileId String
+  relationType String
+
+  sourceFile File @relation("sourceFile", fields: [sourceFileId], references: [id], onDelete: Cascade)
+  targetFile File @relation("targetFile", fields: [targetFileId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([sourceFileId, targetFileId])
+}
+
+// ============================================================================
+// EMERGENCY ACCESS
+// ============================================================================
+
+model EmergencyContact {
+  id     String @id @default(uuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Contact info
+  name         String
+  relationship String
+  email        String?
+  phone        String?
+  notes        String?
+
+  // Access tracking
+  lastAccessedAt DateTime?
+  accessCount    Int       @default(0)
+
+  // Metadata
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+// ============================================================================
+// SESSIONS & AUDIT
+// ============================================================================
+
+model Session {
+  id     String @id @default(uuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  sessionType SessionType @default(OWNER)
+
+  // Session data
+  token     String  @unique
+  userAgent String?
+  ipAddress String?
+
+  // Expiration
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([token])
+  @@index([expiresAt])
+}
+
+enum SessionType {
+  OWNER
+  EMERGENCY_CONTACT
+}
+
+model AuditLog {
+  id     String  @id @default(uuid())
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+  fileId String?
+  file   File?   @relation(fields: [fileId], references: [id], onDelete: SetNull)
+
+  // Event details
+  action       AuditAction
+  sessionType  SessionType?
+  resourceType String
+  resourceId   String?
+
+  // Context
+  ipAddress String?
+  userAgent String?
+  metadata  Json?
+
+  // Timestamp
+  createdAt DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@index([action, createdAt])
+  @@index([fileId])
+}
+
+enum AuditAction {
+  LOGIN
+  LOGOUT
+  LOGIN_FAILED
+  PASSWORD_CHANGE
+  TWO_FACTOR_ENABLED
+  TWO_FACTOR_DISABLED
+  RECOVERY_CODE_USED
+  FILE_UPLOAD
+  FILE_VIEW
+  FILE_DOWNLOAD
+  FILE_DELETE
+  FILE_UPDATE
+  EMERGENCY_ACCESS_SETUP
+  EMERGENCY_ACCESS_USED
+  EMERGENCY_PHRASE_VALIDATED
+  EMERGENCY_KEY_ROTATED
+  ACCOUNT_CREATED
+  ACCOUNT_UPGRADED
+  ACCOUNT_DOWNGRADED
+  ACCOUNT_DELETED
+}
+
+// ============================================================================
+// BACKGROUND JOBS
+// ============================================================================
+
+model Job {
+  id     String    @id @default(uuid())
+  type   JobType
+  status JobStatus @default(PENDING)
+
+  // Job data
+  payload Json
+  result  Json?
+
+  // Execution
+  attempts     Int       @default(0)
+  maxAttempts  Int       @default(3)
+  scheduledFor DateTime  @default(now())
+  startedAt    DateTime?
+  completedAt  DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status, scheduledFor])
+  @@index([type, status])
+}
+
+enum JobType {
+  SEND_EXPIRATION_REMINDER
+  SEND_EMAIL
+  CLEANUP_DELETED_FILES
+  GENERATE_USAGE_REPORT
+}
+
+enum JobStatus {
+  PENDING
+  RUNNING
+  COMPLETED
+  FAILED
+}

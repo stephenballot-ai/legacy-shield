@@ -1,0 +1,48 @@
+{
+  "name": "legacy-shield",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Secure digital vault for critical documents with emergency access",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm:dev:*\"",
+    "dev:web": "npm run dev --workspace=web",
+    "dev:api": "npm run dev --workspace=api",
+    "build": "npm run build --workspaces",
+    "build:web": "npm run build --workspace=web",
+    "build:api": "npm run build --workspace=api",
+    "test": "npm run test --workspaces",
+    "lint": "npm run lint --workspaces",
+    "type-check": "npm run type-check --workspaces",
+    "clean": "rm -rf node_modules packages/*/node_modules packages/*/dist packages/*/.next",
+    "docker:dev": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourorg/legacy-shield"
+  },
+  "keywords": [
+    "document-vault",
+    "encryption",
+    "estate-planning",
+    "emergency-access",
+    "zero-knowledge",
+    "privacy",
+    "gdpr",
+    "european-hosting"
+  ],
+  "author": "Legacy Shield Team",
+  "license": "UNLICENSED"
+}
