@@ -77,7 +77,7 @@ async function request<T>(
   });
 
   // Auto-refresh on 401
-  if (res.status === 401 && accessToken) {
+  if (res.status === 401) {
     if (!refreshPromise) {
       refreshPromise = refreshAccessToken();
     }
