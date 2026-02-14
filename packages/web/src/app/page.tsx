@@ -34,7 +34,7 @@ export default function HomePage() {
           <div className="card">
             <h3 className="text-lg font-semibold mb-2">🚨 Emergency Access</h3>
             <p className="text-sm text-gray-600">
-              Loved ones can access with unlock phrase when you can't.
+              Loved ones can access with unlock phrase when you can&apos;t.
             </p>
           </div>
 
