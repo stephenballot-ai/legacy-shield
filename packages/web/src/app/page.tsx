@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Shield, Lock, Users, Server, FileText, Upload, UserPlus, CheckCircle, Heart } from 'lucide-react';
+import { Shield, Lock, Users, Server, Upload, UserPlus, CheckCircle, Heart } from 'lucide-react';
 
 function HeroSection() {
   return (
