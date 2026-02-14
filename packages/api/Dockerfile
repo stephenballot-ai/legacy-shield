@@ -1,4 +1,5 @@
-FROM node:20-alpine AS builder
+FROM node:20-slim AS builder
+RUN apt-get update && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 COPY package.json package-lock.json tsconfig.json ./
 COPY packages/api/package.json ./packages/api/
@@ -10,8 +11,8 @@ RUN npm run build --workspace=@legacy-shield/shared
 RUN cd packages/api && npx prisma generate
 RUN npm run build --workspace=@legacy-shield/api
 
-FROM node:20-alpine
-RUN apk add --no-cache openssl
+FROM node:20-slim
+RUN apt-get update && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/packages/api/dist ./packages/api/dist
