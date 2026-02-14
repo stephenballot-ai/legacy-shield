@@ -22,10 +22,13 @@ interface UploadFileParams {
   filename: string;
   mimeType: string;
   fileSizeBytes: number;
-  category?: FileCategory;
+  category?: FileCategory | null;
   tags?: string[];
+  isEmergencyPriority?: boolean;
   ownerEncryptedKey: string;
-  emergencyEncryptedKey?: string;
+  ownerIV: string;
+  emergencyEncryptedKey?: string | null;
+  emergencyIV?: string | null;
   iv: string;
   authTag: string;
   ipAddress?: string;
