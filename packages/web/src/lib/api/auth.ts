@@ -28,8 +28,8 @@ interface Setup2FAResponse {
 }
 
 export const authApi = {
-  register: (email: string, password: string) =>
-    api.post<RegisterResponse>('/auth/register', { email, password }),
+  register: (email: string, password: string, referralCode?: string) =>
+    api.post<RegisterResponse>('/auth/register', { email, password, ...(referralCode ? { referralCode } : {}) }),
 
   login: (email: string, password: string) =>
     api.post<LoginResponse | TwoFactorLoginResponse>('/auth/login', { email, password }),

@@ -19,6 +19,9 @@ import {
   Crown,
   CheckCircle2,
   XCircle,
+  Gift,
+  Copy,
+  Check,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useSearchParams } from 'next/navigation';
@@ -111,6 +114,72 @@ export default function SettingsPage() {
 // ACCOUNT SECTION
 // =============================================================================
 
+function ReferralCard() {
+  const [referral, setReferral] = useState<{ referralCode: string; referralLink: string; referralCount: number; bonusDocs: number } | null>(null);
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    usersApi.getReferrals().then(setReferral).catch(() => {});
+  }, []);
+
+  if (!referral) return null;
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(referral.referralLink);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const shareText = `Keep your important documents safe and accessible — even in emergencies. Try LegacyShield: ${referral.referralLink}`;
+
+  return (
+    <Card>
+      <div className="flex items-center gap-3 mb-4">
+        <div className="p-2 bg-primary-50 rounded-lg">
+          <Gift className="h-5 w-5 text-primary-600" />
+        </div>
+        <div>
+          <h2 className="text-lg font-semibold text-gray-900">Invite Friends</h2>
+          <p className="text-sm text-gray-500">Get 7 extra documents for each friend who signs up and uploads</p>
+        </div>
+      </div>
+
+      <div className="flex gap-2 mb-4">
+        <div className="flex-1 bg-gray-50 rounded-lg px-3 py-2 text-sm font-mono text-gray-700 truncate">
+          {referral.referralLink}
+        </div>
+        <Button variant="secondary" onClick={copyLink} className="flex-shrink-0">
+          {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+        </Button>
+      </div>
+
+      <div className="flex gap-2 mb-4">
+        <a
+          href={`https://wa.me/?text=${encodeURIComponent(shareText)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-green-500 text-white text-sm rounded-lg hover:bg-green-600 transition-colors"
+        >
+          WhatsApp
+        </a>
+        <a
+          href={`https://t.me/share/url?url=${encodeURIComponent(referral.referralLink)}&text=${encodeURIComponent('Keep your important documents safe and accessible — even in emergencies. Try LegacyShield!')}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600 transition-colors"
+        >
+          Telegram
+        </a>
+      </div>
+
+      <div className="flex gap-6 text-sm text-gray-600">
+        <div><span className="font-semibold text-gray-900">{referral.referralCount}</span> friends invited</div>
+        <div><span className="font-semibold text-gray-900">+{referral.bonusDocs}</span> bonus documents</div>
+      </div>
+    </Card>
+  );
+}
+
 function AccountSection({ profile, onUpdate }: { profile: UserProfile; onUpdate: () => void }) {
   const [email, setEmail] = useState(profile.email);
   const [emailLoading, setEmailLoading] = useState(false);
@@ -164,6 +233,9 @@ function AccountSection({ profile, onUpdate }: { profile: UserProfile; onUpdate:
 
   return (
     <div className="space-y-6">
+      {/* Referral */}
+      <ReferralCard />
+
       {/* Email */}
       <Card>
         <h2 className="text-lg font-semibold text-gray-900 mb-4">Email Address</h2>

@@ -30,6 +30,11 @@ model User {
   lifetimePurchaseDate DateTime?
   subscriptionEndsAt   DateTime?
 
+  // Referrals
+  referralCode   String  @unique @default("")
+  referredBy     String?
+  referralBonus  Int     @default(0)
+
   // Security
   twoFactorSecret  String?
   twoFactorEnabled Boolean  @default(false)

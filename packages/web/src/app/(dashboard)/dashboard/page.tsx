@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { useAuthStore } from '@/store/authStore';
 import { useFilesStore } from '@/store/filesStore';
 import { DOCUMENT_LIMITS } from '@legacy-shield/shared';
+import { usersApi } from '@/lib/api/users';
 import { FileText, ShieldAlert, Upload, Clock, ArrowRight } from 'lucide-react';
 import { formatFileSize, formatDate } from '@/lib/utils';
 import Link from 'next/link';
@@ -13,9 +14,15 @@ import Link from 'next/link';
 export default function DashboardPage() {
   const user = useAuthStore((s) => s.user);
   const { files, total, fetchFiles } = useFilesStore();
+  const [docLimit, setDocLimit] = useState<number | null>(null);
 
   const tier = (user as any)?.tier || 'FREE';
-  const maxFiles = tier === 'PRO' ? DOCUMENT_LIMITS.PRO_TIER : DOCUMENT_LIMITS.FREE_TIER;
+  const fallbackMax = tier === 'PRO' ? DOCUMENT_LIMITS.PRO_TIER : DOCUMENT_LIMITS.FREE_TIER;
+  const maxFiles = docLimit ?? fallbackMax;
+
+  useEffect(() => {
+    usersApi.getMe().then((p) => setDocLimit(p.documentLimit)).catch(() => {});
+  }, []);
 
   useEffect(() => {
     fetchFiles();

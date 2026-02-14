@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import { Router, Request, Response } from 'express';
 import { validate, registerSchema, loginSchema, twoFactorSchema, verifyEmailSchema, changePasswordSchema, recoveryCodeSchema } from '../middleware/validation';
 import { loginLimiter } from '../middleware/rateLimit';
@@ -26,12 +27,16 @@ import {
 
 const router = Router();
 
+function generateReferralCode(): string {
+  return crypto.randomBytes(4).toString('hex'); // 8 alphanumeric chars
+}
+
 // ============================================================================
 // POST /auth/register
 // ============================================================================
 router.post('/register', validate(registerSchema), async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body as { email: string; password: string };
+    const { email, password, referralCode: refCode } = req.body as { email: string; password: string; referralCode?: string };
 
     // Check if user already exists
     const existing = await prisma.user.findUnique({ where: { email } });
@@ -40,6 +45,15 @@ router.post('/register', validate(registerSchema), async (req: Request, res: Res
         error: { code: 'RESOURCE_ALREADY_EXISTS', message: 'An account with this email already exists' },
       });
       return;
+    }
+
+    // Look up referrer if referral code provided
+    let referredBy: string | undefined;
+    if (refCode) {
+      const referrer = await prisma.user.findUnique({ where: { referralCode: refCode } });
+      if (referrer) {
+        referredBy = referrer.id;
+      }
     }
 
     const passwordHash = await hashPassword(password);
@@ -53,6 +67,8 @@ router.post('/register', validate(registerSchema), async (req: Request, res: Res
         email,
         passwordHash,
         emergencyKeySalt: keyDerivationSalt, // Re-use this field for key derivation salt
+        referralCode: generateReferralCode(),
+        referredBy: referredBy ?? null,
       },
     });
 

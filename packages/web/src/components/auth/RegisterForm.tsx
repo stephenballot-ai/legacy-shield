@@ -46,7 +46,9 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
   const onSubmit = async (data: FormData) => {
     setError('');
     try {
-      const res = await registerUser(data.email, data.password);
+      const refCode = typeof window !== 'undefined' ? localStorage.getItem('referralCode') : null;
+      const res = await registerUser(data.email, data.password, refCode || undefined);
+      if (typeof window !== 'undefined') localStorage.removeItem('referralCode');
       onSuccess(data.email, data.password, res.salt);
     } catch (err) {
       if (err instanceof ApiError) {

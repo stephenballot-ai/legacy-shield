@@ -18,6 +18,8 @@ router.get('/me', authenticate, requireOwner, async (req: Request, res: Response
         tier: true,
         emailVerified: true,
         twoFactorEnabled: true,
+        referralCode: true,
+        referralBonus: true,
         createdAt: true,
         lastLoginAt: true,
         _count: { select: { files: { where: { deletedAt: null } }, emergencyContacts: true } },
@@ -30,17 +32,44 @@ router.get('/me', authenticate, requireOwner, async (req: Request, res: Response
 
     const subscription = await getSubscriptionStatus(req.user!.userId);
     const tier = user.tier as 'FREE' | 'PRO';
+    const baseLimit = DOCUMENT_LIMITS[`${tier}_TIER`];
+    const docLimit = tier === 'PRO' ? baseLimit : baseLimit + ((user as any).referralBonus ?? 0);
 
     res.json({
       ...user,
       documentCount: user._count.files,
       emergencyContactCount: user._count.emergencyContacts,
-      documentLimit: DOCUMENT_LIMITS[`${tier}_TIER`],
+      documentLimit: docLimit,
       emergencyContactLimit: EMERGENCY_CONTACT_LIMITS[`${tier}_TIER`],
       subscription,
     });
   } catch (err) {
     res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Failed to get user profile' } });
+  }
+});
+
+// GET /users/referrals
+router.get('/referrals', authenticate, requireOwner, async (req: Request, res: Response) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: req.user!.userId },
+      select: { referralCode: true, referralBonus: true },
+    });
+    if (!user) {
+      res.status(404).json({ error: { code: 'RESOURCE_NOT_FOUND', message: 'User not found' } });
+      return;
+    }
+
+    const referralCount = await prisma.user.count({ where: { referredBy: req.user!.userId } });
+
+    res.json({
+      referralCode: user.referralCode,
+      referralLink: `${process.env.FRONTEND_URL || 'https://legacyshield.eu'}/r/${user.referralCode}`,
+      referralCount,
+      bonusDocs: user.referralBonus,
+    });
+  } catch {
+    res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Failed to get referral info' } });
   }
 });
 

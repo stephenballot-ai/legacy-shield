@@ -1,5 +1,12 @@
 import { api } from './client';
 
+export interface ReferralInfo {
+  referralCode: string;
+  referralLink: string;
+  referralCount: number;
+  bonusDocs: number;
+}
+
 export interface UserProfile {
   id: string;
   email: string;
@@ -24,6 +31,8 @@ export interface UserProfile {
 
 export const usersApi = {
   getMe: () => api.get<UserProfile>('/users/me'),
+
+  getReferrals: () => api.get<ReferralInfo>('/users/referrals'),
 
   updateMe: (data: { email: string }) =>
     api.patch<{ id: string; email: string; tier: string }>('/users/me', data),

@@ -7,9 +7,7 @@ import {
   deleteObject,
 } from '../lib/s3';
 import { logAudit } from './auth';
-// Tier limits (mirrored from @legacy-shield/shared)
-const DOCUMENT_LIMITS = { FREE_TIER: 15, PRO_TIER: 100 } as const;
-const FILE_SIZE_LIMITS = { FREE_TIER: 5 * 1024 * 1024, PRO_TIER: 10 * 1024 * 1024 } as const;
+import { DOCUMENT_LIMITS, FILE_SIZE_LIMITS, REFERRAL_BONUS_DOCS, MAX_FREE_DOCS } from '@legacy-shield/shared';
 import type { FileCategory } from '@prisma/client';
 
 // ============================================================================
@@ -77,7 +75,9 @@ export async function uploadFile(params: UploadFileParams) {
   } = params;
 
   // Enforce tier limits - document count
-  const maxDocs = tier === 'PRO' ? DOCUMENT_LIMITS.PRO_TIER : DOCUMENT_LIMITS.FREE_TIER;
+  const uploader = await prisma.user.findUnique({ where: { id: userId }, select: { referralBonus: true, referredBy: true } });
+  const baseMax = tier === 'PRO' ? DOCUMENT_LIMITS.PRO_TIER : DOCUMENT_LIMITS.FREE_TIER;
+  const maxDocs = tier === 'PRO' ? baseMax : baseMax + (uploader?.referralBonus ?? 0);
   const { count } = await getFileStats(userId);
   if (count >= maxDocs) {
     throw new TierLimitError(
@@ -135,6 +135,22 @@ export async function uploadFile(params: UploadFileParams) {
     userAgent,
     metadata: { filename, mimeType, fileSizeBytes, category },
   });
+
+  // Reward referrer on first upload by referred user
+  if (count === 0 && uploader?.referredBy) {
+    const referrer = await prisma.user.findUnique({
+      where: { id: uploader.referredBy },
+      select: { referralBonus: true },
+    });
+    if (referrer) {
+      const maxBonus = MAX_FREE_DOCS - DOCUMENT_LIMITS.FREE_TIER;
+      const newBonus = Math.min(referrer.referralBonus + REFERRAL_BONUS_DOCS, maxBonus);
+      await prisma.user.update({
+        where: { id: uploader.referredBy },
+        data: { referralBonus: newBonus },
+      });
+    }
+  }
 
   return {
     file: {

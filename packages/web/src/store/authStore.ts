@@ -16,7 +16,7 @@ interface AuthState {
 
   login: (email: string, password: string) => Promise<{ requiresTwoFactor: boolean }>;
   verifyTwoFactor: (code: string, password: string) => Promise<void>;
-  register: (email: string, password: string) => Promise<{ salt: string }>;
+  register: (email: string, password: string, referralCode?: string) => Promise<{ salt: string }>;
   logout: () => Promise<void>;
   setUser: (user: User) => void;
   checkAuth: () => Promise<void>;
@@ -110,10 +110,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     }
   },
 
-  register: async (email, password) => {
+  register: async (email, password, referralCode?) => {
     set({ isLoading: true });
     try {
-      const res = await authApi.register(email, password);
+      const res = await authApi.register(email, password, referralCode);
       set({ isLoading: false, salt: res.salt });
       return { salt: res.salt };
     } catch (err) {
