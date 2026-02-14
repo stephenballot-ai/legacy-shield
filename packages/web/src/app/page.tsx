@@ -35,7 +35,7 @@ function HeroSection() {
               Sign In
             </Link>
           </div>
-          <p className="mt-4 text-sm text-white/50">Free plan includes 15 documents · No credit card required</p>
+          <p className="mt-4 text-sm text-white/50">Free forever · No credit card required</p>
         </div>
       </div>
     </section>
@@ -225,7 +225,7 @@ function PricingSection() {
               <span className="text-gray-500 ml-1">forever</span>
             </div>
             <ul className="mt-8 space-y-3">
-              {['15 documents', '1 emergency contact', 'Zero-knowledge encryption', 'EU hosting'].map((f) => (
+              {['Emergency access', '1 emergency contact', 'Zero-knowledge encryption', 'EU hosting'].map((f) => (
                 <li key={f} className="flex items-center gap-3 text-sm text-gray-700">
                   <CheckCircle className="h-4 w-4 text-trust-500 flex-shrink-0" />
                   {f}
