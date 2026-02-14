@@ -33,14 +33,6 @@ export default function DocumentsPage() {
     fetchFiles();
   }, [fetchFiles]);
 
-  if (!unlocked && !masterKey) {
-    return (
-      <div className="max-w-md mx-auto mt-12">
-        <PasswordPrompt onUnlocked={() => setUnlocked(true)} />
-      </div>
-    );
-  }
-
   const handleToggleFavorite = useCallback(async (file: LSFile) => {
     try {
       const updated = await filesApi.updateFile(file.id, { isFavorite: !file.isFavorite });
@@ -85,6 +77,14 @@ export default function DocumentsPage() {
       // TODO: toast error
     }
   }, [removeFile]);
+
+  if (!unlocked && !masterKey) {
+    return (
+      <div className="max-w-md mx-auto mt-12">
+        <PasswordPrompt onUnlocked={() => setUnlocked(true)} />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6 animate-fade-in">
