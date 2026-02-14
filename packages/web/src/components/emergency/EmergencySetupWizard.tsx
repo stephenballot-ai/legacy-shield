@@ -77,9 +77,14 @@ export function EmergencySetupWizard({ onComplete }: { onComplete: () => void })
       setPhraseHash(hash);
       setEmergencyKey(key);
 
-      // Export emergency key, encrypt for server storage
-      // Use master key if available, otherwise encrypt with the emergency key itself
-      const encryptionKey = masterKey || key;
+      // Export emergency key, encrypt with master key for server-side storage
+      // Master key is required so the emergency key can be recovered on future logins
+      if (!masterKey) {
+        setDeriveError('Please sign out and log in again to set up emergency access. Your encryption key needs to be active.');
+        setDeriving(false);
+        return;
+      }
+      const encryptionKey = masterKey;
 
       const rawKey = await crypto.subtle.exportKey('raw', key);
       const iv = crypto.getRandomValues(new Uint8Array(12));
@@ -113,10 +118,8 @@ export function EmergencySetupWizard({ onComplete }: { onComplete: () => void })
 
   // Step 3: Re-encrypt file keys with emergency key
   const handleReencryptFiles = async () => {
-    if (!emergencyKey) return;
-    if (!masterKey) {
-      // Can't re-encrypt without master key — skip to contacts
-      setStep(3);
+    if (!emergencyKey || !masterKey) {
+      setReencryptError('Encryption keys not available. Please sign out, log in, and try again.');
       return;
     }
     setReencrypting(true);
