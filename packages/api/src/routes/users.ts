@@ -20,7 +20,7 @@ router.get('/me', authenticate, requireOwner, async (req: Request, res: Response
         twoFactorEnabled: true,
         createdAt: true,
         lastLoginAt: true,
-        _count: { select: { files: true, emergencyContacts: true } },
+        _count: { select: { files: { where: { deletedAt: null } }, emergencyContacts: true } },
       },
     });
     if (!user) {
