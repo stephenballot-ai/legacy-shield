@@ -82,7 +82,9 @@ function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const user = useAuthStore((s) => s.user);
+  const logout = useAuthStore((s) => s.logout);
 
   return (
     <AuthGuard>
@@ -99,11 +101,38 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
               <Menu className="h-5 w-5" />
             </button>
             <div className="flex-1" />
-            <div className="flex items-center gap-3">
-              <span className="text-sm text-gray-600 hidden sm:block">{user?.email}</span>
-              <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center text-sm font-medium">
-                {user?.email?.[0]?.toUpperCase() || '?'}
-              </div>
+            <div className="relative">
+              <button
+                onClick={() => setMenuOpen(!menuOpen)}
+                className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+              >
+                <span className="text-sm text-gray-600 hidden sm:block">{user?.email}</span>
+                <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center text-sm font-medium">
+                  {user?.email?.[0]?.toUpperCase() || '?'}
+                </div>
+              </button>
+              {menuOpen && (
+                <>
+                  <div className="fixed inset-0 z-30" onClick={() => setMenuOpen(false)} />
+                  <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-40">
+                    <Link
+                      href="/settings"
+                      onClick={() => setMenuOpen(false)}
+                      className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50"
+                    >
+                      <Settings className="h-4 w-4" />
+                      Settings
+                    </Link>
+                    <button
+                      onClick={() => { logout(); setMenuOpen(false); }}
+                      className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 w-full"
+                    >
+                      <LogOut className="h-4 w-4" />
+                      Sign out
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
           </header>
 

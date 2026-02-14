@@ -39,7 +39,7 @@ export default function DashboardPage() {
 
   const stats = [
     { label: 'Documents', value: `${total} / ${maxFiles}`, icon: FileText, color: 'text-primary-600 bg-primary-50' },
-    { label: 'Emergency Contacts', value: '0', icon: ShieldAlert, color: 'text-trust-600 bg-trust-50' },
+    { label: 'Emergency Access', value: '0', icon: ShieldAlert, color: 'text-trust-600 bg-trust-50' },
     { label: 'Last Activity', value: recentFiles[0] ? formatDate(recentFiles[0].createdAt) : 'No activity', icon: Clock, color: 'text-amber-600 bg-amber-50' },
   ];
 
