@@ -44,7 +44,7 @@ function HeroSection() {
 
 function TrustBar() {
   const items = [
-    { icon: '🇪🇺', label: '100% EU Hosted' },
+    { icon: '🇪🇺', label: 'European-Owned Infrastructure' },
     { icon: '🔐', label: 'Zero-Knowledge Encryption' },
     { icon: '🛡️', label: 'AES-256-GCM' },
     { icon: '✅', label: 'GDPR Native' },
@@ -83,7 +83,7 @@ function FeaturesSection() {
     {
       icon: Server,
       title: 'EU-Only Hosting',
-      description: 'Your encrypted data is stored exclusively in European data centers. No US jurisdiction, no CLOUD Act, no backdoors. GDPR-compliant by design.',
+      description: 'Your encrypted data is stored exclusively on European-owned infrastructure (Hetzner, Germany). No US-owned cloud providers. No CLOUD Act. No backdoors. GDPR-compliant by design.',
       color: 'bg-navy-100 text-navy-700',
     },
   ];
@@ -308,7 +308,7 @@ function Footer() {
             <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
           </div>
           <p className="text-sm">
-            Built with 🤍 in Europe 🇪🇺
+            Built in Europe, hosted on European-owned infrastructure 🇪🇺
           </p>
         </div>
       </div>
