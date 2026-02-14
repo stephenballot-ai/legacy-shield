@@ -14,11 +14,11 @@ FROM node:20-alpine
 WORKDIR /app
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/packages/api/dist ./packages/api/dist
-COPY --from=builder /app/packages/api/node_modules ./packages/api/node_modules
 COPY --from=builder /app/packages/api/package.json ./packages/api/
 COPY --from=builder /app/packages/api/prisma ./packages/api/prisma
 COPY --from=builder /app/packages/shared/dist ./packages/shared/dist
 COPY --from=builder /app/packages/shared/package.json ./packages/shared/
+COPY --from=builder /app/package.json ./
 EXPOSE 4000
 WORKDIR /app/packages/api
 CMD ["node", "dist/server.js"]
