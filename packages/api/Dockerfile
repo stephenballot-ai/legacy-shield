@@ -11,6 +11,7 @@ RUN cd packages/api && npx prisma generate
 RUN npm run build --workspace=@legacy-shield/api
 
 FROM node:20-alpine
+RUN apk add --no-cache openssl
 WORKDIR /app
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/packages/api/dist ./packages/api/dist
