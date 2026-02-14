@@ -80,12 +80,16 @@ export const filesApi = {
   uploadToPresignedUrl: async (url: string, encryptedBlob: Blob, fileId?: string): Promise<void> => {
     // If fileId provided, use proxy endpoint instead of presigned URL
     if (fileId) {
+      const { getAccessToken } = await import('./client');
       const API_ROOT = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+      const headers: Record<string, string> = { 'Content-Type': 'application/octet-stream' };
+      const token = getAccessToken();
+      if (token) headers['Authorization'] = `Bearer ${token}`;
       const res = await fetch(`${API_ROOT}/api/v1/files/${fileId}/blob`, {
         method: 'PUT',
         body: encryptedBlob,
         credentials: 'include',
-        headers: { 'Content-Type': 'application/octet-stream' },
+        headers,
       });
       if (!res.ok) throw new Error('Failed to upload file to storage');
       return;
@@ -104,9 +108,14 @@ export const filesApi = {
   downloadFromPresignedUrl: async (url: string, fileId?: string): Promise<Blob> => {
     // If fileId provided, use proxy endpoint
     if (fileId) {
+      const { getAccessToken } = await import('./client');
       const API_ROOT = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+      const headers: Record<string, string> = {};
+      const token = getAccessToken();
+      if (token) headers['Authorization'] = `Bearer ${token}`;
       const res = await fetch(`${API_ROOT}/api/v1/files/${fileId}/blob`, {
         credentials: 'include',
+        headers,
       });
       if (!res.ok) throw new Error('Failed to download file');
       return res.blob();

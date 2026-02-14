@@ -59,7 +59,11 @@ router.post('/upload', requireOwner, validate(uploadFileSchema), async (req: Req
       userAgent: req.headers['user-agent'],
     });
 
-    res.status(201).json(result);
+    // Return shape the frontend expects: { fileId, uploadUrl }
+    res.status(201).json({
+      fileId: result.file.id,
+      uploadUrl: result.uploadUrl,
+    });
   } catch (err) {
     if (err instanceof TierLimitError) {
       res.status(403).json({
