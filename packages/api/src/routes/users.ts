@@ -20,7 +20,6 @@ router.get('/me', authenticate, requireOwner, async (req: Request, res: Response
         twoFactorEnabled: true,
         referralCode: true,
         referralBonus: true,
-        salt: true,
         emergencyKeyEncrypted: true,
         emergencyKeySalt: true,
         createdAt: true,

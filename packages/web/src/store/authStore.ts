@@ -64,13 +64,20 @@ interface AuthState {
   clearAuth: () => void;
 }
 
-const persistUser = (user: User | null) => {
+const persistUser = (user: User | null, salt?: string | null) => {
   if (typeof window === 'undefined') return;
   if (user) {
     sessionStorage.setItem('ls_user', JSON.stringify(user));
+    if (salt) sessionStorage.setItem('ls_salt', salt);
   } else {
     sessionStorage.removeItem('ls_user');
+    sessionStorage.removeItem('ls_salt');
   }
+};
+
+const loadSalt = (): string | null => {
+  if (typeof window === 'undefined') return null;
+  return sessionStorage.getItem('ls_salt');
 };
 
 const loadUser = (): User | null => {
@@ -88,7 +95,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   isLoading: false,
   isAuthenticated: !!loadUser(),
   tempToken: null,
-  salt: null,
+  salt: loadSalt(),
 
   login: async (email, password) => {
     set({ isLoading: true });
@@ -107,7 +114,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         const masterKey = await deriveMasterKey(password, res.salt);
         useCryptoStore.getState().setMasterKey(masterKey);
 
-        persistUser(res.user);
+        persistUser(res.user, res.salt);
         set({
           user: res.user,
           isAuthenticated: true,
@@ -141,7 +148,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       const masterKey = await deriveMasterKey(password, res.salt);
       useCryptoStore.getState().setMasterKey(masterKey);
 
-      persistUser(res.user);
+      persistUser(res.user, res.salt);
       set({
         user: res.user,
         isAuthenticated: true,

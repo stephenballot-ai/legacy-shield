@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Alert } from '@/components/ui/Alert';
 import { useCryptoStore } from '@/store/cryptoStore';
+import { useAuthStore } from '@/store/authStore';
 import { deriveMasterKey } from '@/lib/crypto/keyDerivation';
 import { usersApi } from '@/lib/api/users';
 import { Lock } from 'lucide-react';
@@ -17,6 +18,7 @@ export function PasswordPrompt({ onUnlocked }: PasswordPromptProps) {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const salt = useAuthStore((s) => s.salt);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,16 +28,23 @@ export function PasswordPrompt({ onUnlocked }: PasswordPromptProps) {
     setError(null);
 
     try {
-      const profile = await usersApi.getMe() as any;
-      if (!profile.salt) throw new Error('Could not retrieve account info');
+      // Use persisted salt from login, fall back to API
+      let derivationSalt = salt;
+      let profile: any = null;
+      if (!derivationSalt) {
+        profile = await usersApi.getMe();
+        derivationSalt = profile?.emergencyKeySalt;
+      }
+      if (!derivationSalt) throw new Error('Could not retrieve account info');
 
-      const masterKey = await deriveMasterKey(password, profile.salt);
+      const masterKey = await deriveMasterKey(password, derivationSalt);
       useCryptoStore.getState().setMasterKey(masterKey);
 
       // Also recover emergency key if available
-      if (profile.emergencyKeyEncrypted && profile.emergencyKeySalt) {
+      if (!profile) profile = await usersApi.getMe();
+      if ((profile as any).emergencyKeyEncrypted && (profile as any).emergencyKeySalt) {
         try {
-          const [encB64, ivB64] = profile.emergencyKeyEncrypted.split(':');
+          const [encB64, ivB64] = (profile as any).emergencyKeyEncrypted.split(':');
           if (encB64 && ivB64) {
             const fromBase64 = (b64: string): ArrayBuffer => {
               const binary = atob(b64);
