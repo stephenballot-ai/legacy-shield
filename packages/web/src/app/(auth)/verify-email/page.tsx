@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Card } from '@/components/ui/Card';
@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/Button';
 import { authApi } from '@/lib/api/auth';
 import { CheckCircle2 } from 'lucide-react';
 
-export default function VerifyEmailPage() {
+function VerifyEmailContent() {
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
@@ -56,5 +56,13 @@ export default function VerifyEmailPage() {
         </div>
       )}
     </Card>
+  );
+}
+
+export default function VerifyEmailPage() {
+  return (
+    <Suspense fallback={<Card className="text-center py-8"><LoadingSpinner size="lg" /></Card>}>
+      <VerifyEmailContent />
+    </Suspense>
   );
 }
