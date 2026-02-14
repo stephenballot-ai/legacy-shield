@@ -238,7 +238,7 @@ export function EmergencySetupWizard({ onComplete }: { onComplete: () => void })
           <Input
             id="phrase"
             label="Unlock Phrase"
-            type="password"
+            type="text"
             value={phrase}
             onChange={(e) => setPhrase(e.target.value)}
             placeholder="Enter a memorable phrase…"
@@ -246,7 +246,7 @@ export function EmergencySetupWizard({ onComplete }: { onComplete: () => void })
           <Input
             id="phrase-confirm"
             label="Confirm Phrase"
-            type="password"
+            type="text"
             value={phraseConfirm}
             onChange={(e) => setPhraseConfirm(e.target.value)}
             placeholder="Re-enter your phrase…"
