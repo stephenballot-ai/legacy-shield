@@ -10,7 +10,7 @@ import {
   deleteFile,
   TierLimitError,
 } from '../services/file';
-import { uploadObject, downloadObject } from '../lib/s3';
+import { uploadObject, downloadObject, getStorageKey } from '../lib/s3';
 
 const router = Router();
 
@@ -95,7 +95,7 @@ router.put('/:id/blob', requireOwner, async (req: Request, res: Response) => {
     req.on('end', async () => {
       try {
         const body = Buffer.concat(chunks);
-        const storageKey = file.file.storageKey || `users/${req.user!.userId}/files/${req.params.id}.encrypted`;
+        const storageKey = getStorageKey(req.user!.userId, req.params.id);
         await uploadObject(storageKey, body, 'application/octet-stream');
         res.json({ success: true });
       } catch {
@@ -122,7 +122,7 @@ router.get('/:id/blob', async (req: Request, res: Response) => {
       return;
     }
 
-    const storageKey = file.file.storageKey || `users/${req.user!.userId}/files/${req.params.id}.encrypted`;
+    const storageKey = getStorageKey(req.user!.userId, req.params.id);
     const { body, contentType } = await downloadObject(storageKey);
     res.setHeader('Content-Type', contentType || 'application/octet-stream');
     res.setHeader('Content-Length', body.length);
