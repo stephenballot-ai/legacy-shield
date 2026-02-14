@@ -25,4 +25,4 @@ COPY --from=builder /app/packages/web/.next/standalone ./
 COPY --from=builder /app/packages/web/.next/static ./packages/web/.next/static
 EXPOSE 3000
 ENV HOSTNAME="0.0.0.0"
-CMD ["node", "packages/web/server.js"]
+CMD ["node", "server.js"]
