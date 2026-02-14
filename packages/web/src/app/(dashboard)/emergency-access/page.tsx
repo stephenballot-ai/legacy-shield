@@ -61,7 +61,7 @@ export default function EmergencyAccessPage() {
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-900">Emergency Access</h1>
         <a
-          href="/emergency-access"
+          href="/emergency-portal"
           target="_blank"
           rel="noopener noreferrer"
           className="text-sm text-primary-600 hover:text-primary-700 flex items-center gap-1"

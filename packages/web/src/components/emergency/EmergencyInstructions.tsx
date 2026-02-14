@@ -32,14 +32,14 @@ export function EmergencyInstructions({ ownerName, ownerEmail }: EmergencyInstru
           <div className="bg-gray-50 rounded-lg p-4 print:bg-white print:border print:border-gray-300">
             <p className="font-semibold text-gray-900 mb-1">Step 1 — Go to the emergency portal</p>
             <p className="font-mono text-primary-700 break-all">
-              https://legacyshield.com/emergency-access
+              https://legacyshield.eu/emergency-portal
             </p>
           </div>
 
           <div className="bg-gray-50 rounded-lg p-4 print:bg-white print:border print:border-gray-300">
-            <p className="font-semibold text-gray-900 mb-1">Step 2 — Enter the unlock phrase</p>
+            <p className="font-semibold text-gray-900 mb-1">Step 2 — Enter the vault owner&apos;s email and unlock phrase</p>
             <p className="text-gray-500">
-              Type the unlock phrase exactly as it was shared with you, then click &quot;Access Vault&quot;.
+              Enter the vault owner&apos;s email address{ownerEmail && <> (<strong>{ownerEmail}</strong>)</>} and the unlock phrase exactly as it was shared with you, then click &quot;Access Vault&quot;.
             </p>
           </div>
 

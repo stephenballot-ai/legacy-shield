@@ -20,6 +20,8 @@ router.get('/me', authenticate, requireOwner, async (req: Request, res: Response
         twoFactorEnabled: true,
         referralCode: true,
         referralBonus: true,
+        emergencyKeyEncrypted: true,
+        emergencyKeySalt: true,
         createdAt: true,
         lastLoginAt: true,
         _count: { select: { files: { where: { deletedAt: null } }, emergencyContacts: true } },

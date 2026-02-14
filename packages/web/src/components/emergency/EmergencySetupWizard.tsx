@@ -71,7 +71,7 @@ export function EmergencySetupWizard({ onComplete }: { onComplete: () => void })
     try {
       const newSalt = generateSalt();
       const hash = await sha256Hash(phrase);
-      const key = await deriveEmergencyKey(phrase, newSalt);
+      const key = await deriveEmergencyKey(phrase, newSalt, true);
 
       setSalt(newSalt);
       setPhraseHash(hash);

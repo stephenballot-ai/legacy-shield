@@ -13,6 +13,7 @@ import { setAccessToken } from '@/lib/api/client';
 import { ShieldAlert, Lock } from 'lucide-react';
 
 export default function EmergencyAccessPortal() {
+  const [email, setEmail] = useState('');
   const [phrase, setPhrase] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -20,7 +21,7 @@ export default function EmergencyAccessPortal() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!phrase.trim()) return;
+    if (!email.trim() || !phrase.trim()) return;
 
     setLoading(true);
     setError(null);
@@ -30,7 +31,7 @@ export default function EmergencyAccessPortal() {
       const phraseHash = await sha256Hash(phrase);
 
       // 2. Validate with API
-      const result = await emergencyAccessApi.validateEmergencyPhrase(phraseHash);
+      const result = await emergencyAccessApi.validateEmergencyPhrase(email.trim(), phraseHash);
 
       // 3. Set access token for subsequent API calls
       setAccessToken(result.accessToken);
@@ -88,6 +89,15 @@ export default function EmergencyAccessPortal() {
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
             <form onSubmit={handleSubmit} className="space-y-4">
               <Input
+                id="owner-email"
+                label="Vault Owner's Email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="owner@example.com"
+                autoFocus
+              />
+              <Input
                 id="unlock-phrase"
                 label="Unlock Phrase"
                 type="password"
@@ -95,7 +105,6 @@ export default function EmergencyAccessPortal() {
                 onChange={(e) => setPhrase(e.target.value)}
                 placeholder="Enter the unlock phrase…"
                 icon={<Lock className="h-4 w-4" />}
-                autoFocus
               />
               {error && <Alert variant="error">{error}</Alert>}
               <Button type="submit" isLoading={loading} className="w-full">

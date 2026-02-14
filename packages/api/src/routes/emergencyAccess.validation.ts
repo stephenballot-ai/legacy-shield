@@ -7,6 +7,7 @@ export const setupEmergencyAccessSchema = z.object({
 });
 
 export const validateEmergencyPhraseSchema = z.object({
+  ownerEmail: z.string().email('Valid email is required'),
   emergencyPhraseHash: z.string().min(1, 'Emergency phrase hash is required'),
 });
 

@@ -39,6 +39,7 @@ interface ListFilesParams {
   tag?: string;
   search?: string;
   favorites?: boolean;
+  emergencyOnly?: boolean;
   limit?: number;
   offset?: number;
 }
@@ -172,7 +173,7 @@ export async function uploadFile(params: UploadFileParams) {
 // ============================================================================
 
 export async function listFiles(params: ListFilesParams) {
-  const { userId, category, tag, search, favorites, limit = 50, offset = 0 } = params;
+  const { userId, category, tag, search, favorites, emergencyOnly, limit = 50, offset = 0 } = params;
 
   const where: Record<string, unknown> = {
     userId,
@@ -182,6 +183,7 @@ export async function listFiles(params: ListFilesParams) {
   if (category) where.category = category;
   if (tag) where.tags = { has: tag };
   if (favorites) where.isFavorite = true;
+  if (emergencyOnly) where.isEmergencyPriority = true;
   if (search) where.filename = { contains: search, mode: 'insensitive' };
 
   const [files, total] = await Promise.all([

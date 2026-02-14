@@ -60,10 +60,33 @@ export async function deriveMasterKey(
  */
 export async function deriveEmergencyKey(
   unlockPhrase: string,
-  salt: string
+  salt: string,
+  extractable = false
 ): Promise<CryptoKey> {
-  // Same process as master key
-  return deriveMasterKey(unlockPhrase, salt);
+  const enc = new TextEncoder();
+  const passwordBuffer = enc.encode(unlockPhrase);
+  const saltBuffer = enc.encode(salt);
+
+  const keyMaterial = await crypto.subtle.importKey(
+    'raw',
+    passwordBuffer,
+    'PBKDF2',
+    false,
+    ['deriveBits', 'deriveKey']
+  );
+
+  return crypto.subtle.deriveKey(
+    {
+      name: 'PBKDF2',
+      salt: saltBuffer,
+      iterations: PBKDF2_ITERATIONS,
+      hash: 'SHA-256',
+    },
+    keyMaterial,
+    { name: 'AES-GCM', length: KEY_LENGTH },
+    extractable,
+    ['encrypt', 'decrypt']
+  );
 }
 
 /**

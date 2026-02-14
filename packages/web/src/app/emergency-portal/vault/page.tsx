@@ -52,7 +52,7 @@ function EmergencyVaultContent() {
       if (!fileData.emergencyEncryptedKey || !fileData.emergencyIV) {
         throw new Error('This file is not available for emergency access');
       }
-      const encryptedBlob = await filesApi.downloadFromPresignedUrl(fileData.downloadUrl);
+      const encryptedBlob = await filesApi.downloadFromPresignedUrl(fileData.downloadUrl, file.id);
       const decrypted = await decryptFile(
         encryptedBlob,
         fileData.emergencyEncryptedKey,

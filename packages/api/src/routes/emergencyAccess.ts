@@ -37,6 +37,38 @@ const emergencyValidateLimiter = rateLimit({
 });
 
 // ============================================================================
+// GET /emergency-access/status — Check if emergency access is set up
+// ============================================================================
+router.get('/status', authenticate, requireOwner, async (req: Request, res: Response) => {
+  try {
+    const user = await (await import('../lib/prisma')).prisma.user.findUnique({
+      where: { id: req.user!.userId },
+      select: {
+        emergencyPhraseHash: true,
+        emergencyKeyEncrypted: true,
+        updatedAt: true,
+        _count: { select: { emergencyContacts: true } },
+      },
+    });
+
+    if (!user) {
+      res.status(404).json({ error: { code: 'RESOURCE_NOT_FOUND', message: 'User not found' } });
+      return;
+    }
+
+    res.json({
+      isSetUp: !!(user.emergencyPhraseHash && user.emergencyKeyEncrypted),
+      contactCount: user._count.emergencyContacts,
+      setupAt: user.emergencyPhraseHash ? user.updatedAt.toISOString() : null,
+    });
+  } catch {
+    res.status(500).json({
+      error: { code: 'INTERNAL_ERROR', message: 'Failed to get emergency access status' },
+    });
+  }
+});
+
+// ============================================================================
 // POST /emergency-access/setup — Owner sets up emergency access
 // ============================================================================
 router.post('/setup', authenticate, requireOwner, validate(setupEmergencyAccessSchema), async (req: Request, res: Response) => {
@@ -59,9 +91,9 @@ router.post('/setup', authenticate, requireOwner, validate(setupEmergencyAccessS
 // ============================================================================
 router.post('/validate', emergencyValidateLimiter, validate(validateEmergencyPhraseSchema), async (req: Request, res: Response) => {
   try {
-    const { emergencyPhraseHash } = req.body as { emergencyPhraseHash: string };
+    const { ownerEmail, emergencyPhraseHash } = req.body as { ownerEmail: string; emergencyPhraseHash: string };
 
-    const result = await validateEmergencyPhrase(emergencyPhraseHash, req);
+    const result = await validateEmergencyPhrase(ownerEmail, emergencyPhraseHash, req);
 
     if (!result) {
       res.status(401).json({

@@ -39,13 +39,14 @@ export async function setupEmergencyAccess(
 // ============================================================================
 
 export async function validateEmergencyPhrase(
+  ownerEmail: string,
   emergencyPhraseHash: string,
   req: { ip?: string; headers: Record<string, string | string[] | undefined> }
 ): Promise<{ accessToken: string; userId: string; emergencyKeyEncrypted: string; emergencyKeySalt: string } | null> {
-  // Find user by phrase hash (timing-safe comparison would require iterating all users with emergency access)
-  // In production, consider using a dedicated lookup index
+  // Find user by email and phrase hash
   const user = await prisma.user.findFirst({
     where: {
+      email: ownerEmail.toLowerCase(),
       emergencyPhraseHash,
       emergencyKeyEncrypted: { not: null },
     },

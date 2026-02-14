@@ -36,6 +36,8 @@ router.get('/', async (req: Request, res: Response) => {
     const result = await listFiles({
       userId: req.user!.userId,
       ...queryResult.data,
+      // Emergency contacts can only see emergency-priority files
+      ...(req.user!.sessionType === 'EMERGENCY_CONTACT' ? { emergencyOnly: true } : {}),
     });
 
     res.json(result);
@@ -189,6 +191,42 @@ router.patch('/:id', requireOwner, validate(updateFileSchema), async (req: Reque
   } catch {
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Failed to update file' },
+    });
+  }
+});
+
+// ============================================================================
+// PATCH /files/:id/emergency-key — Update file's emergency-encrypted key (OWNER only)
+// ============================================================================
+router.patch('/:id/emergency-key', requireOwner, async (req: Request, res: Response) => {
+  try {
+    const { emergencyEncryptedKey, emergencyIV } = req.body as { emergencyEncryptedKey: string; emergencyIV: string };
+    if (!emergencyEncryptedKey || !emergencyIV) {
+      res.status(400).json({
+        error: { code: 'VALIDATION_ERROR', message: 'emergencyEncryptedKey and emergencyIV are required' },
+      });
+      return;
+    }
+
+    const { prisma } = await import('../lib/prisma');
+    const file = await prisma.file.findFirst({
+      where: { id: req.params.id, userId: req.user!.userId, deletedAt: null },
+    });
+
+    if (!file) {
+      res.status(404).json({ error: { code: 'RESOURCE_NOT_FOUND', message: 'File not found' } });
+      return;
+    }
+
+    await prisma.file.update({
+      where: { id: req.params.id },
+      data: { emergencyEncryptedKey, emergencyIV },
+    });
+
+    res.json({ success: true });
+  } catch {
+    res.status(500).json({
+      error: { code: 'INTERNAL_ERROR', message: 'Failed to update emergency key' },
     });
   }
 });

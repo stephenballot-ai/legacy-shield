@@ -6,6 +6,47 @@ import { authApi, isLoginResponse, isTwoFactorResponse } from '@/lib/api/auth';
 import { setAccessToken, setOnAuthExpired } from '@/lib/api/client';
 import { useCryptoStore } from './cryptoStore';
 import { deriveMasterKey } from '@/lib/crypto/keyDerivation';
+import { usersApi } from '@/lib/api/users';
+
+// Recover emergency key from server (encrypted with master key)
+async function recoverEmergencyKey(masterKey: CryptoKey) {
+  try {
+    const profile = await usersApi.getMe() as any;
+    if (!profile.emergencyKeyEncrypted || !profile.emergencyKeySalt) return;
+
+    const [encB64, ivB64] = profile.emergencyKeyEncrypted.split(':');
+    if (!encB64 || !ivB64) return;
+
+    const fromBase64 = (b64: string): ArrayBuffer => {
+      const binary = atob(b64);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+      return bytes.buffer;
+    };
+
+    const encBuf = fromBase64(encB64);
+    const ivBuf = fromBase64(ivB64);
+
+    const rawKey = await crypto.subtle.decrypt(
+      { name: 'AES-GCM', iv: new Uint8Array(ivBuf) },
+      masterKey,
+      encBuf
+    );
+
+    const emergencyKey = await crypto.subtle.importKey(
+      'raw',
+      rawKey,
+      { name: 'AES-GCM', length: 256 },
+      false,
+      ['encrypt', 'decrypt']
+    );
+
+    useCryptoStore.getState().setEmergencyKey(emergencyKey);
+  } catch {
+    // Non-critical — emergency key recovery failed, uploads won't include emergency keys
+    console.warn('Failed to recover emergency key');
+  }
+}
 
 interface AuthState {
   user: User | null;
@@ -74,6 +115,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
           salt: res.salt,
           tempToken: null,
         });
+
+        // Recover emergency key in background (non-blocking)
+        recoverEmergencyKey(masterKey);
+
         return { requiresTwoFactor: false };
       }
 
@@ -104,6 +149,9 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         salt: res.salt,
         tempToken: null,
       });
+
+      // Recover emergency key in background (non-blocking)
+      recoverEmergencyKey(masterKey);
     } catch (err) {
       set({ isLoading: false });
       throw err;
