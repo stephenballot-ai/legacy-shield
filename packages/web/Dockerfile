@@ -8,11 +8,10 @@ RUN npm ci --workspace=@legacy-shield/web --workspace=@legacy-shield/shared
 FROM node:20-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/packages/web/node_modules ./packages/web/node_modules
-COPY --from=deps /app/packages/shared/node_modules ./packages/shared/node_modules
+COPY --from=deps /app/package.json ./
 COPY packages/shared/ ./packages/shared/
 COPY packages/web/ ./packages/web/
-COPY package.json ./
+COPY tsconfig.json ./
 RUN npm run build --workspace=@legacy-shield/shared
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build --workspace=@legacy-shield/web
