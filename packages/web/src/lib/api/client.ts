@@ -24,9 +24,10 @@ export class ApiError extends Error {
     public status: number,
     public code: string,
     public field?: string,
-    public details?: Record<string, unknown>
+    public details?: Record<string, unknown>,
+    message?: string
   ) {
-    super(`API Error: ${code}`);
+    super(message || `API Error: ${code}`);
     this.name = 'ApiError';
   }
 }
@@ -95,7 +96,7 @@ async function request<T>(
     } catch {
       // ignore parse errors
     }
-    throw new ApiError(res.status, error.code, error.field, error.details as Record<string, unknown>);
+    throw new ApiError(res.status, error.code, error.field, error.details as Record<string, unknown>, error.message);
   }
 
   if (res.status === 204) return undefined as T;

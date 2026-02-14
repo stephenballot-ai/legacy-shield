@@ -14,7 +14,12 @@ import { ApiError } from '@/lib/api/client';
 
 const schema = z.object({
   email: z.string().email('Enter a valid email'),
-  password: z.string().min(8, 'At least 8 characters'),
+  password: z.string()
+    .min(12, 'At least 12 characters')
+    .regex(/[a-z]/, 'Must contain a lowercase letter')
+    .regex(/[A-Z]/, 'Must contain an uppercase letter')
+    .regex(/[0-9]/, 'Must contain a number')
+    .regex(/[^a-zA-Z0-9]/, 'Must contain a special character'),
   confirmPassword: z.string(),
 }).refine((d) => d.password === d.confirmPassword, {
   message: 'Passwords do not match',
@@ -45,11 +50,13 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
       onSuccess(data.email, data.password, res.salt);
     } catch (err) {
       if (err instanceof ApiError) {
-        setError(
-          err.code === 'RESOURCE_ALREADY_EXISTS'
-            ? 'An account with this email already exists'
-            : err.message
-        );
+        if (err.code === 'RESOURCE_ALREADY_EXISTS') {
+          setError('An account with this email already exists');
+        } else if (err.code === 'VALIDATION_ERROR') {
+          setError(err.message.replace('API Error: ', '') || 'Please check your input and try again.');
+        } else {
+          setError(err.message);
+        }
       } else {
         setError('Registration failed. Please try again.');
       }
