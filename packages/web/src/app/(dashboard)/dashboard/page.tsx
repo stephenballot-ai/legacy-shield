@@ -7,7 +7,7 @@ import { useAuthStore } from '@/store/authStore';
 import { useFilesStore } from '@/store/filesStore';
 import { DOCUMENT_LIMITS } from '@legacy-shield/shared';
 import { usersApi } from '@/lib/api/users';
-import { FileText, ShieldAlert, Upload, Clock, ArrowRight } from 'lucide-react';
+import { FileText, ShieldAlert, Upload, Clock, ArrowRight, Gift, Copy, Check } from 'lucide-react';
 import { formatFileSize, formatDate } from '@/lib/utils';
 import Link from 'next/link';
 
@@ -15,13 +15,18 @@ export default function DashboardPage() {
   const user = useAuthStore((s) => s.user);
   const { files, total, fetchFiles } = useFilesStore();
   const [docLimit, setDocLimit] = useState<number | null>(null);
+  const [referralCode, setReferralCode] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
 
   const tier = (user as any)?.tier || 'FREE';
   const fallbackMax = tier === 'PRO' ? DOCUMENT_LIMITS.PRO_TIER : DOCUMENT_LIMITS.FREE_TIER;
   const maxFiles = docLimit ?? fallbackMax;
 
   useEffect(() => {
-    usersApi.getMe().then((p) => setDocLimit(p.documentLimit)).catch(() => {});
+    usersApi.getMe().then((p: any) => {
+      setDocLimit(p.documentLimit);
+      if (p.referralCode) setReferralCode(p.referralCode);
+    }).catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -98,6 +103,38 @@ export default function DashboardPage() {
         </Card>
       )}
 
+      {/* Referral CTA — show when at limit on free tier */}
+      {total >= maxFiles && tier !== 'PRO' && referralCode && (
+        <Card className="bg-gradient-to-r from-primary-50 to-trust-50 border-primary-200">
+          <div className="flex items-start gap-4">
+            <div className="p-2.5 bg-white rounded-lg shadow-sm flex-shrink-0">
+              <Gift className="h-5 w-5 text-primary-600" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <h3 className="font-semibold text-gray-900">Need more space? Invite a friend!</h3>
+              <p className="text-sm text-gray-600 mt-1">
+                Get <strong>7 extra documents</strong> for each friend who signs up and uploads a file.
+              </p>
+              <div className="flex items-center gap-2 mt-3">
+                <code className="text-xs bg-white border border-gray-200 rounded-lg px-3 py-2 flex-1 truncate">
+                  legacyshield.eu/r/{referralCode}
+                </code>
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText(`https://legacyshield.eu/r/${referralCode}`);
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                  }}
+                  className="p-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors flex-shrink-0"
+                >
+                  {copied ? <Check className="h-4 w-4 text-trust-600" /> : <Copy className="h-4 w-4 text-gray-500" />}
+                </button>
+              </div>
+            </div>
+          </div>
+        </Card>
+      )}
+
       {/* Usage bar */}
       <Card>
         <div className="flex items-center justify-between mb-2">
@@ -112,7 +149,7 @@ export default function DashboardPage() {
         </div>
         {total >= maxFiles && tier !== 'PRO' && (
           <p className="text-xs text-amber-600 mt-2">
-            Limit reached. <Link href="/settings" className="underline font-medium">Upgrade to Pro</Link> for {DOCUMENT_LIMITS.PRO_TIER} documents.
+            Limit reached. Invite a friend for +7 docs, or <Link href="/settings" className="underline font-medium">upgrade to Pro</Link> for {DOCUMENT_LIMITS.PRO_TIER}.
           </p>
         )}
       </Card>
