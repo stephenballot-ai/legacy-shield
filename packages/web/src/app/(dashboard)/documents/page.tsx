@@ -13,6 +13,7 @@ import { DocumentList } from '@/components/documents/DocumentList';
 import { DocumentUpload } from '@/components/documents/DocumentUpload';
 import { DocumentViewer } from '@/components/documents/DocumentViewer';
 import { DocumentEdit } from '@/components/documents/DocumentEdit';
+import { PasswordPrompt } from '@/components/auth/PasswordPrompt';
 
 export default function DocumentsPage() {
   const [uploadOpen, setUploadOpen] = useState(false);
@@ -22,10 +23,23 @@ export default function DocumentsPage() {
   const { fetchFiles, updateFile, removeFile } = useFilesStore();
   const masterKey = useCryptoStore((s) => s.masterKey);
   const emergencyKey = useCryptoStore((s) => s.emergencyKey);
+  const [unlocked, setUnlocked] = useState(!!masterKey);
+
+  useEffect(() => {
+    if (masterKey) setUnlocked(true);
+  }, [masterKey]);
 
   useEffect(() => {
     fetchFiles();
   }, [fetchFiles]);
+
+  if (!unlocked && !masterKey) {
+    return (
+      <div className="max-w-md mx-auto mt-12">
+        <PasswordPrompt onUnlocked={() => setUnlocked(true)} />
+      </div>
+    );
+  }
 
   const handleToggleFavorite = useCallback(async (file: LSFile) => {
     try {
