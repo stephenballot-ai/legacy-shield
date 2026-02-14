@@ -10,6 +10,7 @@ import {
   deleteFile,
   TierLimitError,
 } from '../services/file';
+import { uploadObject, downloadObject } from '../lib/s3';
 
 const router = Router();
 
@@ -69,6 +70,65 @@ router.post('/upload', requireOwner, validate(uploadFileSchema), async (req: Req
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Upload failed' },
     });
+  }
+});
+
+// ============================================================================
+// PUT /files/:id/blob — Proxy upload encrypted blob to S3 (OWNER only)
+// ============================================================================
+router.put('/:id/blob', requireOwner, async (req: Request, res: Response) => {
+  try {
+    // Verify file belongs to user
+    const file = await getFile(req.params.id, req.user!.userId, {
+      ipAddress: req.ip,
+      userAgent: req.headers['user-agent'],
+      sessionType: req.user!.sessionType,
+    });
+    if (!file) {
+      res.status(404).json({ error: { code: 'RESOURCE_NOT_FOUND', message: 'File not found' } });
+      return;
+    }
+
+    // Collect raw body
+    const chunks: Buffer[] = [];
+    req.on('data', (chunk: Buffer) => chunks.push(chunk));
+    req.on('end', async () => {
+      try {
+        const body = Buffer.concat(chunks);
+        const storageKey = file.file.storageKey || `users/${req.user!.userId}/files/${req.params.id}.encrypted`;
+        await uploadObject(storageKey, body, 'application/octet-stream');
+        res.json({ success: true });
+      } catch {
+        res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Failed to upload blob' } });
+      }
+    });
+  } catch {
+    res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Upload failed' } });
+  }
+});
+
+// ============================================================================
+// GET /files/:id/blob — Proxy download encrypted blob from S3
+// ============================================================================
+router.get('/:id/blob', async (req: Request, res: Response) => {
+  try {
+    const file = await getFile(req.params.id, req.user!.userId, {
+      ipAddress: req.ip,
+      userAgent: req.headers['user-agent'],
+      sessionType: req.user!.sessionType,
+    });
+    if (!file) {
+      res.status(404).json({ error: { code: 'RESOURCE_NOT_FOUND', message: 'File not found' } });
+      return;
+    }
+
+    const storageKey = file.file.storageKey || `users/${req.user!.userId}/files/${req.params.id}.encrypted`;
+    const { body, contentType } = await downloadObject(storageKey);
+    res.setHeader('Content-Type', contentType || 'application/octet-stream');
+    res.setHeader('Content-Length', body.length);
+    res.send(body);
+  } catch {
+    res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Download failed' } });
   }
 });
 

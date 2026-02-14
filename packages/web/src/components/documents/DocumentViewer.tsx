@@ -35,7 +35,7 @@ export function DocumentViewer({ file, onClose }: DocumentViewerProps) {
 
       try {
         const fileData = await filesApi.getFile(file.id);
-        const encryptedBlob = await filesApi.downloadFromPresignedUrl(fileData.downloadUrl);
+        const encryptedBlob = await filesApi.downloadFromPresignedUrl(fileData.downloadUrl, fileId);
 
         // Try owner key first, then emergency key
         const key = masterKey || emergencyKey;

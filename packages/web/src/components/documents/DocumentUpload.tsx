@@ -128,7 +128,7 @@ export function DocumentUpload({ open, onClose }: DocumentUploadProps) {
           authTag: encrypted.authTag,
         });
 
-        await filesApi.uploadToPresignedUrl(uploadUrl, encrypted.encryptedBlob);
+        await filesApi.uploadToPresignedUrl(uploadUrl, encrypted.encryptedBlob, fileId);
 
         // Add to store (construct file object)
         addFile({
