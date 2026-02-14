@@ -1,0 +1,159 @@
+import { Router, Request, Response } from 'express';
+import { authenticate, requireOwner } from '../middleware/auth';
+import { validate } from '../middleware/validation';
+import { uploadFileSchema, updateFileSchema, listFilesQuerySchema } from './files.validation';
+import {
+  uploadFile,
+  listFiles,
+  getFile,
+  updateFile,
+  deleteFile,
+  TierLimitError,
+} from '../services/file';
+
+const router = Router();
+
+// All routes require authentication
+router.use(authenticate);
+
+// ============================================================================
+// GET /files — List files (OWNER + EMERGENCY_CONTACT)
+// ============================================================================
+router.get('/', async (req: Request, res: Response) => {
+  try {
+    const queryResult = listFilesQuerySchema.safeParse(req.query);
+    if (!queryResult.success) {
+      res.status(400).json({
+        error: {
+          code: 'VALIDATION_ERROR',
+          message: queryResult.error.errors[0].message,
+        },
+      });
+      return;
+    }
+
+    const result = await listFiles({
+      userId: req.user!.userId,
+      ...queryResult.data,
+    });
+
+    res.json(result);
+  } catch {
+    res.status(500).json({
+      error: { code: 'INTERNAL_ERROR', message: 'Failed to list files' },
+    });
+  }
+});
+
+// ============================================================================
+// POST /files/upload — Create file record + presigned URL (OWNER only)
+// ============================================================================
+router.post('/upload', requireOwner, validate(uploadFileSchema), async (req: Request, res: Response) => {
+  try {
+    const result = await uploadFile({
+      userId: req.user!.userId,
+      tier: req.user!.tier,
+      ...req.body,
+      ipAddress: req.ip,
+      userAgent: req.headers['user-agent'],
+    });
+
+    res.status(201).json(result);
+  } catch (err) {
+    if (err instanceof TierLimitError) {
+      res.status(403).json({
+        error: { code: err.code, message: err.message },
+      });
+      return;
+    }
+    res.status(500).json({
+      error: { code: 'INTERNAL_ERROR', message: 'Upload failed' },
+    });
+  }
+});
+
+// ============================================================================
+// GET /files/:id — Get file details + download URL (OWNER + EMERGENCY_CONTACT)
+// ============================================================================
+router.get('/:id', async (req: Request, res: Response) => {
+  try {
+    const result = await getFile(req.params.id, req.user!.userId, {
+      ipAddress: req.ip,
+      userAgent: req.headers['user-agent'],
+      sessionType: req.user!.sessionType,
+    });
+
+    if (!result) {
+      res.status(404).json({
+        error: { code: 'RESOURCE_NOT_FOUND', message: 'File not found' },
+      });
+      return;
+    }
+
+    res.json(result);
+  } catch {
+    res.status(500).json({
+      error: { code: 'INTERNAL_ERROR', message: 'Failed to get file' },
+    });
+  }
+});
+
+// ============================================================================
+// PATCH /files/:id — Update file metadata (OWNER only)
+// ============================================================================
+router.patch('/:id', requireOwner, validate(updateFileSchema), async (req: Request, res: Response) => {
+  try {
+    // Transform expiresAt string to Date if present
+    const data = { ...req.body };
+    if (data.expiresAt !== undefined && data.expiresAt !== null) {
+      data.expiresAt = new Date(data.expiresAt);
+    }
+
+    const result = await updateFile(req.params.id, req.user!.userId, data, {
+      ipAddress: req.ip,
+      userAgent: req.headers['user-agent'],
+    });
+
+    if (!result) {
+      res.status(404).json({
+        error: { code: 'RESOURCE_NOT_FOUND', message: 'File not found' },
+      });
+      return;
+    }
+
+    res.json(result);
+  } catch {
+    res.status(500).json({
+      error: { code: 'INTERNAL_ERROR', message: 'Failed to update file' },
+    });
+  }
+});
+
+// ============================================================================
+// DELETE /files/:id — Soft delete file (OWNER only)
+// ============================================================================
+router.delete('/:id', requireOwner, async (req: Request, res: Response) => {
+  try {
+    const hard = req.query.hard === 'true';
+    const result = await deleteFile(req.params.id, req.user!.userId, {
+      ipAddress: req.ip,
+      userAgent: req.headers['user-agent'],
+      hard,
+    });
+
+    if (!result) {
+      res.status(404).json({
+        error: { code: 'RESOURCE_NOT_FOUND', message: 'File not found' },
+      });
+      return;
+    }
+
+    res.json(result);
+  } catch {
+    res.status(500).json({
+      error: { code: 'INTERNAL_ERROR', message: 'Failed to delete file' },
+    });
+  }
+});
+
+export default router;

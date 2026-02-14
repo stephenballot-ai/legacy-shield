@@ -70,7 +70,7 @@ export async function encryptFile(
   if (emergencyKey) {
     emergencyIV = crypto.getRandomValues(new Uint8Array(12));
     emergencyEncryptedKeyBuffer = await crypto.subtle.encrypt(
-      { name: 'AES-GCM', iv: emergencyIV },
+      { name: 'AES-GCM', iv: emergencyIV as Uint8Array<ArrayBuffer> },
       emergencyKey,
       fileKeyRaw
     );

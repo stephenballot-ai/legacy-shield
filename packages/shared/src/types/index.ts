@@ -6,4 +6,4 @@
 export * from './user';
 export * from './file';
 
-export type { ErrorCode } from './errors';
+export type { ErrorCode, APIError } from './errors';

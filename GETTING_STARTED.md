@@ -28,11 +28,14 @@ Before you begin, ensure you have installed:
 ### Step 1: Install Dependencies
 
 ```bash
-cd /Users/stephenballot/Documents/LegacyShield
+cd /Users/stephenballot/Documents/LegacyShield  # Or wherever you cloned the repo
 npm install
 ```
 
-This will install dependencies for all packages in the monorepo.
+This will install dependencies for all packages in the monorepo, including:
+- Frontend (Next.js, React, Tailwind CSS plugins)
+- Backend (Express, Prisma, AWS SDK)
+- Shared utilities and types
 
 ### Step 2: Start Infrastructure Services
 
@@ -50,7 +53,7 @@ Verify services are running:
 docker ps
 ```
 
-**Note:** The root `package.json` has `npm run docker:dev` as a shortcut, but it uses the older `docker-compose` command. Use `docker compose` directly if you encounter issues.
+**Note:** You can also use the shortcut `npm run docker:dev` which runs the same command.
 
 ### Step 3: Set Up Environment
 
@@ -188,7 +191,10 @@ npm run db:seed          # Seed with test data
 docker compose up -d     # Start services
 docker compose down      # Stop services
 docker compose logs -f   # View logs
-# Or use npm shortcuts (but note they use older docker-compose syntax)
+# Or use npm shortcuts
+npm run docker:dev       # Same as: docker compose up -d
+npm run docker:down      # Same as: docker compose down
+npm run docker:logs      # Same as: docker compose logs -f
 ```
 
 ### Making Changes
@@ -236,7 +242,8 @@ If you get "port already in use" errors:
 
 ```bash
 # Stop Docker services
-npm run docker:down
+docker compose down
+# Or: npm run docker:down
 
 # Kill processes on specific ports
 lsof -ti:3000 | xargs kill  # Frontend
@@ -266,6 +273,27 @@ npm run db:generate
 npm run clean
 rm -rf node_modules package-lock.json
 npm install
+```
+
+### Dev Servers Not Starting
+
+If `npm run dev` doesn't start both servers, try running them individually in separate terminals:
+
+```bash
+# Terminal 1
+npm run dev:api
+
+# Terminal 2
+npm run dev:web
+```
+
+Or run from within each package directory:
+```bash
+# Terminal 1
+cd packages/api && npm run dev
+
+# Terminal 2
+cd packages/web && npm run dev
 ```
 
 ## 📖 Next Steps
@@ -302,9 +330,9 @@ npm install
 - [ ] Docker Desktop installed and running
 - [ ] Repository cloned
 - [ ] `npm install` completed
-- [ ] Docker services started (`npm run docker:dev`)
+- [ ] Docker services started (`docker compose up -d`)
 - [ ] `.env` file created from `.env.example`
-- [ ] Database migrations run (`npm run db:migrate`)
+- [ ] Database migrations run with DATABASE_URL prefix
 - [ ] Frontend running at http://localhost:3000
 - [ ] Backend running at http://localhost:4000
 - [ ] Read `product-spec.md` to understand the product
