@@ -72,7 +72,7 @@ export async function getFileStats(userId: string): Promise<{ count: number }> {
 export async function uploadFile(params: UploadFileParams) {
   const {
     userId, tier, filename, mimeType, fileSizeBytes,
-    category, tags, ownerEncryptedKey, emergencyEncryptedKey,
+    category, tags, ownerEncryptedKey, ownerIV, emergencyEncryptedKey, emergencyIV,
     iv, authTag, ipAddress, userAgent,
   } = params;
 
@@ -105,7 +105,9 @@ export async function uploadFile(params: UploadFileParams) {
       storageKey: '', // will update after generating key
       storageBucket: getBucket(),
       ownerEncryptedKey,
+      ownerIV: ownerIV ?? null,
       emergencyEncryptedKey: emergencyEncryptedKey ?? null,
+      emergencyIV: emergencyIV ?? null,
       iv,
       authTag,
       category: category ?? null,
@@ -234,13 +236,13 @@ export async function getFile(
       createdAt: file.createdAt,
       updatedAt: file.updatedAt,
     },
-    encryption: {
-      ownerEncryptedKey: file.ownerEncryptedKey,
-      emergencyEncryptedKey: file.emergencyEncryptedKey,
-      iv: file.iv,
-      authTag: file.authTag,
-    },
     downloadUrl,
+    ownerEncryptedKey: file.ownerEncryptedKey,
+    ownerIV: file.ownerIV,
+    emergencyEncryptedKey: file.emergencyEncryptedKey,
+    emergencyIV: file.emergencyIV,
+    iv: file.iv,
+    authTag: file.authTag,
   };
 }
 
