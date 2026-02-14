@@ -77,15 +77,15 @@ export function EmergencySetupWizard({ onComplete }: { onComplete: () => void })
       setPhraseHash(hash);
       setEmergencyKey(key);
 
-      // Export emergency key, encrypt with master key for server storage
-      if (!masterKey) throw new Error('Master key not available');
+      // Export emergency key, encrypt for server storage
+      // Use master key if available, otherwise encrypt with the emergency key itself
+      const encryptionKey = masterKey || key;
 
-      // Call setup API
       const rawKey = await crypto.subtle.exportKey('raw', key);
       const iv = crypto.getRandomValues(new Uint8Array(12));
       const encryptedKeyBuffer = await crypto.subtle.encrypt(
         { name: 'AES-GCM', iv },
-        masterKey,
+        encryptionKey,
         rawKey
       );
 
@@ -113,7 +113,12 @@ export function EmergencySetupWizard({ onComplete }: { onComplete: () => void })
 
   // Step 3: Re-encrypt file keys with emergency key
   const handleReencryptFiles = async () => {
-    if (!masterKey || !emergencyKey) return;
+    if (!emergencyKey) return;
+    if (!masterKey) {
+      // Can't re-encrypt without master key — skip to contacts
+      setStep(3);
+      return;
+    }
     setReencrypting(true);
     setReencryptError(null);
 
