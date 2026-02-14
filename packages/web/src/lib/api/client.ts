@@ -5,7 +5,8 @@
 
 import type { APIError } from '@legacy-shield/shared';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+const API_ROOT = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+const BASE_URL = `${API_ROOT}/api/v1`;
 
 let accessToken: string | null = null;
 let refreshPromise: Promise<string | null> | null = null;
