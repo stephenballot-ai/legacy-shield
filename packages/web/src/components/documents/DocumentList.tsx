@@ -84,58 +84,45 @@ export function DocumentList({ onFileClick, onFileEdit, onFileDownload, onFileDe
 
   // List view
   return (
-    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-      <table className="w-full">
-        <thead>
-          <tr className="border-b text-left text-xs text-gray-500 uppercase tracking-wider">
-            <th className="px-4 py-3">Name</th>
-            <th className="px-4 py-3 hidden sm:table-cell">Category</th>
-            <th className="px-4 py-3 hidden md:table-cell">Size</th>
-            <th className="px-4 py-3 hidden md:table-cell">Date</th>
-            <th className="px-4 py-3 w-10"></th>
-          </tr>
-        </thead>
-        <tbody>
-          {sorted.map((file) => {
-            const MimeIcon = file.mimeType.startsWith('image/') ? Image : file.mimeType === 'application/pdf' ? FileText : FileIcon;
-            const CategoryIcon = file.category ? categoryIcon[file.category] : null;
-            return (
-              <tr
-                key={file.id}
-                onClick={() => onFileClick(file)}
-                className="border-b last:border-0 hover:bg-gray-50 cursor-pointer"
-              >
-                <td className="px-4 py-3 flex items-center gap-3">
-                  <MimeIcon className="h-5 w-5 text-gray-400 flex-shrink-0" />
-                  <span className="text-sm font-medium truncate max-w-[200px]">{file.filename}</span>
-                  {file.isFavorite && <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400 flex-shrink-0" />}
-                  {file.isEmergencyPriority && <ShieldAlert className="h-3.5 w-3.5 text-red-500 flex-shrink-0" />}
-                </td>
-                <td className="px-4 py-3 hidden sm:table-cell">
-                  {file.category ? (
-                    <span className={cn('inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full font-medium', categoryColor[file.category])}>
-                      {CategoryIcon && <CategoryIcon className="h-3 w-3" />}
-                      {categoryLabel[file.category]}
-                    </span>
-                  ) : (
-                    <span className="text-xs text-gray-400">—</span>
-                  )}
-                </td>
-                <td className="px-4 py-3 hidden md:table-cell text-sm text-gray-500">{formatFileSize(file.fileSizeBytes)}</td>
-                <td className="px-4 py-3 hidden md:table-cell text-sm text-gray-500">{formatDate(file.createdAt)}</td>
-                <td className="px-4 py-3">
-                  <button
-                    onClick={(e) => { e.stopPropagation(); onFileEdit(file); }}
-                    className="text-gray-400 hover:text-gray-600 text-xs"
-                  >
-                    •••
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+    <div className="space-y-2">
+      {sorted.map((file) => {
+        const MimeIcon = file.mimeType.startsWith('image/') ? Image : file.mimeType === 'application/pdf' ? FileText : FileIcon;
+        const CategoryIcon = file.category ? categoryIcon[file.category] : null;
+        return (
+          <div
+            key={file.id}
+            onClick={() => onFileClick(file)}
+            className="bg-white rounded-lg border border-gray-200 px-4 py-3 flex items-center gap-3 hover:bg-gray-50 cursor-pointer group"
+          >
+            <div className="p-2 bg-gray-50 rounded-lg flex-shrink-0">
+              <MimeIcon className="h-5 w-5 text-gray-400" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-medium text-gray-900 truncate">{file.filename}</span>
+                {file.isFavorite && <Star className="h-3 w-3 fill-amber-400 text-amber-400 flex-shrink-0" />}
+                {file.isEmergencyPriority && <ShieldAlert className="h-3 w-3 text-red-500 flex-shrink-0" />}
+              </div>
+              <div className="flex items-center gap-2 mt-0.5">
+                {file.category && (
+                  <span className={cn('inline-flex items-center gap-1 text-xs px-1.5 py-0.5 rounded font-medium', categoryColor[file.category])}>
+                    {CategoryIcon && <CategoryIcon className="h-3 w-3" />}
+                    {categoryLabel[file.category]}
+                  </span>
+                )}
+                <span className="text-xs text-gray-400">{formatFileSize(file.fileSizeBytes)}</span>
+                <span className="text-xs text-gray-400 hidden sm:inline">· {formatDate(file.createdAt)}</span>
+              </div>
+            </div>
+            <button
+              onClick={(e) => { e.stopPropagation(); onFileEdit(file); }}
+              className="text-gray-300 hover:text-gray-500 opacity-0 group-hover:opacity-100 sm:opacity-100 p-1"
+            >
+              •••
+            </button>
+          </div>
+        );
+      })}
     </div>
   );
 }

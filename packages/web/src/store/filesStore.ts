@@ -40,7 +40,7 @@ export const useFilesStore = create<FilesState>((set, get) => ({
   category: null,
   search: '',
   favoritesOnly: false,
-  viewMode: 'grid',
+  viewMode: 'list',
   sortBy: 'date',
 
   fetchFiles: async () => {
