@@ -1,5 +1,9 @@
+'use client';
+
 import Link from 'next/link';
+import { useMemo } from 'react';
 import { Shield, Lock, Users, Server, Upload, UserPlus, CheckCircle, Heart } from 'lucide-react';
+import { getCurrency } from '@/lib/utils/currency';
 
 function HeroSection() {
   return (
@@ -200,6 +204,7 @@ function UseCasesSection() {
 }
 
 function PricingSection() {
+  const currency = useMemo(() => getCurrency(), []);
   return (
     <section className="py-20 sm:py-28 bg-gray-50" id="pricing">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -216,7 +221,7 @@ function PricingSection() {
           <div className="bg-white rounded-2xl border border-gray-200 p-8">
             <h3 className="text-lg font-semibold text-gray-900">Free</h3>
             <div className="mt-4">
-              <span className="text-4xl font-bold text-gray-900">€0</span>
+              <span className="text-4xl font-bold text-gray-900">{currency.symbol}0</span>
               <span className="text-gray-500 ml-1">forever</span>
             </div>
             <ul className="mt-8 space-y-3">
@@ -242,10 +247,10 @@ function PricingSection() {
             </div>
             <h3 className="text-lg font-semibold text-gray-900">Pro</h3>
             <div className="mt-4">
-              <span className="text-4xl font-bold text-gray-900">€10</span>
+              <span className="text-4xl font-bold text-gray-900">{currency.symbol}{currency.monthly}</span>
               <span className="text-gray-500 ml-1">/month</span>
             </div>
-            <p className="text-sm text-gray-500 mt-1">or €500 one-time (lifetime)</p>
+            <p className="text-sm text-gray-500 mt-1">or {currency.symbol}{currency.lifetime} one-time (lifetime)</p>
             <ul className="mt-8 space-y-3">
               {['100 documents', '5 emergency contacts', 'Everything in Free', 'Priority support', '10MB file size limit'].map((f) => (
                 <li key={f} className="flex items-center gap-3 text-sm text-gray-700">

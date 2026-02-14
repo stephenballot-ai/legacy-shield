@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { subscriptionsApi } from '@/lib/api/subscriptions';
 import { Check, Crown, Shield, Zap } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { getCurrency } from '@/lib/utils/currency';
 
 const features = [
   'Up to 100 documents',
@@ -19,6 +20,7 @@ const features = [
 export function PricingCards() {
   const [loading, setLoading] = useState<'monthly' | 'lifetime' | null>(null);
   const [error, setError] = useState('');
+  const currency = useMemo(() => getCurrency(), []);
 
   const handleCheckout = async (plan: 'monthly' | 'lifetime') => {
     setLoading(plan);
@@ -48,7 +50,7 @@ export function PricingCards() {
             <h3 className="text-lg font-semibold text-gray-900">Monthly</h3>
           </div>
           <div className="mb-4">
-            <span className="text-3xl font-bold text-gray-900">$10</span>
+            <span className="text-3xl font-bold text-gray-900">{currency.symbol}{currency.monthly}</span>
             <span className="text-gray-500">/month</span>
           </div>
           <ul className="space-y-2 mb-6 flex-1">
@@ -80,7 +82,7 @@ export function PricingCards() {
             <h3 className="text-lg font-semibold text-gray-900">Lifetime</h3>
           </div>
           <div className="mb-4">
-            <span className="text-3xl font-bold text-gray-900">$500</span>
+            <span className="text-3xl font-bold text-gray-900">{currency.symbol}{currency.lifetime}</span>
             <span className="text-gray-500"> one-time</span>
           </div>
           <ul className="space-y-2 mb-6 flex-1">
