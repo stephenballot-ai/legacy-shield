@@ -33,7 +33,7 @@ export function PasswordPrompt({ onUnlocked }: PasswordPromptProps) {
       let profile: any = null;
       if (!derivationSalt) {
         profile = await usersApi.getMe();
-        derivationSalt = profile?.emergencyKeySalt;
+        derivationSalt = (profile as any)?.keyDerivationSalt || (profile as any)?.emergencyKeySalt;
       }
       if (!derivationSalt) throw new Error('Could not retrieve account info');
 

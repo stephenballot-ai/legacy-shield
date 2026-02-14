@@ -66,7 +66,7 @@ router.post('/register', validate(registerSchema), async (req: Request, res: Res
       data: {
         email,
         passwordHash,
-        emergencyKeySalt: keyDerivationSalt, // Re-use this field for key derivation salt
+        keyDerivationSalt: keyDerivationSalt,
         referralCode: generateReferralCode(),
         referredBy: referredBy ?? null,
       },
@@ -188,7 +188,7 @@ router.post('/login', loginLimiter, validate(loginSchema), async (req: Request, 
         emailVerified: user.emailVerified,
         twoFactorEnabled: user.twoFactorEnabled,
       },
-      salt: user.emergencyKeySalt, // Key derivation salt for client
+      salt: user.keyDerivationSalt || user.emergencyKeySalt,
     });
   } catch {
     res.status(500).json({
@@ -270,7 +270,7 @@ router.post('/login/2fa', loginLimiter, validate(twoFactorSchema), async (req: R
         emailVerified: user.emailVerified,
         twoFactorEnabled: user.twoFactorEnabled,
       },
-      salt: user.emergencyKeySalt,
+      salt: user.keyDerivationSalt || user.emergencyKeySalt,
     });
   } catch {
     res.status(500).json({

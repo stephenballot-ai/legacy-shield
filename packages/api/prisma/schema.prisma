@@ -42,6 +42,7 @@ model User {
 
   // Emergency access
   emergencyKeyEncrypted String?
+  keyDerivationSalt     String?
   emergencyKeySalt      String?
   emergencyPhraseHash   String?
 
