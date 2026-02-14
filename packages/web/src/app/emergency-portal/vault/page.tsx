@@ -77,7 +77,7 @@ function EmergencyVaultContent() {
 
   const handleExit = () => {
     useCryptoStore.getState().clearKeys();
-    window.location.href = '/emergency-access';
+    window.location.href = '/emergency-portal';
   };
 
   return (

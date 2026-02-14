@@ -11,7 +11,7 @@ export function EmergencyAuthGuard({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!emergencyKey) {
-      router.replace('/emergency-access');
+      router.replace('/emergency-portal');
     }
   }, [emergencyKey, router]);
 

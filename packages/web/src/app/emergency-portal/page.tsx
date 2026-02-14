@@ -42,7 +42,7 @@ export default function EmergencyAccessPortal() {
       useCryptoStore.getState().setEmergencyKey(emergencyKey);
 
       // 6. Redirect to vault
-      router.push('/emergency-access/vault');
+      router.push('/emergency-portal/vault');
     } catch (err) {
       if (err && typeof err === 'object' && 'status' in err) {
         const apiErr = err as { status: number; code: string };
