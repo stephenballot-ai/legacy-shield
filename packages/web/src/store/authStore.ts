@@ -3,7 +3,7 @@
 import { create } from 'zustand';
 import type { User } from '@legacy-shield/shared';
 import { authApi, isLoginResponse, isTwoFactorResponse } from '@/lib/api/auth';
-import { setAccessToken } from '@/lib/api/client';
+import { setAccessToken, setOnAuthExpired } from '@/lib/api/client';
 import { useCryptoStore } from './cryptoStore';
 import { deriveMasterKey } from '@/lib/crypto/keyDerivation';
 
@@ -158,3 +158,11 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     set({ user: null, isAuthenticated: false, tempToken: null, salt: null });
   },
 }));
+
+// Auto-logout when token refresh fails
+setOnAuthExpired(() => {
+  useAuthStore.getState().clearAuth();
+  if (typeof window !== 'undefined' && !window.location.pathname.startsWith('/login')) {
+    window.location.href = '/login';
+  }
+});

@@ -10,6 +10,12 @@ const BASE_URL = `${API_ROOT}/api/v1`;
 
 let accessToken: string | null = null;
 let refreshPromise: Promise<string | null> | null = null;
+let onAuthExpired: (() => void) | null = null;
+
+/** Register a callback for when auth expires (refresh fails) */
+export function setOnAuthExpired(cb: () => void) {
+  onAuthExpired = cb;
+}
 
 export function setAccessToken(token: string | null) {
   accessToken = token;
@@ -85,6 +91,9 @@ async function request<T>(
         headers,
         credentials: 'include',
       });
+    } else {
+      // Refresh failed — session expired, force logout
+      onAuthExpired?.();
     }
   }
 
