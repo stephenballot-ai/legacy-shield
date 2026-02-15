@@ -21,9 +21,10 @@ interface EmergencyContactFormProps {
   onCancel?: () => void;
   isLoading?: boolean;
   submitLabel?: string;
+  cancelLabel?: string;
 }
 
-export function EmergencyContactForm({ initial, onSubmit, onCancel, isLoading, submitLabel = 'Save Contact' }: EmergencyContactFormProps) {
+export function EmergencyContactForm({ initial, onSubmit, onCancel, isLoading, submitLabel = 'Save Contact', cancelLabel = 'Cancel' }: EmergencyContactFormProps) {
   const [name, setName] = useState(initial?.name || '');
   const [relationship, setRelationship] = useState(initial?.relationship || 'spouse');
   const [email, setEmail] = useState(initial?.email || '');
@@ -117,7 +118,7 @@ export function EmergencyContactForm({ initial, onSubmit, onCancel, isLoading, s
       <div className="flex gap-3 pt-2">
         <Button type="submit" isLoading={isLoading}>{submitLabel}</Button>
         {onCancel && (
-          <Button type="button" variant="secondary" onClick={onCancel}>Cancel</Button>
+          <Button type="button" variant="secondary" onClick={onCancel}>{cancelLabel}</Button>
         )}
       </div>
     </form>

@@ -318,15 +318,23 @@ export function EmergencySetupWizard({ onComplete }: { onComplete: () => void })
       {/* Step 4: Add contact */}
       {step === 3 && (
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">Add Your First Emergency Contact</h3>
-          <p className="text-sm text-gray-600">
-            Add someone you trust. You can add more contacts later from the emergency access dashboard.
-          </p>
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900">Add Your First Emergency Contact</h3>
+              <p className="text-sm text-gray-600 mt-1">
+                Add someone you trust. You can add more contacts later from the emergency access dashboard.
+              </p>
+            </div>
+            <Button variant="ghost" size="sm" onClick={() => setStep(4)} className="text-gray-500 hover:text-gray-900">
+              Skip
+            </Button>
+          </div>
           <EmergencyContactForm
             onSubmit={handleAddContact}
             onCancel={() => setStep(4)} // allow skip
             isLoading={contactSaving}
             submitLabel="Add Contact & Continue"
+            cancelLabel="Skip"
           />
         </div>
       )}
