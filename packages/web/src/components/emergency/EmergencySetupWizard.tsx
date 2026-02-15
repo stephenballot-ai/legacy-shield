@@ -188,10 +188,9 @@ export function EmergencySetupWizard({ onComplete }: { onComplete: () => void })
 
             await api_updateEmergencyKey(file.id, toBase64(emergencyEncKeyBuf), toBase64(emergencyIV));
           } catch (err) {
-            console.error(`Failed to re-encrypt file ${file.id}`, err);
-            // Continue with other files? Or fail hard? 
-            // Better to fail hard so user knows emergency access isn't complete for all files
-            throw err;
+            console.error(`Failed to re-encrypt file ${file.id} (${file.filename})`, err);
+            // Don't crash the whole process for one bad file
+            // Just skip it - the user will see it's not accessible in emergency portal
           }
           
           processed++;
