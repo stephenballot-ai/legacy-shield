@@ -36,7 +36,7 @@ router.get('/me', authenticate, requireOwner, async (req: Request, res: Response
     const subscription = await getSubscriptionStatus(req.user!.userId);
     const tier = user.tier as 'FREE' | 'PRO';
     const baseLimit = DOCUMENT_LIMITS[`${tier}_TIER`];
-    const docLimit = tier === 'PRO' ? baseLimit : baseLimit + ((user as any).referralBonus ?? 0);
+    const docLimit = tier === 'PRO' ? baseLimit : baseLimit + (user.referralBonus ?? 0);
 
     res.json({
       ...user,

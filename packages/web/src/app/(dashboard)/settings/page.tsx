@@ -221,7 +221,7 @@ function AccountSection({ profile, onUpdate }: { profile: UserProfile; onUpdate:
       return;
     }
 
-    const derivationSalt = salt || (profile as any)?.keyDerivationSalt;
+    const derivationSalt = salt || profile?.keyDerivationSalt;
     if (!derivationSalt) {
       setPwMsg({ type: 'error', text: 'Cannot change password: key derivation salt missing. Please log out and log back in.' });
       return;
@@ -285,9 +285,9 @@ function AccountSection({ profile, onUpdate }: { profile: UserProfile; onUpdate:
 
       // 4. Re-encrypt emergency key with new master key (if it exists)
       let newEmergencyKeyEncrypted: string | undefined;
-      if ((profile as any).emergencyKeyEncrypted) {
+      if (profile.emergencyKeyEncrypted) {
         try {
-          const encData = (profile as any).emergencyKeyEncrypted as string;
+          const encData = profile.emergencyKeyEncrypted;
           const [encB64, ivB64] = encData.split(':');
           if (encB64 && ivB64) {
             const fromBase64 = (b64: string): ArrayBuffer => {
