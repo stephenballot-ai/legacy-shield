@@ -155,7 +155,7 @@ export async function decryptFile(
 }
 
 // Helper functions
-function arrayBufferToBase64(buffer: ArrayBuffer | Uint8Array): string {
+export function arrayBufferToBase64(buffer: ArrayBuffer | Uint8Array): string {
   const bytes = buffer instanceof Uint8Array ? buffer : new Uint8Array(buffer);
   let binary = '';
   for (let i = 0; i < bytes.length; i++) {
@@ -164,11 +164,44 @@ function arrayBufferToBase64(buffer: ArrayBuffer | Uint8Array): string {
   return btoa(binary);
 }
 
-function base64ToArrayBuffer(base64: string): ArrayBuffer {
+export function base64ToArrayBuffer(base64: string): ArrayBuffer {
   const binary = atob(base64);
   const bytes = new Uint8Array(binary.length);
   for (let i = 0; i < binary.length; i++) {
     bytes[i] = binary.charCodeAt(i);
   }
   return bytes.buffer;
+}
+
+/**
+ * Re-encrypt a file key with a new key (e.g. for emergency access or password change)
+ */
+export async function reencryptFileKey(
+  encryptedFileKey: string, // encrypted with oldKey (Base64)
+  keyIV: string,            // IV used with oldKey (Base64)
+  oldKey: CryptoKey,
+  newKey: CryptoKey
+): Promise<{ encryptedKey: string; iv: string }> {
+  // 1. Decrypt with old key
+  const encryptedKeyBuffer = base64ToArrayBuffer(encryptedFileKey);
+  const keyIVBuffer = base64ToArrayBuffer(keyIV);
+  
+  const fileKeyRaw = await crypto.subtle.decrypt(
+    { name: 'AES-GCM', iv: keyIVBuffer },
+    oldKey,
+    encryptedKeyBuffer
+  );
+
+  // 2. Encrypt with new key
+  const newIV = crypto.getRandomValues(new Uint8Array(12));
+  const newEncryptedKeyBuffer = await crypto.subtle.encrypt(
+    { name: 'AES-GCM', iv: newIV },
+    newKey,
+    fileKeyRaw
+  );
+
+  return {
+    encryptedKey: arrayBufferToBase64(newEncryptedKeyBuffer),
+    iv: arrayBufferToBase64(newIV)
+  };
 }

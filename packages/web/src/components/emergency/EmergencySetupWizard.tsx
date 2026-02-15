@@ -11,6 +11,7 @@ import { EmergencyInstructions } from './EmergencyInstructions';
 import { useCryptoStore } from '@/store/cryptoStore';
 import { useAuthStore } from '@/store/authStore';
 import { deriveEmergencyKey, sha256Hash, generateSalt } from '@/lib/crypto/keyDerivation';
+import { reencryptFileKey } from '@/lib/crypto/fileEncryption';
 import { emergencyAccessApi } from '@/lib/api/emergencyAccess';
 import { filesApi } from '@/lib/api/files';
 import { Check, ChevronLeft, ChevronRight, Key, Lock, Users, CheckCircle2 } from 'lucide-react';
@@ -126,31 +127,10 @@ export function EmergencySetupWizard({ onComplete }: { onComplete: () => void })
     setReencryptError(null);
 
     try {
-      const BATCH_SIZE = 50; // Safer batch size to avoid timeouts
+      const BATCH_SIZE = 50;
       let offset = 0;
       let totalFiles = 0;
       let processed = 0;
-      
-      // First, get total count (or just start fetching)
-      // We'll just loop until we get no more files
-      
-      const fromBase64 = (b64: string): ArrayBuffer => {
-        const binary = atob(b64);
-        const bytes = new Uint8Array(binary.length);
-        for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-        return bytes.buffer;
-      };
-      
-      const toBase64 = (buf: ArrayBuffer | Uint8Array) => {
-        const bytes = buf instanceof Uint8Array ? buf : new Uint8Array(buf);
-        let binary = '';
-        for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
-        return btoa(binary);
-      };
-
-      // Initial fetch to get total if possible, or just start
-      // Note: listFiles returns { files, total } usually, assuming standard paginated response
-      // If not, we just iterate.
       
       while (true) {
         const res = await filesApi.listFiles({ limit: BATCH_SIZE, offset });
@@ -159,9 +139,6 @@ export function EmergencySetupWizard({ onComplete }: { onComplete: () => void })
         
         // Update total if this is the first batch
         if (offset === 0) {
-           // If API returns total, use it. Otherwise, estimate or just show processed count.
-           // Assuming we might not have total from listFiles based on previous code usage
-           totalFiles = files.length + (res.total || 0); // fallback logic
            if (res.total) totalFiles = res.total;
         }
 
@@ -169,32 +146,22 @@ export function EmergencySetupWizard({ onComplete }: { onComplete: () => void })
           try {
             const fileData = await filesApi.getFile(file.id);
 
-            // Decrypt file key with master key
-            const encKeyBuf = fromBase64(fileData.ownerEncryptedKey);
-            const ownerIVBuf = fromBase64(fileData.ownerIV);
-            const fileKeyRaw = await crypto.subtle.decrypt(
-              { name: 'AES-GCM', iv: ownerIVBuf },
+            // Re-encrypt file key: Master Key -> Emergency Key
+            const result = await reencryptFileKey(
+              fileData.ownerEncryptedKey,
+              fileData.ownerIV,
               masterKey,
-              encKeyBuf
+              emergencyKey
             );
 
-            // Re-encrypt file key with emergency key
-            const emergencyIV = crypto.getRandomValues(new Uint8Array(12));
-            const emergencyEncKeyBuf = await crypto.subtle.encrypt(
-              { name: 'AES-GCM', iv: emergencyIV },
-              emergencyKey,
-              fileKeyRaw
-            );
-
-            await api_updateEmergencyKey(file.id, toBase64(emergencyEncKeyBuf), toBase64(emergencyIV));
+            await api_updateEmergencyKey(file.id, result.encryptedKey, result.iv);
           } catch (err) {
             console.error(`Failed to re-encrypt file ${file.id} (${file.filename})`, err);
             // Don't crash the whole process for one bad file
-            // Just skip it - the user will see it's not accessible in emergency portal
           }
           
           processed++;
-          setReencryptProgress({ done: processed, total: totalFiles || processed + 10 }); // Rough progress if total unknown
+          setReencryptProgress({ done: processed, total: totalFiles || processed + 10 });
         }
         
         offset += files.length;
