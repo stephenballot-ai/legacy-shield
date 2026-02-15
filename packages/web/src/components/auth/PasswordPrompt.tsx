@@ -33,9 +33,9 @@ export function PasswordPrompt({ onUnlocked }: PasswordPromptProps) {
       let profile: any = null;
       if (!derivationSalt) {
         profile = await usersApi.getMe();
-        derivationSalt = (profile as any)?.keyDerivationSalt || (profile as any)?.emergencyKeySalt;
+        derivationSalt = (profile as any)?.keyDerivationSalt;
       }
-      if (!derivationSalt) throw new Error('Could not retrieve account info');
+      if (!derivationSalt) throw new Error('Account key derivation salt is missing. Please contact support.');
 
       const masterKey = await deriveMasterKey(password, derivationSalt);
       useCryptoStore.getState().setMasterKey(masterKey);

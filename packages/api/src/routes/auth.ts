@@ -179,6 +179,13 @@ router.post('/login', loginLimiter, validate(loginSchema), async (req: Request, 
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
+    if (!user.keyDerivationSalt) {
+      res.status(500).json({
+        error: { code: 'ACCOUNT_CORRUPTED', message: 'Account key derivation salt is missing. Please contact support.' },
+      });
+      return;
+    }
+
     res.json({
       accessToken,
       user: {
@@ -188,7 +195,7 @@ router.post('/login', loginLimiter, validate(loginSchema), async (req: Request, 
         emailVerified: user.emailVerified,
         twoFactorEnabled: user.twoFactorEnabled,
       },
-      salt: user.keyDerivationSalt || user.emergencyKeySalt,
+      salt: user.keyDerivationSalt,
     });
   } catch {
     res.status(500).json({
@@ -261,6 +268,13 @@ router.post('/login/2fa', loginLimiter, validate(twoFactorSchema), async (req: R
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
+    if (!user.keyDerivationSalt) {
+      res.status(500).json({
+        error: { code: 'ACCOUNT_CORRUPTED', message: 'Account key derivation salt is missing. Please contact support.' },
+      });
+      return;
+    }
+
     res.json({
       accessToken,
       user: {
@@ -270,7 +284,7 @@ router.post('/login/2fa', loginLimiter, validate(twoFactorSchema), async (req: R
         emailVerified: user.emailVerified,
         twoFactorEnabled: user.twoFactorEnabled,
       },
-      salt: user.keyDerivationSalt || user.emergencyKeySalt,
+      salt: user.keyDerivationSalt,
     });
   } catch {
     res.status(500).json({
@@ -382,7 +396,11 @@ router.post('/refresh', async (req: Request, res: Response) => {
 // ============================================================================
 router.post('/password/change', authenticate, requireOwner, validate(changePasswordSchema), async (req: Request, res: Response) => {
   try {
-    const { currentPassword, newPassword } = req.body as { currentPassword: string; newPassword: string };
+    const { currentPassword, newPassword, reencryptedKeys } = req.body as {
+      currentPassword: string;
+      newPassword: string;
+      reencryptedKeys?: Array<{ fileId: string; ownerEncryptedKey: string; ownerIV: string }>;
+    };
 
     const user = await prisma.user.findUnique({ where: { id: req.user!.userId } });
     if (!user) {
@@ -400,11 +418,31 @@ router.post('/password/change', authenticate, requireOwner, validate(changePassw
       return;
     }
 
+    // Update password hash
     const newHash = await hashPassword(newPassword);
     await prisma.user.update({
       where: { id: user.id },
       data: { passwordHash: newHash },
     });
+
+    // Update re-encrypted file keys (encrypted with new master key by client)
+    if (reencryptedKeys && reencryptedKeys.length > 0) {
+      for (const rk of reencryptedKeys) {
+        await prisma.file.updateMany({
+          where: { id: rk.fileId, userId: user.id },
+          data: { ownerEncryptedKey: rk.ownerEncryptedKey, ownerIV: rk.ownerIV },
+        });
+      }
+    }
+
+    // Re-encrypt emergency key with new master key if provided
+    const { newEmergencyKeyEncrypted } = req.body as { newEmergencyKeyEncrypted?: string };
+    if (newEmergencyKeyEncrypted && user.emergencyKeyEncrypted) {
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { emergencyKeyEncrypted: newEmergencyKeyEncrypted },
+      });
+    }
 
     await logAudit({
       userId: user.id,
@@ -413,9 +451,10 @@ router.post('/password/change', authenticate, requireOwner, validate(changePassw
       resourceId: user.id,
       ipAddress: req.ip,
       userAgent: req.headers['user-agent'],
+      metadata: { filesReencrypted: reencryptedKeys?.length ?? 0 },
     });
 
-    res.json({ success: true });
+    res.json({ success: true, salt: user.keyDerivationSalt });
   } catch {
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Password change failed' },

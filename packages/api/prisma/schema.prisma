@@ -40,9 +40,11 @@ model User {
   twoFactorEnabled Boolean  @default(false)
   recoveryCodes    String[]
 
+  // Key derivation (MUST be set at registration, NEVER changes)
+  keyDerivationSalt     String
+
   // Emergency access
   emergencyKeyEncrypted String?
-  keyDerivationSalt     String?
   emergencyKeySalt      String?
   emergencyPhraseHash   String?
 
@@ -83,7 +85,7 @@ model File {
 
   // Encryption
   ownerEncryptedKey     String
-  ownerIV               String?
+  ownerIV               String
   emergencyEncryptedKey String?
   emergencyIV           String?
   iv                    String

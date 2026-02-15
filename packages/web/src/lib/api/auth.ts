@@ -44,8 +44,18 @@ export const authApi = {
 
   refreshToken: () => api.post<{ accessToken: string }>('/auth/refresh'),
 
-  changePassword: (currentPassword: string, newPassword: string) =>
-    api.post<{ success: boolean }>('/auth/password/change', { currentPassword, newPassword }),
+  changePassword: (
+    currentPassword: string,
+    newPassword: string,
+    reencryptedKeys?: Array<{ fileId: string; ownerEncryptedKey: string; ownerIV: string }>,
+    newEmergencyKeyEncrypted?: string,
+  ) =>
+    api.post<{ success: boolean; salt: string }>('/auth/password/change', {
+      currentPassword,
+      newPassword,
+      reencryptedKeys,
+      newEmergencyKeyEncrypted,
+    }),
 
   setup2FA: () => api.post<Setup2FAResponse>('/auth/2fa/setup'),
 

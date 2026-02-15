@@ -37,6 +37,12 @@ export const twoFactorSchema = z.object({
 export const changePasswordSchema = z.object({
   currentPassword: z.string().min(1, 'Current password is required'),
   newPassword: passwordSchema,
+  reencryptedKeys: z.array(z.object({
+    fileId: z.string(),
+    ownerEncryptedKey: z.string(),
+    ownerIV: z.string(),
+  })).optional(),
+  newEmergencyKeyEncrypted: z.string().optional(),
 });
 
 export const recoveryCodeSchema = z.object({

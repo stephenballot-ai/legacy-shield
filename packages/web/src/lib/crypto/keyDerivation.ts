@@ -91,11 +91,12 @@ export async function deriveEmergencyKey(
 
 /**
  * Generate random salt for key derivation
- * @returns Base64-encoded salt
+ * Uses hex encoding to match server-side generateSalt()
+ * @returns Hex-encoded salt string
  */
 export function generateSalt(): string {
   const saltArray = crypto.getRandomValues(new Uint8Array(32));
-  return arrayBufferToBase64(saltArray.buffer);
+  return Array.from(saltArray).map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
 /**
