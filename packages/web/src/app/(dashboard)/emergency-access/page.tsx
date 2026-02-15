@@ -102,13 +102,13 @@ export default function EmergencyAccessPage() {
         <h3 className="text-sm font-semibold text-gray-900 mb-2">Advanced</h3>
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm font-medium text-gray-700">Rotate Emergency Key</p>
+            <p className="text-sm font-medium text-gray-700">Change Unlock Phrase</p>
             <p className="text-xs text-gray-500 mt-1">
               Invalidates your current unlock phrase. Use this if your phrase has been compromised.
             </p>
           </div>
           <Button size="sm" variant="secondary" onClick={() => setShowRotateWarning(true)}>
-            Rotate Key
+            Change Unlock Phrase
           </Button>
         </div>
       </div>
@@ -119,19 +119,19 @@ export default function EmergencyAccessPage() {
           <Card className="max-w-md w-full p-6 space-y-4">
             <div className="flex items-center gap-3 text-amber-600">
               <RotateCcw className="h-6 w-6" />
-              <h3 className="text-lg font-semibold">Rotate Emergency Key?</h3>
+              <h3 className="text-lg font-semibold">Change Unlock Phrase?</h3>
             </div>
             <p className="text-sm text-gray-600">
               This will create a <strong>new unlock phrase</strong>. The old one will stop working immediately.
             </p>
             <ul className="list-disc pl-5 text-sm text-gray-600 space-y-1">
-              <li>You must re-share the new phrase with all contacts</li>
+              <li>You must share the new phrase with your contacts</li>
               <li>All file keys will be re-encrypted (this may take a moment)</li>
             </ul>
             <div className="flex gap-3 justify-end mt-4">
               <Button variant="secondary" onClick={() => setShowRotateWarning(false)}>Cancel</Button>
               <Button variant="danger" onClick={() => { setShowRotateWarning(false); setShowSetup(true); }}>
-                Start Rotation
+                Start Change
               </Button>
             </div>
           </Card>
