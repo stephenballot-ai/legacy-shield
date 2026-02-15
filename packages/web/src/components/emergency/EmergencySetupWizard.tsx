@@ -33,8 +33,6 @@ export function EmergencySetupWizard({ onComplete }: { onComplete: () => void })
 
   // Derived key state
   const [emergencyKey, setEmergencyKey] = useState<CryptoKey | null>(null);
-  const [_salt, setSalt] = useState('');
-  const [_phraseHash, setPhraseHash] = useState('');
   const [deriving, setDeriving] = useState(false);
   const [deriveError, setDeriveError] = useState<string | null>(null);
 
@@ -73,9 +71,6 @@ export function EmergencySetupWizard({ onComplete }: { onComplete: () => void })
       const newSalt = generateSalt();
       const hash = await sha256Hash(phrase);
       const key = await deriveEmergencyKey(phrase, newSalt, true);
-
-      setSalt(newSalt);
-      setPhraseHash(hash);
       setEmergencyKey(key);
 
       // Export emergency key, encrypt with master key for server-side storage

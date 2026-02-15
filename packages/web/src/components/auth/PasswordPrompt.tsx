@@ -7,7 +7,7 @@ import { Alert } from '@/components/ui/Alert';
 import { useCryptoStore } from '@/store/cryptoStore';
 import { useAuthStore } from '@/store/authStore';
 import { deriveMasterKey } from '@/lib/crypto/keyDerivation';
-import { usersApi } from '@/lib/api/users';
+import { usersApi, type UserProfile } from '@/lib/api/users';
 import { Lock } from 'lucide-react';
 
 interface PasswordPromptProps {
@@ -30,10 +30,10 @@ export function PasswordPrompt({ onUnlocked }: PasswordPromptProps) {
     try {
       // Use persisted salt from login, fall back to API
       let derivationSalt = salt;
-      let profile: any = null;
+      let profile: UserProfile | null = null;
       if (!derivationSalt) {
         profile = await usersApi.getMe();
-        derivationSalt = (profile as any)?.keyDerivationSalt;
+        derivationSalt = profile?.keyDerivationSalt ?? null;
       }
       if (!derivationSalt) throw new Error('Account key derivation salt is missing. Please contact support.');
 
@@ -42,9 +42,9 @@ export function PasswordPrompt({ onUnlocked }: PasswordPromptProps) {
 
       // Also recover emergency key if available
       if (!profile) profile = await usersApi.getMe();
-      if ((profile as any).emergencyKeyEncrypted && (profile as any).emergencyKeySalt) {
+      if (profile.emergencyKeyEncrypted && profile.emergencyKeySalt) {
         try {
-          const [encB64, ivB64] = (profile as any).emergencyKeyEncrypted.split(':');
+          const [encB64, ivB64] = profile.emergencyKeyEncrypted.split(':');
           if (encB64 && ivB64) {
             const fromBase64 = (b64: string): ArrayBuffer => {
               const binary = atob(b64);

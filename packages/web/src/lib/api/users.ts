@@ -13,6 +13,11 @@ export interface UserProfile {
   tier: 'FREE' | 'PRO';
   emailVerified: boolean;
   twoFactorEnabled: boolean;
+  referralCode: string;
+  referralBonus: number;
+  keyDerivationSalt: string;
+  emergencyKeyEncrypted: string | null;
+  emergencyKeySalt: string | null;
   createdAt: string;
   lastLoginAt: string | null;
   documentCount: number;
@@ -36,9 +41,6 @@ export const usersApi = {
 
   updateMe: (data: { email: string }) =>
     api.patch<{ id: string; email: string; tier: string }>('/users/me', data),
-
-  deleteMe: (_password: string, _confirmation: string) =>
-    api.delete<{ success: boolean }>('/users/me'),
 };
 
 // Override delete to send body

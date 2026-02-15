@@ -39,7 +39,7 @@ export function DocumentUpload({ open, onClose }: DocumentUploadProps) {
   const user = useAuthStore((s) => s.user);
   const { total, addFile } = useFilesStore();
 
-  const tier = (user as any)?.tier || 'FREE';
+  const tier = user?.tier || 'FREE';
   const maxFiles = tier === 'PRO' ? DOCUMENT_LIMITS.PRO_TIER : DOCUMENT_LIMITS.FREE_TIER;
   const maxSize = tier === 'PRO' ? FILE_SIZE_LIMITS.PRO_TIER : FILE_SIZE_LIMITS.FREE_TIER;
 

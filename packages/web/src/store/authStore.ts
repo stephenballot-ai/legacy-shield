@@ -11,7 +11,7 @@ import { usersApi } from '@/lib/api/users';
 // Recover emergency key from server (encrypted with master key)
 async function recoverEmergencyKey(masterKey: CryptoKey) {
   try {
-    const profile = await usersApi.getMe() as any;
+    const profile = await usersApi.getMe();
     if (!profile.emergencyKeyEncrypted || !profile.emergencyKeySalt) return;
 
     const [encB64, ivB64] = profile.emergencyKeyEncrypted.split(':');

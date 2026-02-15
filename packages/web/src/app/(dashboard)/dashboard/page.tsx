@@ -20,13 +20,13 @@ export default function DashboardPage() {
   const [emergencyCount, setEmergencyCount] = useState<number | null>(null);
   const [copied, setCopied] = useState(false);
 
-  const tier = (user as any)?.tier || 'FREE';
+  const tier = user?.tier || 'FREE';
   const fallbackMax = tier === 'PRO' ? DOCUMENT_LIMITS.PRO_TIER : DOCUMENT_LIMITS.FREE_TIER;
   const maxFiles = docLimit ?? fallbackMax;
 
   useEffect(() => {
     // Fetch user profile stats
-    usersApi.getMe().then((p: any) => {
+    usersApi.getMe().then((p) => {
       setDocLimit(p.documentLimit);
       if (p.referralCode) setReferralCode(p.referralCode);
     }).catch(() => {});

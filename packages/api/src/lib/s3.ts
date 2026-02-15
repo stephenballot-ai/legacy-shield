@@ -90,7 +90,7 @@ export async function downloadObject(key: string): Promise<{ body: Buffer; conte
   });
   const response = await s3Client.send(command);
   const chunks: Uint8Array[] = [];
-  const stream = response.Body as any;
+  const stream = response.Body as AsyncIterable<Uint8Array>;
   for await (const chunk of stream) {
     chunks.push(chunk);
   }

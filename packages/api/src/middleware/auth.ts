@@ -3,16 +3,14 @@ import { verifyToken, type TokenPayload } from '../services/auth';
 import { prisma } from '../lib/prisma';
 
 // Extend Express Request to include authenticated user info
-declare global {
-  namespace Express {
-    interface Request {
-      user?: {
-        userId: string;
-        sessionId: string;
-        sessionType: 'OWNER' | 'EMERGENCY_CONTACT';
-        tier: string;
-      };
-    }
+declare module 'express-serve-static-core' {
+  interface Request {
+    user?: {
+      userId: string;
+      sessionId: string;
+      sessionType: 'OWNER' | 'EMERGENCY_CONTACT';
+      tier: string;
+    };
   }
 }
 
