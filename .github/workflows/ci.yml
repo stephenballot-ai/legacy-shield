@@ -18,6 +18,12 @@ jobs:
 
       - run: npm ci
 
+      - name: Build shared package
+        run: npm run build --workspace=@legacy-shield/shared
+
+      - name: Generate Prisma client
+        run: npx prisma generate --schema=packages/api/prisma/schema.prisma
+
       - name: Lint
         run: npm run lint
 
