@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/Button';
 import { useAuthStore } from '@/store/authStore';
 import { useFilesStore } from '@/store/filesStore';
 import { DOCUMENT_LIMITS } from '@legacy-shield/shared';
-import { usersApi } from '@/lib/api/users';
+import { emergencyAccessApi } from '@/lib/api/emergencyAccess';
 import { FileText, ShieldAlert, Upload, Clock, ArrowRight, Gift, Copy, Check } from 'lucide-react';
 import { formatFileSize, formatDate } from '@/lib/utils';
 import Link from 'next/link';
@@ -16,6 +16,7 @@ export default function DashboardPage() {
   const { files, total, fetchFiles } = useFilesStore();
   const [docLimit, setDocLimit] = useState<number | null>(null);
   const [referralCode, setReferralCode] = useState<string | null>(null);
+  const [emergencyCount, setEmergencyCount] = useState<number | null>(null);
   const [copied, setCopied] = useState(false);
 
   const tier = (user as any)?.tier || 'FREE';
@@ -23,10 +24,16 @@ export default function DashboardPage() {
   const maxFiles = docLimit ?? fallbackMax;
 
   useEffect(() => {
+    // Fetch user profile stats
     usersApi.getMe().then((p: any) => {
       setDocLimit(p.documentLimit);
       if (p.referralCode) setReferralCode(p.referralCode);
     }).catch(() => {});
+
+    // Fetch emergency status
+    emergencyAccessApi.getStatus().then((s) => {
+      setEmergencyCount(s.contactCount);
+    }).catch(() => setEmergencyCount(null));
   }, []);
 
   useEffect(() => {
@@ -39,7 +46,12 @@ export default function DashboardPage() {
 
   const stats = [
     { label: 'Documents', value: `${total} / ${maxFiles}`, icon: FileText, color: 'text-primary-600 bg-primary-50' },
-    { label: 'Emergency Access', value: '0', icon: ShieldAlert, color: 'text-trust-600 bg-trust-50' },
+    { 
+      label: 'Emergency Contacts', 
+      value: emergencyCount !== null ? emergencyCount.toString() : 'Not set up', 
+      icon: ShieldAlert, 
+      color: 'text-trust-600 bg-trust-50' 
+    },
     { label: 'Last Activity', value: recentFiles[0] ? formatDate(recentFiles[0].createdAt) : 'No activity', icon: Clock, color: 'text-amber-600 bg-amber-50' },
   ];
 
@@ -47,7 +59,7 @@ export default function DashboardPage() {
     <div className="space-y-6 animate-fade-in">
       <div>
         <h1 className="text-2xl font-bold text-gray-900">
-          Welcome{user?.email ? `, ${user.email.split('@')[0]}` : ''}
+          Welcome back
         </h1>
         <p className="text-sm text-gray-500 mt-1">Your secure document vault</p>
       </div>
