@@ -101,6 +101,59 @@ app.use('/api/v1/webhooks', webhookRoutes);
 // ERROR HANDLING
 // ============================================================================
 
+
+// ============================================================================
+// STATUS ENDPOINT (public health check for status page)
+// ============================================================================
+
+app.get('/status', async (_req: Request, res: Response) => {
+  const components: Array<{ name: string; status: string; responseTime: number }> = [];
+
+  // Check Database (Prisma)
+  try {
+    const start = Date.now();
+    const { prisma } = await import('./lib/prisma');
+    await prisma.$queryRaw`SELECT 1`;
+    components.push({ name: 'Database', status: 'operational', responseTime: Date.now() - start });
+  } catch {
+    components.push({ name: 'Database', status: 'down', responseTime: 0 });
+  }
+
+  // Check Redis
+  try {
+    const start = Date.now();
+    const Redis = (await import('ioredis')).default;
+    const redis = new Redis(process.env.REDIS_URL || 'redis://redis:6379', {
+      connectTimeout: 3000,
+      lazyConnect: true,
+    });
+    await redis.ping();
+    await redis.quit();
+    components.push({ name: 'Cache (Redis)', status: 'operational', responseTime: Date.now() - start });
+  } catch {
+    components.push({ name: 'Cache (Redis)', status: 'down', responseTime: 0 });
+  }
+
+  // Check Storage (MinIO/S3)
+  try {
+    const start = Date.now();
+    const { s3Client, getBucket } = await import('./lib/s3');
+    const { HeadBucketCommand } = await import('@aws-sdk/client-s3');
+    await s3Client.send(new HeadBucketCommand({ Bucket: getBucket() }));
+    components.push({ name: 'Storage (MinIO)', status: 'operational', responseTime: Date.now() - start });
+  } catch {
+    components.push({ name: 'Storage (MinIO)', status: 'down', responseTime: 0 });
+  }
+
+  // Web App — just report operational (it's a separate container)
+  components.push({ name: 'Web App', status: 'operational', responseTime: 0 });
+
+  const downCount = components.filter(c => c.status === 'down').length;
+  const overall = downCount === 0 ? 'operational' : downCount >= 2 ? 'down' : 'degraded';
+
+  res.json({ components, overall, timestamp: new Date().toISOString() });
+});
+
 // 404 handler
 app.use((req: Request, res: Response) => {
   res.status(404).json({
