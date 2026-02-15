@@ -12,6 +12,7 @@ import { useAuthStore } from '@/store/authStore';
 import { usersApi, type UserProfile } from '@/lib/api/users';
 import { subscriptionsApi } from '@/lib/api/subscriptions';
 import { authApi } from '@/lib/api/auth';
+import { filesApi } from '@/lib/api/files';
 import {
   User,
   Shield,
@@ -189,9 +190,12 @@ function AccountSection({ profile, onUpdate }: { profile: UserProfile; onUpdate:
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [pwLoading, setPwLoading] = useState(false);
+  const [pwProgress, setPwProgress] = useState<{ done: number; total: number } | null>(null);
   const [pwMsg, setPwMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   const [deleteOpen, setDeleteOpen] = useState(false);
+
+  const salt = useAuthStore((s) => s.salt);
 
   const handleEmailUpdate = async () => {
     setEmailLoading(true);
@@ -212,15 +216,135 @@ function AccountSection({ profile, onUpdate }: { profile: UserProfile; onUpdate:
       setPwMsg({ type: 'error', text: 'Passwords do not match' });
       return;
     }
-    if (newPassword.length < 8) {
-      setPwMsg({ type: 'error', text: 'Password must be at least 8 characters' });
+    if (newPassword.length < 12) {
+      setPwMsg({ type: 'error', text: 'Password must be at least 12 characters' });
       return;
     }
+
+    const derivationSalt = salt || (profile as any)?.keyDerivationSalt;
+    if (!derivationSalt) {
+      setPwMsg({ type: 'error', text: 'Cannot change password: key derivation salt missing. Please log out and log back in.' });
+      return;
+    }
+
     setPwLoading(true);
     setPwMsg(null);
+    setPwProgress(null);
+
     try {
-      await authApi.changePassword(currentPassword, newPassword);
-      setPwMsg({ type: 'success', text: 'Password changed successfully' });
+      // Import crypto functions
+      const { deriveMasterKey } = await import('@/lib/crypto/keyDerivation');
+      const { reencryptFileKey, arrayBufferToBase64 } = await import('@/lib/crypto/fileEncryption');
+      const { useCryptoStore } = await import('@/store/cryptoStore');
+
+      // 1. Derive old master key from current password + same salt
+      const oldMasterKey = await deriveMasterKey(currentPassword, derivationSalt);
+
+      // 2. Derive new master key from new password + SAME salt (salt never changes)
+      const newMasterKey = await deriveMasterKey(newPassword, derivationSalt);
+
+      // 3. Re-encrypt all file keys: oldMasterKey -> newMasterKey
+      const BATCH_SIZE = 50;
+      let offset = 0;
+      const reencryptedKeys: Array<{ fileId: string; ownerEncryptedKey: string; ownerIV: string }> = [];
+
+      while (true) {
+        const res = await filesApi.listFiles({ limit: BATCH_SIZE, offset });
+        if (res.files.length === 0) break;
+        setPwProgress({ done: reencryptedKeys.length, total: res.total });
+
+        for (const file of res.files) {
+          try {
+            const fileData = await filesApi.getFile(file.id);
+            if (!fileData.ownerEncryptedKey || !fileData.ownerIV) continue;
+
+            const result = await reencryptFileKey(
+              fileData.ownerEncryptedKey,
+              fileData.ownerIV,
+              oldMasterKey,
+              newMasterKey
+            );
+            reencryptedKeys.push({
+              fileId: file.id,
+              ownerEncryptedKey: result.encryptedKey,
+              ownerIV: result.iv,
+            });
+          } catch (err) {
+            // If we can't re-encrypt even one file, abort — don't corrupt the vault
+            setPwMsg({ type: 'error', text: `Failed to re-encrypt file "${file.filename}". Your current password may be incorrect. No changes were made.` });
+            setPwLoading(false);
+            setPwProgress(null);
+            return;
+          }
+          setPwProgress({ done: reencryptedKeys.length, total: res.total });
+        }
+
+        offset += res.files.length;
+        if (res.files.length < BATCH_SIZE) break;
+      }
+
+      // 4. Re-encrypt emergency key with new master key (if it exists)
+      let newEmergencyKeyEncrypted: string | undefined;
+      if ((profile as any).emergencyKeyEncrypted) {
+        try {
+          const encData = (profile as any).emergencyKeyEncrypted as string;
+          const [encB64, ivB64] = encData.split(':');
+          if (encB64 && ivB64) {
+            const fromBase64 = (b64: string): ArrayBuffer => {
+              const binary = atob(b64);
+              const bytes = new Uint8Array(binary.length);
+              for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+              return bytes.buffer;
+            };
+            // Decrypt emergency key with old master key
+            const rawKey = await crypto.subtle.decrypt(
+              { name: 'AES-GCM', iv: new Uint8Array(fromBase64(ivB64)) },
+              oldMasterKey,
+              fromBase64(encB64)
+            );
+            // Re-encrypt with new master key
+            const newIV = crypto.getRandomValues(new Uint8Array(12));
+            const newEnc = await crypto.subtle.encrypt(
+              { name: 'AES-GCM', iv: newIV },
+              newMasterKey,
+              rawKey
+            );
+            newEmergencyKeyEncrypted = arrayBufferToBase64(newEnc) + ':' + arrayBufferToBase64(newIV);
+          }
+        } catch {
+          // Non-critical — emergency key re-encryption failed, continue
+        }
+      }
+
+      // 5. Send everything to server atomically
+      await authApi.changePassword(currentPassword, newPassword, reencryptedKeys, newEmergencyKeyEncrypted);
+
+      // 6. Update in-memory master key to the new one
+      useCryptoStore.getState().setMasterKey(newMasterKey);
+
+      // 7. Recover emergency key with new master key
+      if (newEmergencyKeyEncrypted) {
+        try {
+          const [encB64, ivB64] = newEmergencyKeyEncrypted.split(':');
+          const fromBase64 = (b64: string): ArrayBuffer => {
+            const binary = atob(b64);
+            const bytes = new Uint8Array(binary.length);
+            for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+            return bytes.buffer;
+          };
+          const rawKey = await crypto.subtle.decrypt(
+            { name: 'AES-GCM', iv: new Uint8Array(fromBase64(ivB64)) },
+            newMasterKey,
+            fromBase64(encB64)
+          );
+          const emergencyKey = await crypto.subtle.importKey(
+            'raw', rawKey, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']
+          );
+          useCryptoStore.getState().setEmergencyKey(emergencyKey);
+        } catch { /* non-critical */ }
+      }
+
+      setPwMsg({ type: 'success', text: `Password changed successfully. ${reencryptedKeys.length} file(s) re-encrypted.` });
       setCurrentPassword('');
       setNewPassword('');
       setConfirmPassword('');
@@ -228,6 +352,7 @@ function AccountSection({ profile, onUpdate }: { profile: UserProfile; onUpdate:
       setPwMsg({ type: 'error', text: err instanceof Error ? err.message : 'Failed to change password' });
     } finally {
       setPwLoading(false);
+      setPwProgress(null);
     }
   };
 
@@ -255,7 +380,24 @@ function AccountSection({ profile, onUpdate }: { profile: UserProfile; onUpdate:
       {/* Change Password */}
       <Card>
         <h2 className="text-lg font-semibold text-gray-900 mb-4">Change Password</h2>
+        <Alert variant="info" className="mb-4">
+          Changing your password will re-encrypt all your document keys. This may take a moment.
+        </Alert>
         {pwMsg && <Alert variant={pwMsg.type} className="mb-4">{pwMsg.text}</Alert>}
+        {pwProgress && (
+          <div className="mb-4 space-y-1">
+            <div className="flex items-center justify-between text-sm text-gray-600">
+              <span>Re-encrypting documents…</span>
+              <span>{pwProgress.done} / {pwProgress.total}</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+              <div
+                className="h-full bg-primary-500 rounded-full transition-all"
+                style={{ width: pwProgress.total ? `${(pwProgress.done / pwProgress.total) * 100}%` : '0%' }}
+              />
+            </div>
+          </div>
+        )}
         <div className="space-y-3 max-w-md">
           <Input
             label="Current password"
