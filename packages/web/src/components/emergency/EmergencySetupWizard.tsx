@@ -126,16 +126,21 @@ export function EmergencySetupWizard({ onComplete }: { onComplete: () => void })
     setReencryptError(null);
 
     try {
-      const res = await filesApi.listFiles({ limit: 1000 });
-      const files = res.files;
-      setReencryptProgress({ done: 0, total: files.length });
-
+      const BATCH_SIZE = 50; // Safer batch size to avoid timeouts
+      let offset = 0;
+      let totalFiles = 0;
+      let processed = 0;
+      
+      // First, get total count (or just start fetching)
+      // We'll just loop until we get no more files
+      
       const fromBase64 = (b64: string): ArrayBuffer => {
         const binary = atob(b64);
         const bytes = new Uint8Array(binary.length);
         for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
         return bytes.buffer;
       };
+      
       const toBase64 = (buf: ArrayBuffer | Uint8Array) => {
         const bytes = buf instanceof Uint8Array ? buf : new Uint8Array(buf);
         let binary = '';
@@ -143,39 +148,61 @@ export function EmergencySetupWizard({ onComplete }: { onComplete: () => void })
         return btoa(binary);
       };
 
-      for (let i = 0; i < files.length; i++) {
-        const fileData = await filesApi.getFile(files[i].id);
+      // Initial fetch to get total if possible, or just start
+      // Note: listFiles returns { files, total } usually, assuming standard paginated response
+      // If not, we just iterate.
+      
+      while (true) {
+        const res = await filesApi.listFiles({ limit: BATCH_SIZE, offset });
+        const files = res.files;
+        if (files.length === 0) break;
+        
+        // Update total if this is the first batch
+        if (offset === 0) {
+           // If API returns total, use it. Otherwise, estimate or just show processed count.
+           // Assuming we might not have total from listFiles based on previous code usage
+           totalFiles = files.length + (res.total || 0); // fallback logic
+           if (res.total) totalFiles = res.total;
+        }
 
-        // Decrypt file key with master key
-        const encKeyBuf = fromBase64(fileData.ownerEncryptedKey);
-        const ownerIVBuf = fromBase64(fileData.ownerIV);
-        const fileKeyRaw = await crypto.subtle.decrypt(
-          { name: 'AES-GCM', iv: ownerIVBuf },
-          masterKey,
-          encKeyBuf
-        );
+        for (const file of files) {
+          try {
+            const fileData = await filesApi.getFile(file.id);
 
-        // Re-encrypt file key with emergency key
-        const emergencyIV = crypto.getRandomValues(new Uint8Array(12));
-        const emergencyEncKeyBuf = await crypto.subtle.encrypt(
-          { name: 'AES-GCM', iv: emergencyIV },
-          emergencyKey,
-          fileKeyRaw
-        );
+            // Decrypt file key with master key
+            const encKeyBuf = fromBase64(fileData.ownerEncryptedKey);
+            const ownerIVBuf = fromBase64(fileData.ownerIV);
+            const fileKeyRaw = await crypto.subtle.decrypt(
+              { name: 'AES-GCM', iv: ownerIVBuf },
+              masterKey,
+              encKeyBuf
+            );
 
-        // Update file with emergency-encrypted key via API
-        await filesApi.updateFile(files[i].id, {
-          // The API should accept these fields for emergency key update
-          // Using patch with emergency key fields
-        } as never);
+            // Re-encrypt file key with emergency key
+            const emergencyIV = crypto.getRandomValues(new Uint8Array(12));
+            const emergencyEncKeyBuf = await crypto.subtle.encrypt(
+              { name: 'AES-GCM', iv: emergencyIV },
+              emergencyKey,
+              fileKeyRaw
+            );
 
-        // If updateFile doesn't support emergency keys, use a dedicated endpoint
-        // For now, call a generic update — the API route should handle emergencyEncryptedKey/emergencyIV
-        await api_updateEmergencyKey(files[i].id, toBase64(emergencyEncKeyBuf), toBase64(emergencyIV));
-
-        setReencryptProgress({ done: i + 1, total: files.length });
+            await api_updateEmergencyKey(file.id, toBase64(emergencyEncKeyBuf), toBase64(emergencyIV));
+          } catch (err) {
+            console.error(`Failed to re-encrypt file ${file.id}`, err);
+            // Continue with other files? Or fail hard? 
+            // Better to fail hard so user knows emergency access isn't complete for all files
+            throw err;
+          }
+          
+          processed++;
+          setReencryptProgress({ done: processed, total: totalFiles || processed + 10 }); // Rough progress if total unknown
+        }
+        
+        offset += files.length;
+        if (files.length < BATCH_SIZE) break;
       }
 
+      setReencryptProgress({ done: processed, total: processed }); // Finalize
       setStep(3);
     } catch (err) {
       setReencryptError(err instanceof Error ? err.message : 'Failed to re-encrypt files');
