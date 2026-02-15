@@ -27,9 +27,23 @@ function EmergencyVaultContent() {
   const fetchFiles = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await filesApi.listFiles({ limit: 1000 });
+      
+      const BATCH_SIZE = 50;
+      let allFiles: LSFile[] = [];
+      let offset = 0;
+      
+      while (true) {
+        const res = await filesApi.listFiles({ limit: BATCH_SIZE, offset });
+        if (res.files.length === 0) break;
+        
+        allFiles = [...allFiles, ...res.files];
+        offset += res.files.length;
+        
+        if (res.files.length < BATCH_SIZE) break;
+      }
+
       // Sort: emergency priority first, then by date
-      const sorted = [...res.files].sort((a, b) => {
+      const sorted = allFiles.sort((a, b) => {
         if (a.isEmergencyPriority && !b.isEmergencyPriority) return -1;
         if (!a.isEmergencyPriority && b.isEmergencyPriority) return 1;
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
