@@ -25,7 +25,7 @@ export default function PrivacyPage() {
             <h2 className="text-xl font-semibold mb-3" style={{ color: '#1e3a5f' }}>The short version</h2>
             <p>
               LegacyShield uses zero-knowledge encryption. Your documents are encrypted on your device
-              before they ever reach our servers. We can't read them. We don't want to. This policy
+              before they ever reach our servers. We can’t read them. We don’t want to. This policy
               explains what little data we do handle and how we protect it.
             </p>
           </section>
@@ -106,7 +106,7 @@ export default function PrivacyPage() {
             <h2 className="text-xl font-semibold mb-3" style={{ color: '#1e3a5f' }}>Cookies</h2>
             <p>
               We use only essential session cookies to keep you logged in. No tracking cookies. No
-              third-party cookies. No cookie banner needed because we're not doing anything shady.
+              third-party cookies. No cookie banner needed because we’re not doing anything shady.
             </p>
           </section>
 
@@ -135,7 +135,7 @@ export default function PrivacyPage() {
               To exercise any of these rights, email us at{' '}
               <a href="mailto:stephenballot@gmail.com" className="text-blue-600 hover:text-blue-800">
                 stephenballot@gmail.com
-              </a>. We'll respond within 30 days.
+              </a>. We’ll respond within 30 days.
             </p>
             <p className="mt-2">
               You also have the right to lodge a complaint with the Dutch Data Protection Authority
@@ -158,8 +158,8 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3" style={{ color: '#1e3a5f' }}>Changes to this policy</h2>
             <p>
-              We'll update this page when things change and note the date at the top. For significant
-              changes, we'll notify you by email.
+              We’ll update this page when things change and note the date at the top. For significant
+              changes, we’ll notify you by email.
             </p>
           </section>
 
