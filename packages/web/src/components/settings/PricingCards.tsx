@@ -73,8 +73,8 @@ export function PricingCards() {
         </Card>
 
         {/* Lifetime */}
-        <Card className={cn('relative flex flex-col border-2 border-primary-500')}>
-          <div className="absolute -top-3 left-4 bg-primary-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+        <Card className={cn('relative flex flex-col border-2 border-accent-400')}>
+          <div className="absolute -top-3 left-4 bg-accent-400 text-primary-900 text-xs font-semibold px-3 py-1 rounded-full">
             Best Value
           </div>
           <div className="flex items-center gap-2 mb-4">

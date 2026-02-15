@@ -24,7 +24,7 @@ function HeroSection() {
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/register"
-              className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-white text-primary-900 font-semibold text-lg hover:bg-gray-100 transition-colors shadow-lg shadow-black/20"
+              className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-accent-400 text-primary-900 font-semibold text-lg hover:bg-accent-500 transition-colors shadow-lg shadow-black/20"
             >
               Get Started Free
             </Link>
@@ -241,8 +241,8 @@ function PricingSection() {
           </div>
 
           {/* Pro */}
-          <div className="bg-white rounded-2xl border-2 border-primary-500 p-8 relative shadow-lg">
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+          <div className="bg-white rounded-2xl border-2 border-accent-400 p-8 relative shadow-lg">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent-400 text-primary-900 text-xs font-bold px-3 py-1 rounded-full">
               MOST POPULAR
             </div>
             <h3 className="text-lg font-semibold text-gray-900">Pro</h3>
@@ -261,7 +261,7 @@ function PricingSection() {
             </ul>
             <Link
               href="/register"
-              className="mt-8 block w-full text-center px-6 py-3 rounded-xl bg-primary-500 text-white font-semibold hover:bg-primary-600 transition-colors"
+              className="mt-8 block w-full text-center px-6 py-3 rounded-xl bg-accent-400 text-primary-900 font-semibold hover:bg-accent-500 transition-colors"
             >
               Start Free, Upgrade Later
             </Link>
@@ -285,7 +285,7 @@ function CTASection() {
         </p>
         <Link
           href="/register"
-          className="mt-8 inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-white text-primary-900 font-semibold text-lg hover:bg-gray-100 transition-colors shadow-lg"
+          className="mt-8 inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-accent-400 text-primary-900 font-semibold text-lg hover:bg-accent-500 transition-colors shadow-lg"
         >
           Create Your Free Vault
         </Link>

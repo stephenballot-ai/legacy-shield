@@ -45,6 +45,18 @@ module.exports = {
           800: '#065f46',
           900: '#064e3b',
         },
+        accent: {
+          50: '#fdf9e7',
+          100: '#faf0c4',
+          200: '#f5e08a',
+          300: '#e8c84a',
+          400: '#d4af37',
+          500: '#c9a84c',
+          600: '#a8872e',
+          700: '#866a22',
+          800: '#6b5419',
+          900: '#504012',
+        },
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
