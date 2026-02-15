@@ -150,7 +150,7 @@ export function DocumentList({ onFileClick, onFileEdit, onFileDownload, onFileDe
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-sm font-medium text-gray-900 truncate">{file.filename}</span>
                 {file.isFavorite && <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400 flex-shrink-0" />}
-                {file.isEmergencyPriority && <ShieldAlert className="h-3.5 w-3.5 text-red-500 flex-shrink-0" title="Emergency Access Enabled" />}
+                {file.isEmergencyPriority && <div title="Emergency Access Enabled"><ShieldAlert className="h-3.5 w-3.5 text-red-500 flex-shrink-0" /></div>}
               </div>
               
               <div className="flex items-center gap-3 text-xs text-gray-500">
