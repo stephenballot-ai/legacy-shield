@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { Alert } from '@/components/ui/Alert';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { EmergencySetupWizard } from '@/components/emergency/EmergencySetupWizard';
 import { EmergencyContactsList } from '@/components/emergency/EmergencyContactsList';
