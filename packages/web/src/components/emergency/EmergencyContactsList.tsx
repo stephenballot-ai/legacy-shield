@@ -9,12 +9,14 @@ import { EmergencyContactForm } from './EmergencyContactForm';
 import { emergencyAccessApi, type EmergencyContact } from '@/lib/api/emergencyAccess';
 import { formatDate } from '@/lib/utils';
 import { UserPlus, Pencil, Trash2, Mail, Phone, Users } from 'lucide-react';
+import { toast } from 'sonner';
 
 interface EmergencyContactsListProps {
   maxContacts?: number;
+  onContactsChange?: () => void;
 }
 
-export function EmergencyContactsList({ maxContacts = 5 }: EmergencyContactsListProps) {
+export function EmergencyContactsList({ maxContacts = 5, onContactsChange }: EmergencyContactsListProps) {
   const [contacts, setContacts] = useState<EmergencyContact[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -44,6 +46,13 @@ export function EmergencyContactsList({ maxContacts = 5 }: EmergencyContactsList
       await emergencyAccessApi.addContact(data);
       setShowAddForm(false);
       await fetchContacts();
+      onContactsChange?.();
+      toast.success('Contact added', {
+        description: "Don't forget to share your unlock phrase with them securely.",
+        duration: 6000,
+      });
+    } catch (err) {
+      toast.error('Failed to add contact');
     } finally {
       setSaving(false);
     }
@@ -55,6 +64,10 @@ export function EmergencyContactsList({ maxContacts = 5 }: EmergencyContactsList
       await emergencyAccessApi.updateContact(id, data);
       setEditingId(null);
       await fetchContacts();
+      onContactsChange?.();
+      toast.success('Contact updated');
+    } catch (err) {
+      toast.error('Failed to update contact');
     } finally {
       setSaving(false);
     }
@@ -66,6 +79,10 @@ export function EmergencyContactsList({ maxContacts = 5 }: EmergencyContactsList
       await emergencyAccessApi.deleteContact(id);
       setDeletingId(null);
       await fetchContacts();
+      onContactsChange?.();
+      toast.success('Contact removed');
+    } catch (err) {
+      toast.error('Failed to remove contact');
     } finally {
       setSaving(false);
     }

@@ -83,39 +83,61 @@ export default function EmergencyAccessPage() {
         </div>
         <div className="flex gap-2 flex-shrink-0">
           <Button size="sm" variant="secondary" onClick={() => setShowInstructions(!showInstructions)}>
-            <Printer className="h-4 w-4 mr-1.5" /> Instructions
-          </Button>
-          <Button size="sm" variant="secondary" onClick={() => setShowRotateWarning(true)}>
-            <RotateCcw className="h-4 w-4 mr-1.5" /> Rotate Key
+            <Printer className="h-4 w-4 mr-1.5" /> {showInstructions ? 'Hide Kit' : 'Emergency Kit'}
           </Button>
         </div>
       </Card>
 
-      {/* Rotate warning */}
-      {showRotateWarning && (
-        <Alert variant="warning">
-          <div className="space-y-2">
-            <p className="font-medium">Rotate Emergency Key?</p>
-            <p>This will create a new unlock phrase. You&apos;ll need to re-share the phrase with all your emergency contacts. All file keys will be re-encrypted.</p>
-            <div className="flex gap-2 mt-2">
-              <Button size="sm" variant="danger" onClick={() => { setShowRotateWarning(false); setShowSetup(true); }}>
-                Start Rotation
-              </Button>
-              <Button size="sm" variant="secondary" onClick={() => setShowRotateWarning(false)}>Cancel</Button>
-            </div>
-          </div>
-        </Alert>
-      )}
-
       {/* Printable instructions */}
       {showInstructions && (
-        <Card>
+        <Card className="animate-fade-in">
           <EmergencyInstructions ownerEmail={user?.email} />
         </Card>
       )}
 
       {/* Contacts list */}
-      <EmergencyContactsList maxContacts={maxContacts} />
+      <EmergencyContactsList maxContacts={maxContacts} onContactsChange={fetchStatus} />
+
+      {/* Advanced / Danger Zone */}
+      <div className="pt-8 border-t border-gray-200">
+        <h3 className="text-sm font-semibold text-gray-900 mb-2">Advanced</h3>
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-sm font-medium text-gray-700">Rotate Emergency Key</p>
+            <p className="text-xs text-gray-500 mt-1">
+              Invalidates your current unlock phrase. Use this if your phrase has been compromised.
+            </p>
+          </div>
+          <Button size="sm" variant="secondary" onClick={() => setShowRotateWarning(true)}>
+            Rotate Key
+          </Button>
+        </div>
+      </div>
+
+      {/* Rotate warning modal/alert */}
+      {showRotateWarning && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+          <Card className="max-w-md w-full p-6 space-y-4">
+            <div className="flex items-center gap-3 text-amber-600">
+              <RotateCcw className="h-6 w-6" />
+              <h3 className="text-lg font-semibold">Rotate Emergency Key?</h3>
+            </div>
+            <p className="text-sm text-gray-600">
+              This will create a <strong>new unlock phrase</strong>. The old one will stop working immediately.
+            </p>
+            <ul className="list-disc pl-5 text-sm text-gray-600 space-y-1">
+              <li>You must re-share the new phrase with all contacts</li>
+              <li>All file keys will be re-encrypted (this may take a moment)</li>
+            </ul>
+            <div className="flex gap-3 justify-end mt-4">
+              <Button variant="secondary" onClick={() => setShowRotateWarning(false)}>Cancel</Button>
+              <Button variant="danger" onClick={() => { setShowRotateWarning(false); setShowSetup(true); }}>
+                Start Rotation
+              </Button>
+            </div>
+          </Card>
+        </div>
+      )}
     </div>
   );
 }
