@@ -85,7 +85,7 @@ export default function TermsPage() {
             <ul className="list-disc pl-5 space-y-1 mt-2">
               <li>Store illegal content of any kind</li>
               <li>Facilitate fraud, money laundering, or other criminal activity</li>
-              <li>Store content that infringes on others' intellectual property rights</li>
+              <li>Store content that infringes on others\u2019 intellectual property rights</li>
               <li>Abuse the service in any way that degrades it for others</li>
             </ul>
             <p className="mt-2">
@@ -134,7 +134,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3" style={{ color: '#1e3a5f' }}>Limitation of liability</h2>
             <p>
-              LegacyShield is provided "as is." To the maximum extent permitted by law:
+              LegacyShield is provided &ldquo;as is.&rdquo; To the maximum extent permitted by law:
             </p>
             <ul className="list-disc pl-5 space-y-1 mt-2">
               <li>We are not liable for data loss due to forgotten passwords or lost encryption keys</li>
