@@ -172,19 +172,19 @@ router.post('/login', loginLimiter, validate(loginSchema), async (req: Request, 
       userAgent: req.headers['user-agent'],
     });
 
-    res.cookie('refreshToken', refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
-
     if (!user.keyDerivationSalt) {
       res.status(500).json({
         error: { code: 'ACCOUNT_CORRUPTED', message: 'Account key derivation salt is missing. Please contact support.' },
       });
       return;
     }
+
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
 
     res.json({
       accessToken,
@@ -261,19 +261,19 @@ router.post('/login/2fa', loginLimiter, validate(twoFactorSchema), async (req: R
       metadata: { twoFactor: true },
     });
 
-    res.cookie('refreshToken', refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
-
     if (!user.keyDerivationSalt) {
       res.status(500).json({
         error: { code: 'ACCOUNT_CORRUPTED', message: 'Account key derivation salt is missing. Please contact support.' },
       });
       return;
     }
+
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
 
     res.json({
       accessToken,
@@ -418,31 +418,54 @@ router.post('/password/change', authenticate, requireOwner, validate(changePassw
       return;
     }
 
-    // Update password hash
-    const newHash = await hashPassword(newPassword);
-    await prisma.user.update({
-      where: { id: user.id },
-      data: { passwordHash: newHash },
-    });
-
-    // Update re-encrypted file keys (encrypted with new master key by client)
-    if (reencryptedKeys && reencryptedKeys.length > 0) {
-      for (const rk of reencryptedKeys) {
-        await prisma.file.updateMany({
-          where: { id: rk.fileId, userId: user.id },
-          data: { ownerEncryptedKey: rk.ownerEncryptedKey, ownerIV: rk.ownerIV },
-        });
-      }
-    }
-
-    // Re-encrypt emergency key with new master key if provided
+    // Verify re-encrypted keys cover all user files (if any files exist)
     const { newEmergencyKeyEncrypted } = req.body as { newEmergencyKeyEncrypted?: string };
-    if (newEmergencyKeyEncrypted && user.emergencyKeyEncrypted) {
-      await prisma.user.update({
-        where: { id: user.id },
-        data: { emergencyKeyEncrypted: newEmergencyKeyEncrypted },
+    const fileCount = await prisma.file.count({ where: { userId: user.id, deletedAt: null } });
+    if (fileCount > 0 && (!reencryptedKeys || reencryptedKeys.length !== fileCount)) {
+      res.status(400).json({
+        error: {
+          code: 'INCOMPLETE_REENCRYPTION',
+          message: `Expected ${fileCount} re-encrypted file keys but received ${reencryptedKeys?.length ?? 0}. Aborting to prevent data loss.`,
+        },
       });
+      return;
     }
+
+    // Abort if emergency key exists but wasn't re-encrypted
+    if (user.emergencyKeyEncrypted && !newEmergencyKeyEncrypted) {
+      res.status(400).json({
+        error: {
+          code: 'MISSING_EMERGENCY_KEY',
+          message: 'Emergency key must be re-encrypted when changing password.',
+        },
+      });
+      return;
+    }
+
+    // Update everything in a single transaction
+    const newHash = await hashPassword(newPassword);
+    await prisma.$transaction(async (tx) => {
+      // Update password hash
+      await tx.user.update({
+        where: { id: user.id },
+        data: {
+          passwordHash: newHash,
+          ...(newEmergencyKeyEncrypted && user.emergencyKeyEncrypted
+            ? { emergencyKeyEncrypted: newEmergencyKeyEncrypted }
+            : {}),
+        },
+      });
+
+      // Update re-encrypted file keys
+      if (reencryptedKeys && reencryptedKeys.length > 0) {
+        for (const rk of reencryptedKeys) {
+          await tx.file.updateMany({
+            where: { id: rk.fileId, userId: user.id },
+            data: { ownerEncryptedKey: rk.ownerEncryptedKey, ownerIV: rk.ownerIV },
+          });
+        }
+      }
+    });
 
     await logAudit({
       userId: user.id,
