@@ -10,12 +10,11 @@ import { useCryptoStore } from '@/store/cryptoStore';
 import { sha256Hash, deriveEmergencyKey } from '@/lib/crypto/keyDerivation';
 import { emergencyAccessApi } from '@/lib/api/emergencyAccess';
 import { setAccessToken } from '@/lib/api/client';
-import { ShieldAlert, Lock, Eye, EyeOff } from 'lucide-react';
+import { ShieldAlert } from 'lucide-react';
 
 export default function EmergencyAccessPortal() {
   const [email, setEmail] = useState('');
   const [phrase, setPhrase] = useState('');
-  const [showPhrase, setShowPhrase] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -98,24 +97,14 @@ export default function EmergencyAccessPortal() {
                 placeholder="owner@example.com"
                 autoFocus
               />
-              <div className="relative">
-                <Input
-                  id="unlock-phrase"
-                  label="Unlock Phrase"
-                  type={showPhrase ? "text" : "password"}
-                  value={phrase}
-                  onChange={(e) => setPhrase(e.target.value)}
-                  placeholder="Enter the unlock phrase…"
-                  icon={<Lock className="h-4 w-4" />}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPhrase(!showPhrase)}
-                  className="absolute right-3 top-[34px] text-gray-400 hover:text-gray-600 focus:outline-none"
-                >
-                  {showPhrase ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                </button>
-              </div>
+              <Input
+                id="unlock-phrase"
+                label="Unlock Phrase"
+                type="text"
+                value={phrase}
+                onChange={(e) => setPhrase(e.target.value)}
+                placeholder="Enter the unlock phrase…"
+              />
               {error && <Alert variant="error">{error}</Alert>}
               <Button type="submit" isLoading={loading} className="w-full">
                 Access Vault
