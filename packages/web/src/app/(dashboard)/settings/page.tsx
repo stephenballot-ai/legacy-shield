@@ -284,35 +284,32 @@ function AccountSection({ profile, onUpdate }: { profile: UserProfile; onUpdate:
       }
 
       // 4. Re-encrypt emergency key with new master key (if it exists)
+      const fromBase64 = (b64: string): ArrayBuffer => {
+        const binary = atob(b64);
+        const bytes = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+        return bytes.buffer;
+      };
+
       let newEmergencyKeyEncrypted: string | undefined;
       if (profile.emergencyKeyEncrypted) {
-        try {
-          const encData = profile.emergencyKeyEncrypted;
-          const [encB64, ivB64] = encData.split(':');
-          if (encB64 && ivB64) {
-            const fromBase64 = (b64: string): ArrayBuffer => {
-              const binary = atob(b64);
-              const bytes = new Uint8Array(binary.length);
-              for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-              return bytes.buffer;
-            };
-            // Decrypt emergency key with old master key
-            const rawKey = await crypto.subtle.decrypt(
-              { name: 'AES-GCM', iv: new Uint8Array(fromBase64(ivB64)) },
-              oldMasterKey,
-              fromBase64(encB64)
-            );
-            // Re-encrypt with new master key
-            const newIV = crypto.getRandomValues(new Uint8Array(12));
-            const newEnc = await crypto.subtle.encrypt(
-              { name: 'AES-GCM', iv: newIV },
-              newMasterKey,
-              rawKey
-            );
-            newEmergencyKeyEncrypted = arrayBufferToBase64(newEnc) + ':' + arrayBufferToBase64(newIV);
-          }
-        } catch {
-          // Non-critical — emergency key re-encryption failed, continue
+        const encData = profile.emergencyKeyEncrypted;
+        const [encB64, ivB64] = encData.split(':');
+        if (encB64 && ivB64) {
+          // Decrypt emergency key with old master key
+          const rawKey = await crypto.subtle.decrypt(
+            { name: 'AES-GCM', iv: new Uint8Array(fromBase64(ivB64)) },
+            oldMasterKey,
+            fromBase64(encB64)
+          );
+          // Re-encrypt with new master key
+          const newIV = crypto.getRandomValues(new Uint8Array(12));
+          const newEnc = await crypto.subtle.encrypt(
+            { name: 'AES-GCM', iv: newIV },
+            newMasterKey,
+            rawKey
+          );
+          newEmergencyKeyEncrypted = arrayBufferToBase64(newEnc) + ':' + arrayBufferToBase64(newIV);
         }
       }
 
@@ -324,24 +321,16 @@ function AccountSection({ profile, onUpdate }: { profile: UserProfile; onUpdate:
 
       // 7. Recover emergency key with new master key
       if (newEmergencyKeyEncrypted) {
-        try {
-          const [encB64, ivB64] = newEmergencyKeyEncrypted.split(':');
-          const fromBase64 = (b64: string): ArrayBuffer => {
-            const binary = atob(b64);
-            const bytes = new Uint8Array(binary.length);
-            for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-            return bytes.buffer;
-          };
-          const rawKey = await crypto.subtle.decrypt(
-            { name: 'AES-GCM', iv: new Uint8Array(fromBase64(ivB64)) },
-            newMasterKey,
-            fromBase64(encB64)
-          );
-          const emergencyKey = await crypto.subtle.importKey(
-            'raw', rawKey, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']
-          );
-          useCryptoStore.getState().setEmergencyKey(emergencyKey);
-        } catch { /* non-critical */ }
+        const [encB64, ivB64] = newEmergencyKeyEncrypted.split(':');
+        const rawKey = await crypto.subtle.decrypt(
+          { name: 'AES-GCM', iv: new Uint8Array(fromBase64(ivB64)) },
+          newMasterKey,
+          fromBase64(encB64)
+        );
+        const emergencyKey = await crypto.subtle.importKey(
+          'raw', rawKey, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']
+        );
+        useCryptoStore.getState().setEmergencyKey(emergencyKey);
       }
 
       setPwMsg({ type: 'success', text: `Password changed successfully. ${reencryptedKeys.length} file(s) re-encrypted.` });
