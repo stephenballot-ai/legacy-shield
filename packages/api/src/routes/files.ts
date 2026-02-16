@@ -36,8 +36,7 @@ router.get('/', async (req: Request, res: Response) => {
     const result = await listFiles({
       userId: req.user!.userId,
       ...queryResult.data,
-      // Emergency contacts can only see emergency-priority files
-      ...(req.user!.sessionType === 'EMERGENCY_CONTACT' ? { emergencyOnly: true } : {}),
+      // Emergency contacts see all files (they've validated the unlock phrase)
     });
 
     res.json(result);
