@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 import { prisma } from '../lib/prisma';
 import { createSession, logAudit } from './auth';
+import { sendEmergencyContactNotification, sendVaultAccessNotification } from '../lib/email';
 
 const EMERGENCY_CONTACT_LIMITS = { FREE: 1, PRO: 5 } as const;
 
@@ -87,6 +88,13 @@ export async function validateEmergencyPhrase(
     userAgent: req.headers['user-agent'] as string | undefined,
   });
 
+  // Notify vault owner that their vault was accessed (fire-and-forget)
+  sendVaultAccessNotification({
+    ownerEmail: user.email,
+    accessIp: req.ip,
+    accessDate: new Date(),
+  }).catch((err) => console.error('[email] Vault access notification failed:', err));
+
   return {
     accessToken,
     userId: user.id,
@@ -167,6 +175,16 @@ export async function addEmergencyContact(
     userAgent: context.userAgent,
     metadata: { action: 'contact_added', name: data.name },
   });
+
+  // Send notification email to the contact (fire-and-forget)
+  if (data.email) {
+    const owner = await prisma.user.findUnique({ where: { id: userId }, select: { email: true } });
+    sendEmergencyContactNotification({
+      contactEmail: data.email,
+      contactName: data.name,
+      ownerName: owner?.email ?? 'Someone',
+    }).catch((err) => console.error('[email] Emergency contact notification failed:', err));
+  }
 
   return { error: false as const, contact };
 }
