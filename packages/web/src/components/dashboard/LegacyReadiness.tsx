@@ -2,7 +2,7 @@
 
 import { useFilesStore } from '@/store/filesStore';
 import { Card } from '@/components/ui/Card';
-import { CheckCircle2, Circle, ShieldCheck, Scale, HeartPulse, Globe, DollarSign } from 'lucide-react';
+import { CheckCircle2, ShieldCheck, Scale, HeartPulse, Globe, DollarSign } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
@@ -20,7 +20,7 @@ export function LegacyReadiness() {
   const completed = ESSENTIAL_DOCS.map((doc) => {
     return {
       ...doc,
-      isDone: files.some((f) => doc.categories.includes(f.category as any)),
+      isDone: files.some((f) => f.category && doc.categories.includes(f.category)),
     };
   });
 
