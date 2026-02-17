@@ -35,8 +35,8 @@ export default function PrivacyPage() {
             <p>
               LegacyShield is operated by Stephen Ballot, based in the Netherlands. You can reach us
               at{' '}
-              <a href="mailto:privacy@legacyshield.eu" className="text-blue-600 hover:text-blue-800">
-                privacy@legacyshield.eu
+              <a href="mailto:support@legacyshield.eu" className="text-blue-600 hover:text-blue-800">
+                support@legacyshield.eu
               </a>.
             </p>
           </section>
@@ -133,8 +133,8 @@ export default function PrivacyPage() {
             </ul>
             <p className="mt-2">
               To exercise any of these rights, email us at{' '}
-              <a href="mailto:privacy@legacyshield.eu" className="text-blue-600 hover:text-blue-800">
-                privacy@legacyshield.eu
+              <a href="mailto:support@legacyshield.eu" className="text-blue-600 hover:text-blue-800">
+                support@legacyshield.eu
               </a>. We’ll respond within 30 days.
             </p>
             <p className="mt-2">
@@ -167,8 +167,8 @@ export default function PrivacyPage() {
             <h2 className="text-xl font-semibold mb-3" style={{ color: '#1e3a5f' }}>Contact</h2>
             <p>
               Questions about this policy? Email us at{' '}
-              <a href="mailto:privacy@legacyshield.eu" className="text-blue-600 hover:text-blue-800">
-                privacy@legacyshield.eu
+              <a href="mailto:support@legacyshield.eu" className="text-blue-600 hover:text-blue-800">
+                support@legacyshield.eu
               </a>.
             </p>
           </section>
