@@ -7,8 +7,8 @@ export const DOCUMENT_LIMITS = {
   PRO_TIER: 100,
 } as const;
 
-export const REFERRAL_BONUS_DOCS = 7;
-export const MAX_FREE_DOCS = 15;
+export const REFERRAL_BONUS_DOCS = 5;
+export const MAX_FREE_DOCS = 25;
 
 export const EMERGENCY_CONTACT_LIMITS = {
   FREE_TIER: 1,

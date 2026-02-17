@@ -37,7 +37,7 @@ const faqs = [
   },
   {
     q: 'Is LegacyShield free?',
-    a: 'Yes! The free plan includes 3 documents, emergency access, and 1 emergency contact — with full zero-knowledge encryption and EU hosting. The Pro plan ($10/month) gives you 100 documents, 5 emergency contacts, and priority support.',
+    a: 'Yes! The free plan includes 3 documents, emergency access, and 1 emergency contact — with full zero-knowledge encryption and EU hosting. Invite friends to earn up to 25 documents free! The Pro plan ($10/month) gives you 100 documents, 5 emergency contacts, and priority support.',
   },
   {
     q: 'What file types can I upload?',

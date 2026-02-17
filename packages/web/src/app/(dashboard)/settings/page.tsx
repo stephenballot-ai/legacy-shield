@@ -141,7 +141,7 @@ function ReferralCard() {
         </div>
         <div>
           <h2 className="text-lg font-semibold text-gray-900">Invite Friends</h2>
-          <p className="text-sm text-gray-500">Get 7 extra documents for each friend who signs up and uploads</p>
+          <p className="text-sm text-gray-500">Get +5 documents for each friend who signs up and uploads. Up to 25 docs free!</p>
         </div>
       </div>
 

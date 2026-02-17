@@ -117,16 +117,18 @@ export default function DashboardPage() {
       )}
 
       {/* Referral CTA — show when at limit on free tier */}
-      {total >= maxFiles && tier !== 'PRO' && referralCode && (
+      {tier !== 'PRO' && referralCode && (
         <Card className="bg-gradient-to-r from-primary-50 to-trust-50 border-primary-200">
           <div className="flex items-start gap-4">
             <div className="p-2.5 bg-white rounded-lg shadow-sm flex-shrink-0">
               <Gift className="h-5 w-5 text-primary-600" />
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="font-semibold text-gray-900">Need more space? Invite a friend!</h3>
+              <h3 className="font-semibold text-gray-900">
+                {total >= maxFiles ? 'Need more space? Invite a friend!' : 'Share LegacyShield, earn more storage'}
+              </h3>
               <p className="text-sm text-gray-600 mt-1">
-                Get <strong>7 extra documents</strong> for each friend who signs up and uploads a file.
+                Get <strong>+5 documents</strong> for each friend who signs up and uploads a file. You can earn up to 25 docs free!
               </p>
               <div className="flex items-center gap-2 mt-3">
                 <code className="text-xs bg-white border border-gray-200 rounded-lg px-3 py-2 flex-1 truncate">
@@ -162,7 +164,7 @@ export default function DashboardPage() {
         </div>
         {total >= maxFiles && tier !== 'PRO' && (
           <p className="text-xs text-amber-600 mt-2">
-            Limit reached. Invite a friend for +7 docs, or <Link href="/settings" className="underline font-medium">upgrade to Pro</Link> for {DOCUMENT_LIMITS.PRO_TIER}.
+            Limit reached. Invite a friend for +5 docs, or <Link href="/settings" className="underline font-medium">upgrade to Pro</Link> for {DOCUMENT_LIMITS.PRO_TIER}.
           </p>
         )}
       </Card>

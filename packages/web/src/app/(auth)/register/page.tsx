@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Card } from '@/components/ui/Card';
@@ -11,6 +12,13 @@ import { useCryptoStore } from '@/store/cryptoStore';
 export default function RegisterPage() {
   const router = useRouter();
   const { login: authLogin } = useAuthStore();
+  const [isReferred, setIsReferred] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && localStorage.getItem('referralCode')) {
+      setIsReferred(true);
+    }
+  }, []);
 
   const handleRegistered = async (email: string, password: string, salt: string) => {
     try {
@@ -25,6 +33,13 @@ export default function RegisterPage() {
 
   return (
     <Card>
+      {isReferred && (
+        <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg text-center">
+          <p className="text-sm text-green-800">
+            🎉 You&apos;ve been invited by a friend! Create your account to get started with a free encrypted vault.
+          </p>
+        </div>
+      )}
       <h1 className="text-2xl font-bold text-center mb-6">Create your account</h1>
       <RegisterForm onSuccess={handleRegistered} />
       <p className="mt-6 text-sm text-center text-gray-600">
