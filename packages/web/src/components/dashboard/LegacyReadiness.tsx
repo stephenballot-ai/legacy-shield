@@ -2,13 +2,13 @@
 
 import { useFilesStore } from '@/store/filesStore';
 import { Card } from '@/components/ui/Card';
-import { CheckCircle2, ShieldCheck, Scale, HeartPulse, Globe, DollarSign } from 'lucide-react';
+import { CheckCircle2, ShieldCheck, Scale, HeartPulse, DollarSign, Fingerprint } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
 const ESSENTIAL_DOCS = [
+  { id: 'IDENTITY', label: 'Passport / ID', categories: ['IDENTITY'], icon: Fingerprint },
   { id: 'WILL', label: 'Will & Trust', categories: ['LEGAL'], icon: Scale },
-  { id: 'INSTRUCTION', label: 'Letter of Instruction', categories: ['OTHER', 'FAMILY'], icon: Globe },
   { id: 'INSURANCE', label: 'Life Insurance', categories: ['INSURANCE'], icon: ShieldCheck },
   { id: 'DIGITAL', label: 'Digital Assets Guide', categories: ['DIGITAL_ASSETS'], icon: HeartPulse },
   { id: 'FINANCIAL', label: 'Financial Account Map', categories: ['FINANCIAL', 'PROPERTY'], icon: DollarSign },
