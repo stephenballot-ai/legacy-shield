@@ -18,6 +18,7 @@ const emailSchema = z.string().email('Invalid email address').toLowerCase();
 export const registerSchema = z.object({
   email: emailSchema,
   password: passwordSchema,
+  referralCode: z.string().optional(),
 });
 
 export const verifyEmailSchema = z.object({
