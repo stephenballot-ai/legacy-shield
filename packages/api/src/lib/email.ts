@@ -176,3 +176,80 @@ If this was expected, no action is needed. If you did not authorize this access,
 — LegacyShield`,
   });
 }
+
+// ============================================================================
+// WELCOME CHECKLIST EMAIL
+// ============================================================================
+
+export async function sendWelcomeChecklistEmail(params: {
+  ownerEmail: string;
+}) {
+  const { ownerEmail } = params;
+
+  return sendEmail({
+    to: ownerEmail,
+    subject: '🛡️ 5 documents every family needs (and how to secure them)',
+    html: `
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 560px; margin: 0 auto; padding: 40px 20px;">
+        <div style="text-align: center; margin-bottom: 32px;">
+          <h1 style="font-size: 24px; font-weight: 700; color: #111827; margin: 0;">🛡️ LegacyShield</h1>
+        </div>
+
+        <p style="font-size: 16px; color: #374151; line-height: 1.6;">
+          Welcome to LegacyShield.
+        </p>
+
+        <p style="font-size: 16px; color: #374151; line-height: 1.6;">
+          Most people know they need to protect their documents, but few know <em>which</em> ones are truly critical for their loved ones in an emergency.
+        </p>
+
+        <p style="font-size: 16px; color: #374151; line-height: 1.6;">
+          Here are the 5 most essential documents you should secure in your vault today:
+        </p>
+
+        <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 12px; padding: 24px; margin: 24px 0;">
+          <ul style="font-size: 15px; color: #4B5563; line-height: 1.8; margin: 0; padding-left: 0; list-style-type: none;">
+            <li style="margin-bottom: 16px;">
+              <strong style="color: #111827;">1. Will & Trust Documents</strong><br />
+              The foundation of your estate. It dictates who gets what and who is in charge.
+            </li>
+            <li style="margin-bottom: 16px;">
+              <strong style="color: #111827;">2. Letter of Instruction</strong><br />
+              A plain-English guide for your family: where the keys are, who to call, and your final wishes.
+            </li>
+            <li style="margin-bottom: 16px;">
+              <strong style="color: #111827;">3. Life Insurance Policies</strong><br />
+              Ensures your family has immediate access to funds for expenses without waiting for probate.
+            </li>
+            <li style="margin-bottom: 16px;">
+              <strong style="color: #111827;">4. Digital Assets & Passwords</strong><br />
+              A list of accounts (social media, utilities, photos) so your digital legacy isn't locked away forever.
+            </li>
+            <li style="margin-bottom: 0;">
+              <strong style="color: #111827;">5. Financial Account List</strong><br />
+              A map of your banks, pensions, and debts so nothing is lost or forgotten.
+            </li>
+          </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 32px;">
+          <a href="${APP_URL}/dashboard" style="background-color: #C9A84C; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: 600; display: inline-block;">
+            Upload Your First Document
+          </a>
+        </div>
+
+        <p style="font-size: 14px; color: #6B7280; line-height: 1.6; margin-top: 32px; text-align: center;">
+          Remember: LegacyShield uses zero-knowledge encryption. Only you (and your designated emergency contacts) can ever see these files.
+        </p>
+
+        <hr style="border: none; border-top: 1px solid #E5E7EB; margin: 32px 0;" />
+
+        <p style="font-size: 12px; color: #9CA3AF; text-align: center;">
+          🇪🇺 LegacyShield · European-owned infrastructure · Secure by design
+        </p>
+      </div>
+    `,
+    text: `Welcome to LegacyShield.\n\nHere are the 5 most essential documents every family needs:\n\n1. Will & Trust Documents\n2. Letter of Instruction\n3. Life Insurance Policies\n4. Digital Assets & Passwords\n5. Financial Account List\n\nUpload your first document now: ${APP_URL}/dashboard\n\nLegacyShield (100% European-owned infrastructure, zero-knowledge encryption)`,
+  });
+}
+

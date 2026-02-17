@@ -24,6 +24,7 @@ import {
   type TokenPayload,
   type TempTokenPayload,
 } from '../services/auth';
+import { sendWelcomeChecklistEmail } from '../lib/email';
 
 const router = Router();
 
@@ -80,6 +81,11 @@ router.post('/register', validate(registerSchema), async (req: Request, res: Res
       ipAddress: req.ip,
       userAgent: req.headers['user-agent'],
     });
+
+    // Send welcome checklist email (fire-and-forget)
+    sendWelcomeChecklistEmail({
+      ownerEmail: user.email,
+    }).catch((err) => console.error('[email] Welcome checklist email failed:', err));
 
     // TODO: Send verification email with _emailVerificationToken
 
