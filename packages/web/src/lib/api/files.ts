@@ -39,6 +39,8 @@ interface UploadFileParams {
 interface UploadFileResponse {
   fileId: string;
   uploadUrl: string;
+  referralTriggered?: boolean;
+  referralCode?: string;
 }
 
 interface GetFileResponse {

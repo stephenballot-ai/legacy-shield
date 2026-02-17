@@ -138,6 +138,7 @@ export async function uploadFile(params: UploadFileParams) {
   });
 
   // Reward referrer on first upload by referred user
+  let referralTriggered = false;
   if (count === 0 && uploader?.referredBy) {
     const referrer = await prisma.user.findUnique({
       where: { id: uploader.referredBy },
@@ -150,8 +151,14 @@ export async function uploadFile(params: UploadFileParams) {
         where: { id: uploader.referredBy },
         data: { referralBonus: newBonus },
       });
+      referralTriggered = true;
     }
   }
+
+  // Get the uploader's own referral code for the toast CTA
+  const uploaderProfile = referralTriggered
+    ? await prisma.user.findUnique({ where: { id: userId }, select: { referralCode: true } })
+    : null;
 
   return {
     file: {
@@ -165,6 +172,7 @@ export async function uploadFile(params: UploadFileParams) {
     },
     uploadUrl,
     storageKey,
+    ...(referralTriggered ? { referralTriggered: true, referralCode: uploaderProfile?.referralCode } : {}),
   };
 }
 

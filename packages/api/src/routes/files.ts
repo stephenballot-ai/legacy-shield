@@ -64,6 +64,7 @@ router.post('/upload', requireOwner, validate(uploadFileSchema), async (req: Req
     res.status(201).json({
       fileId: result.file.id,
       uploadUrl: result.uploadUrl,
+      ...(result.referralTriggered ? { referralTriggered: true, referralCode: result.referralCode } : {}),
     });
   } catch (err) {
     if (err instanceof TierLimitError) {

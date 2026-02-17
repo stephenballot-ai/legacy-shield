@@ -32,6 +32,7 @@ export function DocumentUpload({ open, onClose }: DocumentUploadProps) {
   const [category, setCategory] = useState<FileCategory | null>(null);
   const [tags, setTags] = useState('');
   const [isUploading, setIsUploading] = useState(false);
+  const [referralToast, setReferralToast] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const masterKey = useCryptoStore((s) => s.masterKey);
@@ -114,7 +115,7 @@ export function DocumentUpload({ open, onClose }: DocumentUploadProps) {
           prev.map((u, idx) => (idx === i ? { ...u, status: 'uploading' } : u))
         );
 
-        const { fileId, uploadUrl } = await filesApi.uploadFile({
+        const { fileId, uploadUrl, referralTriggered, referralCode } = await filesApi.uploadFile({
           filename: item.file.name,
           fileSizeBytes: item.file.size,
           mimeType: item.file.type || 'application/octet-stream',
@@ -150,6 +151,10 @@ export function DocumentUpload({ open, onClose }: DocumentUploadProps) {
         setUploads((prev) =>
           prev.map((u, idx) => (idx === i ? { ...u, status: 'done' } : u))
         );
+
+        if (referralTriggered && referralCode) {
+          setReferralToast(referralCode);
+        }
       } catch (err) {
         setUploads((prev) =>
           prev.map((u, idx) =>
@@ -290,6 +295,28 @@ export function DocumentUpload({ open, onClose }: DocumentUploadProps) {
             </div>
           )}
         </div>
+
+        {referralToast && (
+          <div className="mx-4 mb-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+            <p className="text-sm font-semibold text-green-800">🎉 Nice! You just helped your friend earn bonus storage.</p>
+            <p className="text-sm text-green-700 mt-1">
+              Want more space too? Share your invite link:
+            </p>
+            <div className="flex items-center gap-2 mt-2">
+              <code className="text-xs bg-white border border-green-200 rounded-lg px-3 py-2 flex-1 truncate">
+                legacyshield.eu/r/{referralToast}
+              </code>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(`https://legacyshield.eu/r/${referralToast}`);
+                }}
+                className="px-3 py-2 text-xs font-medium bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+        )}
 
         <div className="flex items-center justify-between p-4 border-t bg-gray-50 rounded-b-xl">
           <span className="text-xs text-gray-500">
