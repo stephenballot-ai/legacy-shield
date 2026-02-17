@@ -4,9 +4,9 @@ import { useFilesStore } from '@/store/filesStore';
 import { Card } from '@/components/ui/Card';
 import { CheckCircle2, ShieldCheck, Scale, HeartPulse, DollarSign, Fingerprint } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import Link from 'next/link';
+import type { FileCategory } from '@legacy-shield/shared';
 
-const ESSENTIAL_DOCS = [
+const ESSENTIAL_DOCS: Array<{ id: string; label: string; categories: FileCategory[]; icon: any }> = [
   { id: 'IDENTITY', label: 'Passport / ID', categories: ['IDENTITY'], icon: Fingerprint },
   { id: 'WILL', label: 'Will & Trust', categories: ['LEGAL'], icon: Scale },
   { id: 'INSURANCE', label: 'Life Insurance', categories: ['INSURANCE'], icon: ShieldCheck },
@@ -14,7 +14,7 @@ const ESSENTIAL_DOCS = [
   { id: 'FINANCIAL', label: 'Financial Account Map', categories: ['FINANCIAL', 'PROPERTY'], icon: DollarSign },
 ];
 
-export function LegacyReadiness() {
+export function LegacyReadiness({ onUpload }: { onUpload: (category: FileCategory) => void }) {
   const { files } = useFilesStore();
 
   const completed = ESSENTIAL_DOCS.map((doc) => {
@@ -102,9 +102,12 @@ export function LegacyReadiness() {
                       <CheckCircle2 className="h-3 w-3" /> Secured
                     </span>
                   ) : (
-                    <Link href="/documents" className="text-[10px] font-bold text-primary-600 hover:text-primary-700 uppercase tracking-wider underline">
+                    <button 
+                      onClick={() => onUpload(doc.categories[0])}
+                      className="text-[10px] font-bold text-primary-600 hover:text-primary-700 uppercase tracking-wider underline"
+                    >
                       Upload
-                    </Link>
+                    </button>
                   )}
                 </div>
               </div>

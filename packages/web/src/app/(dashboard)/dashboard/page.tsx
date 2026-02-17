@@ -12,6 +12,8 @@ import { FileText, ShieldAlert, Upload, Clock, ArrowRight, Gift, Copy, Check } f
 import { formatFileSize, formatDate } from '@/lib/utils';
 import Link from 'next/link';
 import { LegacyReadiness } from '@/components/dashboard/LegacyReadiness';
+import { DocumentUpload } from '@/components/documents/DocumentUpload';
+import type { FileCategory } from '@legacy-shield/shared';
 
 export default function DashboardPage() {
   const user = useAuthStore((s) => s.user);
@@ -20,10 +22,18 @@ export default function DashboardPage() {
   const [referralCode, setReferralCode] = useState<string | null>(null);
   const [emergencyCount, setEmergencyCount] = useState<number | null>(null);
   const [copied, setCopied] = useState(false);
+  
+  const [uploadOpen, setUploadOpen] = useState(false);
+  const [initialCategory, setInitialCategory] = useState<FileCategory | null>(null);
 
   const tier = user?.tier || 'FREE';
   const fallbackMax = tier === 'PRO' ? DOCUMENT_LIMITS.PRO_TIER : DOCUMENT_LIMITS.FREE_TIER;
   const maxFiles = docLimit ?? fallbackMax;
+
+  const handleUploadClick = (category?: FileCategory) => {
+    setInitialCategory(category || null);
+    setUploadOpen(true);
+  };
 
   useEffect(() => {
     // Fetch user profile stats
@@ -80,7 +90,7 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      <LegacyReadiness />
+      <LegacyReadiness onUpload={handleUploadClick} />
 
       {/* Recent documents */}
       {recentFiles.length > 0 ? (
@@ -114,10 +124,16 @@ export default function DashboardPage() {
             Your files are encrypted in the browser before upload. We never see your data.
           </p>
           <Link href="/documents">
-            <Button>Upload document</Button>
+            <Button onClick={(e) => { e.preventDefault(); handleUploadClick(); }}>Upload document</Button>
           </Link>
         </Card>
       )}
+
+      <DocumentUpload 
+        open={uploadOpen} 
+        onClose={() => setUploadOpen(false)} 
+        initialCategory={initialCategory}
+      />
 
       {/* Referral CTA — show when at limit on free tier */}
       {tier !== 'PRO' && referralCode && (

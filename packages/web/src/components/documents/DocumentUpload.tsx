@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useCallback, type DragEvent } from 'react';
+import { useState, useRef, useCallback, useEffect, type DragEvent } from 'react';
 import { Upload, X, CheckCircle2, AlertCircle, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Alert } from '@/components/ui/Alert';
@@ -24,16 +24,24 @@ interface UploadItem {
 interface DocumentUploadProps {
   open: boolean;
   onClose: () => void;
+  initialCategory?: FileCategory | null;
 }
 
-export function DocumentUpload({ open, onClose }: DocumentUploadProps) {
+export function DocumentUpload({ open, onClose, initialCategory }: DocumentUploadProps) {
   const [dragOver, setDragOver] = useState(false);
   const [uploads, setUploads] = useState<UploadItem[]>([]);
-  const [category, setCategory] = useState<FileCategory | null>(null);
+  const [category, setCategory] = useState<FileCategory | null>(initialCategory || null);
   const [tags, setTags] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [referralToast, setReferralToast] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Update category when initialCategory changes or modal opens
+  useEffect(() => {
+    if (open) {
+      setCategory(initialCategory || null);
+    }
+  }, [open, initialCategory]);
 
   const masterKey = useCryptoStore((s) => s.masterKey);
   const emergencyKey = useCryptoStore((s) => s.emergencyKey);
