@@ -172,8 +172,8 @@ export default function TermsPage() {
             <h2 className="text-xl font-semibold mb-3" style={{ color: '#1e3a5f' }}>Contact</h2>
             <p>
               Questions? Email{' '}
-              <a href="mailto:stephenballot@gmail.com" className="text-blue-600 hover:text-blue-800">
-                stephenballot@gmail.com
+              <a href="mailto:support@legacyshield.eu" className="text-blue-600 hover:text-blue-800">
+                support@legacyshield.eu
               </a>.
             </p>
           </section>

@@ -225,7 +225,7 @@ function PricingSection() {
               <span className="text-gray-500 ml-1">forever</span>
             </div>
             <ul className="mt-8 space-y-3">
-              {['Emergency access', '1 emergency contact', 'Zero-knowledge encryption', 'EU hosting'].map((f) => (
+              {['3 documents', 'Emergency access', '1 emergency contact', 'Zero-knowledge encryption', 'EU hosting'].map((f) => (
                 <li key={f} className="flex items-center gap-3 text-sm text-gray-700">
                   <CheckCircle className="h-4 w-4 text-trust-500 flex-shrink-0" />
                   {f}
@@ -304,6 +304,7 @@ function Footer() {
             <span className="font-semibold text-white">LegacyShield</span>
           </div>
           <div className="flex gap-6 text-sm">
+            <Link href="/faq" className="hover:text-white transition-colors">FAQ</Link>
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
           </div>

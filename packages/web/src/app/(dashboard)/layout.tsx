@@ -94,12 +94,17 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         <div className="flex-1 flex flex-col min-w-0">
           {/* Header */}
           <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 lg:px-6">
-            <button
-              onClick={() => setSidebarOpen(true)}
-              className="lg:hidden p-2 text-gray-500 hover:text-gray-700"
-            >
-              <Menu className="h-5 w-5" />
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setSidebarOpen(true)}
+                className="lg:hidden p-2 text-gray-500 hover:text-gray-700"
+              >
+                <Menu className="h-5 w-5" />
+              </button>
+              <div className="lg:hidden">
+                <Logo size="sm" />
+              </div>
+            </div>
             <div className="flex-1" />
             <div className="relative">
               <button
