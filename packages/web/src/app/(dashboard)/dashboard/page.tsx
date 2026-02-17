@@ -11,6 +11,7 @@ import { emergencyAccessApi } from '@/lib/api/emergencyAccess';
 import { FileText, ShieldAlert, Upload, Clock, ArrowRight, Gift, Copy, Check } from 'lucide-react';
 import { formatFileSize, formatDate } from '@/lib/utils';
 import Link from 'next/link';
+import { LegacyReadiness } from '@/components/dashboard/LegacyReadiness';
 
 export default function DashboardPage() {
   const user = useAuthStore((s) => s.user);
@@ -78,6 +79,8 @@ export default function DashboardPage() {
           </Card>
         ))}
       </div>
+
+      <LegacyReadiness />
 
       {/* Recent documents */}
       {recentFiles.length > 0 ? (
