@@ -12,6 +12,10 @@
     "back": "Back",
     "done": "Done"
   },
+  "metadata": {
+    "title": "LegacyShield | Secure Digital Estate Planning & Document Vault",
+    "description": "Securely store your most precious documents — passports, wills, insurance — with zero-knowledge encryption and emergency access for loved ones."
+  },
   "auth": {
     "login": {
       "title": "Sign in",

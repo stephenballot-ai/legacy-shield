@@ -16,10 +16,10 @@ function HeroSection() {
             <span>Zero-Knowledge Encrypted Vault</span>
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
-            A Safety Deposit Box Where Even the Bank Has No Key
+            Save Your Most Precious Files Safely Forever
           </h1>
           <p className="mt-6 text-lg sm:text-xl text-white/80 max-w-2xl mx-auto">
-            Your files are encrypted on <strong>your device</strong> before they ever touch our servers. We can&apos;t read them. We can&apos;t access them. We can&apos;t hand them over. Not to hackers, not to governments, not even to ourselves.
+            Secure digital estate planning and emergency document access. Your files are encrypted on <strong>your device</strong> before they ever touch our servers. We can&apos;t read them. We can&apos;t access them.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
             <Link

@@ -1,5 +1,5 @@
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { Inter } from 'next/font/google';
 import { Toaster } from 'sonner';
@@ -12,6 +12,23 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+  const t = await getTranslations({ locale, namespace: 'metadata' });
+  
+  return {
+    title: t('title'),
+    description: t('description'),
+    keywords: 'document vault, encryption, estate planning, emergency access, GDPR, privacy, digital legacy',
+    authors: [{ name: 'Legacy Shield Team' }],
+    openGraph: {
+      title: t('title'),
+      description: t('description'),
+      type: 'website',
+      locale: locale === 'en' ? 'en_US' : locale,
+    },
+  };
+}
+
 export default async function LocaleLayout({
   children,
   params: { locale }
@@ -19,7 +36,6 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  // Ensure that the incoming `locale` is valid
   if (!routing.locales.includes(locale as any)) {
     notFound();
   }

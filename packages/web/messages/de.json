@@ -12,6 +12,10 @@
     "back": "Zurück",
     "done": "Fertig"
   },
+  "metadata": {
+    "title": "LegacyShield | Sichere digitale Nachlassplanung & Dokumententresor",
+    "description": "Speichern Sie Ihre wichtigsten Dokumente — Reisepässe, Testamente, Versicherungen — sicher mit Zero-Knowledge-Verschlüsselung und Notfallzugriff für Angehörige."
+  },
   "auth": {
     "login": {
       "title": "Anmelden",
