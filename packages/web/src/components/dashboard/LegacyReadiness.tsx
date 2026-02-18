@@ -10,8 +10,8 @@ const ESSENTIAL_DOCS: Array<{ id: string; label: string; categories: FileCategor
   { id: 'IDENTITY', label: 'Passport / ID', categories: ['IDENTITY'], icon: Fingerprint },
   { id: 'WILL', label: 'Will & Trust', categories: ['LEGAL'], icon: Scale },
   { id: 'INSURANCE', label: 'Life Insurance', categories: ['INSURANCE'], icon: ShieldCheck },
-  { id: 'DIGITAL', label: 'Digital Assets Guide', categories: ['DIGITAL_ASSETS'], icon: HeartPulse },
-  { id: 'FINANCIAL', label: 'Financial Account Map', categories: ['FINANCIAL', 'PROPERTY'], icon: DollarSign },
+  { id: 'DIGITAL', label: 'Online Accounts Summary', categories: ['DIGITAL_ASSETS'], icon: HeartPulse },
+  { id: 'FINANCIAL', label: 'Financial Overview', categories: ['FINANCIAL', 'PROPERTY'], icon: DollarSign },
 ];
 
 export function LegacyReadiness({ onUpload }: { onUpload: (category: FileCategory) => void }) {
