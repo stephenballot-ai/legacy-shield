@@ -57,10 +57,14 @@ export default function SettingsPage() {
     loadProfile();
   }, [loadProfile]);
 
-  // Switch to subscription tab if coming from checkout
+  // Switch to subscription tab if coming from checkout or tab param
   useEffect(() => {
     if (checkoutResult) setActiveTab('subscription');
-  }, [checkoutResult]);
+    const tab = searchParams.get('tab');
+    if (tab === 'subscription' || tab === 'security' || tab === 'account') {
+      setActiveTab(tab);
+    }
+  }, [checkoutResult, searchParams]);
 
   if (loading) {
     return (

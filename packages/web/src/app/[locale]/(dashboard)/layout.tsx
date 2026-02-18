@@ -14,6 +14,8 @@ import {
   Settings,
   LogOut,
   Menu,
+  Crown,
+  Sparkles,
 } from 'lucide-react';
 
 const navItems = [
@@ -106,6 +108,18 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
               </div>
             </div>
             <div className="flex-1" />
+            {user?.tier === 'PRO' ? (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 mr-3">
+                <Crown className="h-3 w-3" /> PRO
+              </span>
+            ) : (
+              <Link
+                href="/settings?tab=subscription"
+                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold bg-primary-600 text-white hover:bg-primary-700 transition-colors mr-3"
+              >
+                <Sparkles className="h-3 w-3" /> Upgrade
+              </Link>
+            )}
             <div className="relative">
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
