@@ -11,11 +11,13 @@ import { emergencyAccessApi } from '@/lib/api/emergencyAccess';
 import { FileText, ShieldAlert, Upload, Clock, ArrowRight, Gift, Copy, Check } from 'lucide-react';
 import { formatFileSize, formatDate } from '@/lib/utils';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { LegacyReadiness } from '@/components/dashboard/LegacyReadiness';
 import { DocumentUpload } from '@/components/documents/DocumentUpload';
 import type { FileCategory } from '@legacy-shield/shared';
 
 export default function DashboardPage() {
+  const t = useTranslations('dashboard');
   const user = useAuthStore((s) => s.user);
   const { files, total, fetchFiles } = useFilesStore();
   const [docLimit, setDocLimit] = useState<number | null>(null);
@@ -71,9 +73,9 @@ export default function DashboardPage() {
     <div className="space-y-6 animate-fade-in">
       <div>
         <h1 className="text-2xl font-bold text-gray-900">
-          Welcome back
+          {t('welcome')}
         </h1>
-        <p className="text-sm text-gray-500 mt-1">Your secure document vault</p>
+        <p className="text-sm text-gray-500 mt-1">{t('subtitle')}</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">

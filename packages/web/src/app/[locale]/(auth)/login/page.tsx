@@ -2,14 +2,17 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { Card } from '@/components/ui/Card';
 import { LoginForm } from '@/components/auth/LoginForm';
 import { TwoFactorInput } from '@/components/auth/TwoFactorInput';
 import { useAuthStore } from '@/store/authStore';
 import { ApiError } from '@/lib/api/client';
 
+import { useTranslations } from 'next-intl';
+
 export default function LoginPage() {
+  const t = useTranslations('auth.login');
   const router = useRouter();
   const [step, setStep] = useState<'login' | '2fa'>('login');
   const [password, setPassword] = useState('');
@@ -38,7 +41,7 @@ export default function LoginPage() {
   return (
     <Card>
       <h1 className="text-2xl font-bold text-center mb-6">
-        {step === 'login' ? 'Sign in' : 'Two-factor authentication'}
+        {step === 'login' ? t('title') : 'Two-factor authentication'}
       </h1>
 
       {step === 'login' ? (
@@ -46,13 +49,13 @@ export default function LoginPage() {
           <LoginForm onTwoFactor={handleTwoFactor} onSuccess={() => router.push('/dashboard')} />
           <p className="mt-4 text-sm text-center">
             <Link href="/forgot-password" className="text-gray-500 hover:text-gray-700">
-              Can&apos;t access your account?
+              {t('forgotPassword')}
             </Link>
           </p>
           <p className="mt-3 text-sm text-center text-gray-600">
-            Don&apos;t have an account?{' '}
+            {t('noAccount')}{' '}
             <Link href="/register" className="text-primary-600 hover:text-primary-700 font-medium">
-              Create one
+              {t('createAccount')}
             </Link>
           </p>
         </>

@@ -1,0 +1,42 @@
+{
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "loading": "Cargando...",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "view": "Ver",
+    "download": "Descargar",
+    "upload": "Subir",
+    "exit": "Salir",
+    "back": "Volver",
+    "done": "Hecho"
+  },
+  "auth": {
+    "login": {
+      "title": "Iniciar sesión",
+      "emailLabel": "Correo electrónico",
+      "passwordLabel": "Contraseña",
+      "submit": "Iniciar sesión",
+      "forgotPassword": "¿No puedes acceder a tu cuenta?",
+      "noAccount": "¿No tienes cuenta?",
+      "createAccount": "Crea una"
+    }
+  },
+  "dashboard": {
+    "welcome": "Bienvenido de nuevo",
+    "subtitle": "Tu bóveda digital segura",
+    "readiness": {
+      "title": "Preparación Legacy",
+      "subtitle": "Documentos esenciales para tus seres queridos",
+      "secured": "Asegurado",
+      "upload": "Subir",
+      "status": {
+        "unprotected": "Desprotegido",
+        "gettingStarted": "Primeros pasos",
+        "basic": "Protección básica",
+        "shielded": "Legacy Shielded"
+      }
+    }
+  }
+}

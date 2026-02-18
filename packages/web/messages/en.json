@@ -1,0 +1,42 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "loading": "Loading...",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "download": "Download",
+    "upload": "Upload",
+    "exit": "Exit",
+    "back": "Back",
+    "done": "Done"
+  },
+  "auth": {
+    "login": {
+      "title": "Sign in",
+      "emailLabel": "Email",
+      "passwordLabel": "Password",
+      "submit": "Sign in",
+      "forgotPassword": "Can't access your account?",
+      "noAccount": "Don't have an account?",
+      "createAccount": "Create one"
+    }
+  },
+  "dashboard": {
+    "welcome": "Welcome back",
+    "subtitle": "Your secure document vault",
+    "readiness": {
+      "title": "Legacy Readiness",
+      "subtitle": "Essential documents for your loved ones",
+      "secured": "Secured",
+      "upload": "Upload",
+      "status": {
+        "unprotected": "Unprotected",
+        "gettingStarted": "Getting Started",
+        "basic": "Basic Coverage",
+        "shielded": "Legacy Shielded"
+      }
+    }
+  }
+}

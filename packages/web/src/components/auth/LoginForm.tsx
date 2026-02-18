@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/Input';
 import { Alert } from '@/components/ui/Alert';
 import { useAuthStore } from '@/store/authStore';
 import { ApiError } from '@/lib/api/client';
+import { useTranslations } from 'next-intl';
 
 const schema = z.object({
   email: z.string().email('Enter a valid email'),
@@ -24,6 +25,7 @@ interface LoginFormProps {
 }
 
 export function LoginForm({ onTwoFactor, onSuccess }: LoginFormProps) {
+  const t = useTranslations('auth.login');
   const [error, setError] = useState('');
   const login = useAuthStore((s) => s.login);
   const isLoading = useAuthStore((s) => s.isLoading);
@@ -56,7 +58,7 @@ export function LoginForm({ onTwoFactor, onSuccess }: LoginFormProps) {
 
       <Input
         id="email"
-        label="Email"
+        label={t('emailLabel')}
         type="email"
         placeholder="you@example.com"
         icon={<Mail className="h-4 w-4" />}
@@ -67,7 +69,7 @@ export function LoginForm({ onTwoFactor, onSuccess }: LoginFormProps) {
 
       <Input
         id="password"
-        label="Password"
+        label={t('passwordLabel')}
         type="password"
         placeholder="••••••••"
         icon={<Lock className="h-4 w-4" />}
@@ -77,7 +79,7 @@ export function LoginForm({ onTwoFactor, onSuccess }: LoginFormProps) {
       />
 
       <Button type="submit" isLoading={isLoading} className="w-full">
-        Sign in
+        {t('submit')}
       </Button>
     </form>
   );

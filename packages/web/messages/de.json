@@ -1,0 +1,42 @@
+{
+  "common": {
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "loading": "Wird geladen...",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "view": "Ansehen",
+    "download": "Herunterladen",
+    "upload": "Hochladen",
+    "exit": "Beenden",
+    "back": "Zurück",
+    "done": "Fertig"
+  },
+  "auth": {
+    "login": {
+      "title": "Anmelden",
+      "emailLabel": "E-Mail-Adresse",
+      "passwordLabel": "Passwort",
+      "submit": "Anmelden",
+      "forgotPassword": "Kein Zugriff auf das Konto?",
+      "noAccount": "Noch kein Konto?",
+      "createAccount": "Konto erstellen"
+    }
+  },
+  "dashboard": {
+    "welcome": "Willkommen zurück",
+    "subtitle": "Ihr sicherer Dokumententresor",
+    "readiness": {
+      "title": "Legacy-Bereitschaft",
+      "subtitle": "Wichtige Dokumente für Ihre Angehörigen",
+      "secured": "Gesichert",
+      "upload": "Hochladen",
+      "status": {
+        "unprotected": "Ungeschützt",
+        "gettingStarted": "Erste Schritte",
+        "basic": "Basisschutz",
+        "shielded": "Legacy Shielded"
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "common": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "loading": "Chargement...",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "view": "Voir",
+    "download": "Télécharger",
+    "upload": "Téléverser",
+    "exit": "Quitter",
+    "back": "Retour",
+    "done": "Terminé"
+  },
+  "auth": {
+    "login": {
+      "title": "Connexion",
+      "emailLabel": "Adresse e-mail",
+      "passwordLabel": "Mot de passe",
+      "submit": "Se connecter",
+      "forgotPassword": "Impossible d'accéder à votre compte ?",
+      "noAccount": "Pas encore de compte ?",
+      "createAccount": "En créer un"
+    }
+  },
+  "dashboard": {
+    "welcome": "Bon retour",
+    "subtitle": "Votre coffre-fort numérique sécurisé",
+    "readiness": {
+      "title": "Préparation Legacy",
+      "subtitle": "Documents essentiels pour vos proches",
+      "secured": "Sécurisé",
+      "upload": "Téléverser",
+      "status": {
+        "unprotected": "Non protégé",
+        "gettingStarted": "Premiers pas",
+        "basic": "Protection de base",
+        "shielded": "Legacy Shielded"
+      }
+    }
+  }
+}
