@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, type ReactNode } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { usePathname } from 'next/navigation';
 import { AuthGuard } from '@/components/auth/AuthGuard';
 import { Logo } from '@/components/ui/Logo';

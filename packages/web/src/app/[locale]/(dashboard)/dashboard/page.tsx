@@ -10,7 +10,7 @@ import { usersApi } from '@/lib/api/users';
 import { emergencyAccessApi } from '@/lib/api/emergencyAccess';
 import { FileText, ShieldAlert, Upload, Clock, ArrowRight, Gift, Copy, Check } from 'lucide-react';
 import { formatFileSize, formatDate } from '@/lib/utils';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
 import { LegacyReadiness } from '@/components/dashboard/LegacyReadiness';
 import { DocumentUpload } from '@/components/documents/DocumentUpload';

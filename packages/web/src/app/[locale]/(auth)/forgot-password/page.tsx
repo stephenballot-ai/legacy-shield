@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { Card } from '@/components/ui/Card';
 import { ShieldCheck, Users, KeyRound } from 'lucide-react';
 

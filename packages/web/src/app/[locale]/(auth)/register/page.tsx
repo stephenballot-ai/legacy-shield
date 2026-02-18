@@ -2,14 +2,17 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { Card } from '@/components/ui/Card';
 import { RegisterForm } from '@/components/auth/RegisterForm';
 import { useAuthStore } from '@/store/authStore';
 import { deriveMasterKey } from '@/lib/crypto/keyDerivation';
 import { useCryptoStore } from '@/store/cryptoStore';
 
+import { useTranslations } from 'next-intl';
+
 export default function RegisterPage() {
+  const t = useTranslations('auth.register');
   const router = useRouter();
   const { login: authLogin } = useAuthStore();
   const [isReferred, setIsReferred] = useState(false);
@@ -36,16 +39,16 @@ export default function RegisterPage() {
       {isReferred && (
         <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg text-center">
           <p className="text-sm text-green-800">
-            🎉 You&apos;ve been invited by a friend! Create your account to get started with a free encrypted vault.
+            🎉 {t('referred')}
           </p>
         </div>
       )}
-      <h1 className="text-2xl font-bold text-center mb-6">Create your account</h1>
+      <h1 className="text-2xl font-bold text-center mb-6">{t('title')}</h1>
       <RegisterForm onSuccess={handleRegistered} />
       <p className="mt-6 text-sm text-center text-gray-600">
-        Already have an account?{' '}
+        {t('hasAccount')}{' '}
         <Link href="/login" className="text-primary-600 hover:text-primary-700 font-medium">
-          Sign in
+          {t('signIn')}
         </Link>
       </p>
     </Card>

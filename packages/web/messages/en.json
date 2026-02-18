@@ -25,6 +25,12 @@
       "forgotPassword": "Can't access your account?",
       "noAccount": "Don't have an account?",
       "createAccount": "Create one"
+    },
+    "register": {
+      "title": "Create your account",
+      "referred": "You've been invited by a friend! Create your account to get started with a free encrypted vault.",
+      "hasAccount": "Already have an account?",
+      "signIn": "Sign in"
     }
   },
   "dashboard": {

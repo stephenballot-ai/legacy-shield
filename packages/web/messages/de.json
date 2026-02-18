@@ -25,6 +25,12 @@
       "forgotPassword": "Kein Zugriff auf das Konto?",
       "noAccount": "Noch kein Konto?",
       "createAccount": "Konto erstellen"
+    },
+    "register": {
+      "title": "Konto erstellen",
+      "referred": "Sie wurden von einem Freund eingeladen! Erstellen Sie Ihr Konto, um mit einem kostenlosen verschlüsselten Tresor zu beginnen.",
+      "hasAccount": "Haben Sie bereits ein Konto?",
+      "signIn": "Anmelden"
     }
   },
   "dashboard": {
