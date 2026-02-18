@@ -16,10 +16,10 @@ function HeroSection() {
             <span>Zero-Knowledge Encrypted Vault</span>
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
-            The Swiss Bank Account for Your Most Important Files
+            A Safety Deposit Box Where Even the Bank Has No Key
           </h1>
           <p className="mt-6 text-lg sm:text-xl text-white/80 max-w-2xl mx-auto">
-            Securely store critical documents — passports, wills, insurance policies — with military-grade encryption and emergency access for your loved ones.
+            Your files are encrypted on <strong>your device</strong> before they ever touch our servers. We can&apos;t read them. We can&apos;t access them. We can&apos;t hand them over. Not to hackers, not to governments, not even to ourselves.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -71,7 +71,7 @@ function FeaturesSection() {
     {
       icon: Lock,
       title: 'Military-Grade Encryption',
-      description: 'Your files are encrypted in your browser with AES-256-GCM before they ever leave your device. We literally cannot see your data — even if we wanted to.',
+      description: 'Your files are encrypted in your browser before they ever leave your device. Not on our servers. Not in transit. On YOUR device. We never see the original — only you hold the key.',
       color: 'bg-primary-100 text-primary-700',
     },
     {
@@ -83,7 +83,7 @@ function FeaturesSection() {
     {
       icon: Server,
       title: 'EU-Only Hosting',
-      description: 'Your encrypted data is stored exclusively on European-owned infrastructure (Hetzner, Germany). No US-owned cloud providers. No CLOUD Act. No backdoors. GDPR-compliant by design.',
+      description: 'Your encrypted data lives on European-owned servers (Hetzner, Germany) — not AWS, not Google. No US CLOUD Act. No foreign government access. GDPR-native by design.',
       color: 'bg-navy-100 text-navy-700',
     },
   ];
@@ -109,6 +109,80 @@ function FeaturesSection() {
               <p className="text-gray-600 leading-relaxed">{feature.description}</p>
             </div>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProofOfPrivacySection() {
+  return (
+    <section className="py-20 sm:py-28 bg-white border-t border-gray-100">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
+            We Can&apos;t See Your Files. Literally.
+          </h2>
+          <p className="mt-4 text-lg text-gray-600">
+            This isn&apos;t a marketing claim. It&apos;s the architecture.
+          </p>
+        </div>
+
+        {/* Encryption Visual */}
+        <div className="max-w-2xl mx-auto mb-16">
+          <div className="bg-gray-50 rounded-2xl border border-gray-200 p-8 space-y-6">
+            {/* Your Device */}
+            <div className="text-center">
+              <span className="text-xs font-bold uppercase tracking-wider text-trust-600 bg-trust-50 px-3 py-1 rounded-full">Your device</span>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="flex-1 bg-white rounded-xl border border-gray-200 p-4 text-center">
+                <p className="text-sm font-medium text-gray-900">my-will.pdf</p>
+                <p className="text-xs text-gray-400 mt-1">Your original file</p>
+              </div>
+              <div className="text-2xl text-gray-400">→</div>
+              <div className="flex-1 bg-primary-900 rounded-xl p-4 text-center">
+                <p className="text-sm font-mono text-primary-300 break-all">a7f2c9e8b1d4...</p>
+                <p className="text-xs text-primary-400 mt-1">Encrypted with your key</p>
+              </div>
+            </div>
+
+            {/* Divider */}
+            <div className="relative">
+              <div className="border-t-2 border-dashed border-gray-300" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gray-50 px-4">
+                <Lock className="h-5 w-5 text-gray-400" />
+              </div>
+            </div>
+
+            {/* Our Servers */}
+            <div className="text-center">
+              <span className="text-xs font-bold uppercase tracking-wider text-gray-400 bg-gray-100 px-3 py-1 rounded-full">Our servers</span>
+            </div>
+            <div className="bg-gray-100 rounded-xl p-4 text-center">
+              <p className="text-sm font-mono text-gray-400 break-all">a7f2c9e8b1d4f6a2e8c1b9d3f7a5...</p>
+              <p className="text-xs text-gray-400 mt-1">This is all we can ever see — meaningless encrypted data</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Three proof points */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div className="text-center p-6">
+            <div className="text-3xl mb-4">🔑</div>
+            <h3 className="font-semibold text-gray-900 mb-2">Your Key, Your Data</h3>
+            <p className="text-sm text-gray-600">Encryption happens in your browser. Your password never leaves your device. We never see it.</p>
+          </div>
+          <div className="text-center p-6">
+            <div className="text-3xl mb-4">🚫</div>
+            <h3 className="font-semibold text-gray-900 mb-2">No Password Reset</h3>
+            <p className="text-sm text-gray-600">If you lose your password, we can&apos;t recover your files. Not our support team, not our engineers. That&apos;s how seriously we take your privacy.</p>
+          </div>
+          <div className="text-center p-6">
+            <div className="text-3xl mb-4">⚖️</div>
+            <h3 className="font-semibold text-gray-900 mb-2">Nothing to Hand Over</h3>
+            <p className="text-sm text-gray-600">Even with a court order, we can only provide encrypted data. Without your key, it&apos;s useless.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -323,6 +397,7 @@ export default function HomePage() {
       <HeroSection />
       <TrustBar />
       <FeaturesSection />
+      <ProofOfPrivacySection />
       <HowItWorksSection />
       <UseCasesSection />
       <PricingSection />
