@@ -16,7 +16,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /opt/legacyshield/app && git pull origin main
+            cd /opt/legacyshield/app && git fetch origin main && git reset --hard origin/main
             cd /opt/legacyshield/app/packages/api && npx prisma migrate deploy
             cd /opt/legacyshield && docker compose -f docker-compose.prod.yml up -d --build api
             cd /opt/legacyshield/app/packages/web && rm -rf .next && NEXT_PUBLIC_API_URL=https://api.legacyshield.eu npm run build
