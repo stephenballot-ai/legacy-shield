@@ -214,20 +214,20 @@ export async function sendWelcomeChecklistEmail(params: {
               The foundation of your estate. It dictates who gets what and who is in charge.
             </li>
             <li style="margin-bottom: 16px;">
-              <strong style="color: #111827;">2. Letter of Instruction</strong><br />
-              A plain-English guide for your family: where the keys are, who to call, and your final wishes.
+              <strong style="color: #111827;">2. Passport / ID</strong><br />
+              A digital backup of your primary identification — essential for any legal process.
             </li>
             <li style="margin-bottom: 16px;">
               <strong style="color: #111827;">3. Life Insurance Policies</strong><br />
               Ensures your family has immediate access to funds for expenses without waiting for probate.
             </li>
             <li style="margin-bottom: 16px;">
-              <strong style="color: #111827;">4. Digital Assets & Passwords</strong><br />
-              A list of accounts (social media, utilities, photos) so your digital legacy isn't locked away forever.
+              <strong style="color: #111827;">4. Online Accounts Summary</strong><br />
+              A list of your key online accounts (email, social media, subscriptions) so nothing is locked away forever.
             </li>
             <li style="margin-bottom: 0;">
-              <strong style="color: #111827;">5. Financial Account List</strong><br />
-              A map of your banks, pensions, and debts so nothing is lost or forgotten.
+              <strong style="color: #111827;">5. Financial Overview</strong><br />
+              A map of your banks, pensions, investments, and debts so nothing is lost or forgotten.
             </li>
           </ul>
         </div>
@@ -249,7 +249,7 @@ export async function sendWelcomeChecklistEmail(params: {
         </p>
       </div>
     `,
-    text: `Welcome to LegacyShield.\n\nHere are the 5 most essential documents every family needs:\n\n1. Will & Trust Documents\n2. Letter of Instruction\n3. Life Insurance Policies\n4. Digital Assets & Passwords\n5. Financial Account List\n\nUpload your first document now: ${APP_URL}/dashboard\n\nLegacyShield (100% European-owned infrastructure, zero-knowledge encryption)`,
+    text: `Welcome to LegacyShield.\n\nHere are the 5 most essential documents every family needs:\n\n1. Will & Trust Documents\n2. Passport / ID\n3. Life Insurance Policies\n4. Online Accounts Summary\n5. Financial Overview\n\nUpload your first document now: ${APP_URL}/dashboard\n\nLegacyShield (100% European-owned infrastructure, zero-knowledge encryption)`,
   });
 }
 
