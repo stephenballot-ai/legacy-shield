@@ -10,7 +10,7 @@ import { EmergencyInstructions } from '@/components/emergency/EmergencyInstructi
 import { emergencyAccessApi } from '@/lib/api/emergencyAccess';
 import { useAuthStore } from '@/store/authStore';
 import { EMERGENCY_CONTACT_LIMITS } from '@legacy-shield/shared';
-import { ShieldCheck, Printer, RotateCcw, ExternalLink } from 'lucide-react';
+import { ShieldCheck, Printer, RotateCcw, Share2, Check } from 'lucide-react';
 
 export default function EmergencyAccessPage() {
   const [status, setStatus] = useState<{ isSetUp: boolean; contactCount: number } | null>(null);
@@ -18,7 +18,34 @@ export default function EmergencyAccessPage() {
   const [showSetup, setShowSetup] = useState(false);
   const [showInstructions, setShowInstructions] = useState(false);
   const [showRotateWarning, setShowRotateWarning] = useState(false);
+  const [copied, setCopied] = useState(false);
   const user = useAuthStore((s) => s.user);
+
+  const sharePortal = async () => {
+    const shareUrl = `${window.location.origin}/emergency-portal?owner=${encodeURIComponent(user?.email || '')}`;
+    const shareData = {
+      title: 'LegacyShield Emergency Access',
+      text: `In case of emergency, you can access my important documents here. You will need my unlock phrase.`,
+      url: shareUrl,
+    };
+
+    if (navigator.share && navigator.canShare?.(shareData)) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        // Fallback to clipboard
+        copyToClipboard(shareUrl);
+      }
+    } else {
+      copyToClipboard(shareUrl);
+    }
+  };
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const fetchStatus = useCallback(async () => {
     try {
@@ -59,14 +86,16 @@ export default function EmergencyAccessPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-900">Emergency Access</h1>
-        <a
-          href="/emergency-portal"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm text-primary-600 hover:text-primary-700 flex items-center gap-1"
+        <button
+          onClick={sharePortal}
+          className="text-sm font-medium text-primary-600 hover:text-primary-700 flex items-center gap-1.5 bg-primary-50 px-3 py-1.5 rounded-lg transition-colors"
         >
-          View Public Portal <ExternalLink className="h-3.5 w-3.5" />
-        </a>
+          {copied ? (
+            <><Check className="h-4 w-4 text-green-600" /> Copied Link</>
+          ) : (
+            <><Share2 className="h-4 w-4" /> Share Access Link</>
+          )}
+        </button>
       </div>
 
       {/* Status card */}
