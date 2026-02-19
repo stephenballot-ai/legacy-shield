@@ -3,7 +3,6 @@
 import { useState, useMemo } from 'react';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { subscriptionsApi } from '@/lib/api/subscriptions';
 import { Check, Crown, Shield, Zap } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { getCurrency } from '@/lib/utils/currency';
@@ -18,30 +17,34 @@ const features = [
 ];
 
 export function PricingCards() {
-  const [loading, setLoading] = useState<'monthly' | 'lifetime' | null>(null);
-  const [error, setError] = useState('');
+  const [showComingSoon, setShowComingSoon] = useState(false);
   const currency = useMemo(() => getCurrency(), []);
 
-  const handleCheckout = async (plan: 'monthly' | 'lifetime') => {
-    setLoading(plan);
-    setError('');
-    try {
-      const { checkoutUrl } = await subscriptionsApi.createCheckout(plan);
-      window.location.href = checkoutUrl;
-    } catch (err) {
-      setError('Failed to start checkout. Please try again.');
-      setLoading(null);
-    }
+  const handleCheckout = () => {
+    setShowComingSoon(true);
   };
 
-  return (
-    <div className="space-y-4">
-      {error && (
-        <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg p-3">
-          {error}
+  if (showComingSoon) {
+    return (
+      <Card className="text-center py-12 px-6 bg-gradient-to-br from-white to-primary-50">
+        <div className="mx-auto w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mb-6">
+          <Zap className="h-8 w-8 text-primary-600 animate-pulse" />
         </div>
-      )}
+        <h3 className="text-2xl font-bold text-gray-900 mb-4">LegacyShield Pro is almost here!</h3>
+        <p className="text-gray-600 mb-8 max-w-md mx-auto leading-relaxed">
+          We&apos;re currently finalizing our secure European payment gateway. Pro accounts and expanded storage will be available in just a few days. 
+          <br /><br />
+          We&apos;ll notify you at your registered email address as soon as we launch!
+        </p>
+        <Button onClick={() => setShowComingSoon(false)} variant="secondary">
+          Back to plans
+        </Button>
+      </Card>
+    );
+  }
 
+  return (
+    <div className="space-y-4 animate-fade-in">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Monthly */}
         <Card className="relative flex flex-col">
@@ -64,9 +67,7 @@ export function PricingCards() {
           <Button
             variant="outline"
             className="w-full"
-            isLoading={loading === 'monthly'}
-            disabled={loading !== null}
-            onClick={() => handleCheckout('monthly')}
+            onClick={() => handleCheckout()}
           >
             Subscribe Monthly
           </Button>
@@ -99,9 +100,7 @@ export function PricingCards() {
           </ul>
           <Button
             className="w-full"
-            isLoading={loading === 'lifetime'}
-            disabled={loading !== null}
-            onClick={() => handleCheckout('lifetime')}
+            onClick={() => handleCheckout()}
           >
             Get Lifetime Access
           </Button>
