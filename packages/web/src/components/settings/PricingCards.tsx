@@ -7,6 +7,8 @@ import { Check, Crown, Shield, Zap } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { getCurrency } from '@/lib/utils/currency';
 
+import { usersApi } from '@/lib/api/users';
+
 const features = [
   'Up to 100 documents',
   'Up to 5 emergency contacts',
@@ -22,6 +24,8 @@ export function PricingCards() {
 
   const handleCheckout = () => {
     setShowComingSoon(true);
+    // Track smoke test intent
+    usersApi.trackUpgradeIntent().catch(() => {});
   };
 
   if (showComingSoon) {

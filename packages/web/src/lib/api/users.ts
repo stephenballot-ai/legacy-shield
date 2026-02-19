@@ -41,6 +41,8 @@ export const usersApi = {
 
   updateMe: (data: { email: string }) =>
     api.patch<{ id: string; email: string; tier: string }>('/users/me', data),
+
+  trackUpgradeIntent: () => api.post<{ success: boolean }>('/users/intent/upgrade', {}),
 };
 
 // Override delete to send body

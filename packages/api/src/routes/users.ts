@@ -155,4 +155,17 @@ router.delete('/me', authenticate, requireOwner, async (req: Request, res: Respo
   }
 });
 
+// POST /users/intent/upgrade
+router.post('/intent/upgrade', authenticate, requireOwner, async (req: Request, res: Response) => {
+  try {
+    await prisma.user.update({
+      where: { id: req.user!.userId },
+      data: { upgradeIntentCount: { increment: 1 } },
+    });
+    res.json({ success: true });
+  } catch {
+    res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Failed to track intent' } });
+  }
+});
+
 export default router;
