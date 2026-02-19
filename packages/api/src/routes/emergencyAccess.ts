@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express';
+import { logger } from '../utils/logger';
 import rateLimit from 'express-rate-limit';
 import { authenticate, requireOwner } from '../middleware/auth';
 import { validate } from '../middleware/validation';

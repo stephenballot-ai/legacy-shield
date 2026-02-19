@@ -3,6 +3,7 @@ import { authenticate, requireOwner } from '../middleware/auth';
 import { verifyPassword, logAudit, invalidateAllUserSessions } from '../services/auth';
 import { getSubscriptionStatus } from '../services/stripe';
 import { prisma } from '../lib/prisma';
+import { logger } from '../utils/logger';
 import { DOCUMENT_LIMITS, EMERGENCY_CONTACT_LIMITS } from '@legacy-shield/shared';
 
 const router = Router();
@@ -47,6 +48,7 @@ router.get('/me', authenticate, requireOwner, async (req: Request, res: Response
       subscription,
     });
   } catch (err) {
+    logger.error('Failed to get user profile:', err);
     res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Failed to get user profile' } });
   }
 });
@@ -71,7 +73,8 @@ router.get('/referrals', authenticate, requireOwner, async (req: Request, res: R
       referralCount,
       bonusDocs: user.referralBonus,
     });
-  } catch {
+  } catch (err) {
+    logger.error('Failed to get referral info:', err);
     res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Failed to get referral info' } });
   }
 });
@@ -163,7 +166,8 @@ router.post('/intent/upgrade', authenticate, requireOwner, async (req: Request, 
       data: { upgradeIntentCount: { increment: 1 } },
     });
     res.json({ success: true });
-  } catch {
+  } catch (err) {
+    logger.error('Failed to track upgrade intent:', err);
     res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Failed to track intent' } });
   }
 });

@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express';
+import { logger } from '../utils/logger';
 import { authenticate, requireOwner } from '../middleware/auth';
 import { validate } from '../middleware/validation';
 import { uploadFileSchema, updateFileSchema, listFilesQuerySchema } from './files.validation';
@@ -40,7 +41,8 @@ router.get('/', async (req: Request, res: Response) => {
     });
 
     res.json(result);
-  } catch {
+  } catch (err) {
+    logger.error('Failed to list files:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Failed to list files' },
     });
@@ -73,6 +75,7 @@ router.post('/upload', requireOwner, validate(uploadFileSchema), async (req: Req
       });
       return;
     }
+    logger.error('File upload failed:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Upload failed' },
     });
@@ -104,11 +107,13 @@ router.put('/:id/blob', requireOwner, async (req: Request, res: Response) => {
         const storageKey = getStorageKey(req.user!.userId, req.params.id);
         await uploadObject(storageKey, body, 'application/octet-stream');
         res.json({ success: true });
-      } catch {
+      } catch (err) {
+        logger.error('Blob upload to S3 failed:', err);
         res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Failed to upload blob' } });
       }
     });
-  } catch {
+  } catch (err) {
+    logger.error('File blob upload failed:', err);
     res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Upload failed' } });
   }
 });
@@ -133,7 +138,8 @@ router.get('/:id/blob', async (req: Request, res: Response) => {
     res.setHeader('Content-Type', contentType || 'application/octet-stream');
     res.setHeader('Content-Length', body.length);
     res.send(body);
-  } catch {
+  } catch (err) {
+    logger.error('File blob download failed:', err);
     res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Download failed' } });
   }
 });
@@ -157,7 +163,8 @@ router.get('/:id', async (req: Request, res: Response) => {
     }
 
     res.json(result);
-  } catch {
+  } catch (err) {
+    logger.error('Failed to get file details:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Failed to get file' },
     });
@@ -188,7 +195,8 @@ router.patch('/:id', requireOwner, validate(updateFileSchema), async (req: Reque
     }
 
     res.json(result);
-  } catch {
+  } catch (err) {
+    logger.error('Failed to update file:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Failed to update file' },
     });
@@ -224,7 +232,8 @@ router.patch('/:id/emergency-key', requireOwner, async (req: Request, res: Respo
     });
 
     res.json({ success: true });
-  } catch {
+  } catch (err) {
+    logger.error('Failed to update emergency key:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Failed to update emergency key' },
     });
@@ -251,7 +260,8 @@ router.delete('/:id', requireOwner, async (req: Request, res: Response) => {
     }
 
     res.json(result);
-  } catch {
+  } catch (err) {
+    logger.error('Failed to delete file:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Failed to delete file' },
     });

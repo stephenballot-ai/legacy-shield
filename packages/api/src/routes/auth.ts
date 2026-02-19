@@ -4,6 +4,7 @@ import { validate, registerSchema, loginSchema, twoFactorSchema, verifyEmailSche
 import { loginLimiter } from '../middleware/rateLimit';
 import { authenticate, requireOwner } from '../middleware/auth';
 import { prisma } from '../lib/prisma';
+import { logger } from '../utils/logger';
 import {
   hashPassword,
   verifyPassword,
@@ -95,6 +96,7 @@ router.post('/register', validate(registerSchema), async (req: Request, res: Res
       message: 'Verification email sent',
     });
   } catch (err) {
+    logger.error('Registration failed:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Registration failed' },
     });
@@ -203,7 +205,8 @@ router.post('/login', loginLimiter, validate(loginSchema), async (req: Request, 
       },
       salt: user.keyDerivationSalt,
     });
-  } catch {
+  } catch (err) {
+    logger.error('Login failed:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Login failed' },
     });
@@ -292,7 +295,8 @@ router.post('/login/2fa', loginLimiter, validate(twoFactorSchema), async (req: R
       },
       salt: user.keyDerivationSalt,
     });
-  } catch {
+  } catch (err) {
+    logger.error('2FA verification failed:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: '2FA verification failed' },
     });
@@ -318,7 +322,8 @@ router.post('/logout', authenticate, async (req: Request, res: Response) => {
 
     res.clearCookie('refreshToken');
     res.json({ success: true });
-  } catch {
+  } catch (err) {
+    logger.error('Logout failed:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Logout failed' },
     });
@@ -390,7 +395,8 @@ router.post('/refresh', async (req: Request, res: Response) => {
     });
 
     res.json({ accessToken });
-  } catch {
+  } catch (err) {
+    logger.error('Token refresh failed:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Token refresh failed' },
     });
@@ -484,7 +490,8 @@ router.post('/password/change', authenticate, requireOwner, validate(changePassw
     });
 
     res.json({ success: true, salt: user.keyDerivationSalt });
-  } catch {
+  } catch (err) {
+    logger.error('Password change failed:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Password change failed' },
     });
@@ -507,14 +514,23 @@ router.post('/2fa/setup', authenticate, requireOwner, async (req: Request, res: 
     const { secret, otpauthUrl } = generateTOTPSecret(user.email);
     const qrCode = await generateQRCode(otpauthUrl);
 
-    // Store secret temporarily (not enabled yet until user confirms)
+    // Store secret temporarily (not enabled yet until user confirms with a valid code).
+    // If user already had 2FA enabled, don't overwrite the active secret.
+    if (user.twoFactorEnabled) {
+      res.status(400).json({
+        error: { code: 'VALIDATION_ERROR', message: '2FA is already enabled. Disable it first to reconfigure.' },
+      });
+      return;
+    }
+
     await prisma.user.update({
       where: { id: user.id },
       data: { twoFactorSecret: secret },
     });
 
     res.json({ secret, qrCode });
-  } catch {
+  } catch (err) {
+    logger.error('2FA setup failed:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: '2FA setup failed' },
     });
@@ -559,9 +575,62 @@ router.post('/2fa/confirm', authenticate, requireOwner, validate(twoFactorSchema
     });
 
     res.json({ success: true });
-  } catch {
+  } catch (err) {
+    logger.error('2FA confirmation failed:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: '2FA confirmation failed' },
+    });
+  }
+});
+
+// ============================================================================
+// POST /auth/2fa/disable — Disable 2FA and clear secret
+// ============================================================================
+router.post('/2fa/disable', authenticate, requireOwner, async (req: Request, res: Response) => {
+  try {
+    const { password } = req.body as { password: string };
+    if (!password) {
+      res.status(400).json({
+        error: { code: 'VALIDATION_ERROR', message: 'Password is required to disable 2FA' },
+      });
+      return;
+    }
+
+    const user = await prisma.user.findUnique({ where: { id: req.user!.userId } });
+    if (!user) {
+      res.status(404).json({
+        error: { code: 'RESOURCE_NOT_FOUND', message: 'User not found' },
+      });
+      return;
+    }
+
+    const valid = await verifyPassword(password, user.passwordHash);
+    if (!valid) {
+      res.status(401).json({
+        error: { code: 'INVALID_CREDENTIALS', message: 'Incorrect password' },
+      });
+      return;
+    }
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { twoFactorEnabled: false, twoFactorSecret: null },
+    });
+
+    await logAudit({
+      userId: user.id,
+      action: 'TWO_FACTOR_DISABLED',
+      resourceType: 'user',
+      resourceId: user.id,
+      ipAddress: req.ip,
+      userAgent: req.headers['user-agent'],
+    });
+
+    res.json({ success: true });
+  } catch (err) {
+    logger.error('2FA disable failed:', err);
+    res.status(500).json({
+      error: { code: 'INTERNAL_ERROR', message: '2FA disable failed' },
     });
   }
 });
@@ -579,7 +648,8 @@ router.post('/recovery/generate-codes', authenticate, requireOwner, async (req: 
     });
 
     res.json({ recoveryCodes: plainCodes });
-  } catch {
+  } catch (err) {
+    logger.error('Recovery code generation failed:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Recovery code generation failed' },
     });
@@ -645,7 +715,8 @@ router.post('/recovery/use-code', loginLimiter, validate(recoveryCodeSchema), as
         tier: user.tier,
       },
     });
-  } catch {
+  } catch (err) {
+    logger.error('Recovery code validation failed:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Recovery code validation failed' },
     });

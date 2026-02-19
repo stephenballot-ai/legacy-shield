@@ -31,9 +31,10 @@ model User {
   subscriptionEndsAt   DateTime?
 
   // Referrals
-  referralCode   String  @unique @default("")
-  referredBy     String?
-  referralBonus  Int     @default(0)
+  referralCode        String  @unique @default("")
+  referredBy          String?
+  referralBonus       Int     @default(0)
+  upgradeIntentCount  Int     @default(0)
 
   // Security
   twoFactorSecret  String?
