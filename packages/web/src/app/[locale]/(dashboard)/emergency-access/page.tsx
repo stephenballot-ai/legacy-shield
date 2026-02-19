@@ -65,7 +65,7 @@ export default function EmergencyAccessPage() {
           rel="noopener noreferrer"
           className="text-sm text-primary-600 hover:text-primary-700 flex items-center gap-1"
         >
-          Test Portal <ExternalLink className="h-3.5 w-3.5" />
+          View Public Portal <ExternalLink className="h-3.5 w-3.5" />
         </a>
       </div>
 
