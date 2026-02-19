@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express';
+import { logger } from '../utils/logger';
 import { authenticate, requireOwner } from '../middleware/auth';
 import {
   createCheckoutSession,
@@ -36,6 +37,7 @@ router.post('/checkout', authenticate, requireOwner, async (req: Request, res: R
     const checkoutUrl = await createCheckoutSession(user.id, user.email, plan);
     res.json({ checkoutUrl });
   } catch (err) {
+    logger.error('Failed to create checkout session:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Failed to create checkout session' },
     });
@@ -56,6 +58,7 @@ router.post('/portal', authenticate, requireOwner, async (req: Request, res: Res
     const portalUrl = await createCustomerPortalSession(user.stripeCustomerId);
     res.json({ portalUrl });
   } catch (err) {
+    logger.error('Failed to create portal session:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Failed to create portal session' },
     });
@@ -68,6 +71,7 @@ router.get('/status', authenticate, requireOwner, async (req: Request, res: Resp
     const status = await getSubscriptionStatus(req.user!.userId);
     res.json(status);
   } catch (err) {
+    logger.error('Failed to get subscription status:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Failed to get subscription status' },
     });

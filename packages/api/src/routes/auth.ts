@@ -60,9 +60,8 @@ router.post('/register', validate(registerSchema), async (req: Request, res: Res
 
     const passwordHash = await hashPassword(password);
     const keyDerivationSalt = generateSalt();
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const emailVerificationToken = generateEmailVerificationToken();
-    void emailVerificationToken; // TODO: store and send via email
+    const emailVerificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
 
     const user = await prisma.user.create({
       data: {
@@ -71,6 +70,8 @@ router.post('/register', validate(registerSchema), async (req: Request, res: Res
         keyDerivationSalt: keyDerivationSalt,
         referralCode: generateReferralCode(),
         referredBy: referredBy ?? null,
+        emailVerificationToken,
+        emailVerificationExpires,
       },
     });
 
@@ -86,9 +87,11 @@ router.post('/register', validate(registerSchema), async (req: Request, res: Res
     // Send welcome checklist email (fire-and-forget)
     sendWelcomeChecklistEmail({
       ownerEmail: user.email,
-    }).catch((err) => console.error('[email] Welcome checklist email failed:', err));
+    }).catch((err) => logger.error('[email] Welcome checklist email failed:', err));
 
-    // TODO: Send verification email with _emailVerificationToken
+    // Send verification email
+    // TODO: Wire to actual Resend template
+    logger.info(`Verification link for ${user.email}: ${process.env.FRONTEND_URL}/verify-email?token=${emailVerificationToken}`);
 
     res.status(201).json({
       userId: user.id,
@@ -110,14 +113,43 @@ router.post('/verify-email', validate(verifyEmailSchema), async (req: Request, r
   try {
     const { token } = req.body as { token: string };
 
-    // TODO: Look up token in a verification tokens table/cache
-    // For now, stub: find user by token (would need a real token store)
-    void token;
+    const user = await prisma.user.findFirst({
+      where: {
+        emailVerificationToken: token,
+        emailVerificationExpires: { gt: new Date() },
+      },
+    });
+
+    if (!user) {
+      res.status(400).json({
+        error: { code: 'VALIDATION_ERROR', message: 'Invalid or expired verification token' },
+      });
+      return;
+    }
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        emailVerified: true,
+        emailVerificationToken: null,
+        emailVerificationExpires: null,
+      },
+    });
+
+    await logAudit({
+      userId: user.id,
+      action: 'EMAIL_VERIFIED' as any,
+      resourceType: 'user',
+      resourceId: user.id,
+      ipAddress: req.ip,
+      userAgent: req.headers['user-agent'],
+    });
 
     res.json({ success: true });
-  } catch {
-    res.status(400).json({
-      error: { code: 'VALIDATION_ERROR', message: 'Invalid or expired verification token' },
+  } catch (err) {
+    logger.error('Email verification failed:', err);
+    res.status(500).json({
+      error: { code: 'INTERNAL_ERROR', message: 'Email verification failed' },
     });
   }
 });

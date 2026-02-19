@@ -20,8 +20,10 @@ model User {
   passwordHash String
 
   // Account status
-  emailVerified Boolean   @default(false)
-  tier          UserTier  @default(FREE)
+  emailVerified        Boolean   @default(false)
+  emailVerificationToken String?   @unique
+  emailVerificationExpires DateTime?
+  tier                 UserTier  @default(FREE)
 
   // Subscription
   stripeCustomerId     String?   @unique

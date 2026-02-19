@@ -62,7 +62,8 @@ router.get('/status', authenticate, requireOwner, async (req: Request, res: Resp
       contactCount: user._count.emergencyContacts,
       setupAt: user.emergencyPhraseHash ? user.updatedAt.toISOString() : null,
     });
-  } catch {
+  } catch (err) {
+    logger.error('Failed to get emergency access status:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Failed to get emergency access status' },
     });
@@ -74,13 +75,29 @@ router.get('/status', authenticate, requireOwner, async (req: Request, res: Resp
 // ============================================================================
 router.post('/setup', authenticate, requireOwner, validate(setupEmergencyAccessSchema), async (req: Request, res: Response) => {
   try {
+    const user = await (await import('../lib/prisma')).prisma.user.findUnique({
+      where: { id: req.user!.userId },
+      select: { emailVerified: true },
+    });
+
+    if (!user?.emailVerified) {
+      res.status(403).json({
+        error: {
+          code: 'EMAIL_NOT_VERIFIED',
+          message: 'Please verify your email address to enable emergency access setup.',
+        },
+      });
+      return;
+    }
+
     const result = await setupEmergencyAccess(
       req.user!.userId,
       req.body,
       { ipAddress: req.ip, userAgent: req.headers['user-agent'] }
     );
     res.json(result);
-  } catch {
+  } catch (err) {
+    logger.error('Emergency access setup failed:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Emergency access setup failed' },
     });
@@ -109,7 +126,8 @@ router.post('/validate', emergencyValidateLimiter, validate(validateEmergencyPhr
       emergencyKeyEncrypted: result.emergencyKeyEncrypted,
       emergencyKeySalt: result.emergencyKeySalt,
     });
-  } catch {
+  } catch (err) {
+    logger.error('Emergency access validation failed:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Emergency access validation failed' },
     });
@@ -127,7 +145,8 @@ router.post('/rotate-key', authenticate, requireOwner, validate(rotateEmergencyK
       { ipAddress: req.ip, userAgent: req.headers['user-agent'] }
     );
     res.json(result);
-  } catch {
+  } catch (err) {
+    logger.error('Emergency key rotation failed:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Emergency key rotation failed' },
     });
@@ -141,7 +160,8 @@ router.get('/contacts', authenticate, requireOwner, async (req: Request, res: Re
   try {
     const contacts = await listEmergencyContacts(req.user!.userId);
     res.json({ contacts });
-  } catch {
+  } catch (err) {
+    logger.error('Failed to list emergency contacts:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Failed to list emergency contacts' },
     });
@@ -153,6 +173,21 @@ router.get('/contacts', authenticate, requireOwner, async (req: Request, res: Re
 // ============================================================================
 router.post('/contacts', authenticate, requireOwner, validate(createContactSchema), async (req: Request, res: Response) => {
   try {
+    const user = await (await import('../lib/prisma')).prisma.user.findUnique({
+      where: { id: req.user!.userId },
+      select: { emailVerified: true },
+    });
+
+    if (!user?.emailVerified) {
+      res.status(403).json({
+        error: {
+          code: 'EMAIL_NOT_VERIFIED',
+          message: 'Please verify your email address before adding emergency contacts.',
+        },
+      });
+      return;
+    }
+
     const result = await addEmergencyContact(
       req.user!.userId,
       req.user!.tier,
@@ -168,7 +203,8 @@ router.post('/contacts', authenticate, requireOwner, validate(createContactSchem
     }
 
     res.status(201).json(result.contact);
-  } catch {
+  } catch (err) {
+    logger.error('Failed to add emergency contact:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Failed to add emergency contact' },
     });
@@ -195,7 +231,8 @@ router.patch('/contacts/:id', authenticate, requireOwner, validate(updateContact
     }
 
     res.json(result);
-  } catch {
+  } catch (err) {
+    logger.error('Failed to update emergency contact:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Failed to update emergency contact' },
     });
@@ -221,7 +258,8 @@ router.delete('/contacts/:id', authenticate, requireOwner, async (req: Request, 
     }
 
     res.json(result);
-  } catch {
+  } catch (err) {
+    logger.error('Failed to delete emergency contact:', err);
     res.status(500).json({
       error: { code: 'INTERNAL_ERROR', message: 'Failed to delete emergency contact' },
     });
