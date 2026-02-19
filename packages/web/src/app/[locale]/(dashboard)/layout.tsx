@@ -16,12 +16,14 @@ import {
   Menu,
   Crown,
   Sparkles,
+  Users,
 } from 'lucide-react';
 
 const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/documents', label: 'Documents', icon: FileText },
   { href: '/emergency-access', label: 'Emergency Access', icon: ShieldAlert },
+  { href: '/settings?tab=referrals', label: 'Refer Friends', icon: Users },
   { href: '/settings', label: 'Settings', icon: Settings },
 ];
 
