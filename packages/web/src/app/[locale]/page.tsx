@@ -19,7 +19,7 @@ function HeroSection() {
             Save Your Most Precious Files Safely Forever
           </h1>
           <p className="mt-6 text-lg sm:text-xl text-white/80 max-w-2xl mx-auto">
-            Secure digital estate planning and emergency document access. Your files are encrypted on <strong>your device</strong> before they ever touch our servers. We can&apos;t read them. We can&apos;t access them.
+            Secure digital estate planning and emergency document access. Your files are encrypted on <strong>your device</strong> before they ever touch our servers. We can never ever see your file&apos;s contents.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
             <Link
