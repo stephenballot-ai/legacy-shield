@@ -155,6 +155,43 @@ router.post('/verify-email', validate(verifyEmailSchema), async (req: Request, r
 });
 
 // ============================================================================
+// POST /auth/resend-verification
+// ============================================================================
+router.post('/resend-verification', authenticate, requireOwner, async (req: Request, res: Response) => {
+  try {
+    const user = await prisma.user.findUnique({ where: { id: req.user!.userId } });
+    if (!user) {
+      res.status(404).json({ error: { code: 'RESOURCE_NOT_FOUND', message: 'User not found' } });
+      return;
+    }
+
+    if (user.emailVerified) {
+      res.status(400).json({ error: { code: 'VALIDATION_ERROR', message: 'Email already verified' } });
+      return;
+    }
+
+    const emailVerificationToken = generateEmailVerificationToken();
+    const emailVerificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { emailVerificationToken, emailVerificationExpires },
+    });
+
+    // Send verification email
+    // TODO: Wire to actual Resend template
+    logger.info(`Resent verification link for ${user.email}: ${process.env.FRONTEND_URL}/verify-email?token=${emailVerificationToken}`);
+
+    res.json({ success: true });
+  } catch (err) {
+    logger.error('Resend verification failed:', err);
+    res.status(500).json({
+      error: { code: 'INTERNAL_ERROR', message: 'Resend verification failed' },
+    });
+  }
+});
+
+// ============================================================================
 // POST /auth/login
 // ============================================================================
 router.post('/login', loginLimiter, validate(loginSchema), async (req: Request, res: Response) => {

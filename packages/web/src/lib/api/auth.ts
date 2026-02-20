@@ -67,6 +67,8 @@ export const authApi = {
 
   useRecoveryCode: (code: string, email: string) =>
     api.post<LoginResponse>('/auth/recovery/use-code', { code, email }),
+
+  resendVerification: () => api.post<{ success: boolean }>('/auth/resend-verification', {}),
 };
 
 export function isLoginResponse(res: LoginResponse | TwoFactorLoginResponse): res is LoginResponse {

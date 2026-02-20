@@ -20,6 +20,8 @@ import {
   AlertTriangle,
 } from 'lucide-react';
 
+import { authApi } from '@/lib/api/auth';
+
 const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/documents', label: 'Documents', icon: FileText },
@@ -88,8 +90,21 @@ function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [resending, setResending] = useState(false);
   const user = useAuthStore((s) => s.user);
   const logout = useAuthStore((s) => s.logout);
+
+  const handleResend = async () => {
+    setResending(true);
+    try {
+      await authApi.resendVerification();
+      alert('Verification link resent to your email.');
+    } catch {
+      alert('Failed to resend verification link.');
+    } finally {
+      setResending(false);
+    }
+  };
 
   return (
     <AuthGuard>
@@ -102,7 +117,13 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             <div className="bg-amber-50 border-b border-amber-200 px-4 py-2 flex items-center justify-center gap-2 text-xs font-medium text-amber-800">
               <AlertTriangle className="h-3.5 w-3.5" />
               <span>Please verify your email to enable emergency access features.</span>
-              <button className="underline hover:text-amber-900 ml-1">Resend link</button>
+              <button
+                onClick={handleResend}
+                disabled={resending}
+                className="underline hover:text-amber-900 ml-1 disabled:opacity-50"
+              >
+                {resending ? 'Sending...' : 'Resend link'}
+              </button>
             </div>
           )}
 

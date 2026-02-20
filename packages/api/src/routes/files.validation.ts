@@ -26,7 +26,7 @@ export const updateFileSchema = z.object({
   tags: z.array(z.string().max(50)).max(20).optional(),
   isFavorite: z.boolean().optional(),
   isEmergencyPriority: z.boolean().optional(),
-  expiresAt: z.string().datetime().nullable().optional(),
+  expiresAt: z.string().nullable().optional(),
   emergencyEncryptedKey: z.string().optional(),
 }).refine((data) => Object.keys(data).length > 0, {
   message: 'At least one field must be provided',
