@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/Button';
 
 export default function ReferralPage() {
   const params = useParams();
-  const router = useRouter();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
