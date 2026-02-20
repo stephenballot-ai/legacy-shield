@@ -21,6 +21,7 @@ export const uploadFileSchema = z.object({
 });
 
 export const updateFileSchema = z.object({
+  filename: z.string().min(1).max(255).optional(),
   category: fileCategoryEnum.nullish(),
   tags: z.array(z.string().max(50)).max(20).optional(),
   isFavorite: z.boolean().optional(),

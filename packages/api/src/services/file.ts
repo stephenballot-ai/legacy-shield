@@ -45,6 +45,7 @@ interface ListFilesParams {
 }
 
 interface UpdateFileParams {
+  filename?: string;
   category?: FileCategory | null;
   tags?: string[];
   isFavorite?: boolean;
