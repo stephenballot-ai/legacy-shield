@@ -19,7 +19,7 @@ function HeroSection() {
             Save Your Most Precious Files Safely Forever
           </h1>
           <p className="mt-6 text-lg sm:text-xl text-white/80 max-w-2xl mx-auto">
-            Secure digital estate planning and emergency document access. Your files are encrypted on <strong>your device</strong> before they ever touch our servers. We can never ever see your file&apos;s contents.
+            Secure digital estate planning and emergency document access. Your files are encrypted on <strong>your device</strong> before they ever touch our servers. We can never see what&apos;s inside them.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -47,7 +47,7 @@ function TrustBar() {
     { icon: '🇪🇺', label: 'European-Owned Infrastructure' },
     { icon: '🔐', label: 'Zero-Knowledge Encryption' },
     { icon: '🛡️', label: 'AES-256-GCM' },
-    { icon: '✅', label: 'GDPR Native' },
+    { icon: '✅', label: 'GDPR-native' },
   ];
 
   return (
@@ -299,7 +299,7 @@ function PricingSection() {
               <span className="text-gray-500 ml-1">forever</span>
             </div>
             <ul className="mt-8 space-y-3">
-              {['3 documents', 'Emergency access', '1 emergency contact', 'Zero-knowledge encryption', 'EU hosting'].map((f) => (
+              {['3 Documents', 'Emergency Access', '1 Emergency Contact', 'Zero-knowledge encryption', 'EU hosting'].map((f) => (
                 <li key={f} className="flex items-center gap-3 text-sm text-gray-700">
                   <CheckCircle className="h-4 w-4 text-trust-500 flex-shrink-0" />
                   {f}
@@ -326,7 +326,7 @@ function PricingSection() {
             </div>
             <p className="text-sm text-gray-500 mt-1">or {currency.symbol}{currency.lifetime} one-time (lifetime)</p>
             <ul className="mt-8 space-y-3">
-              {['100 documents', '5 emergency contacts', 'Everything in Free', 'Priority support', '10MB file size limit'].map((f) => (
+              {['100 Documents', '5 Emergency Contacts', 'Everything in Free', 'Priority Support', '10MB File size limit'].map((f) => (
                 <li key={f} className="flex items-center gap-3 text-sm text-gray-700">
                   <CheckCircle className="h-4 w-4 text-trust-500 flex-shrink-0" />
                   {f}
