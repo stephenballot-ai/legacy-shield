@@ -248,34 +248,38 @@ export function DocumentUpload({ open, onClose, initialCategory }: DocumentUploa
           />
 
           {/* Category */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
-            <div className="relative">
-              <select
-                value={category || ''}
-                onChange={(e) => setCategory((e.target.value || null) as FileCategory | null)}
-                className="block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm bg-white appearance-none pr-8"
-              >
-                <option value="">No category</option>
-                {ALL_CATEGORIES.map((c) => (
-                  <option key={c} value={c}>{categoryLabel[c]}</option>
-                ))}
-              </select>
-              <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+          {uploads.length === 0 && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+              <div className="relative">
+                <select
+                  value={category || ''}
+                  onChange={(e) => setCategory((e.target.value || null) as FileCategory | null)}
+                  className="block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm bg-white appearance-none pr-8"
+                >
+                  <option value="">No category</option>
+                  {ALL_CATEGORIES.map((c) => (
+                    <option key={c} value={c}>{categoryLabel[c]}</option>
+                  ))}
+                </select>
+                <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Tags */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Tags (comma separated)</label>
-            <input
-              type="text"
-              value={tags}
-              onChange={(e) => setTags(e.target.value)}
-              placeholder="e.g. passport, 2024"
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm"
-            />
-          </div>
+          {uploads.length === 0 && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Tags (comma separated)</label>
+              <input
+                type="text"
+                value={tags}
+                onChange={(e) => setTags(e.target.value)}
+                placeholder="e.g. passport, 2024"
+                className="block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm"
+              />
+            </div>
+          )}
 
           {/* File list */}
           {uploads.length > 0 && (
@@ -317,7 +321,7 @@ export function DocumentUpload({ open, onClose, initialCategory }: DocumentUploa
                     <div className="flex items-center gap-2 mt-1 px-1 py-1.5 rounded bg-black/20 animate-fade-in border border-white/5">
                       <Lock className="h-3 w-3 text-primary-400" />
                       <div className="flex-1 flex items-center justify-between">
-                        <span className="text-[10px] font-mono text-primary-400 uppercase tracking-tighter">Ciphertext:</span>
+                        <span className="text-[10px] font-mono text-primary-400 uppercase tracking-tighter">Encrypted Doc:</span>
                         <span className="text-[10px] font-mono text-white/90 truncate max-w-[180px]">
                           {item.sha256}...
                         </span>
