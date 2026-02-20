@@ -15,6 +15,7 @@ import { useTranslations } from 'next-intl';
 import { LegacyReadiness } from '@/components/dashboard/LegacyReadiness';
 import { DocumentUpload } from '@/components/documents/DocumentUpload';
 import { AccountBuilder } from '@/components/dashboard/AccountBuilder';
+import { FinancialBuilder } from '@/components/dashboard/FinancialBuilder';
 import type { FileCategory } from '@legacy-shield/shared';
 
 export default function DashboardPage() {
@@ -28,6 +29,7 @@ export default function DashboardPage() {
   
   const [uploadOpen, setUploadOpen] = useState(false);
   const [accountBuilderOpen, setAccountBuilderOpen] = useState(false);
+  const [financialBuilderOpen, setFinancialBuilderOpen] = useState(false);
   const [initialCategory, setInitialCategory] = useState<FileCategory | null>(null);
 
   const tier = user?.tier || 'FREE';
@@ -94,7 +96,11 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      <LegacyReadiness onUpload={handleUploadClick} onBuildAccounts={() => setAccountBuilderOpen(true)} />
+      <LegacyReadiness 
+        onUpload={handleUploadClick} 
+        onBuildAccounts={() => setAccountBuilderOpen(true)} 
+        onBuildFinancial={() => setFinancialBuilderOpen(true)}
+      />
 
       {/* Recent documents */}
       {recentFiles.length > 0 ? (
@@ -142,6 +148,11 @@ export default function DashboardPage() {
       <AccountBuilder
         open={accountBuilderOpen}
         onClose={() => { setAccountBuilderOpen(false); fetchFiles(); }}
+      />
+
+      <FinancialBuilder
+        open={financialBuilderOpen}
+        onClose={() => { setFinancialBuilderOpen(false); fetchFiles(); }}
       />
 
       {/* Referral CTA — show when at limit on free tier */}

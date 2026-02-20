@@ -14,7 +14,15 @@ const ESSENTIAL_DOCS: Array<{ id: string; label: string; categories: FileCategor
   { id: 'FINANCIAL', label: 'Financial Overview', categories: ['FINANCIAL', 'PROPERTY'], icon: DollarSign },
 ];
 
-export function LegacyReadiness({ onUpload, onBuildAccounts }: { onUpload: (category: FileCategory) => void; onBuildAccounts?: () => void }) {
+export function LegacyReadiness({ 
+  onUpload, 
+  onBuildAccounts,
+  onBuildFinancial 
+}: { 
+  onUpload: (category: FileCategory) => void; 
+  onBuildAccounts?: () => void;
+  onBuildFinancial?: () => void;
+}) {
   const { files } = useFilesStore();
 
   const completed = ESSENTIAL_DOCS.map((doc) => {
@@ -105,6 +113,22 @@ export function LegacyReadiness({ onUpload, onBuildAccounts }: { onUpload: (cate
                     <div className="flex items-center gap-2">
                       <button 
                         onClick={onBuildAccounts}
+                        className="text-[10px] font-bold text-accent-600 hover:text-accent-700 uppercase tracking-wider underline"
+                      >
+                        Build it
+                      </button>
+                      <span className="text-[10px] text-gray-300">|</span>
+                      <button 
+                        onClick={() => onUpload(doc.categories[0])}
+                        className="text-[10px] font-bold text-primary-600 hover:text-primary-700 uppercase tracking-wider underline"
+                      >
+                        Upload
+                      </button>
+                    </div>
+                  ) : doc.id === 'FINANCIAL' && onBuildFinancial ? (
+                    <div className="flex items-center gap-2">
+                      <button 
+                        onClick={onBuildFinancial}
                         className="text-[10px] font-bold text-accent-600 hover:text-accent-700 uppercase tracking-wider underline"
                       >
                         Build it
