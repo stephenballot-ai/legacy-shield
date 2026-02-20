@@ -143,7 +143,7 @@ export function AccountBuilder({ open, onClose }: AccountBuilderProps) {
         <div className="flex items-center justify-between p-4 border-b">
           <div>
             <h2 className="text-lg font-semibold text-gray-900">Build Online Accounts Summary</h2>
-            <p className="text-xs text-gray-500">List your essential accounts. We'll generate a secure PDF for your vault.</p>
+            <p className="text-xs text-gray-500">List your essential accounts. We&apos;ll generate a secure PDF for your vault.</p>
           </div>
           <button onClick={onClose} className="p-1 text-gray-400 hover:text-gray-600">
             <X className="h-5 w-5" />
