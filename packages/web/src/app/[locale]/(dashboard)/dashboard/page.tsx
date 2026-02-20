@@ -14,6 +14,7 @@ import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
 import { LegacyReadiness } from '@/components/dashboard/LegacyReadiness';
 import { DocumentUpload } from '@/components/documents/DocumentUpload';
+import { AccountBuilder } from '@/components/dashboard/AccountBuilder';
 import type { FileCategory } from '@legacy-shield/shared';
 
 export default function DashboardPage() {
@@ -26,6 +27,7 @@ export default function DashboardPage() {
   const [copied, setCopied] = useState(false);
   
   const [uploadOpen, setUploadOpen] = useState(false);
+  const [accountBuilderOpen, setAccountBuilderOpen] = useState(false);
   const [initialCategory, setInitialCategory] = useState<FileCategory | null>(null);
 
   const tier = user?.tier || 'FREE';
@@ -92,7 +94,7 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      <LegacyReadiness onUpload={handleUploadClick} />
+      <LegacyReadiness onUpload={handleUploadClick} onBuildAccounts={() => setAccountBuilderOpen(true)} />
 
       {/* Recent documents */}
       {recentFiles.length > 0 ? (
@@ -133,8 +135,13 @@ export default function DashboardPage() {
 
       <DocumentUpload 
         open={uploadOpen} 
-        onClose={() => setUploadOpen(false)} 
+        onClose={() => { setUploadOpen(false); fetchFiles(); }} 
         initialCategory={initialCategory}
+      />
+
+      <AccountBuilder
+        open={accountBuilderOpen}
+        onClose={() => { setAccountBuilderOpen(false); fetchFiles(); }}
       />
 
       {/* Referral CTA — show when at limit on free tier */}

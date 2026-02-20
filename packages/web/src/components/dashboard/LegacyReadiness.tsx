@@ -14,7 +14,7 @@ const ESSENTIAL_DOCS: Array<{ id: string; label: string; categories: FileCategor
   { id: 'FINANCIAL', label: 'Financial Overview', categories: ['FINANCIAL', 'PROPERTY'], icon: DollarSign },
 ];
 
-export function LegacyReadiness({ onUpload }: { onUpload: (category: FileCategory) => void }) {
+export function LegacyReadiness({ onUpload, onBuildAccounts }: { onUpload: (category: FileCategory) => void; onBuildAccounts?: () => void }) {
   const { files } = useFilesStore();
 
   const completed = ESSENTIAL_DOCS.map((doc) => {
@@ -101,6 +101,22 @@ export function LegacyReadiness({ onUpload }: { onUpload: (category: FileCategor
                     <span className="text-[10px] font-bold text-trust-600 uppercase tracking-wider flex items-center gap-1">
                       <CheckCircle2 className="h-3 w-3" /> Secured
                     </span>
+                  ) : doc.id === 'DIGITAL' && onBuildAccounts ? (
+                    <div className="flex items-center gap-2">
+                      <button 
+                        onClick={onBuildAccounts}
+                        className="text-[10px] font-bold text-accent-600 hover:text-accent-700 uppercase tracking-wider underline"
+                      >
+                        Build it
+                      </button>
+                      <span className="text-[10px] text-gray-300">|</span>
+                      <button 
+                        onClick={() => onUpload(doc.categories[0])}
+                        className="text-[10px] font-bold text-primary-600 hover:text-primary-700 uppercase tracking-wider underline"
+                      >
+                        Upload
+                      </button>
+                    </div>
                   ) : (
                     <button 
                       onClick={() => onUpload(doc.categories[0])}
