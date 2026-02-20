@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useCallback, useEffect, type DragEvent } from 'react';
-import { Upload, X, CheckCircle2, AlertCircle, ChevronDown } from 'lucide-react';
+import { Upload, X, AlertCircle, ChevronDown, ShieldCheck, Lock, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Alert } from '@/components/ui/Alert';
 import { cn } from '@/lib/utils';
@@ -19,6 +19,7 @@ interface UploadItem {
   file: File;
   status: 'pending' | 'encrypting' | 'uploading' | 'done' | 'error';
   error?: string;
+  sha256?: string;
 }
 
 interface DocumentUploadProps {
@@ -157,7 +158,7 @@ export function DocumentUpload({ open, onClose, initialCategory }: DocumentUploa
         });
 
         setUploads((prev) =>
-          prev.map((u, idx) => (idx === i ? { ...u, status: 'done' } : u))
+          prev.map((u, idx) => (idx === i ? { ...u, status: 'done', sha256: encrypted.authTag.slice(0, 32) } : u))
         );
 
         if (referralTriggered && referralCode) {
@@ -278,25 +279,50 @@ export function DocumentUpload({ open, onClose, initialCategory }: DocumentUploa
 
           {/* File list */}
           {uploads.length > 0 && (
-            <div className="space-y-2">
+            <div className="space-y-3">
               {uploads.map((item, i) => (
-                <div key={i} className="flex items-center gap-3 p-2 bg-gray-50 rounded-lg text-sm">
-                  <div className="flex-1 min-w-0">
-                    <p className="truncate font-medium">{item.file.name}</p>
-                    <p className="text-xs text-gray-400">{formatFileSize(item.file.size)}</p>
+                <div key={i} className={cn(
+                  "flex flex-col gap-2 p-3 rounded-xl border transition-all duration-500",
+                  item.status === 'done' ? "bg-primary-900 border-primary-800 text-white" : "bg-gray-50 border-gray-100"
+                )}>
+                  <div className="flex items-center gap-3">
+                    <div className={cn(
+                      "p-2 rounded-lg",
+                      item.status === 'done' ? "bg-primary-800" : "bg-white border border-gray-200"
+                    )}>
+                      <FileText className={cn("h-4 w-4", item.status === 'done' ? "text-primary-300" : "text-gray-400")} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="truncate font-medium text-sm">{item.file.name}</p>
+                      <p className={cn("text-xs", item.status === 'done' ? "text-primary-300" : "text-gray-400")}>
+                        {formatFileSize(item.file.size)}
+                      </p>
+                    </div>
+                    {item.status === 'pending' && (
+                      <button onClick={() => removeUpload(i)} className="text-gray-400 hover:text-gray-600">
+                        <X className="h-4 w-4" />
+                      </button>
+                    )}
+                    {item.status === 'encrypting' && <span className="text-xs text-amber-600 animate-pulse">Encrypting…</span>}
+                    {item.status === 'uploading' && <span className="text-xs text-blue-600 animate-pulse">Uploading…</span>}
+                    {item.status === 'done' && <ShieldCheck className="h-5 w-5 text-accent-400" />}
+                    {item.status === 'error' && (
+                      <span className="text-xs text-red-600 flex items-center gap-1">
+                        <AlertCircle className="h-3 w-3" /> {item.error}
+                      </span>
+                    )}
                   </div>
-                  {item.status === 'pending' && (
-                    <button onClick={() => removeUpload(i)} className="text-gray-400 hover:text-gray-600">
-                      <X className="h-4 w-4" />
-                    </button>
-                  )}
-                  {item.status === 'encrypting' && <span className="text-xs text-amber-600">Encrypting…</span>}
-                  {item.status === 'uploading' && <span className="text-xs text-blue-600">Uploading…</span>}
-                  {item.status === 'done' && <CheckCircle2 className="h-4 w-4 text-green-500" />}
-                  {item.status === 'error' && (
-                    <span className="text-xs text-red-600 flex items-center gap-1">
-                      <AlertCircle className="h-3 w-3" /> {item.error}
-                    </span>
+
+                  {item.status === 'done' && (
+                    <div className="flex items-center gap-2 mt-1 px-1 py-1.5 rounded bg-black/20 animate-fade-in border border-white/5">
+                      <Lock className="h-3 w-3 text-primary-400" />
+                      <div className="flex-1 flex items-center justify-between">
+                        <span className="text-[10px] font-mono text-primary-400 uppercase tracking-tighter">Ciphertext:</span>
+                        <span className="text-[10px] font-mono text-white/90 truncate max-w-[180px]">
+                          {item.sha256}...
+                        </span>
+                      </div>
+                    </div>
                   )}
                 </div>
               ))}
