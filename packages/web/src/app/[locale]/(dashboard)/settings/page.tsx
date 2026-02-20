@@ -23,6 +23,7 @@ import {
   Gift,
   Copy,
   Check,
+  PartyPopper,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useSearchParams } from 'next/navigation';
@@ -179,7 +180,14 @@ function ReferralCard() {
 
       <div className="flex gap-6 text-sm text-gray-600">
         <div><span className="font-semibold text-gray-900">{referral.referralCount}</span> friends invited</div>
-        <div><span className="font-semibold text-gray-900">+{referral.bonusDocs}</span> bonus documents</div>
+        <div className="flex items-center gap-1.5">
+          <span className="font-semibold text-gray-900">+{referral.bonusDocs}</span> bonus documents
+          {referral.bonusDocs > 0 && (
+            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-green-100 text-green-700 text-[10px] font-bold animate-bounce">
+              <PartyPopper className="h-3 w-3" /> ACTIVE
+            </span>
+          )}
+        </div>
       </div>
     </Card>
   );

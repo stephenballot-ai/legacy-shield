@@ -17,6 +17,7 @@ import {
   Crown,
   Sparkles,
   Users,
+  AlertTriangle,
 } from 'lucide-react';
 
 const navItems = [
@@ -96,6 +97,15 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
         <div className="flex-1 flex flex-col min-w-0">
+          {/* Email Verification Banner */}
+          {!user?.emailVerified && (
+            <div className="bg-amber-50 border-b border-amber-200 px-4 py-2 flex items-center justify-center gap-2 text-xs font-medium text-amber-800">
+              <AlertTriangle className="h-3.5 w-3.5" />
+              <span>Please verify your email to enable emergency access features.</span>
+              <button className="underline hover:text-amber-900 ml-1">Resend link</button>
+            </div>
+          )}
+
           {/* Header */}
           <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 lg:px-6">
             <div className="flex items-center gap-3">
