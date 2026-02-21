@@ -45,9 +45,11 @@
         "passport": "Paspoort / ID",
         "will": "Testament & Akten",
         "insurance": "Levensverzekering",
+        "digital": "Online Accounts Overzicht",
         "financial": "Financieel Overzicht",
         "pension": "Pensioen (UPO)"
       },
+      "buildIt": "Bouw het",
       "status": {
         "unprotected": "Onbeschermd",
         "gettingStarted": "Begonnen",

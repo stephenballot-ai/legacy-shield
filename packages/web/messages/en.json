@@ -45,9 +45,11 @@
         "passport": "Passport / ID",
         "will": "Will & Trust",
         "insurance": "Life Insurance",
+        "digital": "Online Accounts Summary",
         "financial": "Financial Overview",
         "pension": "Pension / Retirement"
       },
+      "buildIt": "Build it",
       "status": {
         "unprotected": "Unprotected",
         "gettingStarted": "Getting Started",

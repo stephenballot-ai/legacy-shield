@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useFilesStore } from '@/store/filesStore';
 import { Card } from '@/components/ui/Card';
-import { CheckCircle2, ShieldCheck, Scale, DollarSign, Fingerprint, Landmark } from 'lucide-react';
+import { CheckCircle2, ShieldCheck, Scale, HeartPulse, DollarSign, Fingerprint, Landmark } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { FileCategory } from '@legacy-shield/shared';
 
@@ -23,6 +23,7 @@ export function LegacyReadiness({
     { id: 'IDENTITY', key: 'passport', categories: ['IDENTITY'], icon: Fingerprint },
     { id: 'WILL', key: 'will', categories: ['LEGAL'], icon: Scale },
     { id: 'INSURANCE', key: 'insurance', categories: ['INSURANCE'], icon: ShieldCheck },
+    { id: 'DIGITAL', key: 'digital', categories: ['DIGITAL_ASSETS'], icon: HeartPulse },
     { id: 'FINANCIAL', key: 'financial', categories: ['FINANCIAL'], icon: DollarSign },
     { id: 'PENSION', key: 'pension', categories: ['TAX'], icon: Landmark },
   ];
@@ -118,7 +119,7 @@ export function LegacyReadiness({
                         onClick={onBuildAccounts}
                         className="text-[10px] font-bold text-accent-600 hover:text-accent-700 uppercase tracking-wider underline"
                       >
-                        Build it
+                        {t('buildIt')}
                       </button>
                       <span className="text-[10px] text-gray-300">|</span>
                       <button 
@@ -134,7 +135,7 @@ export function LegacyReadiness({
                         onClick={onBuildFinancial}
                         className="text-[10px] font-bold text-accent-600 hover:text-accent-700 uppercase tracking-wider underline"
                       >
-                        Build it
+                        {t('buildIt')}
                       </button>
                       <span className="text-[10px] text-gray-300">|</span>
                       <button 
