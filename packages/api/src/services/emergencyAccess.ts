@@ -4,6 +4,72 @@ import { createSession, logAudit } from './auth';
 import { sendEmergencyContactNotification, sendVaultAccessNotification } from '../lib/email';
 
 const EMERGENCY_CONTACT_LIMITS = { FREE: 1, PRO: 5 } as const;
+const EMERGENCY_PHRASE_SCRYPT_N = 1 << 15;
+const EMERGENCY_PHRASE_SCRYPT_R = 8;
+const EMERGENCY_PHRASE_SCRYPT_P = 1;
+const EMERGENCY_PHRASE_SALT_BYTES = 16;
+const EMERGENCY_PHRASE_KEY_LEN = 32;
+
+function toBase64Sha256(value: string): string {
+  return crypto.createHash('sha256').update(value, 'utf8').digest('base64');
+}
+
+function deriveEmergencyPhraseVerifier(phrase: string): string {
+  const salt = crypto.randomBytes(EMERGENCY_PHRASE_SALT_BYTES);
+  const key = crypto.scryptSync(phrase, salt, EMERGENCY_PHRASE_KEY_LEN, {
+    N: EMERGENCY_PHRASE_SCRYPT_N,
+    r: EMERGENCY_PHRASE_SCRYPT_R,
+    p: EMERGENCY_PHRASE_SCRYPT_P,
+  });
+
+  return [
+    'scrypt',
+    String(EMERGENCY_PHRASE_SCRYPT_N),
+    String(EMERGENCY_PHRASE_SCRYPT_R),
+    String(EMERGENCY_PHRASE_SCRYPT_P),
+    salt.toString('hex'),
+    key.toString('hex'),
+  ].join('$');
+}
+
+function verifyEmergencyPhrase(storedVerifier: string, providedPhrase: string): boolean {
+  if (storedVerifier.startsWith('scrypt$')) {
+    const parts = storedVerifier.split('$');
+    if (parts.length !== 6) return false;
+
+    const [, nRaw, rRaw, pRaw, saltHex, keyHex] = parts;
+    const n = Number(nRaw);
+    const r = Number(rRaw);
+    const p = Number(pRaw);
+    const salt = Buffer.from(saltHex, 'hex');
+    const storedKey = Buffer.from(keyHex, 'hex');
+
+    const derived = crypto.scryptSync(providedPhrase, salt, storedKey.length, {
+      N: n,
+      r,
+      p,
+    });
+    return crypto.timingSafeEqual(storedKey, derived);
+  }
+
+  // Backward compatibility for existing users:
+  // legacy storage kept the raw SHA-256(base64) hash and old clients sent the hash directly.
+  const providedHash = toBase64Sha256(providedPhrase);
+  const legacyMatchesRawHashInput = providedPhrase === storedVerifier;
+
+  const storedBuf = Buffer.from(storedVerifier, 'utf8');
+  const providedHashBuf = Buffer.from(providedHash, 'utf8');
+  const providedRawBuf = Buffer.from(providedPhrase, 'utf8');
+
+  const matchesHashedPhrase =
+    storedBuf.length === providedHashBuf.length && crypto.timingSafeEqual(storedBuf, providedHashBuf);
+  const matchesLegacyRaw =
+    legacyMatchesRawHashInput &&
+    storedBuf.length === providedRawBuf.length &&
+    crypto.timingSafeEqual(storedBuf, providedRawBuf);
+
+  return matchesHashedPhrase || matchesLegacyRaw;
+}
 
 // ============================================================================
 // SETUP EMERGENCY ACCESS
@@ -11,13 +77,15 @@ const EMERGENCY_CONTACT_LIMITS = { FREE: 1, PRO: 5 } as const;
 
 export async function setupEmergencyAccess(
   userId: string,
-  data: { emergencyPhraseHash: string; emergencyKeyEncrypted: string; emergencyKeySalt: string },
+  data: { emergencyPhrase: string; emergencyKeyEncrypted: string; emergencyKeySalt: string },
   context: { ipAddress?: string; userAgent?: string }
 ) {
+  const emergencyPhraseHash = deriveEmergencyPhraseVerifier(data.emergencyPhrase);
+
   await prisma.user.update({
     where: { id: userId },
     data: {
-      emergencyPhraseHash: data.emergencyPhraseHash,
+      emergencyPhraseHash,
       emergencyKeyEncrypted: data.emergencyKeyEncrypted,
       emergencyKeySalt: data.emergencyKeySalt,
     },
@@ -41,14 +109,13 @@ export async function setupEmergencyAccess(
 
 export async function validateEmergencyPhrase(
   ownerEmail: string,
-  emergencyPhraseHash: string,
+  emergencyPhrase: string,
   req: { ip?: string; headers: Record<string, string | string[] | undefined> }
 ): Promise<{ accessToken: string; userId: string; emergencyKeyEncrypted: string; emergencyKeySalt: string } | null> {
-  // Find user by email and phrase hash
   const user = await prisma.user.findFirst({
     where: {
       email: ownerEmail.toLowerCase(),
-      emergencyPhraseHash,
+      emergencyPhraseHash: { not: null },
       emergencyKeyEncrypted: { not: null },
     },
   });
@@ -57,10 +124,7 @@ export async function validateEmergencyPhrase(
     return null;
   }
 
-  // Constant-time comparison
-  const storedHash = Buffer.from(user.emergencyPhraseHash ?? '');
-  const providedHash = Buffer.from(emergencyPhraseHash);
-  if (storedHash.length !== providedHash.length || !crypto.timingSafeEqual(storedHash, providedHash)) {
+  if (!user.emergencyPhraseHash || !verifyEmergencyPhrase(user.emergencyPhraseHash, emergencyPhrase)) {
     return null;
   }
 
@@ -109,13 +173,15 @@ export async function validateEmergencyPhrase(
 
 export async function rotateEmergencyKey(
   userId: string,
-  data: { newEmergencyPhraseHash: string; newEmergencyKeyEncrypted: string; newEmergencyKeySalt: string },
+  data: { newEmergencyPhrase: string; newEmergencyKeyEncrypted: string; newEmergencyKeySalt: string },
   context: { ipAddress?: string; userAgent?: string }
 ) {
+  const emergencyPhraseHash = deriveEmergencyPhraseVerifier(data.newEmergencyPhrase);
+
   await prisma.user.update({
     where: { id: userId },
     data: {
-      emergencyPhraseHash: data.newEmergencyPhraseHash,
+      emergencyPhraseHash,
       emergencyKeyEncrypted: data.newEmergencyKeyEncrypted,
       emergencyKeySalt: data.newEmergencyKeySalt,
     },

@@ -10,7 +10,7 @@ import { EmergencyContactForm } from './EmergencyContactForm';
 import { EmergencyInstructions } from './EmergencyInstructions';
 import { useCryptoStore } from '@/store/cryptoStore';
 import { useAuthStore } from '@/store/authStore';
-import { deriveEmergencyKey, sha256Hash, generateSalt } from '@/lib/crypto/keyDerivation';
+import { deriveEmergencyKey, generateSalt } from '@/lib/crypto/keyDerivation';
 import { reencryptFileKey } from '@/lib/crypto/fileEncryption';
 import { emergencyAccessApi } from '@/lib/api/emergencyAccess';
 import { filesApi } from '@/lib/api/files';
@@ -69,7 +69,6 @@ export function EmergencySetupWizard({ onComplete }: { onComplete: () => void })
     setDeriveError(null);
     try {
       const newSalt = generateSalt();
-      const hash = await sha256Hash(phrase);
       const key = await deriveEmergencyKey(phrase, newSalt, true);
       setEmergencyKey(key);
 
@@ -98,7 +97,7 @@ export function EmergencySetupWizard({ onComplete }: { onComplete: () => void })
       };
 
       await emergencyAccessApi.setupEmergencyAccess({
-        emergencyPhraseHash: hash,
+        emergencyPhrase: phrase,
         emergencyKeyEncrypted: toBase64(encryptedKeyBuffer) + ':' + toBase64(iv),
         emergencyKeySalt: newSalt,
       });

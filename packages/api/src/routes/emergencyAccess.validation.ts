@@ -1,18 +1,18 @@
 import { z } from 'zod';
 
 export const setupEmergencyAccessSchema = z.object({
-  emergencyPhraseHash: z.string().min(1, 'Emergency phrase hash is required'),
+  emergencyPhrase: z.string().min(1, 'Emergency phrase is required'),
   emergencyKeyEncrypted: z.string().min(1, 'Emergency key is required'),
   emergencyKeySalt: z.string().min(1, 'Emergency key salt is required'),
 });
 
 export const validateEmergencyPhraseSchema = z.object({
   ownerEmail: z.string().email('Valid email is required'),
-  emergencyPhraseHash: z.string().min(1, 'Emergency phrase hash is required'),
+  emergencyPhrase: z.string().min(1, 'Emergency phrase is required'),
 });
 
 export const rotateEmergencyKeySchema = z.object({
-  newEmergencyPhraseHash: z.string().min(1, 'New emergency phrase hash is required'),
+  newEmergencyPhrase: z.string().min(1, 'New emergency phrase is required'),
   newEmergencyKeyEncrypted: z.string().min(1, 'New emergency key is required'),
   newEmergencyKeySalt: z.string().min(1, 'New emergency key salt is required'),
 });

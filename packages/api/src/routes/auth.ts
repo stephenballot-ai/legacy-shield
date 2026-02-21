@@ -437,6 +437,12 @@ router.post('/refresh', async (req: Request, res: Response) => {
       });
       return;
     }
+    if (session.userId !== payload.userId || session.sessionType !== payload.sessionType) {
+      res.status(401).json({
+        error: { code: 'UNAUTHORIZED', message: 'Invalid session context' },
+      });
+      return;
+    }
 
     const user = await prisma.user.findUnique({ where: { id: payload.userId } });
     if (!user) {
@@ -477,10 +483,11 @@ router.post('/refresh', async (req: Request, res: Response) => {
 // ============================================================================
 router.post('/password/change', authenticate, requireOwner, validate(changePasswordSchema), async (req: Request, res: Response) => {
   try {
-    const { currentPassword, newPassword, reencryptedKeys } = req.body as {
+    const { currentPassword, newPassword, reencryptedKeys, newEmergencyKeyEncrypted } = req.body as {
       currentPassword: string;
       newPassword: string;
       reencryptedKeys?: Array<{ fileId: string; ownerEncryptedKey: string; ownerIV: string }>;
+      newEmergencyKeyEncrypted?: string;
     };
 
     const user = await prisma.user.findUnique({ where: { id: req.user!.userId } });
@@ -499,17 +506,46 @@ router.post('/password/change', authenticate, requireOwner, validate(changePassw
       return;
     }
 
-    // Verify re-encrypted keys cover all user files (if any files exist)
-    const { newEmergencyKeyEncrypted } = req.body as { newEmergencyKeyEncrypted?: string };
-    const fileCount = await prisma.file.count({ where: { userId: user.id, deletedAt: null } });
-    if (fileCount > 0 && (!reencryptedKeys || reencryptedKeys.length !== fileCount)) {
+    // Verify re-encrypted keys cover all user files exactly once (if any files exist)
+    const userFiles = await prisma.file.findMany({
+      where: { userId: user.id, deletedAt: null },
+      select: { id: true },
+    });
+    const expectedFileIds = new Set(userFiles.map((f) => f.id));
+
+    if (expectedFileIds.size > 0 && (!reencryptedKeys || reencryptedKeys.length !== expectedFileIds.size)) {
       res.status(400).json({
         error: {
           code: 'INCOMPLETE_REENCRYPTION',
-          message: `Expected ${fileCount} re-encrypted file keys but received ${reencryptedKeys?.length ?? 0}. Aborting to prevent data loss.`,
+          message: `Expected ${expectedFileIds.size} re-encrypted file keys but received ${reencryptedKeys?.length ?? 0}. Aborting to prevent data loss.`,
         },
       });
       return;
+    }
+
+    if (reencryptedKeys) {
+      const seen = new Set<string>();
+      for (const rk of reencryptedKeys) {
+        if (seen.has(rk.fileId)) {
+          res.status(400).json({
+            error: {
+              code: 'DUPLICATE_FILE_KEY',
+              message: 'Each file key can only be re-encrypted once per request.',
+            },
+          });
+          return;
+        }
+        seen.add(rk.fileId);
+        if (!expectedFileIds.has(rk.fileId)) {
+          res.status(400).json({
+            error: {
+              code: 'INVALID_FILE_KEY',
+              message: 'One or more file IDs do not belong to this account.',
+            },
+          });
+          return;
+        }
+      }
     }
 
     // Abort if emergency key exists but wasn't re-encrypted
@@ -540,8 +576,8 @@ router.post('/password/change', authenticate, requireOwner, validate(changePassw
       // Update re-encrypted file keys
       if (reencryptedKeys && reencryptedKeys.length > 0) {
         for (const rk of reencryptedKeys) {
-          await tx.file.updateMany({
-            where: { id: rk.fileId, userId: user.id },
+          await tx.file.update({
+            where: { id: rk.fileId },
             data: { ownerEncryptedKey: rk.ownerEncryptedKey, ownerIV: rk.ownerIV },
           });
         }

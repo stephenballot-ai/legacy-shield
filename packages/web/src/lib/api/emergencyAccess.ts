@@ -18,7 +18,7 @@ export interface EmergencyContact {
 }
 
 interface SetupEmergencyAccessParams {
-  emergencyPhraseHash: string;
+  emergencyPhrase: string;
   emergencyKeyEncrypted: string;
   emergencyKeySalt: string;
 }
@@ -31,7 +31,7 @@ interface ValidateEmergencyPhraseResponse {
 }
 
 interface RotateEmergencyKeyParams {
-  newEmergencyPhraseHash: string;
+  newEmergencyPhrase: string;
   newEmergencyKeyEncrypted: string;
   newEmergencyKeySalt: string;
 }
@@ -49,8 +49,8 @@ export const emergencyAccessApi = {
   setupEmergencyAccess: (params: SetupEmergencyAccessParams) =>
     api.post<{ success: boolean }>('/emergency-access/setup', params),
 
-  validateEmergencyPhrase: (ownerEmail: string, emergencyPhraseHash: string) =>
-    api.post<ValidateEmergencyPhraseResponse>('/emergency-access/validate', { ownerEmail, emergencyPhraseHash }),
+  validateEmergencyPhrase: (ownerEmail: string, emergencyPhrase: string) =>
+    api.post<ValidateEmergencyPhraseResponse>('/emergency-access/validate', { ownerEmail, emergencyPhrase }),
 
   rotateEmergencyKey: (params: RotateEmergencyKeyParams) =>
     api.post<{ success: boolean }>('/emergency-access/rotate-key', params),

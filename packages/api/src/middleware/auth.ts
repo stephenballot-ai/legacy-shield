@@ -55,6 +55,13 @@ export async function authenticate(
       return;
     }
 
+    if (session.userId !== payload.userId || session.sessionType !== payload.sessionType) {
+      res.status(401).json({
+        error: { code: 'UNAUTHORIZED', message: 'Invalid session context' },
+      });
+      return;
+    }
+
     req.user = {
       userId: payload.userId,
       sessionId: payload.sessionId,

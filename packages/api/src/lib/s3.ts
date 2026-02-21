@@ -5,6 +5,7 @@ import {
   GetObjectCommand,
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { Transform } from 'stream';
 
 // ============================================================================
 // S3 CLIENT (MinIO locally / Hetzner Object Storage in prod)
@@ -81,6 +82,41 @@ export async function uploadObject(
 }
 
 /**
+ * Upload a stream directly to S3 while enforcing a hard max byte limit.
+ */
+export async function uploadObjectStream(
+  key: string,
+  body: NodeJS.ReadableStream,
+  contentType: string,
+  maxBytes: number,
+  contentLength?: number
+): Promise<void> {
+  let uploadedBytes = 0;
+
+  const byteLimitTransform = new Transform({
+    transform(chunk, _encoding, callback) {
+      uploadedBytes += Buffer.byteLength(chunk);
+      if (uploadedBytes > maxBytes) {
+        callback(new Error('FILE_SIZE_LIMIT_EXCEEDED'));
+        return;
+      }
+      callback(null, chunk);
+    },
+  });
+
+  body.pipe(byteLimitTransform);
+
+  const command = new PutObjectCommand({
+    Bucket: STORAGE_BUCKET,
+    Key: key,
+    Body: byteLimitTransform,
+    ContentType: contentType,
+    ...(contentLength ? { ContentLength: contentLength } : {}),
+  });
+  await s3Client.send(command);
+}
+
+/**
  * Download an object from S3 as a buffer.
  */
 export async function downloadObject(key: string): Promise<{ body: Buffer; contentType?: string }> {
@@ -97,6 +133,24 @@ export async function downloadObject(key: string): Promise<{ body: Buffer; conte
   return {
     body: Buffer.concat(chunks),
     contentType: response.ContentType,
+  };
+}
+
+/**
+ * Download an object from S3 as a stream.
+ */
+export async function downloadObjectStream(
+  key: string
+): Promise<{ body: NodeJS.ReadableStream; contentType?: string; contentLength?: number }> {
+  const command = new GetObjectCommand({
+    Bucket: STORAGE_BUCKET,
+    Key: key,
+  });
+  const response = await s3Client.send(command);
+  return {
+    body: response.Body as NodeJS.ReadableStream,
+    contentType: response.ContentType,
+    contentLength: response.ContentLength,
   };
 }
 

@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Alert } from '@/components/ui/Alert';
 import { useCryptoStore } from '@/store/cryptoStore';
-import { sha256Hash, deriveEmergencyKey } from '@/lib/crypto/keyDerivation';
+import { deriveEmergencyKey } from '@/lib/crypto/keyDerivation';
 import { emergencyAccessApi } from '@/lib/api/emergencyAccess';
 import { setAccessToken } from '@/lib/api/client';
 import { ShieldAlert } from 'lucide-react';
@@ -35,22 +35,19 @@ export default function EmergencyAccessPortal() {
     setError(null);
 
     try {
-      // 1. Hash the phrase
-      const phraseHash = await sha256Hash(phrase);
+      // 1. Validate phrase with API
+      const result = await emergencyAccessApi.validateEmergencyPhrase(email.trim(), phrase);
 
-      // 2. Validate with API
-      const result = await emergencyAccessApi.validateEmergencyPhrase(email.trim(), phraseHash);
-
-      // 3. Set access token for subsequent API calls
+      // 2. Set access token for subsequent API calls
       setAccessToken(result.accessToken);
 
-      // 4. Derive emergency key from phrase + salt
+      // 3. Derive emergency key from phrase + salt
       const emergencyKey = await deriveEmergencyKey(phrase, result.emergencyKeySalt);
 
-      // 5. Store emergency key
+      // 4. Store emergency key
       useCryptoStore.getState().setEmergencyKey(emergencyKey);
 
-      // 6. Redirect to vault
+      // 5. Redirect to vault
       router.push('/emergency-portal/vault');
     } catch (err) {
       if (err && typeof err === 'object' && 'status' in err) {
