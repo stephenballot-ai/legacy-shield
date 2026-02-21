@@ -8,7 +8,7 @@ import { useFilesStore } from '@/store/filesStore';
 import { DOCUMENT_LIMITS } from '@legacy-shield/shared';
 import { usersApi } from '@/lib/api/users';
 import { emergencyAccessApi } from '@/lib/api/emergencyAccess';
-import { ShieldAlert, Clock, ArrowRight, Gift, Copy, Check } from 'lucide-react';
+import { FileText, ShieldAlert, Upload, Clock, ArrowRight, Gift, Copy, Check } from 'lucide-react';
 import { formatFileSize, formatDate, cn } from '@/lib/utils';
 import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
