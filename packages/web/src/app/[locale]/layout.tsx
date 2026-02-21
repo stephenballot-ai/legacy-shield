@@ -47,6 +47,31 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} className={inter.variable}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'SoftwareApplication',
+              'name': 'LegacyShield',
+              'operatingSystem': 'Web',
+              'applicationCategory': 'SecurityApplication',
+              'description': t('description'),
+              'offers': {
+                '@type': 'Offer',
+                'price': '0',
+                'priceCurrency': 'EUR'
+              },
+              'author': {
+                '@type': 'Organization',
+                'name': 'LegacyShield Team',
+                'url': 'https://legacyshield.eu'
+              }
+            })
+          }}
+        />
+      </head>
       <body className="min-h-screen bg-gray-50 antialiased">
         <NextIntlClientProvider messages={messages}>
           {children}

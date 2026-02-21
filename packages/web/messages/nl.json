@@ -56,5 +56,52 @@
         "shielded": "Legacy Beschermd"
       }
     }
+  },
+  "homepage": {
+    "hero": {
+      "badge": "Zero-Knowledge Beveiligde Kluis",
+      "title": "Sla Je Meest Kostbare Bestanden Voor Altijd Veilig Op",
+      "subtitle": "Veilige digitale erfenisplanning en noodtoegang tot documenten. Je bestanden worden versleuteld op <strongItem>jouw apparaat</strongItem> voordat ze onze servers bereiken. We kunnen nooit zien wat erin staat.",
+      "ctaPrimary": "Gratis Beginnen",
+      "ctaSecondary": "Inloggen",
+      "disclaimer": "Altijd gratis · Geen creditcard nodig"
+    },
+    "features": {
+      "sectionTitle": "Beveiliging Zonder Compromis",
+      "sectionSubtitle": "Vanaf de basis opgebouwd voor mensen die documentbeveiliging serieus nemen.",
+      "encryption": {
+        "title": "Militaire Encryptie",
+        "desc": "Je bestanden worden in je browser versleuteld voordat ze je apparaat verlaten. Niet op onze servers. Niet onderweg. Op JOUW apparaat. Wij zien nooit het origineel — alleen jij hebt de sleutel."
+      },
+      "emergency": {
+        "title": "Noodtoegang",
+        "desc": "Wijs vertrouwde contactpersonen aan die toegang krijgen tot je kluis via een geheime ontgrendelzin. Wanneer het er echt op aankomt, staan je dierbaren niet voor een gesloten deur."
+      },
+      "hosting": {
+        "title": "EU-Only Hosting",
+        "desc": "Je versleutelde data staat op servers in Europese handen (Hetzner, Duitsland) — niet bij AWS of Google. Geen Amerikaanse CLOUD Act. Geen toegang voor buitenlandse overheden. GDPR-native door ontwerp."
+      }
+    },
+    "proof": {
+      "title": "We Kunnen Je Bestanden Niet Zien. Letterlijk.",
+      "subtitle": "Dit is geen marketingclaim. Het is de architectuur.",
+      "visual": {
+        "yourDevice": "Jouw apparaat",
+        "originalFile": "Je originele bestand",
+        "encryptedFile": "Versleuteld met jouw sleutel",
+        "ourServers": "Onze servers",
+        "blindText": "We kunnen zien dat er een bestand bestaat, maar we hebben geen enkele manier om het te ontsleutelen of de inhoud te zien."
+      },
+      "points": {
+        "keys": {
+          "title": "Jij Hebt de Sleutels",
+          "desc": "Je encryptiesleutel wordt afgeleid van je wachtwoord en verlaat nooit je apparaat. We slaan het niet op, we zien het niet en we kunnen het niet resetten."
+        },
+        "infra": {
+          "title": "Soevereine Infrastructuur",
+          "desc": "We gebruiken geen Amerikaanse cloudproviders zoals AWS of Google Cloud. Je data staat op hardware in Duitsland en Finland, beschermd door de strengste EU-privacywetten."
+        }
+      }
+    }
   }
 }

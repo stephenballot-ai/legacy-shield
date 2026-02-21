@@ -4,38 +4,42 @@ import { Link } from '@/i18n/routing';
 import { useMemo } from 'react';
 import { Shield, Lock, Users, Server, Upload, UserPlus, CheckCircle, Heart } from 'lucide-react';
 import { getCurrency } from '@/lib/utils/currency';
+import { useTranslations } from 'next-intl';
 
 function HeroSection() {
+  const t = useTranslations('homepage.hero');
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-primary-900 via-primary-800 to-navy-900 text-white">
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDE4YzMuMzE0IDAgNi0yLjY4NiA2LTZzLTIuNjg2LTYtNi02LTYgMi42ODYtNiA2IDIuNjg2IDYgNiA2eiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-24 sm:py-32 lg:py-40">
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-32 lg:py-40">
         <div className="text-center max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 text-sm font-medium mb-8">
             <Shield className="h-4 w-4 text-trust-400" />
-            <span>Zero-Knowledge Encrypted Vault</span>
+            <span>{t('badge')}</span>
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
-            Save Your Most Precious Files Safely Forever
+            {t('title')}
           </h1>
           <p className="mt-6 text-lg sm:text-xl text-white/80 max-w-2xl mx-auto">
-            Secure digital estate planning and emergency document access. Your files are encrypted on <strong>your device</strong> before they ever touch our servers. We can never see what&apos;s inside them.
+            {t.rich('subtitle', {
+              strongItem: (chunks) => <strong>{chunks}</strong>
+            })}
           </p>
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/register"
               className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-accent-400 text-primary-900 font-semibold text-lg hover:bg-accent-500 transition-colors shadow-lg shadow-black/20"
             >
-              Get Started Free
+              {t('ctaPrimary')}
             </Link>
             <Link
               href="/login"
               className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl border-2 border-white/30 text-white font-semibold text-lg hover:bg-white/10 transition-colors"
             >
-              Sign In
+              {t('ctaSecondary')}
             </Link>
           </div>
-          <p className="mt-4 text-sm text-white/50">Free forever · No credit card required</p>
+          <p className="mt-4 text-sm text-white/50">{t('disclaimer')}</p>
         </div>
       </div>
     </section>
@@ -67,36 +71,37 @@ function TrustBar() {
 }
 
 function FeaturesSection() {
+  const t = useTranslations('homepage.features');
   const features = [
     {
       icon: Lock,
-      title: 'Military-Grade Encryption',
-      description: 'Your files are encrypted in your browser before they ever leave your device. Not on our servers. Not in transit. On YOUR device. We never see the original — only you hold the key.',
+      title: t('encryption.title'),
+      description: t('encryption.desc'),
       color: 'bg-primary-100 text-primary-700',
     },
     {
       icon: Users,
-      title: 'Emergency Access',
-      description: 'Designate trusted contacts who can access your vault using a secret unlock phrase. When it matters most, your loved ones won\'t be locked out.',
+      title: t('emergency.title'),
+      description: t('emergency.desc'),
       color: 'bg-trust-100 text-trust-700',
     },
     {
       icon: Server,
-      title: 'EU-Only Hosting',
-      description: 'Your encrypted data lives on European-owned servers (Hetzner, Germany) — not AWS, not Google. No US CLOUD Act. No foreign government access. GDPR-native by design.',
+      title: t('hosting.title'),
+      description: t('hosting.desc'),
       color: 'bg-navy-100 text-navy-700',
     },
   ];
 
   return (
-    <section className="py-20 sm:py-28 bg-white">
+    <section className="py-20 bg-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
-            Security Without Compromise
+            {t('sectionTitle')}
           </h2>
           <p className="mt-4 text-lg text-gray-600">
-            Built from the ground up for people who take document security seriously.
+            {t('sectionSubtitle')}
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -116,15 +121,16 @@ function FeaturesSection() {
 }
 
 function ProofOfPrivacySection() {
+  const t = useTranslations('homepage.proof');
   return (
-    <section className="py-20 sm:py-28 bg-white border-t border-gray-100">
+    <section className="py-20 bg-white border-t border-gray-100">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
-            We Can&apos;t See Your Files. Literally.
+            {t('title')}
           </h2>
           <p className="mt-4 text-lg text-gray-600">
-            This isn&apos;t a marketing claim. It&apos;s the architecture.
+            {t('subtitle')}
           </p>
         </div>
 
@@ -212,7 +218,7 @@ function HowItWorksSection() {
   ];
 
   return (
-    <section className="py-20 sm:py-28 bg-gray-50">
+    <section className="py-12 sm:py-20 bg-gray-50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
@@ -254,7 +260,7 @@ function UseCasesSection() {
   ];
 
   return (
-    <section className="py-20 sm:py-28 bg-white">
+    <section className="py-12 sm:py-20 bg-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
@@ -280,7 +286,7 @@ function UseCasesSection() {
 function PricingSection() {
   const currency = useMemo(() => getCurrency(), []);
   return (
-    <section className="py-20 sm:py-28 bg-gray-50" id="pricing">
+    <section className="py-12 sm:py-20 bg-gray-50" id="pricing">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
@@ -348,7 +354,7 @@ function PricingSection() {
 
 function CTASection() {
   return (
-    <section className="py-20 sm:py-28 bg-gradient-to-br from-primary-900 via-primary-800 to-navy-900 text-white">
+    <section className="py-12 sm:py-20 bg-gradient-to-br from-primary-900 via-primary-800 to-navy-900 text-white">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
         <Heart className="h-12 w-12 mx-auto mb-6 text-trust-400" />
         <h2 className="text-3xl sm:text-4xl font-bold">

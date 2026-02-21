@@ -56,5 +56,52 @@
         "shielded": "Legacy Shielded"
       }
     }
+  },
+  "homepage": {
+    "hero": {
+      "badge": "Zero-Knowledge Encrypted Vault",
+      "title": "Save Your Most Precious Files Safely Forever",
+      "subtitle": "Secure digital estate planning and emergency document access. Your files are encrypted on <strongItem>your device</strongItem> before they ever touch our servers. We can never see what's inside them.",
+      "ctaPrimary": "Get Started Free",
+      "ctaSecondary": "Sign In",
+      "disclaimer": "Free forever · No credit card required"
+    },
+    "features": {
+      "sectionTitle": "Security Without Compromise",
+      "sectionSubtitle": "Built from the ground up for people who take document security seriously.",
+      "encryption": {
+        "title": "Military-Grade Encryption",
+        "desc": "Your files are encrypted in your browser before they ever leave your device. Not on our servers. Not in transit. On YOUR device. We never see the original — only you hold the key."
+      },
+      "emergency": {
+        "title": "Emergency Access",
+        "desc": "Designate trusted contacts who can access your vault using a secret unlock phrase. When it matters most, your loved ones won't be locked out."
+      },
+      "hosting": {
+        "title": "EU-Only Hosting",
+        "desc": "Your encrypted data lives on European-owned servers (Hetzner, Germany) — not AWS, not Google. No US CLOUD Act. No foreign government access. GDPR-native by design."
+      }
+    },
+    "proof": {
+      "title": "We Can't See Your Files. Literally.",
+      "subtitle": "This isn't a marketing claim. It's the architecture.",
+      "visual": {
+        "yourDevice": "Your device",
+        "originalFile": "Your original file",
+        "encryptedFile": "Encrypted with your key",
+        "ourServers": "Our servers",
+        "blindText": "We can see that a file exists, but we have no way to decrypt it or see its content."
+      },
+      "points": {
+        "keys": {
+          "title": "You Hold the Keys",
+          "desc": "Your encryption key is derived from your password and never leaves your device. We don't store it, we don't see it, and we can't reset it."
+        },
+        "infra": {
+          "title": "Sovereign Infrastructure",
+          "desc": "We don't use US-owned cloud providers like AWS or Google Cloud. Your data lives on European-owned hardware in Germany and Finland, protected by strict EU privacy laws."
+        }
+      }
+    }
   }
 }
