@@ -1,0 +1,52 @@
+{
+  "common": {
+    "save": "Opslaan",
+    "cancel": "Annuleren",
+    "loading": "Laden...",
+    "delete": "Verwijderen",
+    "edit": "Bewerken",
+    "view": "Bekijken",
+    "download": "Downloaden",
+    "upload": "Uploaden",
+    "exit": "Sluiten",
+    "back": "Terug",
+    "done": "Klaar"
+  },
+  "metadata": {
+    "title": "LegacyShield | Veilige Digitale Erfenisplanning & Documentenkluis",
+    "description": "Bewaar je meest kostbare documenten — paspoorten, testamenten, verzekeringen — veilig met zero-knowledge encryptie en noodtoegang voor dierbaren."
+  },
+  "auth": {
+    "login": {
+      "title": "Inloggen",
+      "emailLabel": "E-mailadres",
+      "passwordLabel": "Wachtwoord",
+      "submit": "Inloggen",
+      "forgotPassword": "Geen toegang tot je account?",
+      "noAccount": "Nog geen account?",
+      "createAccount": "Account aanmaken"
+    },
+    "register": {
+      "title": "Account aanmaken",
+      "referred": "Je bent uitgenodigd door een vriend! Maak je account aan om te starten met je eigen kluis.",
+      "hasAccount": "Heb je al een account?",
+      "signIn": "Inloggen"
+    }
+  },
+  "dashboard": {
+    "welcome": "Welkom terug",
+    "subtitle": "Je beveiligde documentenkluis",
+    "readiness": {
+      "title": "Legacy Gereedheid",
+      "subtitle": "Essentiële documenten voor je dierbaren",
+      "secured": "Beveiligd",
+      "upload": "Uploaden",
+      "status": {
+        "unprotected": "Onbeschermd",
+        "gettingStarted": "Begonnen",
+        "basic": "Basis Dekking",
+        "shielded": "Legacy Beschermd"
+      }
+    }
+  }
+}
