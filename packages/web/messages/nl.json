@@ -41,6 +41,13 @@
       "subtitle": "Essentiële documenten voor je dierbaren",
       "secured": "Beveiligd",
       "upload": "Uploaden",
+      "essentials": {
+        "passport": "Paspoort / ID",
+        "will": "Testament & Akten",
+        "insurance": "Levensverzekering",
+        "financial": "Financieel Overzicht",
+        "pension": "Pensioen (UPO)"
+      },
       "status": {
         "unprotected": "Onbeschermd",
         "gettingStarted": "Begonnen",

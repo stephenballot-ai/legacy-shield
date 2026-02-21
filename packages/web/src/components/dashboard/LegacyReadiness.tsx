@@ -1,18 +1,11 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useFilesStore } from '@/store/filesStore';
 import { Card } from '@/components/ui/Card';
-import { CheckCircle2, ShieldCheck, Scale, HeartPulse, DollarSign, Fingerprint } from 'lucide-react';
+import { CheckCircle2, ShieldCheck, Scale, HeartPulse, DollarSign, Fingerprint, Landmark } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { FileCategory } from '@legacy-shield/shared';
-
-const ESSENTIAL_DOCS: Array<{ id: string; label: string; categories: FileCategory[]; icon: any }> = [
-  { id: 'IDENTITY', label: 'Passport / ID', categories: ['IDENTITY'], icon: Fingerprint },
-  { id: 'WILL', label: 'Will & Trust', categories: ['LEGAL'], icon: Scale },
-  { id: 'INSURANCE', label: 'Life Insurance', categories: ['INSURANCE'], icon: ShieldCheck },
-  { id: 'DIGITAL', label: 'Online Accounts Summary', categories: ['DIGITAL_ASSETS'], icon: HeartPulse },
-  { id: 'FINANCIAL', label: 'Financial Overview', categories: ['FINANCIAL', 'PROPERTY'], icon: DollarSign },
-];
 
 export function LegacyReadiness({ 
   onUpload, 
@@ -23,11 +16,21 @@ export function LegacyReadiness({
   onBuildAccounts?: () => void;
   onBuildFinancial?: () => void;
 }) {
+  const t = useTranslations('dashboard.readiness');
   const { files } = useFilesStore();
+
+  const ESSENTIAL_DOCS: Array<{ id: string; key: any; categories: FileCategory[]; icon: any }> = [
+    { id: 'IDENTITY', key: 'passport', categories: ['IDENTITY'], icon: Fingerprint },
+    { id: 'WILL', key: 'will', categories: ['LEGAL'], icon: Scale },
+    { id: 'INSURANCE', key: 'insurance', categories: ['INSURANCE'], icon: ShieldCheck },
+    { id: 'FINANCIAL', key: 'financial', categories: ['FINANCIAL', 'PROPERTY'], icon: DollarSign },
+    { id: 'PENSION', key: 'pension', categories: ['FINANCIAL'], icon: Landmark },
+  ];
 
   const completed = ESSENTIAL_DOCS.map((doc) => {
     return {
       ...doc,
+      label: t(`essentials.${doc.key}`),
       isDone: files.some((f) => f.category && doc.categories.includes(f.category)),
     };
   });
@@ -35,20 +38,20 @@ export function LegacyReadiness({
   const doneCount = completed.filter((d) => d.isDone).length;
   const score = (doneCount / ESSENTIAL_DOCS.length) * 100;
 
-  let status = 'Unprotected';
+  let status = t('status.unprotected');
   let color = 'text-gray-400';
   let barColor = 'bg-gray-200';
 
   if (score >= 80) {
-    status = 'Legacy Shielded';
+    status = t('status.shielded');
     color = 'text-trust-600';
     barColor = 'bg-trust-500';
   } else if (score >= 40) {
-    status = 'Basic Coverage';
+    status = t('status.basic');
     color = 'text-amber-600';
     barColor = 'bg-amber-500';
   } else if (score > 0) {
-    status = 'Getting Started';
+    status = t('status.gettingStarted');
     color = 'text-primary-600';
     barColor = 'bg-primary-500';
   }
@@ -58,16 +61,16 @@ export function LegacyReadiness({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
           <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-            Legacy Readiness
+            {t('title')}
             {score === 100 && <ShieldCheck className="h-5 w-5 text-trust-500" />}
           </h2>
-          <p className="text-sm text-gray-500">Essential documents for your loved ones</p>
+          <p className="text-sm text-gray-500">{t('subtitle')}</p>
         </div>
         <div className="text-right">
           <span className={cn('text-2xl font-black italic tracking-tighter uppercase', color)}>
             {status}
           </span>
-          <p className="text-xs font-medium text-gray-400 mt-0.5">{doneCount} of 5 essentials secured</p>
+          <p className="text-xs font-medium text-gray-400 mt-0.5">{doneCount} {t('secured').toLowerCase()}</p>
         </div>
       </div>
 
@@ -107,7 +110,7 @@ export function LegacyReadiness({
                 <div className="flex items-center md:justify-center mt-1">
                   {doc.isDone ? (
                     <span className="text-[10px] font-bold text-trust-600 uppercase tracking-wider flex items-center gap-1">
-                      <CheckCircle2 className="h-3 w-3" /> Secured
+                      <CheckCircle2 className="h-3 w-3" /> {t('secured')}
                     </span>
                   ) : doc.id === 'DIGITAL' && onBuildAccounts ? (
                     <div className="flex items-center gap-2">
@@ -122,7 +125,7 @@ export function LegacyReadiness({
                         onClick={() => onUpload(doc.categories[0])}
                         className="text-[10px] font-bold text-primary-600 hover:text-primary-700 uppercase tracking-wider underline"
                       >
-                        Upload
+                        {t('upload')}
                       </button>
                     </div>
                   ) : doc.id === 'FINANCIAL' && onBuildFinancial ? (
@@ -138,7 +141,7 @@ export function LegacyReadiness({
                         onClick={() => onUpload(doc.categories[0])}
                         className="text-[10px] font-bold text-primary-600 hover:text-primary-700 uppercase tracking-wider underline"
                       >
-                        Upload
+                        {t('upload')}
                       </button>
                     </div>
                   ) : (
@@ -146,7 +149,7 @@ export function LegacyReadiness({
                       onClick={() => onUpload(doc.categories[0])}
                       className="text-[10px] font-bold text-primary-600 hover:text-primary-700 uppercase tracking-wider underline"
                     >
-                      Upload
+                      {t('upload')}
                     </button>
                   )}
                 </div>

@@ -41,6 +41,13 @@
       "subtitle": "Essential documents for your loved ones",
       "secured": "Secured",
       "upload": "Upload",
+      "essentials": {
+        "passport": "Passport / ID",
+        "will": "Will & Trust",
+        "insurance": "Life Insurance",
+        "financial": "Financial Overview",
+        "pension": "Pension / Retirement"
+      },
       "status": {
         "unprotected": "Unprotected",
         "gettingStarted": "Getting Started",
