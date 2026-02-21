@@ -91,16 +91,18 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [resending, setResending] = useState(false);
+  const [resendStatus, setResendStatus] = useState<'idle' | 'sent' | 'error'>('idle');
   const user = useAuthStore((s) => s.user);
   const logout = useAuthStore((s) => s.logout);
 
   const handleResend = async () => {
     setResending(true);
+    setResendStatus('idle');
     try {
       await authApi.resendVerification();
-      alert('Verification link resent to your email.');
+      setResendStatus('sent');
     } catch {
-      alert('Failed to resend verification link.');
+      setResendStatus('error');
     } finally {
       setResending(false);
     }
@@ -116,14 +118,25 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           {!user?.emailVerified && (
             <div className="bg-amber-50 border-b border-amber-200 px-4 py-2 flex items-center justify-center gap-2 text-xs font-medium text-amber-800">
               <AlertTriangle className="h-3.5 w-3.5" />
-              <span>Please verify your email to enable emergency access features.</span>
-              <button
-                onClick={handleResend}
-                disabled={resending}
-                className="underline hover:text-amber-900 ml-1 disabled:opacity-50"
-              >
-                {resending ? 'Sending...' : 'Resend link'}
-              </button>
+              {resendStatus === 'sent' ? (
+                <span className="text-trust-700">✓ Verification link sent! Check your inbox.</span>
+              ) : resendStatus === 'error' ? (
+                <>
+                  <span className="text-red-700">Failed to send.</span>
+                  <button onClick={handleResend} className="underline hover:text-amber-900 ml-1">Try again</button>
+                </>
+              ) : (
+                <>
+                  <span>Please verify your email to enable emergency access features.</span>
+                  <button
+                    onClick={handleResend}
+                    disabled={resending}
+                    className="underline hover:text-amber-900 ml-1 disabled:opacity-50"
+                  >
+                    {resending ? 'Sending...' : 'Resend link'}
+                  </button>
+                </>
+              )}
             </div>
           )}
 

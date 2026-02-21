@@ -181,6 +181,55 @@ If this was expected, no action is needed. If you did not authorize this access,
 // WELCOME CHECKLIST EMAIL
 // ============================================================================
 
+// ============================================================================
+// EMAIL VERIFICATION
+// ============================================================================
+
+export async function sendVerificationEmail(params: {
+  to: string;
+  token: string;
+}) {
+  const { to, token } = params;
+  const verifyUrl = `${APP_URL}/verify-email?token=${token}`;
+
+  return sendEmail({
+    to,
+    subject: 'Verify your email — LegacyShield',
+    html: `
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 560px; margin: 0 auto; padding: 40px 20px;">
+        <div style="text-align: center; margin-bottom: 32px;">
+          <h1 style="font-size: 24px; font-weight: 700; color: #111827; margin: 0;">🛡️ LegacyShield</h1>
+        </div>
+
+        <p style="font-size: 16px; color: #374151; line-height: 1.6;">
+          Please verify your email address to unlock emergency access features.
+        </p>
+
+        <div style="text-align: center; margin: 32px 0;">
+          <a href="${verifyUrl}" style="background-color: #C9A84C; color: white; padding: 14px 32px; text-decoration: none; border-radius: 8px; font-weight: 600; display: inline-block; font-size: 16px;">
+            Verify My Email
+          </a>
+        </div>
+
+        <p style="font-size: 14px; color: #6B7280; line-height: 1.6;">
+          This link expires in 24 hours. If you didn't create an account on LegacyShield, you can safely ignore this email.
+        </p>
+
+        <hr style="border: none; border-top: 1px solid #E5E7EB; margin: 32px 0;" />
+
+        <p style="font-size: 12px; color: #9CA3AF; text-align: center;">
+          🇪🇺 LegacyShield · European-owned infrastructure · Zero-knowledge encryption
+        </p>
+      </div>
+    `,
+    text: `Verify your email for LegacyShield.\n\nClick here: ${verifyUrl}\n\nThis link expires in 24 hours.`,
+  });
+}
+
+// ============================================================================
+// WELCOME CHECKLIST EMAIL
+// ============================================================================
+
 export async function sendWelcomeChecklistEmail(params: {
   ownerEmail: string;
 }) {

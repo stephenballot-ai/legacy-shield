@@ -25,7 +25,7 @@ import {
   type TokenPayload,
   type TempTokenPayload,
 } from '../services/auth';
-import { sendWelcomeChecklistEmail } from '../lib/email';
+import { sendWelcomeChecklistEmail, sendVerificationEmail } from '../lib/email';
 
 const router = Router();
 
@@ -89,9 +89,9 @@ router.post('/register', validate(registerSchema), async (req: Request, res: Res
       ownerEmail: user.email,
     }).catch((err) => logger.error('[email] Welcome checklist email failed:', err));
 
-    // Send verification email
-    // TODO: Wire to actual Resend template
-    logger.info(`Verification link for ${user.email}: ${process.env.FRONTEND_URL}/verify-email?token=${emailVerificationToken}`);
+    // Send verification email (fire-and-forget)
+    sendVerificationEmail({ to: user.email, token: emailVerificationToken })
+      .catch((err) => logger.error('[email] Verification email failed:', err));
 
     res.status(201).json({
       userId: user.id,
@@ -179,8 +179,8 @@ router.post('/resend-verification', authenticate, requireOwner, async (req: Requ
     });
 
     // Send verification email
-    // TODO: Wire to actual Resend template
-    logger.info(`Resent verification link for ${user.email}: ${process.env.FRONTEND_URL}/verify-email?token=${emailVerificationToken}`);
+    sendVerificationEmail({ to: user.email, token: emailVerificationToken })
+      .catch((err) => logger.error('[email] Resend verification email failed:', err));
 
     res.json({ success: true });
   } catch (err) {
