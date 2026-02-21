@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useFilesStore } from '@/store/filesStore';
 import { Card } from '@/components/ui/Card';
-import { CheckCircle2, ShieldCheck, Scale, HeartPulse, DollarSign, Fingerprint, Landmark } from 'lucide-react';
+import { CheckCircle2, ShieldCheck, Scale, DollarSign, Fingerprint, Landmark } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { FileCategory } from '@legacy-shield/shared';
 
@@ -23,7 +23,6 @@ export function LegacyReadiness({
     { id: 'IDENTITY', key: 'passport', categories: ['IDENTITY'], icon: Fingerprint },
     { id: 'WILL', key: 'will', categories: ['LEGAL'], icon: Scale },
     { id: 'INSURANCE', key: 'insurance', categories: ['INSURANCE'], icon: ShieldCheck },
-    { id: 'DIGITAL', key: 'digital', categories: ['DIGITAL_ASSETS'], icon: HeartPulse },
     { id: 'FINANCIAL', key: 'financial', categories: ['FINANCIAL'], icon: DollarSign },
     { id: 'PENSION', key: 'pension', categories: ['TAX'], icon: Landmark },
   ];
