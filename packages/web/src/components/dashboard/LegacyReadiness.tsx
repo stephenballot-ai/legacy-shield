@@ -23,8 +23,8 @@ export function LegacyReadiness({
     { id: 'IDENTITY', key: 'passport', categories: ['IDENTITY'], icon: Fingerprint },
     { id: 'WILL', key: 'will', categories: ['LEGAL'], icon: Scale },
     { id: 'INSURANCE', key: 'insurance', categories: ['INSURANCE'], icon: ShieldCheck },
-    { id: 'FINANCIAL', key: 'financial', categories: ['FINANCIAL', 'PROPERTY'], icon: DollarSign },
-    { id: 'PENSION', key: 'pension', categories: ['FINANCIAL'], icon: Landmark },
+    { id: 'FINANCIAL', key: 'financial', categories: ['FINANCIAL'], icon: DollarSign },
+    { id: 'PENSION', key: 'pension', categories: ['TAX'], icon: Landmark },
   ];
 
   const completed = ESSENTIAL_DOCS.map((doc) => {
