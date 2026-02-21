@@ -14,7 +14,7 @@ import type { SessionType } from '@prisma/client';
 
 const BCRYPT_ROUNDS = 10;
 const ACCESS_TOKEN_EXPIRY = '15m';
-const REFRESH_TOKEN_EXPIRY = '7d';
+const REFRESH_TOKEN_EXPIRY = '30d';
 const RECOVERY_CODE_COUNT = 10;
 
 function getJwtSecret(): string {
@@ -100,7 +100,7 @@ export async function createSession(
   sessionType: SessionType,
   req: { ip?: string; headers: Record<string, string | string[] | undefined> }
 ): Promise<{ accessToken: string; refreshToken: string; sessionId: string }> {
-  const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
+  const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days
 
   const session = await prisma.session.create({
     data: {

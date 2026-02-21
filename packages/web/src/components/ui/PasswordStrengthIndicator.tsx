@@ -8,7 +8,7 @@ interface Props {
 }
 
 const requirements = [
-  { label: 'At least 12 characters', test: (p: string) => p.length >= 12 },
+  { label: 'At least 8 characters', test: (p: string) => p.length >= 8 },
   { label: 'Lowercase letter', test: (p: string) => /[a-z]/.test(p) },
   { label: 'Uppercase letter', test: (p: string) => /[A-Z]/.test(p) },
   { label: 'Number', test: (p: string) => /[0-9]/.test(p) },

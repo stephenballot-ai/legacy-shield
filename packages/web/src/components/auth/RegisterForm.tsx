@@ -15,11 +15,10 @@ import { ApiError } from '@/lib/api/client';
 const schema = z.object({
   email: z.string().email('Enter a valid email'),
   password: z.string()
-    .min(12, 'At least 12 characters')
+    .min(8, 'At least 8 characters')
     .regex(/[a-z]/, 'Must contain a lowercase letter')
     .regex(/[A-Z]/, 'Must contain an uppercase letter')
-    .regex(/[0-9]/, 'Must contain a number')
-    .regex(/[^a-zA-Z0-9]/, 'Must contain a special character'),
+    .regex(/[0-9]/, 'Must contain a number'),
   confirmPassword: z.string(),
 }).refine((d) => d.password === d.confirmPassword, {
   message: 'Passwords do not match',
