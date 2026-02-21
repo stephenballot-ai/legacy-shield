@@ -4,7 +4,7 @@ import { createSession, logAudit } from './auth';
 import { sendEmergencyContactNotification, sendVaultAccessNotification } from '../lib/email';
 
 const EMERGENCY_CONTACT_LIMITS = { FREE: 1, PRO: 5 } as const;
-const EMERGENCY_PHRASE_SCRYPT_N = 1 << 15;
+const EMERGENCY_PHRASE_SCRYPT_N = 1 << 14; // Reduced from 15 to fit in memory
 const EMERGENCY_PHRASE_SCRYPT_R = 8;
 const EMERGENCY_PHRASE_SCRYPT_P = 1;
 const EMERGENCY_PHRASE_SALT_BYTES = 16;

@@ -75,11 +75,21 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">
-          {t('welcome')}
-        </h1>
-        <p className="text-sm text-gray-500 mt-1">{t('subtitle')}</p>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">
+            {t('welcome')}
+          </h1>
+          <p className="text-sm text-gray-500 mt-1">{t('subtitle')}</p>
+        </div>
+        <div className="flex items-center gap-3">
+          <Button 
+            onClick={(e) => { e.preventDefault(); handleUploadClick(); }}
+            className={cn(files.length === 0 && "animate-pulse shadow-lg shadow-primary-500/50 ring-2 ring-primary-500 ring-offset-2")}
+          >
+            {files.length === 0 ? 'Secure Your First File' : 'Upload document'}
+          </Button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">

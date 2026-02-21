@@ -59,11 +59,11 @@
   },
   "homepage": {
     "hero": {
-      "badge": "Zero-Knowledge Beveiligde Kluis",
-      "title": "Sla Je Meest Kostbare Bestanden Voor Altijd Veilig Op",
-      "subtitle": "Veilige digitale erfenisplanning en noodtoegang tot documenten. Je bestanden worden versleuteld op <strongItem>jouw apparaat</strongItem> voordat ze onze servers bereiken. We kunnen nooit zien wat erin staat.",
-      "ctaPrimary": "Gratis Beginnen",
-      "ctaSecondary": "Inloggen",
+      "badge": "Actieve Digitale Erfenisbescherming",
+      "title": "Als je morgen overlijdt, staat je familie dan voor een gesloten deur?",
+      "subtitle": "Nabestaanden zijn vaak 6 maanden bezig met banken en tech-bedrijven om toegang te krijgen tot basisdocumenten. LegacyShield geeft hen <strongItem>één enkele ontgrendelzin</strongItem> voor je belangrijkste papieren — paspoorten, testamenten en verzekeringen.",
+      "ctaPrimary": "Beveilig de toekomst van je gezin (Gratis)",
+      "ctaSecondary": "Hoe het werkt",
       "disclaimer": "Altijd gratis · Geen creditcard nodig"
     },
     "features": {

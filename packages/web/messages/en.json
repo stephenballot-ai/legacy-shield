@@ -59,11 +59,11 @@
   },
   "homepage": {
     "hero": {
-      "badge": "Zero-Knowledge Encrypted Vault",
-      "title": "Save Your Most Precious Files Safely Forever",
-      "subtitle": "Secure digital estate planning and emergency document access. Your files are encrypted on <strongItem>your device</strongItem> before they ever touch our servers. We can never see what's inside them.",
-      "ctaPrimary": "Get Started Free",
-      "ctaSecondary": "Sign In",
+      "badge": "Active Digital Estate Protection",
+      "title": "If you died tomorrow, would your family be locked out?",
+      "subtitle": "Most loved ones spend 6 months fighting banks and cloud providers just to access basic documents. LegacyShield gives them a <strongItem>single unlock phrase</strongItem> to your most important papers — passports, wills, and insurance.",
+      "ctaPrimary": "Secure My Family’s Future (Free)",
+      "ctaSecondary": "How It Works",
       "disclaimer": "Free forever · No credit card required"
     },
     "features": {

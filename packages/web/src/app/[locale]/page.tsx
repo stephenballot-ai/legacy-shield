@@ -5,9 +5,12 @@ import { useMemo } from 'react';
 import { Shield, Lock, Users, Server, Upload, UserPlus, CheckCircle, Heart } from 'lucide-react';
 import { getCurrency } from '@/lib/utils/currency';
 import { useTranslations } from 'next-intl';
+import { useAuthStore } from '@/store/authStore';
 
 function HeroSection() {
   const t = useTranslations('homepage.hero');
+  const user = useAuthStore((s) => s.user);
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-primary-900 via-primary-800 to-navy-900 text-white">
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDE4YzMuMzE0IDAgNi0yLjY4NiA2LTZzLTIuNjg2LTYtNi02LTYgMi42ODYtNiA2IDIuNjg2IDYgNiA2eiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
@@ -26,20 +29,31 @@ function HeroSection() {
             })}
           </p>
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/register"
-              className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-accent-400 text-primary-900 font-semibold text-lg hover:bg-accent-500 transition-colors shadow-lg shadow-black/20"
-            >
-              {t('ctaPrimary')}
-            </Link>
-            <Link
-              href="/login"
-              className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl border-2 border-white/30 text-white font-semibold text-lg hover:bg-white/10 transition-colors"
-            >
-              {t('ctaSecondary')}
-            </Link>
+            {user ? (
+              <Link
+                href="/dashboard"
+                className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-accent-400 text-primary-900 font-semibold text-lg hover:bg-accent-500 transition-colors shadow-lg shadow-black/20"
+              >
+                Go to Dashboard
+              </Link>
+            ) : (
+              <>
+                <Link
+                  href="/register"
+                  className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-accent-400 text-primary-900 font-semibold text-lg hover:bg-accent-500 transition-colors shadow-lg shadow-black/20"
+                >
+                  {t('ctaPrimary')}
+                </Link>
+                <Link
+                  href="/login"
+                  className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl border-2 border-white/30 text-white font-semibold text-lg hover:bg-white/10 transition-colors"
+                >
+                  {t('ctaSecondary')}
+                </Link>
+              </>
+            )}
           </div>
-          <p className="mt-4 text-sm text-white/50">{t('disclaimer')}</p>
+          {!user && <p className="mt-4 text-sm text-white/50">{t('disclaimer')}</p>}
         </div>
       </div>
     </section>

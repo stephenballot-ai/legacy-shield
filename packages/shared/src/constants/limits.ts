@@ -3,7 +3,7 @@
  */
 
 export const DOCUMENT_LIMITS = {
-  FREE_TIER: 3,
+  FREE_TIER: 10,
   PRO_TIER: 100,
 } as const;
 
@@ -16,8 +16,8 @@ export const EMERGENCY_CONTACT_LIMITS = {
 } as const;
 
 export const FILE_SIZE_LIMITS = {
-  FREE_TIER: 5 * 1024 * 1024, // 5MB
-  PRO_TIER: 10 * 1024 * 1024, // 10MB
+  FREE_TIER: 10 * 1024 * 1024, // 10MB
+  PRO_TIER: 100 * 1024 * 1024, // 100MB
 } as const;
 
 export const PRICING = {
