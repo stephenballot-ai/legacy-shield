@@ -14,6 +14,12 @@ function toBase64Sha256(value: string): string {
   return crypto.createHash('sha256').update(value, 'utf8').digest('base64');
 }
 
+function timingSafeEqualUtf8(a: string, b: string): boolean {
+  const aBuf = Buffer.from(a, 'utf8');
+  const bBuf = Buffer.from(b, 'utf8');
+  return aBuf.length === bBuf.length && crypto.timingSafeEqual(aBuf, bBuf);
+}
+
 function deriveEmergencyPhraseVerifier(phrase: string): string {
   const salt = crypto.randomBytes(EMERGENCY_PHRASE_SALT_BYTES);
   const key = crypto.scryptSync(phrase, salt, EMERGENCY_PHRASE_KEY_LEN, {
@@ -55,18 +61,9 @@ function verifyEmergencyPhrase(storedVerifier: string, providedPhrase: string): 
   // Backward compatibility for existing users:
   // legacy storage kept the raw SHA-256(base64) hash and old clients sent the hash directly.
   const providedHash = toBase64Sha256(providedPhrase);
-  const legacyMatchesRawHashInput = providedPhrase === storedVerifier;
-
-  const storedBuf = Buffer.from(storedVerifier, 'utf8');
-  const providedHashBuf = Buffer.from(providedHash, 'utf8');
-  const providedRawBuf = Buffer.from(providedPhrase, 'utf8');
-
-  const matchesHashedPhrase =
-    storedBuf.length === providedHashBuf.length && crypto.timingSafeEqual(storedBuf, providedHashBuf);
-  const matchesLegacyRaw =
-    legacyMatchesRawHashInput &&
-    storedBuf.length === providedRawBuf.length &&
-    crypto.timingSafeEqual(storedBuf, providedRawBuf);
+  const legacyMatchesRawHashInput = timingSafeEqualUtf8(providedPhrase, storedVerifier);
+  const matchesHashedPhrase = timingSafeEqualUtf8(storedVerifier, providedHash);
+  const matchesLegacyRaw = legacyMatchesRawHashInput && timingSafeEqualUtf8(storedVerifier, providedPhrase);
 
   return matchesHashedPhrase || matchesLegacyRaw;
 }
@@ -80,12 +77,12 @@ export async function setupEmergencyAccess(
   data: { emergencyPhrase: string; emergencyKeyEncrypted: string; emergencyKeySalt: string },
   context: { ipAddress?: string; userAgent?: string }
 ) {
-  const emergencyPhraseHash = deriveEmergencyPhraseVerifier(data.emergencyPhrase);
+  const emergencyPhraseVerifier = deriveEmergencyPhraseVerifier(data.emergencyPhrase);
 
   await prisma.user.update({
     where: { id: userId },
     data: {
-      emergencyPhraseHash,
+      emergencyPhraseHash: emergencyPhraseVerifier,
       emergencyKeyEncrypted: data.emergencyKeyEncrypted,
       emergencyKeySalt: data.emergencyKeySalt,
     },
@@ -176,12 +173,12 @@ export async function rotateEmergencyKey(
   data: { newEmergencyPhrase: string; newEmergencyKeyEncrypted: string; newEmergencyKeySalt: string },
   context: { ipAddress?: string; userAgent?: string }
 ) {
-  const emergencyPhraseHash = deriveEmergencyPhraseVerifier(data.newEmergencyPhrase);
+  const emergencyPhraseVerifier = deriveEmergencyPhraseVerifier(data.newEmergencyPhrase);
 
   await prisma.user.update({
     where: { id: userId },
     data: {
-      emergencyPhraseHash,
+      emergencyPhraseHash: emergencyPhraseVerifier,
       emergencyKeyEncrypted: data.newEmergencyKeyEncrypted,
       emergencyKeySalt: data.newEmergencyKeySalt,
     },

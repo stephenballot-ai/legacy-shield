@@ -65,23 +65,6 @@ export async function generatePresignedDownloadUrl(key: string): Promise<string>
 }
 
 /**
- * Upload a buffer directly to S3.
- */
-export async function uploadObject(
-  key: string,
-  body: Buffer,
-  contentType: string
-): Promise<void> {
-  const command = new PutObjectCommand({
-    Bucket: STORAGE_BUCKET,
-    Key: key,
-    Body: body,
-    ContentType: contentType,
-  });
-  await s3Client.send(command);
-}
-
-/**
  * Upload a stream directly to S3 while enforcing a hard max byte limit.
  */
 export async function uploadObjectStream(
@@ -114,26 +97,6 @@ export async function uploadObjectStream(
     ...(contentLength ? { ContentLength: contentLength } : {}),
   });
   await s3Client.send(command);
-}
-
-/**
- * Download an object from S3 as a buffer.
- */
-export async function downloadObject(key: string): Promise<{ body: Buffer; contentType?: string }> {
-  const command = new GetObjectCommand({
-    Bucket: STORAGE_BUCKET,
-    Key: key,
-  });
-  const response = await s3Client.send(command);
-  const chunks: Uint8Array[] = [];
-  const stream = response.Body as AsyncIterable<Uint8Array>;
-  for await (const chunk of stream) {
-    chunks.push(chunk);
-  }
-  return {
-    body: Buffer.concat(chunks),
-    contentType: response.ContentType,
-  };
 }
 
 /**

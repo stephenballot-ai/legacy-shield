@@ -15,6 +15,9 @@ import {
 import { uploadObjectStream, downloadObjectStream, getStorageKey } from '../lib/s3';
 
 const router = Router();
+const FILE_SIZE_EXCEEDED_ERROR = {
+  error: { code: 'FILE_SIZE_LIMIT_EXCEEDED', message: 'File exceeds allowed size for your tier' },
+} as const;
 
 // All routes require authentication
 router.use(authenticate);
@@ -102,9 +105,7 @@ router.put('/:id/blob', requireOwner, async (req: Request, res: Response) => {
     const maxSize = req.user!.tier === 'PRO' ? FILE_SIZE_LIMITS.PRO_TIER : FILE_SIZE_LIMITS.FREE_TIER;
     const contentLength = Number(req.headers['content-length'] ?? 0);
     if (contentLength && contentLength > maxSize) {
-      res.status(413).json({
-        error: { code: 'FILE_SIZE_LIMIT_EXCEEDED', message: 'File exceeds allowed size for your tier' },
-      });
+      res.status(413).json(FILE_SIZE_EXCEEDED_ERROR);
       return;
     }
 
@@ -113,9 +114,7 @@ router.put('/:id/blob', requireOwner, async (req: Request, res: Response) => {
     res.json({ success: true });
   } catch (err) {
     if ((err as Error).message === 'FILE_SIZE_LIMIT_EXCEEDED') {
-      res.status(413).json({
-        error: { code: 'FILE_SIZE_LIMIT_EXCEEDED', message: 'File exceeds allowed size for your tier' },
-      });
+      res.status(413).json(FILE_SIZE_EXCEEDED_ERROR);
       return;
     }
     logger.error('File blob upload failed:', err);
