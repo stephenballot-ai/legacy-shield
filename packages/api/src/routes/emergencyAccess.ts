@@ -109,9 +109,9 @@ router.post('/setup', authenticate, requireOwner, validate(setupEmergencyAccessS
 // ============================================================================
 router.post('/validate', emergencyValidateLimiter, validate(validateEmergencyPhraseSchema), async (req: Request, res: Response) => {
   try {
-    const { ownerEmail, emergencyPhraseHash } = req.body as { ownerEmail: string; emergencyPhraseHash: string };
+    const { ownerEmail, emergencyPhrase } = req.body as { ownerEmail: string; emergencyPhrase: string };
 
-    const result = await validateEmergencyPhrase(ownerEmail, emergencyPhraseHash, req);
+    const result = await validateEmergencyPhrase(ownerEmail, emergencyPhrase, req);
 
     if (!result) {
       res.status(401).json({

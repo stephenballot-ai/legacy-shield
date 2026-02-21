@@ -3,6 +3,7 @@ import { logger } from '../utils/logger';
 import { authenticate, requireOwner } from '../middleware/auth';
 import { validate } from '../middleware/validation';
 import { uploadFileSchema, updateFileSchema, listFilesQuerySchema } from './files.validation';
+import { FILE_SIZE_LIMITS } from '@legacy-shield/shared';
 import {
   uploadFile,
   listFiles,
@@ -11,7 +12,7 @@ import {
   deleteFile,
   TierLimitError,
 } from '../services/file';
-import { uploadObject, downloadObject, getStorageKey } from '../lib/s3';
+import { uploadObjectStream, downloadObjectStream, getStorageKey } from '../lib/s3';
 
 const router = Router();
 
@@ -98,21 +99,25 @@ router.put('/:id/blob', requireOwner, async (req: Request, res: Response) => {
       return;
     }
 
-    // Collect raw body
-    const chunks: Buffer[] = [];
-    req.on('data', (chunk: Buffer) => chunks.push(chunk));
-    req.on('end', async () => {
-      try {
-        const body = Buffer.concat(chunks);
-        const storageKey = getStorageKey(req.user!.userId, req.params.id);
-        await uploadObject(storageKey, body, 'application/octet-stream');
-        res.json({ success: true });
-      } catch (err) {
-        logger.error('Blob upload to S3 failed:', err);
-        res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Failed to upload blob' } });
-      }
-    });
+    const maxSize = req.user!.tier === 'PRO' ? FILE_SIZE_LIMITS.PRO_TIER : FILE_SIZE_LIMITS.FREE_TIER;
+    const contentLength = Number(req.headers['content-length'] ?? 0);
+    if (contentLength && contentLength > maxSize) {
+      res.status(413).json({
+        error: { code: 'FILE_SIZE_LIMIT_EXCEEDED', message: 'File exceeds allowed size for your tier' },
+      });
+      return;
+    }
+
+    const storageKey = getStorageKey(req.user!.userId, req.params.id);
+    await uploadObjectStream(storageKey, req, 'application/octet-stream', maxSize, contentLength || undefined);
+    res.json({ success: true });
   } catch (err) {
+    if ((err as Error).message === 'FILE_SIZE_LIMIT_EXCEEDED') {
+      res.status(413).json({
+        error: { code: 'FILE_SIZE_LIMIT_EXCEEDED', message: 'File exceeds allowed size for your tier' },
+      });
+      return;
+    }
     logger.error('File blob upload failed:', err);
     res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Upload failed' } });
   }
@@ -134,10 +139,21 @@ router.get('/:id/blob', async (req: Request, res: Response) => {
     }
 
     const storageKey = getStorageKey(req.user!.userId, req.params.id);
-    const { body, contentType } = await downloadObject(storageKey);
+    const { body, contentType, contentLength } = await downloadObjectStream(storageKey);
     res.setHeader('Content-Type', contentType || 'application/octet-stream');
-    res.setHeader('Content-Length', body.length);
-    res.send(body);
+    if (typeof contentLength === 'number') {
+      res.setHeader('Content-Length', contentLength);
+    }
+
+    body.on('error', (streamErr) => {
+      logger.error('S3 blob stream failed:', streamErr);
+      if (!res.headersSent) {
+        res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Download failed' } });
+      } else {
+        res.destroy(streamErr as Error);
+      }
+    });
+    body.pipe(res);
   } catch (err) {
     logger.error('File blob download failed:', err);
     res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Download failed' } });
