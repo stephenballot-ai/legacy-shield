@@ -16,10 +16,25 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /opt/legacyshield/app && git fetch origin main && git reset --hard origin/main
-            cd /opt/legacyshield/app/packages/api && npx prisma migrate deploy
+            cd /opt/legacyshield/app
+            git fetch origin main && git reset --hard origin/main
+            
+            # API & DB
+            cd packages/api && npx prisma migrate deploy
             cd /opt/legacyshield && docker compose -f docker-compose.prod.yml up -d --build api
-            cd /opt/legacyshield/app/packages/web && rm -rf .next && NEXT_PUBLIC_API_URL=https://api.legacyshield.eu npm run build
-            cp -r /opt/legacyshield/app/packages/web/.next/static /opt/legacyshield/app/packages/web/.next/standalone/packages/web/.next/static
-            cp -r /opt/legacyshield/app/packages/web/public /opt/legacyshield/app/packages/web/.next/standalone/packages/web/public 2>/dev/null || true
-            cd /opt/legacyshield/app/packages/web/.next/standalone/packages/web && PORT=3000 pm2 delete legacyshield-web 2>/dev/null; PORT=3000 pm2 start server.js --name legacyshield-web && pm2 save
+            
+            # Web (Standalone Build)
+            cd /opt/legacyshield/app/packages/web
+            rm -rf .next
+            NEXT_PUBLIC_API_URL=https://api.legacyshield.eu npm run build
+            
+            # Prepare Standalone output
+            mkdir -p .next/standalone/packages/web/.next
+            cp -r .next/static .next/standalone/packages/web/.next/static
+            cp -r public .next/standalone/packages/web/public 2>/dev/null || true
+            
+            # Restart with PM2
+            cd .next/standalone/packages/web
+            PORT=3000 pm2 delete legacyshield-web 2>/dev/null || true
+            PORT=3000 pm2 start server.js --name legacyshield-web
+            pm2 save
