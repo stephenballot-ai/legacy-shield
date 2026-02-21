@@ -1,0 +1,99 @@
+---
+title: "Zero-Knowledge Encryption: Why Dropbox Can't Protect Your Will"
+description: "Most cloud storage services can read your files. Learn how zero-knowledge encryption works, why it matters for sensitive documents, and why Dropbox and Google Drive aren't enough."
+date: "2026-02-15"
+author: "LegacyShield Team"
+locale: "en"
+slug: "zero-knowledge-encryption-explained"
+keywords: ["zero knowledge encryption", "secure document storage", "encrypted vault"]
+readingTime: "4 min read"
+---
+
+## The Illusion of Cloud Security
+
+When you upload a file to Dropbox or Google Drive, you probably assume it's secure. And in a sense, it is — your files are encrypted "in transit" (between your device and the server) and "at rest" (on the server's hard drives).
+
+But here's the critical detail most people miss: **the service provider holds the encryption keys**. That means Dropbox, Google, and Microsoft can technically decrypt and read your files at any time.
+
+For vacation photos, that's probably fine. But for your will, insurance policies, medical directives, or passwords? That's a very different story.
+
+## What Is Zero-Knowledge Encryption?
+
+Zero-knowledge encryption (sometimes called "client-side encryption" or "end-to-end encryption for files") means that **your files are encrypted on your device before they ever leave it**. The encryption key is derived from your password, and the server never sees the key or the unencrypted data.
+
+Here's the key difference:
+
+**Traditional cloud storage (Dropbox, Google Drive):**
+1. You upload a file
+2. The service encrypts it on their servers with their key
+3. They can decrypt it whenever they want
+4. Government requests, data breaches, or rogue employees could expose your data
+
+**Zero-knowledge encryption (LegacyShield):**
+1. You upload a file
+2. Your browser encrypts it locally using AES-256-GCM with your key
+3. Only the encrypted blob reaches the server
+4. Nobody — not even us — can read what you stored
+
+## Why This Matters for Sensitive Documents
+
+### Data Breaches Happen to Everyone
+
+In 2012, Dropbox suffered a breach that exposed 68 million user credentials. In 2023, a Microsoft engineer's mistake exposed 38 terabytes of internal data. These companies have billions in security budgets, and they still get breached.
+
+With zero-knowledge encryption, even if our servers were completely compromised, attackers would get nothing but encrypted noise. Your files remain unreadable without your encryption key.
+
+### Government Access and Legal Requests
+
+Cloud providers regularly comply with government data requests. Google's transparency report shows they received over 200,000 government requests for user data in 2023 alone, and they complied with about 75% of them.
+
+With zero-knowledge encryption, we literally cannot comply — not because we choose not to, but because we don't have access to your unencrypted data. We can't hand over what we can't read.
+
+### The Trust Problem
+
+When you store your will on Google Drive, you're trusting:
+- Google's security team
+- Google's employee access controls
+- Google's compliance with privacy laws
+- Every government that can issue a request to Google
+
+When you store it in a zero-knowledge vault, you're trusting:
+- **Mathematics** — specifically, the AES-256-GCM encryption algorithm that would take billions of years to crack
+
+We think mathematics is more trustworthy than corporate policy.
+
+## The Dropbox Comparison
+
+Let's be specific about what Dropbox offers versus what you actually need:
+
+| Feature | Dropbox | LegacyShield |
+|---------|---------|--------------|
+| Encryption in transit | ✅ TLS | ✅ TLS |
+| Encryption at rest | ✅ AES-256 (their key) | ✅ AES-256-GCM (your key) |
+| Provider can read files | ⚠️ Yes | ❌ No |
+| Survives server breach | ⚠️ Partially | ✅ Fully |
+| Emergency access for family | ❌ No | ✅ Yes |
+| Built for estate planning | ❌ No | ✅ Yes |
+| Government can request data | ⚠️ Yes | ❌ Encrypted only |
+
+Dropbox is a great file-syncing tool. But it was never designed to protect your most sensitive documents or ensure your family can access them when needed.
+
+## How LegacyShield Implements Zero-Knowledge
+
+Here's exactly what happens when you store a document with LegacyShield:
+
+1. **Key derivation**: Your master password is turned into an encryption key using Argon2id — a memory-hard key derivation function that resists brute-force attacks
+2. **Local encryption**: Your file is encrypted in your browser using AES-256-GCM, which provides both confidentiality and integrity
+3. **Encrypted upload**: Only the encrypted data is sent to our servers
+4. **Storage**: We store the encrypted blob. We never see the key, the original file, or even the file name
+5. **Decryption**: When you (or your authorized emergency contact) need the file, it's downloaded and decrypted locally in the browser
+
+At no point does unencrypted data exist on our servers.
+
+## The Bottom Line
+
+If you're storing sensitive documents in Dropbox, Google Drive, or iCloud, you're trusting a corporation with your most private information. They're probably trustworthy — but "probably" isn't good enough for your will, your medical directives, or the documents your family will need when you're gone.
+
+Zero-knowledge encryption removes the need for trust. Your data is protected by mathematics, not corporate goodwill.
+
+**[Try LegacyShield for free](/register)** — because your most important documents deserve more than "probably secure."

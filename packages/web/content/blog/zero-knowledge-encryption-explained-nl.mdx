@@ -1,0 +1,99 @@
+---
+title: "Zero-Knowledge Encryptie: Waarom Dropbox Je Testament Niet Beschermt"
+description: "De meeste cloudopslagdiensten kunnen je bestanden lezen. Ontdek hoe zero-knowledge encryptie werkt, waarom het belangrijk is voor gevoelige documenten, en waarom Dropbox en Google Drive niet genoeg zijn."
+date: "2026-02-15"
+author: "LegacyShield Team"
+locale: "nl"
+slug: "zero-knowledge-encryption-explained"
+keywords: ["zero knowledge encryptie", "veilige documentopslag", "versleutelde kluis"]
+readingTime: "4 min leestijd"
+---
+
+## De Illusie van Cloud-Beveiliging
+
+Wanneer je een bestand uploadt naar Dropbox of Google Drive, ga je er waarschijnlijk van uit dat het veilig is. En in zekere zin is dat ook zo — je bestanden worden versleuteld "in transit" (tussen je apparaat en de server) en "at rest" (op de harde schijven van de server).
+
+Maar hier is het cruciale detail dat de meeste mensen missen: **de dienstverlener beheert de encryptiesleutels**. Dat betekent dat Dropbox, Google en Microsoft technisch gezien je bestanden op elk moment kunnen ontsleutelen en lezen.
+
+Voor vakantiefoto's is dat waarschijnlijk prima. Maar voor je testament, verzekeringpolissen, medische wilsverklaringen of wachtwoorden? Dat is een heel ander verhaal.
+
+## Wat Is Zero-Knowledge Encryptie?
+
+Zero-knowledge encryptie (soms "client-side encryptie" of "end-to-end encryptie voor bestanden" genoemd) betekent dat **je bestanden op je apparaat worden versleuteld voordat ze het verlaten**. De encryptiesleutel wordt afgeleid van je wachtwoord, en de server ziet nooit de sleutel of de onversleutelde data.
+
+Hier is het belangrijkste verschil:
+
+**Traditionele cloudopslag (Dropbox, Google Drive):**
+1. Je uploadt een bestand
+2. De dienst versleutelt het op hun servers met hun sleutel
+3. Ze kunnen het ontsleutelen wanneer ze willen
+4. Overheidsverzoeken, datalekken of kwaadwillende medewerkers kunnen je data blootstellen
+
+**Zero-knowledge encryptie (LegacyShield):**
+1. Je uploadt een bestand
+2. Je browser versleutelt het lokaal met AES-256-GCM met jouw sleutel
+3. Alleen de versleutelde data bereikt de server
+4. Niemand — zelfs wij niet — kan lezen wat je hebt opgeslagen
+
+## Waarom Dit Belangrijk Is voor Gevoelige Documenten
+
+### Datalekken Overkomen Iedereen
+
+In 2012 leed Dropbox een datalek waarbij 68 miljoen gebruikersgegevens werden blootgesteld. In 2023 stelde een fout van een Microsoft-engineer 38 terabytes aan interne data bloot. Deze bedrijven hebben miljarden aan beveiligingsbudgetten, en ze worden nog steeds gehackt.
+
+Met zero-knowledge encryptie, zelfs als onze servers volledig gecompromitteerd zouden worden, krijgen aanvallers niets anders dan versleutelde ruis. Je bestanden blijven onleesbaar zonder je encryptiesleutel.
+
+### Overheidstoegang en Juridische Verzoeken
+
+Cloudproviders voldoen regelmatig aan overheidsverzoeken om data. Google's transparantierapport laat zien dat ze in 2023 meer dan 200.000 overheidsverzoeken om gebruikersdata ontvingen, en dat ze aan ongeveer 75% daarvan voldeden.
+
+Met zero-knowledge encryptie kunnen wij letterlijk niet voldoen — niet omdat we dat niet willen, maar omdat we geen toegang hebben tot je onversleutelde data. We kunnen niet overhandigen wat we niet kunnen lezen.
+
+### Het Vertrouwensprobleem
+
+Wanneer je je testament op Google Drive opslaat, vertrouw je op:
+- Google's beveiligingsteam
+- Google's controle op werknemerstoegang
+- Google's naleving van privacywetten
+- Elke overheid die een verzoek aan Google kan richten
+
+Wanneer je het in een zero-knowledge kluis opslaat, vertrouw je op:
+- **Wiskunde** — specifiek het AES-256-GCM encryptie-algoritme dat miljarden jaren zou kosten om te kraken
+
+Wij denken dat wiskunde betrouwbaarder is dan bedrijfsbeleid.
+
+## De Dropbox-Vergelijking
+
+Laten we specifiek zijn over wat Dropbox biedt versus wat je werkelijk nodig hebt:
+
+| Kenmerk | Dropbox | LegacyShield |
+|---------|---------|--------------|
+| Encryptie in transit | ✅ TLS | ✅ TLS |
+| Encryptie at rest | ✅ AES-256 (hun sleutel) | ✅ AES-256-GCM (jouw sleutel) |
+| Provider kan bestanden lezen | ⚠️ Ja | ❌ Nee |
+| Overleeft serverlek | ⚠️ Gedeeltelijk | ✅ Volledig |
+| Noodtoegang voor familie | ❌ Nee | ✅ Ja |
+| Gebouwd voor nalatenschapsplanning | ❌ Nee | ✅ Ja |
+| Overheid kan data opvragen | ⚠️ Ja | ❌ Alleen versleuteld |
+
+Dropbox is een geweldige tool voor het synchroniseren van bestanden. Maar het is nooit ontworpen om je meest gevoelige documenten te beschermen of ervoor te zorgen dat je familie er toegang toe heeft wanneer dat nodig is.
+
+## Hoe LegacyShield Zero-Knowledge Implementeert
+
+Dit is precies wat er gebeurt wanneer je een document opslaat bij LegacyShield:
+
+1. **Sleutelafleiding**: Je hoofdwachtwoord wordt omgezet in een encryptiesleutel met Argon2id — een geheugen-intensieve sleutelafleidingsfunctie die bestand is tegen brute-force aanvallen
+2. **Lokale encryptie**: Je bestand wordt in je browser versleuteld met AES-256-GCM, dat zowel vertrouwelijkheid als integriteit biedt
+3. **Versleutelde upload**: Alleen de versleutelde data wordt naar onze servers gestuurd
+4. **Opslag**: Wij slaan de versleutelde blob op. We zien nooit de sleutel, het originele bestand, of zelfs de bestandsnaam
+5. **Ontsleuteling**: Wanneer jij (of je geautoriseerde noodcontact) het bestand nodig hebt, wordt het gedownload en lokaal in de browser ontsleuteld
+
+Op geen enkel moment bestaat er onversleutelde data op onze servers.
+
+## De Conclusie
+
+Als je gevoelige documenten opslaat in Dropbox, Google Drive of iCloud, vertrouw je een bedrijf met je meest private informatie. Ze zijn waarschijnlijk betrouwbaar — maar "waarschijnlijk" is niet goed genoeg voor je testament, je medische wilsverklaringen, of de documenten die je familie nodig heeft als je er niet meer bent.
+
+Zero-knowledge encryptie neemt de noodzaak van vertrouwen weg. Je data wordt beschermd door wiskunde, niet door bedrijfsbeleid.
+
+**[Probeer LegacyShield gratis](/register)** — want je belangrijkste documenten verdienen meer dan "waarschijnlijk veilig."

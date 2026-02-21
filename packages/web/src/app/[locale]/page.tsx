@@ -378,6 +378,7 @@ function Footer() {
             <span className="font-semibold text-white">LegacyShield</span>
           </div>
           <div className="flex gap-6 text-sm">
+            <Link href="/blog" className="hover:text-white transition-colors">Blog</Link>
             <Link href="/faq" className="hover:text-white transition-colors">FAQ</Link>
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
