@@ -42,5 +42,52 @@
         "shielded": "Legacy Shielded"
       }
     }
+  },
+  "homepage": {
+    "hero": {
+      "badge": "Protección Activa del Patrimonio Digital",
+      "title": "¿Si murieras mañana, se quedaría tu familia sin acceso?",
+      "subtitle": "La mayoría de los seres queridos pasan 6 meses luchando con bancos y proveedores de la nube para acceder a documentos básicos. LegacyShield les da una <strongItem>frase de desbloqueo única</strongItem> para tus documentos más importantes: pasaportes, testamentos y seguros.",
+      "ctaPrimary": "Asegurar el futuro de mi familia (Gratis)",
+      "ctaSecondary": "Cómo funciona",
+      "disclaimer": "Gratis para siempre · Sin tarjeta de crédito"
+    },
+    "features": {
+      "sectionTitle": "Seguridad Sin Compromisos",
+      "sectionSubtitle": "Construido desde cero para quienes se toman en serio la seguridad de sus documentos.",
+      "encryption": {
+        "title": "Cifrado de Nivel Militar",
+        "desc": "Tus archivos se cifran en tu navegador antes de salir de tu dispositivo. Ni en nuestros servidores, ni en tránsito. En TU dispositivo. Solo tú tienes la llave."
+      },
+      "emergency": {
+        "title": "Acceso de Emergencia",
+        "desc": "Designa contactos de confianza que puedan acceder a tu bóveda mediante una frase de desbloqueo secreta. Cuando más importe, tus seres queridos no se quedarán fuera."
+      },
+      "hosting": {
+        "title": "Alojamiento solo en la UE",
+        "desc": "Tus datos cifrados residen en servidores de propiedad europea (Hetzner, Alemania), no en AWS ni Google. Sin acceso de gobiernos extranjeros."
+      }
+    },
+    "proof": {
+      "title": "No podemos ver tus archivos. Literalmente.",
+      "subtitle": "No es una promesa de marketing. Es la arquitectura.",
+      "visual": {
+        "yourDevice": "Tu dispositivo",
+        "originalFile": "Tu archivo original",
+        "encryptedFile": "Cifrado con tu llave",
+        "ourServers": "Nuestros servidores",
+        "blindText": "Vemos que existe un archivo, pero no tenemos forma de descifrarlo ni de ver su contenido."
+      },
+      "points": {
+        "keys": {
+          "title": "Tú tienes las llaves",
+          "desc": "Tu llave de cifrado se deriva de tu contraseña y nunca sale de tu dispositivo. No la guardamos, no la vemos."
+        },
+        "infra": {
+          "title": "Infraestructura Soberana",
+          "desc": "No utilizamos proveedores de nube estadounidenses. Tus datos están en hardware europeo en Alemania y Finlandia, protegidos por las estrictas leyes de privacidad de la UE."
+        }
+      }
+    }
   }
 }

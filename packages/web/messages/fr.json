@@ -42,5 +42,52 @@
         "shielded": "Legacy Shielded"
       }
     }
+  },
+  "homepage": {
+    "hero": {
+      "badge": "Protection Active du Patrimoine Numérique",
+      "title": "Si vous mouriez demain, votre famille serait-elle bloquée ?",
+      "subtitle": "La plupart des proches passent 6 mois à se battre contre les banques pour accéder aux documents de base. LegacyShield leur donne une <strongItem>phrase de déverrouillage unique</strongItem> pour vos papiers les plus importants — passeports, testaments et assurances.",
+      "ctaPrimary": "Sécuriser l'avenir de ma famille (Gratuit)",
+      "ctaSecondary": "Comment ça marche",
+      "disclaimer": "Gratuit pour toujours · Aucune carte de crédit requise"
+    },
+    "features": {
+      "sectionTitle": "La Sécurité sans Compromis",
+      "sectionSubtitle": "Conçu dès le départ pour ceux qui prennent la sécurité des documents au sérieux.",
+      "encryption": {
+        "title": "Chiffrement Militaire",
+        "desc": "Vos fichiers sont chiffrés dans votre navigateur avant de quitter votre appareil. Pas sur nos serveurs. Pas en transit. Sur VOTRE appareil. Nous ne voyons jamais l'original — vous seul détenez la clé."
+      },
+      "emergency": {
+        "title": "Accès d'Urgence",
+        "desc": "Désignez des contacts de confiance qui pourront accéder à votre coffre-fort grâce à une phrase de déverrouillage secrète. Quand cela compte le plus, vos proches ne seront pas bloqués."
+      },
+      "hosting": {
+        "title": "Hébergement UE uniquement",
+        "desc": "Vos données chiffrées vivent sur des serveurs appartenant à des Européens (Hetzner, Allemagne) — pas AWS, pas Google. Pas d'accès par un gouvernement étranger."
+      }
+    },
+    "proof": {
+      "title": "Nous ne pouvons pas voir vos fichiers. Littéralement.",
+      "subtitle": "Ce n'est pas une promesse marketing. C'est l'architecture.",
+      "visual": {
+        "yourDevice": "Votre appareil",
+        "originalFile": "Votre fichier original",
+        "encryptedFile": "Chiffré avec votre clé",
+        "ourServers": "Nos serveurs",
+        "blindText": "Nous voyons qu'un fichier existe, mais nous n'avons aucun moyen de le déchiffrer ou d'en voir le contenu."
+      },
+      "points": {
+        "keys": {
+          "title": "Vous détenez les clés",
+          "desc": "Votre clé de chiffrement est dérivée de votre mot de passe et ne quitte jamais votre appareil. Nous ne la stockons pas, nous ne la voyons pas."
+        },
+        "infra": {
+          "title": "Infrastructure Souveraine",
+          "desc": "Nous n'utilisons pas de fournisseurs cloud américains. Vos données sont sur du matériel européen en Allemagne et en Finlande."
+        }
+      }
+    }
   }
 }

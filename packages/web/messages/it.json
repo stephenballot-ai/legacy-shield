@@ -42,5 +42,52 @@
         "shielded": "Legacy Shielded"
       }
     }
+  },
+  "homepage": {
+    "hero": {
+      "badge": "Protezione Attiva dell'Eredità Digitale",
+      "title": "Se morissi domani, la tua famiglia resterebbe esclusa?",
+      "subtitle": "La maggior parte dei propri cari trascorre 6 mesi a combattere con banche e cloud provider solo per accedere ai documenti di base. LegacyShield fornisce loro un' <strongItem>unica frase di sblocco</strongItem> per i tuoi documenti più importanti — passaporti, testamenti e assicurazioni.",
+      "ctaPrimary": "Assicura il futuro della mia famiglia (Gratis)",
+      "ctaSecondary": "Come funziona",
+      "disclaimer": "Gratis per sempre · Nessuna carta di credito richiesta"
+    },
+    "features": {
+      "sectionTitle": "Sicurezza Senza Compromessi",
+      "sectionSubtitle": "Costruito da zero per chi prende sul serio la sicurezza dei documenti.",
+      "encryption": {
+        "title": "Crittografia Militare",
+        "desc": "I tuoi file vengono crittografati nel tuo browser prima di lasciare il tuo dispositivo. Non sui nostri server. Non in transito. Sul TUO dispositivo. Non vediamo mai l'originale."
+      },
+      "emergency": {
+        "title": "Accesso di Emergenza",
+        "desc": "Designa contatti fidati che possono accedere al tuo caveau utilizzando una frase di sblocco segreta. Quando conta di più, i tuoi cari non saranno esclusi."
+      },
+      "hosting": {
+        "title": "Hosting Solo in UE",
+        "desc": "I tuoi dati crittografati risiedono su server di proprietà europea (Hetzner, Germania) — niente AWS, niente Google. Nessun accesso da governi stranieri."
+      }
+    },
+    "proof": {
+      "title": "Non Possiamo Vedere i Tuoi File. Letteralmente.",
+      "subtitle": "Questa non è una promessa di marketing. È l'architettura.",
+      "visual": {
+        "yourDevice": "Il tuo dispositivo",
+        "originalFile": "Il tuo file originale",
+        "encryptedFile": "Crittografato con la tua chiave",
+        "ourServers": "I nostri server",
+        "blindText": "Vediamo che esiste un file, ma non abbiamo modo di decrittografarlo o vederne il contenuto."
+      },
+      "points": {
+        "keys": {
+          "title": "Tu detieni le chiavi",
+          "desc": "La tua chiave di crittografia è derivata dalla tua password e non lascia mai il tuo dispositivo. Non la conserviamo, non la vediamo."
+        },
+        "infra": {
+          "title": "Infrastruttura Sovrana",
+          "desc": "Non utilizziamo cloud provider americani. I tuoi dati sono su hardware europeo in Germania e Finlandia, protetti dalle rigide leggi UE sulla privacy."
+        }
+      }
+    }
   }
 }

@@ -48,5 +48,52 @@
         "shielded": "Legacy Shielded"
       }
     }
+  },
+  "homepage": {
+    "hero": {
+      "badge": "Aktiver digitaler Erbrechtsschutz",
+      "title": "Wenn Sie morgen sterben würden, wäre Ihre Familie dann ausgesperrt?",
+      "subtitle": "Die meisten Angehörigen kämpfen 6 Monate lang mit Banken und Cloud-Anbietern, nur um Zugriff auf Basisdokumente zu erhalten. LegacyShield gibt ihnen eine <strongItem>einzige Entsperrphrase</strongItem> für Ihre wichtigsten Dokumente — Reisepässe, Testamente und Versicherungen.",
+      "ctaPrimary": "Die Zukunft meiner Familie sichern (Kostenlos)",
+      "ctaSecondary": "Wie es funktioniert",
+      "disclaimer": "Für immer kostenlos · Keine Kreditkarte erforderlich"
+    },
+    "features": {
+      "sectionTitle": "Sicherheit ohne Kompromisse",
+      "sectionSubtitle": "Von Grund auf für Menschen entwickelt, die Dokumentensicherheit ernst nehmen.",
+      "encryption": {
+        "title": "Militärische Verschlüsselung",
+        "desc": "Ihre Dateien werden in Ihrem Browser verschlüsselt, bevor sie Ihr Gerät verlassen. Nicht auf unseren Servern. Nicht bei der Übertragung. Nur Sie haben den Schlüssel."
+      },
+      "emergency": {
+        "title": "Notfallzugriff",
+        "desc": "Benennen Sie vertrauenswürdige Kontakte, die mit einer geheimen Entsperrphrase auf Ihren Tresor zugreifen können. Wenn es darauf ankommt, wird Ihre Familie nicht ausgesperrt."
+      },
+      "hosting": {
+        "title": "Hosting nur in der EU",
+        "desc": "Ihre verschlüsselten Daten liegen auf Servern in europäischem Besitz (Hetzner, Deutschland) — kein US CLOUD Act. Kein Zugriff durch ausländische Regierungen."
+      }
+    },
+    "proof": {
+      "title": "Wir können Ihre Dateien nicht sehen. Wortwörtlich.",
+      "subtitle": "Das ist kein Marketing-Versprechen. Das ist die Architektur.",
+      "visual": {
+        "yourDevice": "Ihr Gerät",
+        "originalFile": "Ihre Originaldatei",
+        "encryptedFile": "Mit Ihrem Schlüssel verschlüsselt",
+        "ourServers": "Unsere Server",
+        "blindText": "Wir können sehen, dass eine Datei existiert, aber wir haben keine Möglichkeit, sie zu entschlüsseln oder ihren Inhalt zu sehen."
+      },
+      "points": {
+        "keys": {
+          "title": "Sie halten die Schlüssel",
+          "desc": "Ihr Verschlüsselungsschlüssel wird von Ihrem Passwort abgeleitet und verlässt nie Ihr Gerät. Wir speichern ihn nicht, wir sehen ihn nicht."
+        },
+        "infra": {
+          "title": "Souveräne Infrastruktur",
+          "desc": "Wir nutzen keine US-Cloud-Anbieter wie AWS oder Google. Ihre Daten liegen auf europäischer Hardware in Deutschland und Finnland."
+        }
+      }
+    }
   }
 }

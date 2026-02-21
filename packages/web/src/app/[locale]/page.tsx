@@ -297,8 +297,8 @@ function UseCasesSection() {
   );
 }
 
-function PricingSection() {
-  const currency = useMemo(() => getCurrency(), []);
+function PricingSection({ locale }: { locale: string }) {
+  const currency = useMemo(() => getCurrency(locale), [locale]);
   return (
     <section className="py-12 sm:py-20 bg-gray-50" id="pricing">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -412,7 +412,7 @@ function Footer() {
   );
 }
 
-export default function HomePage() {
+export default function HomePage({ params }: { params: { locale: string } }) {
   return (
     <main>
       <HeroSection />
@@ -421,7 +421,7 @@ export default function HomePage() {
       <ProofOfPrivacySection />
       <HowItWorksSection />
       <UseCasesSection />
-      <PricingSection />
+      <PricingSection locale={params.locale} />
       <CTASection />
       <Footer />
     </main>
