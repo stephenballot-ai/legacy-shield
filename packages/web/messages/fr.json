@@ -12,6 +12,10 @@
     "back": "Retour",
     "done": "Terminé"
   },
+  "metadata": {
+    "title": "LegacyShield | Planification Successorale Numérique et Coffre-fort de Documents Sécurisé",
+    "description": "Conservez vos documents les plus précieux — passeports, testaments, assurances — avec un chiffrement à connaissance nulle et un accès d'urgence pour vos proches."
+  },
   "auth": {
     "login": {
       "title": "Connexion",

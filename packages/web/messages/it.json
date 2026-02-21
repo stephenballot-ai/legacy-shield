@@ -12,6 +12,10 @@
     "back": "Indietro",
     "done": "Fatto"
   },
+  "metadata": {
+    "title": "LegacyShield | Pianificazione Successoria Digitale e Caveau per Documenti Sicuro",
+    "description": "Archivia i tuoi documenti più preziosi — passaporti, testamenti, assicurazioni — con crittografia zero-knowledge e accesso di emergenza per i tuoi cari."
+  },
   "auth": {
     "login": {
       "title": "Accedi",

@@ -12,6 +12,10 @@
     "back": "Volver",
     "done": "Hecho"
   },
+  "metadata": {
+    "title": "LegacyShield | Planificación de Patrimonio Digital y Bóveda de Documentos Segura",
+    "description": "Guarde sus documentos más valiosos — pasaportes, testamentos, seguros — con cifrado de conocimiento cero y acceso de emergencia para sus seres queridos."
+  },
   "auth": {
     "login": {
       "title": "Iniciar sesión",
