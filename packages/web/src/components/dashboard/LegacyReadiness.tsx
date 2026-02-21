@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useFilesStore } from '@/store/filesStore';
 import { Card } from '@/components/ui/Card';
-import { CheckCircle2, ShieldCheck, Scale, HeartPulse, DollarSign, Fingerprint, Landmark } from 'lucide-react';
+import { CheckCircle2, ShieldCheck, Scale, DollarSign, Fingerprint, Landmark } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { FileCategory } from '@legacy-shield/shared';
 
