@@ -26,6 +26,9 @@ export async function generateMetadata({ params: { locale } }: { params: { local
       type: 'website',
       locale: locale === 'en' ? 'en_US' : locale,
     },
+    verification: {
+      google: 'rCaiCC_VLBMV6hyyB8NAQwNWMGZKxLGQaGeF2fjfHiQ',
+    },
   };
 }
 
