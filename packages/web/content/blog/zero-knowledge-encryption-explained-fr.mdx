@@ -1,0 +1,99 @@
+---
+title: "Chiffrement zero-knowledge : pourquoi Dropbox ne peut pas protéger votre testament"
+description: "La plupart des services de stockage cloud peuvent lire vos fichiers. Découvrez comment fonctionne le chiffrement zero-knowledge, pourquoi c'est important pour les documents sensibles, et pourquoi Dropbox et Google Drive ne suffisent pas."
+date: "2026-02-15"
+author: "LegacyShield Team"
+locale: "fr"
+slug: "zero-knowledge-encryption-explained"
+keywords: ["chiffrement zero knowledge", "stockage sécurisé de documents", "coffre-fort chiffré"]
+readingTime: "4 min de lecture"
+---
+
+## L'illusion de la sécurité cloud
+
+Quand vous envoyez un fichier sur Dropbox ou Google Drive, vous supposez probablement qu'il est en sécurité. Et d'une certaine manière, c'est vrai — vos fichiers sont chiffrés « en transit » (entre votre appareil et le serveur) et « au repos » (sur les disques durs du serveur).
+
+Mais voici le détail crucial que la plupart des gens ignorent : **le fournisseur de service détient les clés de chiffrement**. Cela signifie que Dropbox, Google et Microsoft peuvent techniquement déchiffrer et lire vos fichiers à tout moment.
+
+Pour des photos de vacances, ce n'est probablement pas un souci. Mais pour votre testament, vos polices d'assurance, vos directives anticipées ou vos mots de passe ? C'est une tout autre histoire.
+
+## Qu'est-ce que le chiffrement zero-knowledge ?
+
+Le chiffrement zero-knowledge (parfois appelé « chiffrement côté client » ou « chiffrement de bout en bout pour les fichiers ») signifie que **vos fichiers sont chiffrés sur votre appareil avant même de le quitter**. La clé de chiffrement est dérivée de votre mot de passe, et le serveur ne voit jamais ni la clé ni les données non chiffrées.
+
+Voici la différence essentielle :
+
+**Stockage cloud traditionnel (Dropbox, Google Drive) :**
+1. Vous téléchargez un fichier
+2. Le service le chiffre sur ses serveurs avec sa propre clé
+3. Il peut le déchiffrer quand il le souhaite
+4. Les demandes gouvernementales, fuites de données ou employés malveillants pourraient exposer vos données
+
+**Chiffrement zero-knowledge (LegacyShield) :**
+1. Vous téléchargez un fichier
+2. Votre navigateur le chiffre localement avec AES-256-GCM et votre clé
+3. Seul le bloc chiffré atteint le serveur
+4. Personne — pas même nous — ne peut lire ce que vous avez stocké
+
+## Pourquoi c'est important pour les documents sensibles
+
+### Les fuites de données arrivent à tout le monde
+
+En 2012, Dropbox a subi une fuite qui a exposé 68 millions d'identifiants d'utilisateurs. En 2023, une erreur d'un ingénieur Microsoft a exposé 38 téraoctets de données internes. Ces entreprises disposent de milliards en budgets de sécurité, et elles se font quand même pirater.
+
+Avec le chiffrement zero-knowledge, même si nos serveurs étaient entièrement compromis, les attaquants n'obtiendraient que du bruit chiffré. Vos fichiers restent illisibles sans votre clé de chiffrement.
+
+### Accès gouvernemental et demandes légales
+
+Les fournisseurs cloud répondent régulièrement aux demandes de données gouvernementales. Le rapport de transparence de Google montre qu'ils ont reçu plus de 200 000 demandes gouvernementales de données utilisateurs rien qu'en 2023, et ont satisfait environ 75 % d'entre elles.
+
+Avec le chiffrement zero-knowledge, nous ne pouvons littéralement pas y répondre — non pas parce que nous le refusons, mais parce que nous n'avons pas accès à vos données non chiffrées. On ne peut pas remettre ce qu'on ne peut pas lire.
+
+### Le problème de la confiance
+
+Quand vous stockez votre testament sur Google Drive, vous faites confiance à :
+- L'équipe de sécurité de Google
+- Les contrôles d'accès des employés de Google
+- Le respect des lois sur la vie privée par Google
+- Tout gouvernement pouvant adresser une demande à Google
+
+Quand vous le stockez dans un coffre zero-knowledge, vous faites confiance à :
+- **Les mathématiques** — plus précisément, l'algorithme de chiffrement AES-256-GCM dont le cassage prendrait des milliards d'années
+
+Nous pensons que les mathématiques sont plus fiables que les politiques d'entreprise.
+
+## La comparaison avec Dropbox
+
+Voyons précisément ce que Dropbox offre par rapport à ce dont vous avez réellement besoin :
+
+| Fonctionnalité | Dropbox | LegacyShield |
+|----------------|---------|--------------|
+| Chiffrement en transit | ✅ TLS | ✅ TLS |
+| Chiffrement au repos | ✅ AES-256 (leur clé) | ✅ AES-256-GCM (votre clé) |
+| Le fournisseur peut lire les fichiers | ⚠️ Oui | ❌ Non |
+| Résiste à une brèche serveur | ⚠️ Partiellement | ✅ Entièrement |
+| Accès d'urgence pour la famille | ❌ Non | ✅ Oui |
+| Conçu pour la succession | ❌ Non | ✅ Oui |
+| Le gouvernement peut demander les données | ⚠️ Oui | ❌ Chiffrées uniquement |
+
+Dropbox est un excellent outil de synchronisation de fichiers. Mais il n'a jamais été conçu pour protéger vos documents les plus sensibles ou garantir que votre famille puisse y accéder en cas de besoin.
+
+## Comment LegacyShield implémente le zero-knowledge
+
+Voici exactement ce qui se passe quand vous stockez un document avec LegacyShield :
+
+1. **Dérivation de clé** : Votre mot de passe maître est transformé en clé de chiffrement via Argon2id — une fonction de dérivation de clé gourmande en mémoire qui résiste aux attaques par force brute
+2. **Chiffrement local** : Votre fichier est chiffré dans votre navigateur avec AES-256-GCM, assurant à la fois confidentialité et intégrité
+3. **Téléchargement chiffré** : Seules les données chiffrées sont envoyées à nos serveurs
+4. **Stockage** : Nous stockons le bloc chiffré. Nous ne voyons jamais la clé, le fichier original, ni même le nom du fichier
+5. **Déchiffrement** : Quand vous (ou votre contact d'urgence autorisé) avez besoin du fichier, il est téléchargé et déchiffré localement dans le navigateur
+
+À aucun moment des données non chiffrées n'existent sur nos serveurs.
+
+## En résumé
+
+Si vous stockez des documents sensibles dans Dropbox, Google Drive ou iCloud, vous confiez vos informations les plus privées à une entreprise. Elles sont probablement dignes de confiance — mais « probablement » ne suffit pas pour votre testament, vos directives anticipées ou les documents dont votre famille aura besoin quand vous ne serez plus là.
+
+Le chiffrement zero-knowledge élimine le besoin de faire confiance. Vos données sont protégées par les mathématiques, pas par la bienveillance d'une entreprise.
+
+**[Essayez LegacyShield gratuitement](/register)** — parce que vos documents les plus importants méritent mieux que « probablement sécurisé ».

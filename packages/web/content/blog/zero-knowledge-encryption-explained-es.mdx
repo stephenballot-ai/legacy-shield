@@ -1,0 +1,99 @@
+---
+title: "Cifrado zero-knowledge: por qué Dropbox no puede proteger tu testamento"
+description: "La mayoría de los servicios de almacenamiento en la nube pueden leer tus archivos. Descubre cómo funciona el cifrado zero-knowledge, por qué es importante para documentos sensibles y por qué Dropbox y Google Drive no son suficientes."
+date: "2026-02-15"
+author: "LegacyShield Team"
+locale: "es"
+slug: "zero-knowledge-encryption-explained"
+keywords: ["cifrado zero knowledge", "almacenamiento seguro de documentos", "bóveda cifrada"]
+readingTime: "4 min de lectura"
+---
+
+## La ilusión de la seguridad en la nube
+
+Cuando subes un archivo a Dropbox o Google Drive, probablemente asumes que está seguro. Y en cierto sentido lo está — tus archivos se cifran "en tránsito" (entre tu dispositivo y el servidor) y "en reposo" (en los discos duros del servidor).
+
+Pero aquí está el detalle crucial que la mayoría pasa por alto: **el proveedor del servicio posee las claves de cifrado**. Eso significa que Dropbox, Google y Microsoft pueden técnicamente descifrar y leer tus archivos en cualquier momento.
+
+Para fotos de vacaciones, probablemente no sea un problema. Pero para tu testamento, pólizas de seguros, voluntades anticipadas o contraseñas, es una historia completamente diferente.
+
+## ¿Qué es el cifrado zero-knowledge?
+
+El cifrado zero-knowledge (a veces llamado "cifrado del lado del cliente" o "cifrado de extremo a extremo para archivos") significa que **tus archivos se cifran en tu dispositivo antes de salir de él**. La clave de cifrado se deriva de tu contraseña, y el servidor nunca ve ni la clave ni los datos sin cifrar.
+
+Esta es la diferencia clave:
+
+**Almacenamiento cloud tradicional (Dropbox, Google Drive):**
+1. Subes un archivo
+2. El servicio lo cifra en sus servidores con su propia clave
+3. Pueden descifrarlo cuando quieran
+4. Solicitudes gubernamentales, filtraciones de datos o empleados deshonestos podrían exponer tus datos
+
+**Cifrado zero-knowledge (LegacyShield):**
+1. Subes un archivo
+2. Tu navegador lo cifra localmente usando AES-256-GCM con tu clave
+3. Solo el bloque cifrado llega al servidor
+4. Nadie — ni siquiera nosotros — puede leer lo que almacenaste
+
+## Por qué esto importa para documentos sensibles
+
+### Las filtraciones de datos le pasan a todos
+
+En 2012, Dropbox sufrió una filtración que expuso 68 millones de credenciales de usuarios. En 2023, un error de un ingeniero de Microsoft expuso 38 terabytes de datos internos. Estas empresas tienen miles de millones en presupuestos de seguridad, y aun así sufren brechas.
+
+Con el cifrado zero-knowledge, incluso si nuestros servidores fueran completamente comprometidos, los atacantes solo obtendrían ruido cifrado. Tus archivos permanecen ilegibles sin tu clave de cifrado.
+
+### Acceso gubernamental y solicitudes legales
+
+Los proveedores cloud cumplen regularmente con las solicitudes gubernamentales de datos. El informe de transparencia de Google muestra que recibieron más de 200.000 solicitudes gubernamentales de datos de usuarios solo en 2023, y cumplieron con aproximadamente el 75%.
+
+Con el cifrado zero-knowledge, nosotros literalmente no podemos cumplir — no porque elijamos no hacerlo, sino porque no tenemos acceso a tus datos sin cifrar. No podemos entregar lo que no podemos leer.
+
+### El problema de la confianza
+
+Cuando almacenas tu testamento en Google Drive, confías en:
+- El equipo de seguridad de Google
+- Los controles de acceso de empleados de Google
+- El cumplimiento de las leyes de privacidad por parte de Google
+- Cualquier gobierno que pueda enviar una solicitud a Google
+
+Cuando lo almacenas en una bóveda zero-knowledge, confías en:
+- **Las matemáticas** — específicamente, el algoritmo de cifrado AES-256-GCM que tardaría miles de millones de años en descifrar
+
+Creemos que las matemáticas son más confiables que las políticas corporativas.
+
+## La comparación con Dropbox
+
+Veamos específicamente qué ofrece Dropbox frente a lo que realmente necesitas:
+
+| Característica | Dropbox | LegacyShield |
+|----------------|---------|--------------|
+| Cifrado en tránsito | ✅ TLS | ✅ TLS |
+| Cifrado en reposo | ✅ AES-256 (su clave) | ✅ AES-256-GCM (tu clave) |
+| El proveedor puede leer archivos | ⚠️ Sí | ❌ No |
+| Sobrevive a una brecha del servidor | ⚠️ Parcialmente | ✅ Completamente |
+| Acceso de emergencia para la familia | ❌ No | ✅ Sí |
+| Diseñado para planificación sucesoria | ❌ No | ✅ Sí |
+| El gobierno puede solicitar datos | ⚠️ Sí | ❌ Solo cifrados |
+
+Dropbox es una gran herramienta de sincronización de archivos. Pero nunca fue diseñada para proteger tus documentos más sensibles ni para garantizar que tu familia pueda acceder a ellos cuando sea necesario.
+
+## Cómo LegacyShield implementa el zero-knowledge
+
+Esto es exactamente lo que sucede cuando almacenas un documento con LegacyShield:
+
+1. **Derivación de clave**: Tu contraseña maestra se convierte en una clave de cifrado usando Argon2id — una función de derivación de claves con alto consumo de memoria que resiste ataques de fuerza bruta
+2. **Cifrado local**: Tu archivo se cifra en tu navegador usando AES-256-GCM, que proporciona tanto confidencialidad como integridad
+3. **Subida cifrada**: Solo los datos cifrados se envían a nuestros servidores
+4. **Almacenamiento**: Almacenamos el bloque cifrado. Nunca vemos la clave, el archivo original ni siquiera el nombre del archivo
+5. **Descifrado**: Cuando tú (o tu contacto de emergencia autorizado) necesitas el archivo, se descarga y descifra localmente en el navegador
+
+En ningún momento existen datos sin cifrar en nuestros servidores.
+
+## En resumen
+
+Si almacenas documentos sensibles en Dropbox, Google Drive o iCloud, estás confiando a una corporación tu información más privada. Probablemente sean dignos de confianza — pero "probablemente" no es suficiente para tu testamento, tus voluntades anticipadas o los documentos que tu familia necesitará cuando ya no estés.
+
+El cifrado zero-knowledge elimina la necesidad de confiar. Tus datos están protegidos por las matemáticas, no por la buena voluntad corporativa.
+
+**[Prueba LegacyShield gratis](/register)** — porque tus documentos más importantes merecen más que "probablemente seguro".

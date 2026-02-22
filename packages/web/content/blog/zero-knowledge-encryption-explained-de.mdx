@@ -1,0 +1,99 @@
+---
+title: "Zero-Knowledge-Verschlüsselung: Warum Dropbox dein Testament nicht schützen kann"
+description: "Die meisten Cloud-Speicherdienste können deine Dateien lesen. Erfahre, wie Zero-Knowledge-Verschlüsselung funktioniert, warum sie für sensible Dokumente wichtig ist und warum Dropbox und Google Drive nicht ausreichen."
+date: "2026-02-15"
+author: "LegacyShield Team"
+locale: "de"
+slug: "zero-knowledge-encryption-explained"
+keywords: ["Zero-Knowledge-Verschlüsselung", "sichere Dokumentenspeicherung", "verschlüsselter Tresor"]
+readingTime: "4 Min. Lesezeit"
+---
+
+## Die Illusion der Cloud-Sicherheit
+
+Wenn du eine Datei zu Dropbox oder Google Drive hochlädst, gehst du wahrscheinlich davon aus, dass sie sicher ist. Und in gewisser Weise stimmt das — deine Dateien werden „in transit" (zwischen deinem Gerät und dem Server) und „at rest" (auf den Festplatten des Servers) verschlüsselt.
+
+Aber hier ist das entscheidende Detail, das die meisten übersehen: **Der Dienstanbieter besitzt die Verschlüsselungsschlüssel**. Das bedeutet, dass Dropbox, Google und Microsoft deine Dateien technisch jederzeit entschlüsseln und lesen können.
+
+Für Urlaubsfotos ist das wahrscheinlich kein Problem. Aber für dein Testament, Versicherungspolicen, Patientenverfügungen oder Passwörter? Das ist eine ganz andere Geschichte.
+
+## Was ist Zero-Knowledge-Verschlüsselung?
+
+Zero-Knowledge-Verschlüsselung (manchmal auch „Client-seitige Verschlüsselung" oder „Ende-zu-Ende-Verschlüsselung für Dateien" genannt) bedeutet, dass **deine Dateien auf deinem Gerät verschlüsselt werden, bevor sie es verlassen**. Der Verschlüsselungsschlüssel wird aus deinem Passwort abgeleitet, und der Server sieht weder den Schlüssel noch die unverschlüsselten Daten.
+
+Hier ist der entscheidende Unterschied:
+
+**Traditioneller Cloud-Speicher (Dropbox, Google Drive):**
+1. Du lädst eine Datei hoch
+2. Der Dienst verschlüsselt sie auf seinen Servern mit seinem Schlüssel
+3. Er kann sie jederzeit entschlüsseln
+4. Behördenanfragen, Datenlecks oder böswillige Mitarbeiter könnten deine Daten offenlegen
+
+**Zero-Knowledge-Verschlüsselung (LegacyShield):**
+1. Du lädst eine Datei hoch
+2. Dein Browser verschlüsselt sie lokal mit AES-256-GCM und deinem Schlüssel
+3. Nur der verschlüsselte Datenblock erreicht den Server
+4. Niemand — nicht einmal wir — kann lesen, was du gespeichert hast
+
+## Warum das für sensible Dokumente wichtig ist
+
+### Datenlecks treffen jeden
+
+2012 erlitt Dropbox einen Sicherheitsvorfall, bei dem 68 Millionen Nutzer-Anmeldedaten offengelegt wurden. 2023 legte ein Fehler eines Microsoft-Ingenieurs 38 Terabyte interner Daten offen. Diese Unternehmen haben Milliarden für Sicherheit — und werden trotzdem gehackt.
+
+Mit Zero-Knowledge-Verschlüsselung würden Angreifer selbst bei einer vollständigen Kompromittierung unserer Server nur verschlüsseltes Rauschen erhalten. Deine Dateien bleiben ohne deinen Verschlüsselungsschlüssel unlesbar.
+
+### Behördenzugriff und rechtliche Anfragen
+
+Cloud-Anbieter kommen regelmäßig behördlichen Datenanfragen nach. Googles Transparenzbericht zeigt, dass sie allein 2023 über 200.000 behördliche Anfragen zu Nutzerdaten erhalten haben und etwa 75 % davon erfüllt haben.
+
+Mit Zero-Knowledge-Verschlüsselung können wir dem buchstäblich nicht nachkommen — nicht weil wir es nicht wollen, sondern weil wir keinen Zugang zu deinen unverschlüsselten Daten haben. Wir können nicht herausgeben, was wir nicht lesen können.
+
+### Das Vertrauensproblem
+
+Wenn du dein Testament auf Google Drive speicherst, vertraust du:
+- Googles Sicherheitsteam
+- Googles Zugriffskontrollen für Mitarbeiter
+- Googles Einhaltung der Datenschutzgesetze
+- Jeder Regierung, die eine Anfrage an Google stellen kann
+
+Wenn du es in einem Zero-Knowledge-Tresor speicherst, vertraust du:
+- **Der Mathematik** — genauer gesagt dem AES-256-GCM-Verschlüsselungsalgorithmus, dessen Knacken Milliarden von Jahren dauern würde
+
+Wir finden, Mathematik ist vertrauenswürdiger als Unternehmensrichtlinien.
+
+## Der Dropbox-Vergleich
+
+Schauen wir uns genau an, was Dropbox bietet und was du tatsächlich brauchst:
+
+| Funktion | Dropbox | LegacyShield |
+|----------|---------|--------------|
+| Verschlüsselung bei Übertragung | ✅ TLS | ✅ TLS |
+| Verschlüsselung im Ruhezustand | ✅ AES-256 (deren Schlüssel) | ✅ AES-256-GCM (dein Schlüssel) |
+| Anbieter kann Dateien lesen | ⚠️ Ja | ❌ Nein |
+| Übersteht Server-Breach | ⚠️ Teilweise | ✅ Vollständig |
+| Notfallzugang für Familie | ❌ Nein | ✅ Ja |
+| Für Nachlassplanung gebaut | ❌ Nein | ✅ Ja |
+| Behörden können Daten anfordern | ⚠️ Ja | ❌ Nur verschlüsselt |
+
+Dropbox ist ein großartiges Tool zur Dateisynchronisierung. Aber es wurde nie dafür konzipiert, deine sensibelsten Dokumente zu schützen oder sicherzustellen, dass deine Familie bei Bedarf darauf zugreifen kann.
+
+## Wie LegacyShield Zero-Knowledge umsetzt
+
+Hier ist genau, was passiert, wenn du ein Dokument bei LegacyShield speicherst:
+
+1. **Schlüsselableitung**: Dein Master-Passwort wird mittels Argon2id in einen Verschlüsselungsschlüssel umgewandelt — eine speicherintensive Schlüsselableitungsfunktion, die Brute-Force-Angriffe abwehrt
+2. **Lokale Verschlüsselung**: Deine Datei wird in deinem Browser mit AES-256-GCM verschlüsselt, was sowohl Vertraulichkeit als auch Integrität gewährleistet
+3. **Verschlüsselter Upload**: Nur die verschlüsselten Daten werden an unsere Server gesendet
+4. **Speicherung**: Wir speichern den verschlüsselten Datenblock. Wir sehen nie den Schlüssel, die Originaldatei oder auch nur den Dateinamen
+5. **Entschlüsselung**: Wenn du (oder dein autorisierter Notfallkontakt) die Datei brauchst, wird sie heruntergeladen und lokal im Browser entschlüsselt
+
+Zu keinem Zeitpunkt existieren unverschlüsselte Daten auf unseren Servern.
+
+## Das Fazit
+
+Wenn du sensible Dokumente in Dropbox, Google Drive oder iCloud speicherst, vertraust du einem Unternehmen deine privatesten Informationen an. Wahrscheinlich sind sie vertrauenswürdig — aber „wahrscheinlich" reicht nicht für dein Testament, deine Patientenverfügung oder die Dokumente, die deine Familie brauchen wird, wenn du nicht mehr da bist.
+
+Zero-Knowledge-Verschlüsselung macht Vertrauen überflüssig. Deine Daten werden durch Mathematik geschützt, nicht durch Unternehmens-Goodwill.
+
+**[Probiere LegacyShield kostenlos aus](/register)** — denn deine wichtigsten Dokumente verdienen mehr als „wahrscheinlich sicher."

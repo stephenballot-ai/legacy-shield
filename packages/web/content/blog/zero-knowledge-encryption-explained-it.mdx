@@ -1,0 +1,99 @@
+---
+title: "Crittografia zero-knowledge: perché Dropbox non può proteggere il tuo testamento"
+description: "La maggior parte dei servizi di cloud storage può leggere i tuoi file. Scopri come funziona la crittografia zero-knowledge, perché è importante per i documenti sensibili e perché Dropbox e Google Drive non bastano."
+date: "2026-02-15"
+author: "LegacyShield Team"
+locale: "it"
+slug: "zero-knowledge-encryption-explained"
+keywords: ["crittografia zero knowledge", "archiviazione sicura documenti", "vault crittografato"]
+readingTime: "4 min di lettura"
+---
+
+## L'illusione della sicurezza cloud
+
+Quando carichi un file su Dropbox o Google Drive, probabilmente presumi che sia al sicuro. E in un certo senso lo è — i tuoi file sono crittografati "in transito" (tra il tuo dispositivo e il server) e "a riposo" (sui dischi rigidi del server).
+
+Ma ecco il dettaglio cruciale che la maggior parte delle persone ignora: **il fornitore del servizio possiede le chiavi di crittografia**. Questo significa che Dropbox, Google e Microsoft possono tecnicamente decrittare e leggere i tuoi file in qualsiasi momento.
+
+Per le foto delle vacanze, probabilmente non è un problema. Ma per il tuo testamento, le polizze assicurative, le direttive anticipate di trattamento o le password? Quella è tutta un'altra storia.
+
+## Cos'è la crittografia zero-knowledge?
+
+La crittografia zero-knowledge (a volte chiamata "crittografia lato client" o "crittografia end-to-end per i file") significa che **i tuoi file vengono crittografati sul tuo dispositivo prima ancora di lasciarlo**. La chiave di crittografia è derivata dalla tua password, e il server non vede mai né la chiave né i dati non crittografati.
+
+Ecco la differenza fondamentale:
+
+**Cloud storage tradizionale (Dropbox, Google Drive):**
+1. Carichi un file
+2. Il servizio lo crittografa sui propri server con la propria chiave
+3. Può decrittarlo quando vuole
+4. Richieste governative, violazioni dei dati o dipendenti disonesti potrebbero esporre i tuoi dati
+
+**Crittografia zero-knowledge (LegacyShield):**
+1. Carichi un file
+2. Il tuo browser lo crittografa localmente usando AES-256-GCM con la tua chiave
+3. Solo il blocco crittografato raggiunge il server
+4. Nessuno — nemmeno noi — può leggere ciò che hai archiviato
+
+## Perché questo è importante per i documenti sensibili
+
+### Le violazioni dei dati capitano a tutti
+
+Nel 2012, Dropbox ha subito una violazione che ha esposto 68 milioni di credenziali utente. Nel 2023, un errore di un ingegnere Microsoft ha esposto 38 terabyte di dati interni. Queste aziende hanno miliardi di budget per la sicurezza, eppure subiscono violazioni.
+
+Con la crittografia zero-knowledge, anche se i nostri server fossero completamente compromessi, gli attaccanti otterrebbero solo rumore crittografato. I tuoi file restano illeggibili senza la tua chiave di crittografia.
+
+### Accesso governativo e richieste legali
+
+I fornitori cloud rispondono regolarmente alle richieste governative di dati. Il rapporto di trasparenza di Google mostra che nel solo 2023 hanno ricevuto oltre 200.000 richieste governative di dati degli utenti, soddisfacendone circa il 75%.
+
+Con la crittografia zero-knowledge, noi letteralmente non possiamo conformarci — non perché scegliamo di non farlo, ma perché non abbiamo accesso ai tuoi dati non crittografati. Non possiamo consegnare ciò che non possiamo leggere.
+
+### Il problema della fiducia
+
+Quando archivi il tuo testamento su Google Drive, ti fidi di:
+- Il team di sicurezza di Google
+- I controlli di accesso dei dipendenti Google
+- Il rispetto delle leggi sulla privacy da parte di Google
+- Ogni governo che può inviare una richiesta a Google
+
+Quando lo archivi in un vault zero-knowledge, ti fidi di:
+- **La matematica** — nello specifico, l'algoritmo di crittografia AES-256-GCM che richiederebbe miliardi di anni per essere violato
+
+Noi pensiamo che la matematica sia più affidabile delle policy aziendali.
+
+## Il confronto con Dropbox
+
+Vediamo nel dettaglio cosa offre Dropbox rispetto a ciò di cui hai veramente bisogno:
+
+| Funzionalità | Dropbox | LegacyShield |
+|--------------|---------|--------------|
+| Crittografia in transito | ✅ TLS | ✅ TLS |
+| Crittografia a riposo | ✅ AES-256 (la loro chiave) | ✅ AES-256-GCM (la tua chiave) |
+| Il fornitore può leggere i file | ⚠️ Sì | ❌ No |
+| Sopravvive a una violazione del server | ⚠️ Parzialmente | ✅ Completamente |
+| Accesso di emergenza per la famiglia | ❌ No | ✅ Sì |
+| Costruito per la pianificazione successoria | ❌ No | ✅ Sì |
+| Il governo può richiedere i dati | ⚠️ Sì | ❌ Solo crittografati |
+
+Dropbox è un ottimo strumento per la sincronizzazione dei file. Ma non è mai stato progettato per proteggere i tuoi documenti più sensibili o garantire che la tua famiglia possa accedervi quando necessario.
+
+## Come LegacyShield implementa lo zero-knowledge
+
+Ecco esattamente cosa succede quando archivi un documento con LegacyShield:
+
+1. **Derivazione della chiave**: La tua password master viene trasformata in una chiave di crittografia usando Argon2id — una funzione di derivazione della chiave ad alto consumo di memoria che resiste agli attacchi brute-force
+2. **Crittografia locale**: Il tuo file viene crittografato nel browser usando AES-256-GCM, che garantisce sia riservatezza che integrità
+3. **Upload crittografato**: Solo i dati crittografati vengono inviati ai nostri server
+4. **Archiviazione**: Conserviamo il blocco crittografato. Non vediamo mai la chiave, il file originale o nemmeno il nome del file
+5. **Decrittazione**: Quando tu (o il tuo contatto di emergenza autorizzato) hai bisogno del file, viene scaricato e decrittato localmente nel browser
+
+In nessun momento dati non crittografati esistono sui nostri server.
+
+## In conclusione
+
+Se archivi documenti sensibili su Dropbox, Google Drive o iCloud, stai affidando le tue informazioni più private a un'azienda. Probabilmente sono affidabili — ma "probabilmente" non è abbastanza per il tuo testamento, le tue direttive anticipate o i documenti di cui la tua famiglia avrà bisogno quando non ci sarai più.
+
+La crittografia zero-knowledge elimina la necessità di fiducia. I tuoi dati sono protetti dalla matematica, non dalla buona volontà aziendale.
+
+**[Prova LegacyShield gratis](/register)** — perché i tuoi documenti più importanti meritano più di "probabilmente sicuro".
