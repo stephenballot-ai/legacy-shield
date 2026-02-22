@@ -44,12 +44,12 @@ function HeroSection() {
                 >
                   {t('ctaPrimary')}
                 </Link>
-                <Link
-                  href="/login"
+                <a
+                  href="#how-it-works"
                   className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl border-2 border-white/30 text-white font-semibold text-lg hover:bg-white/10 transition-colors"
                 >
                   {t('ctaSecondary')}
-                </Link>
+                </a>
               </>
             )}
           </div>
@@ -209,7 +209,7 @@ function ProofOfPrivacySection() {
   );
 }
 
-function HowItWorksSection() {
+function HowItWorksSection({ id = 'how-it-works' }: { id?: string }) {
   const steps = [
     {
       icon: Upload,
@@ -232,7 +232,7 @@ function HowItWorksSection() {
   ];
 
   return (
-    <section className="py-12 sm:py-20 bg-gray-50">
+    <section id={id} className="py-12 sm:py-20 bg-gray-50 scroll-mt-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
