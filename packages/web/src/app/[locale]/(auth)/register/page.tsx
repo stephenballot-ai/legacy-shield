@@ -31,6 +31,10 @@ export default function RegisterPage() {
       const masterKey = await deriveMasterKey(password, salt);
       useCryptoStore.getState().setMasterKey(masterKey);
     }
+    // Meta Pixel conversion tracking
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('track', 'CompleteRegistration');
+    }
     router.push('/documents');
   };
 

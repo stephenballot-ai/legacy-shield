@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { Inter } from 'next/font/google';
 import { Toaster } from 'sonner';
 import { routing } from '@/i18n/routing';
+import { MetaPixel } from '@/components/MetaPixel';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
@@ -74,6 +75,7 @@ export default async function LocaleLayout({
         />
       </head>
       <body className="min-h-screen bg-gray-50 antialiased">
+        <MetaPixel />
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>
