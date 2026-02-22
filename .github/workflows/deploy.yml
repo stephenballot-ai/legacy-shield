@@ -18,6 +18,7 @@ jobs:
           script: |
             cd /opt/legacyshield/app
             git fetch origin main && git reset --hard origin/main
+            npm ci --workspace=@legacy-shield/web --workspace=@legacy-shield/api --workspace=@legacy-shield/shared
             
             # API & DB
             cd packages/api && npx prisma migrate deploy
