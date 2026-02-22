@@ -170,4 +170,15 @@
       "tagline": "Conçu en Europe, hébergé sur une infrastructure européenne"
     }
   }
+,
+  "referral": {
+    "title": "Vous avez été invité sur LegacyShield",
+    "subtitle": "Un ami souhaite vous aider à sécuriser vos documents les plus importants pour votre famille.",
+    "prop1": "Coffre-fort numérique avec chiffrement zero-knowledge",
+    "prop2": "Accès d'urgence pour vos proches",
+    "prop3": "Chiffré sur votre appareil, pas sur nos serveurs",
+    "cta": "Créer mon coffre-fort gratuit",
+    "disclaimer": "Gratuit pour toujours · 10 documents inclus",
+    "learnMore": "En savoir plus sur notre chiffrement"
+  }
 }

@@ -170,4 +170,15 @@
       "tagline": "Construido en Europa, alojado en infraestructura europea"
     }
   }
+,
+  "referral": {
+    "title": "Has sido invitado a LegacyShield",
+    "subtitle": "Un amigo quiere ayudarte a proteger tus documentos más importantes para tu familia.",
+    "prop1": "Bóveda digital segura con cifrado zero-knowledge",
+    "prop2": "Acceso de emergencia para tus seres queridos",
+    "prop3": "Cifrado en tu dispositivo, no en nuestros servidores",
+    "cta": "Crear mi bóveda gratuita",
+    "disclaimer": "Gratis para siempre · 10 documentos incluidos",
+    "learnMore": "Aprende más sobre nuestro cifrado"
+  }
 }

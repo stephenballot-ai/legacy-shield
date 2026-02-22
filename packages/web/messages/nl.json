@@ -184,4 +184,15 @@
       "tagline": "Gebouwd in Europa, gehost op Europese infrastructuur"
     }
   }
+,
+  "referral": {
+    "title": "Je bent uitgenodigd voor LegacyShield",
+    "subtitle": "Een vriend wil je helpen je belangrijkste documenten veilig te stellen voor je familie.",
+    "prop1": "Veilige documentkluis met zero-knowledge encryptie",
+    "prop2": "Noodtoegang voor je dierbaren",
+    "prop3": "Versleuteld op jouw apparaat, niet op onze servers",
+    "cta": "Claim mijn gratis kluis",
+    "disclaimer": "Voor altijd gratis · 10 documenten inbegrepen",
+    "learnMore": "Meer weten over hoe encryptie werkt"
+  }
 }

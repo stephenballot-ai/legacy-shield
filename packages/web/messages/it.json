@@ -170,4 +170,15 @@
       "tagline": "Costruito in Europa, ospitato su infrastruttura europea"
     }
   }
+,
+  "referral": {
+    "title": "Sei stato invitato su LegacyShield",
+    "subtitle": "Un amico vuole aiutarti a proteggere i tuoi documenti più importanti per la tua famiglia.",
+    "prop1": "Caveau digitale sicuro con crittografia zero-knowledge",
+    "prop2": "Accesso di emergenza per i tuoi cari",
+    "prop3": "Crittografato sul tuo dispositivo, non sui nostri server",
+    "cta": "Crea il mio caveau gratuito",
+    "disclaimer": "Gratis per sempre · 10 documenti inclusi",
+    "learnMore": "Scopri di più sulla nostra crittografia"
+  }
 }

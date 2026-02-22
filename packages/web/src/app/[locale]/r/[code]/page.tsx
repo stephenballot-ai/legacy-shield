@@ -5,10 +5,12 @@ import { useParams } from 'next/navigation';
 import { Shield, Gift, Users, Lock, ChevronRight, CheckCircle2 } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/Button';
+import { useTranslations } from 'next-intl';
 
 export default function ReferralPage() {
   const params = useParams();
   const [mounted, setMounted] = useState(false);
+  const t = useTranslations('referral');
 
   useEffect(() => {
     setMounted(true);
@@ -32,19 +34,19 @@ export default function ReferralPage() {
         </div>
 
         <h1 className="text-3xl font-bold tracking-tight mb-4">
-          You&apos;ve been invited to LegacyShield
+          {t('title')}
         </h1>
         
         <p className="text-lg text-white/80 mb-8">
-          A friend wants to help you secure your most important documents for your family.
+          {t('subtitle')}
         </p>
 
         {/* Value Prop Cards */}
         <div className="space-y-3 mb-10 text-left">
           {[
-            { icon: Shield, text: "Secure, zero-knowledge document vault" },
-            { icon: Users, text: "Emergency access for your loved ones" },
-            { icon: Lock, text: "Encrypted on your device, not our servers" }
+            { icon: Shield, text: t('prop1') },
+            { icon: Users, text: t('prop2') },
+            { icon: Lock, text: t('prop3') }
           ].map((item, i) => (
             <div key={i} className="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
               <item.icon className="h-5 w-5 text-accent-400 flex-shrink-0" />
@@ -57,20 +59,20 @@ export default function ReferralPage() {
         <div className="space-y-4">
           <Link href="/register">
             <Button size="lg" className="w-full bg-accent-400 text-primary-900 hover:bg-accent-500 text-lg py-6 shadow-lg shadow-black/20 group">
-              Claim My Free Vault
+              {t('cta')}
               <ChevronRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
           
           <div className="flex items-center justify-center gap-2 text-xs text-white/50">
             <CheckCircle2 className="h-3.5 w-3.5" />
-            <span>Free forever · 3 essentials documents included</span>
+            <span>{t('disclaimer')}</span>
           </div>
         </div>
 
         {/* Secondary link */}
         <Link href="/" className="inline-block mt-12 text-sm text-white/40 hover:text-white transition-colors underline underline-offset-4">
-          Learn more about how encryption works
+          {t('learnMore')}
         </Link>
       </div>
     </div>

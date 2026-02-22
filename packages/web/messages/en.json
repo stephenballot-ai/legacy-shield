@@ -184,4 +184,15 @@
       "tagline": "Built in Europe, hosted on European-owned infrastructure"
     }
   }
+,
+  "referral": {
+    "title": "You've been invited to LegacyShield",
+    "subtitle": "A friend wants to help you secure your most important documents for your family.",
+    "prop1": "Secure, zero-knowledge document vault",
+    "prop2": "Emergency access for your loved ones",
+    "prop3": "Encrypted on your device, not our servers",
+    "cta": "Claim My Free Vault",
+    "disclaimer": "Free forever · 10 documents included",
+    "learnMore": "Learn more about how encryption works"
+  }
 }

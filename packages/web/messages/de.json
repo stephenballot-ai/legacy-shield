@@ -176,4 +176,15 @@
       "tagline": "In Europa entwickelt, auf europäischer Infrastruktur gehostet"
     }
   }
+,
+  "referral": {
+    "title": "Sie wurden zu LegacyShield eingeladen",
+    "subtitle": "Ein Freund möchte Ihnen helfen, Ihre wichtigsten Dokumente für Ihre Familie zu sichern.",
+    "prop1": "Sicherer Dokumententresor mit Zero-Knowledge-Verschlüsselung",
+    "prop2": "Notfallzugriff für Ihre Angehörigen",
+    "prop3": "Verschlüsselt auf Ihrem Gerät, nicht auf unseren Servern",
+    "cta": "Meinen kostenlosen Tresor erstellen",
+    "disclaimer": "Für immer kostenlos · 10 Dokumente inklusive",
+    "learnMore": "Erfahren Sie mehr über unsere Verschlüsselung"
+  }
 }
