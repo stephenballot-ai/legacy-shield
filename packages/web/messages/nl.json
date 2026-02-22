@@ -100,8 +100,88 @@
         "infra": {
           "title": "Soevereine Infrastructuur",
           "desc": "We gebruiken geen Amerikaanse cloudproviders zoals AWS of Google Cloud. Je data staat op hardware in Duitsland en Finland, beschermd door de strengste EU-privacywetten."
+        },
+        "noReset": {
+          "title": "Geen Wachtwoordherstel",
+          "desc": "Als je je wachtwoord kwijtraakt, kunnen we je bestanden niet herstellen. Niet ons supportteam, niet onze engineers. Zo serieus nemen we je privacy."
+        },
+        "noHandover": {
+          "title": "Niets om te Overhandigen",
+          "desc": "Zelfs met een gerechtelijk bevel kunnen we alleen versleutelde data leveren. Zonder jouw sleutel is het waardeloos."
         }
       }
+    },
+    "howItWorks": {
+      "title": "Hoe Het Werkt",
+      "subtitle": "Drie simpele stappen om je belangrijkste documenten te beschermen.",
+      "step1": {
+        "title": "Upload Je Documenten",
+        "desc": "Sleep je belangrijke bestanden naar het venster. Ze worden direct in je browser versleuteld."
+      },
+      "step2": {
+        "title": "Stel Noodtoegang In",
+        "desc": "Voeg vertrouwde contactpersonen toe en maak een geheime ontgrendelzin die alleen zij zouden kennen."
+      },
+      "step3": {
+        "title": "Slaap Gerust",
+        "desc": "Je documenten zijn veilig, versleuteld en toegankelijk voor de juiste mensen wanneer het ertoe doet."
+      }
+    },
+    "useCases": {
+      "title": "Wat Je Kunt Opslaan",
+      "subtitle": "De documenten waarvan je hoopt ze nooit nodig te hebben — maar blij bent dat je ze hebt bewaard.",
+      "items": {
+        "passports": "Paspoorten & ID's",
+        "wills": "Testamenten & Akten",
+        "property": "Eigendomsakten",
+        "insurance": "Verzekeringspolissen",
+        "medical": "Medische Dossiers",
+        "financial": "Financiële Documenten",
+        "crypto": "Crypto Herstelsleutels",
+        "tax": "Belastingaangiften"
+      }
+    },
+    "pricing": {
+      "title": "Eenvoudige Prijzen",
+      "subtitle": "Begin gratis. Upgrade wanneer je meer nodig hebt.",
+      "free": {
+        "name": "Gratis",
+        "period": "voor altijd",
+        "features": {
+          "f1": "3 Documenten",
+          "f2": "Noodtoegang",
+          "f3": "1 Noodcontact",
+          "f4": "Zero-knowledge encryptie",
+          "f5": "EU-hosting"
+        },
+        "cta": "Aan de Slag"
+      },
+      "pro": {
+        "name": "Pro",
+        "badge": "POPULAIRST",
+        "period": "/maand",
+        "lifetime": "of {symbol}{price} eenmalig (levenslang)",
+        "features": {
+          "f1": "100 Documenten",
+          "f2": "5 Noodcontacten",
+          "f3": "Alles in Gratis",
+          "f4": "Prioriteitssupport",
+          "f5": "10MB Bestandslimiet"
+        },
+        "cta": "Begin Gratis, Upgrade Later"
+      }
+    },
+    "cta": {
+      "title": "Bescherm Wat Het Belangrijkst Is",
+      "subtitle": "Je documenten. De gemoedsrust van je familie. Begin vandaag met beveiligen.",
+      "button": "Maak Je Gratis Kluis"
+    },
+    "footer": {
+      "blog": "Blog",
+      "faq": "FAQ",
+      "privacy": "Privacybeleid",
+      "terms": "Algemene Voorwaarden",
+      "tagline": "Gebouwd in Europa, gehost op Europese infrastructuur"
     }
   }
 }

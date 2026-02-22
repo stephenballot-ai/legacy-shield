@@ -92,8 +92,88 @@
         "infra": {
           "title": "Souveräne Infrastruktur",
           "desc": "Wir nutzen keine US-Cloud-Anbieter wie AWS oder Google. Ihre Daten liegen auf europäischer Hardware in Deutschland und Finnland."
+        },
+        "noReset": {
+          "title": "Kein Passwort-Reset",
+          "desc": "Wenn Sie Ihr Passwort verlieren, können wir Ihre Dateien nicht wiederherstellen. Weder unser Support noch unsere Entwickler. So ernst nehmen wir Ihre Privatsphäre."
+        },
+        "noHandover": {
+          "title": "Nichts zu Übergeben",
+          "desc": "Selbst mit einem Gerichtsbeschluss können wir nur verschlüsselte Daten liefern. Ohne Ihren Schlüssel sind sie wertlos."
         }
       }
+    },
+    "howItWorks": {
+      "title": "So Funktioniert's",
+      "subtitle": "Drei einfache Schritte zum Schutz Ihrer wichtigsten Dokumente.",
+      "step1": {
+        "title": "Dokumente Hochladen",
+        "desc": "Ziehen Sie Ihre wichtigen Dateien ins Fenster. Sie werden sofort in Ihrem Browser verschlüsselt."
+      },
+      "step2": {
+        "title": "Notfallzugriff Einrichten",
+        "desc": "Fügen Sie vertrauenswürdige Kontakte hinzu und erstellen Sie eine geheime Entsperrphrase, die nur diese kennen."
+      },
+      "step3": {
+        "title": "Entspannt Zurücklehnen",
+        "desc": "Ihre Dokumente sind sicher, verschlüsselt und für die richtigen Personen zugänglich, wenn es darauf ankommt."
+      }
+    },
+    "useCases": {
+      "title": "Was Sie Speichern Können",
+      "subtitle": "Die Dokumente, die Sie hoffentlich nie brauchen — aber froh sind, gesichert zu haben.",
+      "items": {
+        "passports": "Reisepässe & Ausweise",
+        "wills": "Testamente & Vollmachten",
+        "property": "Grundbuchauszüge",
+        "insurance": "Versicherungspolicen",
+        "medical": "Medizinische Unterlagen",
+        "financial": "Finanzdokumente",
+        "crypto": "Krypto-Wiederherstellungsschlüssel",
+        "tax": "Steuererklärungen"
+      }
+    },
+    "pricing": {
+      "title": "Einfache Preise",
+      "subtitle": "Starten Sie kostenlos. Upgraden Sie bei Bedarf.",
+      "free": {
+        "name": "Kostenlos",
+        "period": "für immer",
+        "features": {
+          "f1": "3 Dokumente",
+          "f2": "Notfallzugriff",
+          "f3": "1 Notfallkontakt",
+          "f4": "Zero-Knowledge-Verschlüsselung",
+          "f5": "EU-Hosting"
+        },
+        "cta": "Jetzt Starten"
+      },
+      "pro": {
+        "name": "Pro",
+        "badge": "BELIEBTESTE WAHL",
+        "period": "/Monat",
+        "lifetime": "oder {symbol}{price} einmalig (lebenslang)",
+        "features": {
+          "f1": "100 Dokumente",
+          "f2": "5 Notfallkontakte",
+          "f3": "Alles aus Kostenlos",
+          "f4": "Prioritäts-Support",
+          "f5": "10 MB Dateigrößenlimit"
+        },
+        "cta": "Kostenlos Starten, Später Upgraden"
+      }
+    },
+    "cta": {
+      "title": "Schützen Sie, Was Am Wichtigsten Ist",
+      "subtitle": "Ihre Dokumente. Die Sicherheit Ihrer Familie. Beginnen Sie noch heute.",
+      "button": "Kostenlosen Tresor Erstellen"
+    },
+    "footer": {
+      "blog": "Blog",
+      "faq": "FAQ",
+      "privacy": "Datenschutzerklärung",
+      "terms": "Nutzungsbedingungen",
+      "tagline": "In Europa entwickelt, auf europäischer Infrastruktur gehostet"
     }
   }
 }

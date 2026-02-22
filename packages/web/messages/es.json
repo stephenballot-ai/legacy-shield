@@ -86,8 +86,88 @@
         "infra": {
           "title": "Infraestructura Soberana",
           "desc": "No utilizamos proveedores de nube estadounidenses. Tus datos están en hardware europeo en Alemania y Finlandia, protegidos por las estrictas leyes de privacidad de la UE."
+        },
+        "noReset": {
+          "title": "Sin Restablecimiento de Contraseña",
+          "desc": "Si pierdes tu contraseña, no podemos recuperar tus archivos. Ni nuestro soporte, ni nuestros ingenieros. Así de en serio nos tomamos tu privacidad."
+        },
+        "noHandover": {
+          "title": "Nada que Entregar",
+          "desc": "Incluso con una orden judicial, solo podemos proporcionar datos cifrados. Sin tu llave, son inútiles."
         }
       }
+    },
+    "howItWorks": {
+      "title": "Cómo Funciona",
+      "subtitle": "Tres simples pasos para proteger tus documentos más importantes.",
+      "step1": {
+        "title": "Sube Tus Documentos",
+        "desc": "Arrastra y suelta tus archivos importantes. Se cifran al instante en tu navegador."
+      },
+      "step2": {
+        "title": "Configura el Acceso de Emergencia",
+        "desc": "Añade contactos de confianza y crea una frase de desbloqueo secreta que solo ellos conocerían."
+      },
+      "step3": {
+        "title": "Descansa Tranquilo",
+        "desc": "Tus documentos están seguros, cifrados y accesibles para las personas adecuadas cuando más importa."
+      }
+    },
+    "useCases": {
+      "title": "Qué Guardar",
+      "subtitle": "Los documentos que esperas no necesitar nunca — pero te alegrarás de haber guardado.",
+      "items": {
+        "passports": "Pasaportes y DNI",
+        "wills": "Testamentos y Fideicomisos",
+        "property": "Escrituras de Propiedad",
+        "insurance": "Pólizas de Seguros",
+        "medical": "Historiales Médicos",
+        "financial": "Documentos Financieros",
+        "crypto": "Claves de Recuperación Crypto",
+        "tax": "Declaraciones de Impuestos"
+      }
+    },
+    "pricing": {
+      "title": "Precios Simples",
+      "subtitle": "Empieza gratis. Mejora cuando lo necesites.",
+      "free": {
+        "name": "Gratis",
+        "period": "para siempre",
+        "features": {
+          "f1": "3 Documentos",
+          "f2": "Acceso de emergencia",
+          "f3": "1 Contacto de emergencia",
+          "f4": "Cifrado de conocimiento cero",
+          "f5": "Alojamiento en la UE"
+        },
+        "cta": "Empezar"
+      },
+      "pro": {
+        "name": "Pro",
+        "badge": "MÁS POPULAR",
+        "period": "/mes",
+        "lifetime": "o {symbol}{price} pago único (de por vida)",
+        "features": {
+          "f1": "100 Documentos",
+          "f2": "5 Contactos de emergencia",
+          "f3": "Todo lo del plan Gratis",
+          "f4": "Soporte prioritario",
+          "f5": "Límite de 10 MB por archivo"
+        },
+        "cta": "Empieza Gratis, Mejora Después"
+      }
+    },
+    "cta": {
+      "title": "Protege Lo Que Más Importa",
+      "subtitle": "Tus documentos. La tranquilidad de tu familia. Empieza a protegerlos hoy.",
+      "button": "Crea Tu Bóveda Gratuita"
+    },
+    "footer": {
+      "blog": "Blog",
+      "faq": "FAQ",
+      "privacy": "Política de Privacidad",
+      "terms": "Términos de Servicio",
+      "tagline": "Construido en Europa, alojado en infraestructura europea"
     }
   }
 }

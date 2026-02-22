@@ -100,8 +100,88 @@
         "infra": {
           "title": "Sovereign Infrastructure",
           "desc": "We don't use US-owned cloud providers like AWS or Google Cloud. Your data lives on European-owned hardware in Germany and Finland, protected by strict EU privacy laws."
+        },
+        "noReset": {
+          "title": "No Password Reset",
+          "desc": "If you lose your password, we can't recover your files. Not our support team, not our engineers. That's how seriously we take your privacy."
+        },
+        "noHandover": {
+          "title": "Nothing to Hand Over",
+          "desc": "Even with a court order, we can only provide encrypted data. Without your key, it's useless."
         }
       }
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "subtitle": "Three simple steps to protect your most important documents.",
+      "step1": {
+        "title": "Upload Your Documents",
+        "desc": "Drag and drop your important files. They're encrypted instantly in your browser."
+      },
+      "step2": {
+        "title": "Set Up Emergency Access",
+        "desc": "Add trusted contacts and create a secret unlock phrase only they would know."
+      },
+      "step3": {
+        "title": "Rest Easy",
+        "desc": "Your documents are safe, encrypted, and accessible to the right people when it matters."
+      }
+    },
+    "useCases": {
+      "title": "What to Store",
+      "subtitle": "The documents you hope you'll never need — but will be glad you saved.",
+      "items": {
+        "passports": "Passports & IDs",
+        "wills": "Wills & Trusts",
+        "property": "Property Deeds",
+        "insurance": "Insurance Policies",
+        "medical": "Medical Records",
+        "financial": "Financial Documents",
+        "crypto": "Crypto Recovery Keys",
+        "tax": "Tax Returns"
+      }
+    },
+    "pricing": {
+      "title": "Simple Pricing",
+      "subtitle": "Start free. Upgrade when you need more.",
+      "free": {
+        "name": "Free",
+        "period": "forever",
+        "features": {
+          "f1": "3 Documents",
+          "f2": "Emergency Access",
+          "f3": "1 Emergency Contact",
+          "f4": "Zero-knowledge encryption",
+          "f5": "EU hosting"
+        },
+        "cta": "Get Started"
+      },
+      "pro": {
+        "name": "Pro",
+        "badge": "MOST POPULAR",
+        "period": "/month",
+        "lifetime": "or {symbol}{price} one-time (lifetime)",
+        "features": {
+          "f1": "100 Documents",
+          "f2": "5 Emergency Contacts",
+          "f3": "Everything in Free",
+          "f4": "Priority Support",
+          "f5": "10MB File size limit"
+        },
+        "cta": "Start Free, Upgrade Later"
+      }
+    },
+    "cta": {
+      "title": "Protect What Matters Most",
+      "subtitle": "Your documents. Your family's peace of mind. Start securing them today.",
+      "button": "Create Your Free Vault"
+    },
+    "footer": {
+      "blog": "Blog",
+      "faq": "FAQ",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "tagline": "Built in Europe, hosted on European-owned infrastructure"
     }
   }
 }

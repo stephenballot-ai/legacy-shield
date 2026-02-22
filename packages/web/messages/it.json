@@ -86,8 +86,88 @@
         "infra": {
           "title": "Infrastruttura Sovrana",
           "desc": "Non utilizziamo cloud provider americani. I tuoi dati sono su hardware europeo in Germania e Finlandia, protetti dalle rigide leggi UE sulla privacy."
+        },
+        "noReset": {
+          "title": "Nessun Reset della Password",
+          "desc": "Se perdi la password, non possiamo recuperare i tuoi file. Né il supporto, né i nostri ingegneri. Ecco quanto prendiamo sul serio la tua privacy."
+        },
+        "noHandover": {
+          "title": "Nulla da Consegnare",
+          "desc": "Anche con un ordine del tribunale, possiamo fornire solo dati crittografati. Senza la tua chiave, sono inutili."
         }
       }
+    },
+    "howItWorks": {
+      "title": "Come Funziona",
+      "subtitle": "Tre semplici passaggi per proteggere i tuoi documenti più importanti.",
+      "step1": {
+        "title": "Carica i Tuoi Documenti",
+        "desc": "Trascina i tuoi file importanti. Vengono crittografati istantaneamente nel tuo browser."
+      },
+      "step2": {
+        "title": "Configura l'Accesso di Emergenza",
+        "desc": "Aggiungi contatti fidati e crea una frase di sblocco segreta che solo loro conoscerebbero."
+      },
+      "step3": {
+        "title": "Dormi Tranquillo",
+        "desc": "I tuoi documenti sono al sicuro, crittografati e accessibili alle persone giuste quando serve."
+      }
+    },
+    "useCases": {
+      "title": "Cosa Conservare",
+      "subtitle": "I documenti che speri di non dover mai usare — ma sarai felice di aver salvato.",
+      "items": {
+        "passports": "Passaporti e Documenti d'Identità",
+        "wills": "Testamenti e Trust",
+        "property": "Atti di Proprietà",
+        "insurance": "Polizze Assicurative",
+        "medical": "Cartelle Cliniche",
+        "financial": "Documenti Finanziari",
+        "crypto": "Chiavi di Recupero Crypto",
+        "tax": "Dichiarazioni dei Redditi"
+      }
+    },
+    "pricing": {
+      "title": "Prezzi Semplici",
+      "subtitle": "Inizia gratis. Passa al piano superiore quando ne hai bisogno.",
+      "free": {
+        "name": "Gratuito",
+        "period": "per sempre",
+        "features": {
+          "f1": "3 Documenti",
+          "f2": "Accesso di emergenza",
+          "f3": "1 Contatto di emergenza",
+          "f4": "Crittografia zero-knowledge",
+          "f5": "Hosting UE"
+        },
+        "cta": "Inizia Ora"
+      },
+      "pro": {
+        "name": "Pro",
+        "badge": "PIÙ POPOLARE",
+        "period": "/mese",
+        "lifetime": "o {symbol}{price} una tantum (a vita)",
+        "features": {
+          "f1": "100 Documenti",
+          "f2": "5 Contatti di emergenza",
+          "f3": "Tutto del piano Gratuito",
+          "f4": "Supporto prioritario",
+          "f5": "Limite file 10 MB"
+        },
+        "cta": "Inizia Gratis, Upgrade Dopo"
+      }
+    },
+    "cta": {
+      "title": "Proteggi Ciò Che Conta di Più",
+      "subtitle": "I tuoi documenti. La serenità della tua famiglia. Inizia a proteggerli oggi.",
+      "button": "Crea il Tuo Caveau Gratuito"
+    },
+    "footer": {
+      "blog": "Blog",
+      "faq": "FAQ",
+      "privacy": "Informativa sulla Privacy",
+      "terms": "Termini di Servizio",
+      "tagline": "Costruito in Europa, ospitato su infrastruttura europea"
     }
   }
 }

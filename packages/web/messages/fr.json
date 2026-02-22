@@ -86,8 +86,88 @@
         "infra": {
           "title": "Infrastructure Souveraine",
           "desc": "Nous n'utilisons pas de fournisseurs cloud américains. Vos données sont sur du matériel européen en Allemagne et en Finlande."
+        },
+        "noReset": {
+          "title": "Pas de Réinitialisation",
+          "desc": "Si vous perdez votre mot de passe, nous ne pouvons pas récupérer vos fichiers. Ni notre support, ni nos ingénieurs. C'est à quel point nous prenons votre vie privée au sérieux."
+        },
+        "noHandover": {
+          "title": "Rien à Transmettre",
+          "desc": "Même avec une ordonnance du tribunal, nous ne pouvons fournir que des données chiffrées. Sans votre clé, elles sont inutiles."
         }
       }
+    },
+    "howItWorks": {
+      "title": "Comment Ça Marche",
+      "subtitle": "Trois étapes simples pour protéger vos documents les plus importants.",
+      "step1": {
+        "title": "Téléversez Vos Documents",
+        "desc": "Glissez-déposez vos fichiers importants. Ils sont chiffrés instantanément dans votre navigateur."
+      },
+      "step2": {
+        "title": "Configurez l'Accès d'Urgence",
+        "desc": "Ajoutez des contacts de confiance et créez une phrase de déverrouillage secrète qu'eux seuls connaîtraient."
+      },
+      "step3": {
+        "title": "Dormez Tranquille",
+        "desc": "Vos documents sont en sécurité, chiffrés et accessibles aux bonnes personnes quand cela compte."
+      }
+    },
+    "useCases": {
+      "title": "Quoi Stocker",
+      "subtitle": "Les documents que vous espérez ne jamais avoir besoin — mais serez heureux d'avoir sauvegardés.",
+      "items": {
+        "passports": "Passeports & Pièces d'identité",
+        "wills": "Testaments & Fiducies",
+        "property": "Titres de Propriété",
+        "insurance": "Polices d'Assurance",
+        "medical": "Dossiers Médicaux",
+        "financial": "Documents Financiers",
+        "crypto": "Clés de Récupération Crypto",
+        "tax": "Déclarations Fiscales"
+      }
+    },
+    "pricing": {
+      "title": "Tarifs Simples",
+      "subtitle": "Commencez gratuitement. Passez au niveau supérieur quand vous en avez besoin.",
+      "free": {
+        "name": "Gratuit",
+        "period": "pour toujours",
+        "features": {
+          "f1": "3 Documents",
+          "f2": "Accès d'urgence",
+          "f3": "1 Contact d'urgence",
+          "f4": "Chiffrement à connaissance nulle",
+          "f5": "Hébergement UE"
+        },
+        "cta": "Commencer"
+      },
+      "pro": {
+        "name": "Pro",
+        "badge": "LE PLUS POPULAIRE",
+        "period": "/mois",
+        "lifetime": "ou {symbol}{price} en une fois (à vie)",
+        "features": {
+          "f1": "100 Documents",
+          "f2": "5 Contacts d'urgence",
+          "f3": "Tout le plan Gratuit",
+          "f4": "Support prioritaire",
+          "f5": "Limite de 10 Mo par fichier"
+        },
+        "cta": "Commencer Gratuitement, Upgrader Plus Tard"
+      }
+    },
+    "cta": {
+      "title": "Protégez Ce Qui Compte Le Plus",
+      "subtitle": "Vos documents. La tranquillité d'esprit de votre famille. Commencez à les sécuriser aujourd'hui.",
+      "button": "Créer Votre Coffre-fort Gratuit"
+    },
+    "footer": {
+      "blog": "Blog",
+      "faq": "FAQ",
+      "privacy": "Politique de Confidentialité",
+      "terms": "Conditions d'Utilisation",
+      "tagline": "Conçu en Europe, hébergé sur une infrastructure européenne"
     }
   }
 }

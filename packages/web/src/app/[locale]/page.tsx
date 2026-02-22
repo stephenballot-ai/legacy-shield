@@ -153,17 +153,17 @@ function ProofOfPrivacySection() {
           <div className="bg-gray-50 rounded-2xl border border-gray-200 p-8 space-y-6">
             {/* Your Device */}
             <div className="text-center">
-              <span className="text-xs font-bold uppercase tracking-wider text-trust-600 bg-trust-50 px-3 py-1 rounded-full">Your device</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-trust-600 bg-trust-50 px-3 py-1 rounded-full">{t('visual.yourDevice')}</span>
             </div>
             <div className="flex items-center gap-4">
               <div className="flex-1 bg-white rounded-xl border border-gray-200 p-4 text-center">
                 <p className="text-sm font-medium text-gray-900">my-will.pdf</p>
-                <p className="text-xs text-gray-400 mt-1">Your original file</p>
+                <p className="text-xs text-gray-400 mt-1">{t('visual.originalFile')}</p>
               </div>
               <div className="text-2xl text-gray-400">→</div>
               <div className="flex-1 bg-primary-900 rounded-xl p-4 text-center">
                 <p className="text-sm font-mono text-primary-300 break-all">a7f2c9e8b1d4...</p>
-                <p className="text-xs text-primary-400 mt-1">Encrypted with your key</p>
+                <p className="text-xs text-primary-400 mt-1">{t('visual.encryptedFile')}</p>
               </div>
             </div>
 
@@ -177,11 +177,11 @@ function ProofOfPrivacySection() {
 
             {/* Our Servers */}
             <div className="text-center">
-              <span className="text-xs font-bold uppercase tracking-wider text-gray-400 bg-gray-100 px-3 py-1 rounded-full">Our servers</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-gray-400 bg-gray-100 px-3 py-1 rounded-full">{t('visual.ourServers')}</span>
             </div>
             <div className="bg-gray-100 rounded-xl p-4 text-center">
               <p className="text-sm font-mono text-gray-400 break-all">a7f2c9e8b1d4f6a2e8c1b9d3f7a5...</p>
-              <p className="text-xs text-gray-400 mt-1">This is all we can ever see — meaningless encrypted data</p>
+              <p className="text-xs text-gray-400 mt-1">{t('visual.blindText')}</p>
             </div>
           </div>
         </div>
@@ -190,18 +190,18 @@ function ProofOfPrivacySection() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
           <div className="text-center p-6">
             <div className="text-3xl mb-4">🔑</div>
-            <h3 className="font-semibold text-gray-900 mb-2">Your Key, Your Data</h3>
-            <p className="text-sm text-gray-600">Encryption happens in your browser. Your password never leaves your device. We never see it.</p>
+            <h3 className="font-semibold text-gray-900 mb-2">{t('points.keys.title')}</h3>
+            <p className="text-sm text-gray-600">{t('points.keys.desc')}</p>
           </div>
           <div className="text-center p-6">
             <div className="text-3xl mb-4">🚫</div>
-            <h3 className="font-semibold text-gray-900 mb-2">No Password Reset</h3>
-            <p className="text-sm text-gray-600">If you lose your password, we can&apos;t recover your files. Not our support team, not our engineers. That&apos;s how seriously we take your privacy.</p>
+            <h3 className="font-semibold text-gray-900 mb-2">{t('points.noReset.title')}</h3>
+            <p className="text-sm text-gray-600">{t('points.noReset.desc')}</p>
           </div>
           <div className="text-center p-6">
             <div className="text-3xl mb-4">⚖️</div>
-            <h3 className="font-semibold text-gray-900 mb-2">Nothing to Hand Over</h3>
-            <p className="text-sm text-gray-600">Even with a court order, we can only provide encrypted data. Without your key, it&apos;s useless.</p>
+            <h3 className="font-semibold text-gray-900 mb-2">{t('points.noHandover.title')}</h3>
+            <p className="text-sm text-gray-600">{t('points.noHandover.desc')}</p>
           </div>
         </div>
       </div>
@@ -210,25 +210,11 @@ function ProofOfPrivacySection() {
 }
 
 function HowItWorksSection({ id = 'how-it-works' }: { id?: string }) {
+  const t = useTranslations('homepage.howItWorks');
   const steps = [
-    {
-      icon: Upload,
-      step: '1',
-      title: 'Upload Your Documents',
-      description: 'Drag and drop your important files. They\'re encrypted instantly in your browser.',
-    },
-    {
-      icon: UserPlus,
-      step: '2',
-      title: 'Set Up Emergency Access',
-      description: 'Add trusted contacts and create a secret unlock phrase only they would know.',
-    },
-    {
-      icon: CheckCircle,
-      step: '3',
-      title: 'Rest Easy',
-      description: 'Your documents are safe, encrypted, and accessible to the right people when it matters.',
-    },
+    { icon: Upload, step: '1', title: t('step1.title'), description: t('step1.desc') },
+    { icon: UserPlus, step: '2', title: t('step2.title'), description: t('step2.desc') },
+    { icon: CheckCircle, step: '3', title: t('step3.title'), description: t('step3.desc') },
   ];
 
   return (
@@ -236,10 +222,10 @@ function HowItWorksSection({ id = 'how-it-works' }: { id?: string }) {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
-            How It Works
+            {t('title')}
           </h2>
           <p className="mt-4 text-lg text-gray-600">
-            Three simple steps to protect your most important documents.
+            {t('subtitle')}
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -262,15 +248,16 @@ function HowItWorksSection({ id = 'how-it-works' }: { id?: string }) {
 }
 
 function UseCasesSection() {
+  const t = useTranslations('homepage.useCases');
   const cases = [
-    { icon: '🛂', label: 'Passports & IDs' },
-    { icon: '📜', label: 'Wills & Trusts' },
-    { icon: '🏠', label: 'Property Deeds' },
-    { icon: '💼', label: 'Insurance Policies' },
-    { icon: '🏥', label: 'Medical Records' },
-    { icon: '💰', label: 'Financial Documents' },
-    { icon: '🔑', label: 'Crypto Recovery Keys' },
-    { icon: '📋', label: 'Tax Returns' },
+    { icon: '🛂', key: 'passports' },
+    { icon: '📜', key: 'wills' },
+    { icon: '🏠', key: 'property' },
+    { icon: '💼', key: 'insurance' },
+    { icon: '🏥', key: 'medical' },
+    { icon: '💰', key: 'financial' },
+    { icon: '🔑', key: 'crypto' },
+    { icon: '📋', key: 'tax' },
   ];
 
   return (
@@ -278,17 +265,17 @@ function UseCasesSection() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
-            What to Store
+            {t('title')}
           </h2>
           <p className="mt-4 text-lg text-gray-600">
-            The documents you hope you&apos;ll never need — but will be glad you saved.
+            {t('subtitle')}
           </p>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {cases.map((c) => (
-            <div key={c.label} className="flex items-center gap-3 p-4 rounded-xl bg-gray-50 border border-gray-100">
+            <div key={c.key} className="flex items-center gap-3 p-4 rounded-xl bg-gray-50 border border-gray-100">
               <span className="text-2xl">{c.icon}</span>
-              <span className="font-medium text-gray-800 text-sm">{c.label}</span>
+              <span className="font-medium text-gray-800 text-sm">{t(`items.${c.key}`)}</span>
             </div>
           ))}
         </div>
@@ -298,31 +285,35 @@ function UseCasesSection() {
 }
 
 function PricingSection({ locale }: { locale: string }) {
+  const t = useTranslations('homepage.pricing');
   const currency = useMemo(() => getCurrency(locale), [locale]);
+  const freeFeatures = ['f1', 'f2', 'f3', 'f4', 'f5'] as const;
+  const proFeatures = ['f1', 'f2', 'f3', 'f4', 'f5'] as const;
+
   return (
     <section className="py-12 sm:py-20 bg-gray-50" id="pricing">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
-            Simple Pricing
+            {t('title')}
           </h2>
           <p className="mt-4 text-lg text-gray-600">
-            Start free. Upgrade when you need more.
+            {t('subtitle')}
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
           {/* Free */}
           <div className="bg-white rounded-2xl border border-gray-200 p-8">
-            <h3 className="text-lg font-semibold text-gray-900">Free</h3>
+            <h3 className="text-lg font-semibold text-gray-900">{t('free.name')}</h3>
             <div className="mt-4">
               <span className="text-4xl font-bold text-gray-900">{currency.symbol}0</span>
-              <span className="text-gray-500 ml-1">forever</span>
+              <span className="text-gray-500 ml-1">{t('free.period')}</span>
             </div>
             <ul className="mt-8 space-y-3">
-              {['3 Documents', 'Emergency Access', '1 Emergency Contact', 'Zero-knowledge encryption', 'EU hosting'].map((f) => (
-                <li key={f} className="flex items-center gap-3 text-sm text-gray-700">
+              {freeFeatures.map((key) => (
+                <li key={key} className="flex items-center gap-3 text-sm text-gray-700">
                   <CheckCircle className="h-4 w-4 text-trust-500 flex-shrink-0" />
-                  {f}
+                  {t(`free.features.${key}`)}
                 </li>
               ))}
             </ul>
@@ -330,26 +321,26 @@ function PricingSection({ locale }: { locale: string }) {
               href="/register"
               className="mt-8 block w-full text-center px-6 py-3 rounded-xl border-2 border-gray-200 font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
             >
-              Get Started
+              {t('free.cta')}
             </Link>
           </div>
 
           {/* Pro */}
           <div className="bg-white rounded-2xl border-2 border-accent-400 p-8 relative shadow-lg">
             <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent-400 text-primary-900 text-xs font-bold px-3 py-1 rounded-full">
-              MOST POPULAR
+              {t('pro.badge')}
             </div>
-            <h3 className="text-lg font-semibold text-gray-900">Pro</h3>
+            <h3 className="text-lg font-semibold text-gray-900">{t('pro.name')}</h3>
             <div className="mt-4">
               <span className="text-4xl font-bold text-gray-900">{currency.symbol}{currency.monthly}</span>
-              <span className="text-gray-500 ml-1">/month</span>
+              <span className="text-gray-500 ml-1">{t('pro.period')}</span>
             </div>
-            <p className="text-sm text-gray-500 mt-1">or {currency.symbol}{currency.lifetime} one-time (lifetime)</p>
+            <p className="text-sm text-gray-500 mt-1">{t('pro.lifetime', { symbol: currency.symbol, price: currency.lifetime })}</p>
             <ul className="mt-8 space-y-3">
-              {['100 Documents', '5 Emergency Contacts', 'Everything in Free', 'Priority Support', '10MB File size limit'].map((f) => (
-                <li key={f} className="flex items-center gap-3 text-sm text-gray-700">
+              {proFeatures.map((key) => (
+                <li key={key} className="flex items-center gap-3 text-sm text-gray-700">
                   <CheckCircle className="h-4 w-4 text-trust-500 flex-shrink-0" />
-                  {f}
+                  {t(`pro.features.${key}`)}
                 </li>
               ))}
             </ul>
@@ -357,7 +348,7 @@ function PricingSection({ locale }: { locale: string }) {
               href="/register"
               className="mt-8 block w-full text-center px-6 py-3 rounded-xl bg-accent-400 text-primary-900 font-semibold hover:bg-accent-500 transition-colors"
             >
-              Start Free, Upgrade Later
+              {t('pro.cta')}
             </Link>
           </div>
         </div>
@@ -367,21 +358,22 @@ function PricingSection({ locale }: { locale: string }) {
 }
 
 function CTASection() {
+  const t = useTranslations('homepage.cta');
   return (
     <section className="py-12 sm:py-20 bg-gradient-to-br from-primary-900 via-primary-800 to-navy-900 text-white">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
         <Heart className="h-12 w-12 mx-auto mb-6 text-trust-400" />
         <h2 className="text-3xl sm:text-4xl font-bold">
-          Protect What Matters Most
+          {t('title')}
         </h2>
         <p className="mt-4 text-lg text-white/80">
-          Your documents. Your family&apos;s peace of mind. Start securing them today.
+          {t('subtitle')}
         </p>
         <Link
           href="/register"
           className="mt-8 inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-accent-400 text-primary-900 font-semibold text-lg hover:bg-accent-500 transition-colors shadow-lg"
         >
-          Create Your Free Vault
+          {t('button')}
         </Link>
       </div>
     </section>
@@ -389,6 +381,7 @@ function CTASection() {
 }
 
 function Footer() {
+  const t = useTranslations('homepage.footer');
   return (
     <footer className="bg-gray-900 text-gray-400 py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -398,13 +391,13 @@ function Footer() {
             <span className="font-semibold text-white">LegacyShield</span>
           </div>
           <div className="flex gap-6 text-sm">
-            <Link href="/blog" className="hover:text-white transition-colors">Blog</Link>
-            <Link href="/faq" className="hover:text-white transition-colors">FAQ</Link>
-            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="/blog" className="hover:text-white transition-colors">{t('blog')}</Link>
+            <Link href="/faq" className="hover:text-white transition-colors">{t('faq')}</Link>
+            <Link href="/privacy" className="hover:text-white transition-colors">{t('privacy')}</Link>
+            <Link href="/terms" className="hover:text-white transition-colors">{t('terms')}</Link>
           </div>
           <p className="text-sm">
-            Built in Europe, hosted on European-owned infrastructure 🇪🇺
+            {t('tagline')} 🇪🇺
           </p>
         </div>
       </div>
