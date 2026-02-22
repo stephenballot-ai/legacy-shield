@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { Link } from '@/i18n/routing';
 import { getPostBySlug, getAllSlugs } from '@/lib/blog';
+import { Logo } from '@/components/ui/Logo';
 
 interface Props {
   params: { locale: string; slug: string };
@@ -60,8 +61,8 @@ export default function BlogPostPage({ params: { locale, slug } }: Props) {
       {/* Header */}
       <header className="bg-gradient-to-r from-primary-900 via-primary-800 to-navy-900 text-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex items-center justify-between">
-          <Link href="/" className="text-xl font-bold tracking-tight">
-            🛡️ LegacyShield
+          <Link href="/">
+            <Logo size="sm" variant="dark" />
           </Link>
           <nav className="flex items-center gap-6 text-sm font-medium">
             <Link href="/" className="hover:text-trust-300 transition-colors">Home</Link>

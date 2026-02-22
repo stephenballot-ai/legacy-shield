@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { Link } from '@/i18n/routing';
 import { getAllPosts } from '@/lib/blog';
+import { Logo } from '@/components/ui/Logo';
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
   const titles: Record<string, string> = {
@@ -36,8 +37,8 @@ export default function BlogListingPage({ params: { locale } }: { params: { loca
       {/* Header */}
       <header className="bg-gradient-to-r from-primary-900 via-primary-800 to-navy-900 text-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex items-center justify-between">
-          <Link href="/" className="text-xl font-bold tracking-tight">
-            🛡️ LegacyShield
+          <Link href="/">
+            <Logo size="sm" variant="dark" />
           </Link>
           <nav className="flex items-center gap-6 text-sm font-medium">
             <Link href="/" className="hover:text-trust-300 transition-colors">Home</Link>
