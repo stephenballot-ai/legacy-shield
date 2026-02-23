@@ -173,10 +173,10 @@
       "faq": "FAQ",
       "privacy": "Datenschutzerklärung",
       "terms": "Nutzungsbedingungen",
-      "tagline": "In Europa entwickelt, auf europäischer Infrastruktur gehostet"
+      "tagline": "In Europa entwickelt, auf europäischer Infrastruktur gehostet",
+      "madeInEu": "Made in EU"
     }
-  }
-,
+  },
   "referral": {
     "title": "Sie wurden zu LegacyShield eingeladen",
     "subtitle": "Ein Freund möchte Ihnen helfen, Ihre wichtigsten Dokumente für Ihre Familie zu sichern.",
@@ -186,5 +186,74 @@
     "cta": "Meinen kostenlosen Tresor erstellen",
     "disclaimer": "Für immer kostenlos · 10 Dokumente inklusive",
     "learnMore": "Erfahren Sie mehr über unsere Verschlüsselung"
+  },
+  "madeInEu": {
+    "hero": {
+      "title": "Made in Europe. In europäischer Hand.",
+      "subtitle": "Ihre sensibelsten Dokumente verdienen Infrastruktur, die europäischem Recht unterliegt — nicht amerikanischen Konzerninteressen."
+    },
+    "infrastructure": {
+      "title": "Unsere Infrastruktur",
+      "subtitle": "Wir nutzen keine EU-Region einer amerikanischen Cloud. Wir setzen auf vollständig europäische Infrastruktur.",
+      "comparison": {
+        "aws": {
+          "title": "AWS EU-Region",
+          "subtitle": "Weiterhin US-Eigentum, weiterhin US-Recht",
+          "point1": "US-Mutterkonzern — dem CLOUD Act unterworfen",
+          "point2": "US-Behörden können Datenzugriff erzwingen",
+          "point3": "EU-Daten auf amerikanischer Hardware gespeichert"
+        },
+        "hetzner": {
+          "title": "Hetzner, Deutschland",
+          "subtitle": "Europäisches Unternehmen, ausschließlich EU-Recht",
+          "point1": "Deutsches Unternehmen — ausschließlich EU-Gerichtsbarkeit",
+          "point2": "Kein CLOUD Act — keine US-Zugriffsmoglichkeit",
+          "point3": "Rechenzentren in Deutschland und Finnland"
+        }
+      }
+    },
+    "zeroKnowledge": {
+      "title": "Zero-Knowledge Geht Weiter",
+      "subtitle": "Selbst bei einem Einbruch in unsere Server finden Angreifer nichts als verschlüsseltes Rauschen.",
+      "point1": "Wir können Ihre Dateien nicht lesen. Nicht „wollen nicht“ — können nicht.",
+      "point2": "Kein amerikanischer Dienst berührt jemals Ihre unverschlüsselten Daten.",
+      "point3": "Ihr Verschlüsselungsschlüssel verlässt niemals Ihren Browser.",
+      "point4": "Selbst ein Servereinbruch liefert nur bedeutungslose verschlüsselte Datenblöcke."
+    },
+    "honesty": {
+      "title": "Worüber Wir Ehrlich Sind",
+      "subtitle": "Wir glauben an Transparenz. Hier sind US-Dienste beteiligt — und warum das für Ihre Dateien keine Rolle spielt.",
+      "point1": "E-Mail-Versand (Resend) und Zahlungsabwicklung (Stripe) sind US-amerikanische Dienste. Sie verarbeiten Metadaten wie E-Mail-Adressen — niemals Ihre verschlüsselten Dateien.",
+      "point2": "Ihre Dokumente werden in Ihrem Browser verschlüsselt, bevor sie Ihr Gerät verlassen. Diese Dienste sehen niemals Ihre tatsächlichen Dateien.",
+      "point3": "Die Trennung ist absolut: US-Dienste wickeln Kommunikation und Zahlungen ab. Ihre verschlüsselten Dokumente liegen ausschließlich auf europäischer Infrastruktur."
+    },
+    "privacyStack": {
+      "title": "Der Privacy Stack",
+      "encryption": {
+        "label": "Verschlüsselung",
+        "value": "AES-256-GCM — in Ihrem Browser, vor dem Upload"
+      },
+      "keyDerivation": {
+        "label": "Schlüsselableitung",
+        "value": "Argon2id — Ihr Passwort, Ihr Gerät"
+      },
+      "storage": {
+        "label": "Speicherung",
+        "value": "Hetzner — Deutschland & Finnland"
+      },
+      "transit": {
+        "label": "Daten Unterwegs",
+        "value": "TLS 1.3 — verschlüsselt bei Übertragung"
+      },
+      "atRest": {
+        "label": "Gespeicherte Daten",
+        "value": "Verschlüsselter Blob — wir können ihn nicht entschlüsseln"
+      }
+    },
+    "cta": {
+      "title": "Schützen Sie Ihre Dokumente mit europäischer Infrastruktur",
+      "subtitle": "Zero-Knowledge-Verschlüsselung. Europäische Server. Ohne Kompromisse.",
+      "button": "Jetzt starten"
+    }
   }
 }

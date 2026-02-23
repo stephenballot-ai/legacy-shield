@@ -395,6 +395,7 @@ function Footer() {
             <Link href="/faq" className="hover:text-white transition-colors">{t('faq')}</Link>
             <Link href="/privacy" className="hover:text-white transition-colors">{t('privacy')}</Link>
             <Link href="/terms" className="hover:text-white transition-colors">{t('terms')}</Link>
+            <Link href="/made-in-eu" className="hover:text-white transition-colors">{t('madeInEu')}</Link>
           </div>
           <p className="text-sm">
             {t('tagline')} 🇪🇺

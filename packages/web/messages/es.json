@@ -167,10 +167,10 @@
       "faq": "FAQ",
       "privacy": "Política de Privacidad",
       "terms": "Términos de Servicio",
-      "tagline": "Construido en Europa, alojado en infraestructura europea"
+      "tagline": "Construido en Europa, alojado en infraestructura europea",
+      "madeInEu": "Made in EU"
     }
-  }
-,
+  },
   "referral": {
     "title": "Has sido invitado a LegacyShield",
     "subtitle": "Un amigo quiere ayudarte a proteger tus documentos más importantes para tu familia.",
@@ -180,5 +180,74 @@
     "cta": "Crear mi bóveda gratuita",
     "disclaimer": "Gratis para siempre · 10 documentos incluidos",
     "learnMore": "Aprende más sobre nuestro cifrado"
+  },
+  "madeInEu": {
+    "hero": {
+      "title": "Hecho en Europa. Propiedad europea.",
+      "subtitle": "Tus documentos más sensibles merecen una infraestructura sujeta al derecho europeo — no a los intereses de corporaciones americanas."
+    },
+    "infrastructure": {
+      "title": "Nuestra Infraestructura",
+      "subtitle": "No usamos una región EU de una nube americana. Nuestra infraestructura es completamente europea.",
+      "comparison": {
+        "aws": {
+          "title": "AWS Región EU",
+          "subtitle": "Sigue siendo propiedad estadounidense, sigue sujeta a la ley de EE.UU.",
+          "point1": "Empresa matriz estadounidense — sujeta al CLOUD Act",
+          "point2": "El gobierno de EE.UU. puede exigir acceso a los datos",
+          "point3": "Datos EU almacenados en hardware estadounidense"
+        },
+        "hetzner": {
+          "title": "Hetzner, Alemania",
+          "subtitle": "Propiedad europea, solo derecho EU",
+          "point1": "Empresa alemana — jurisdicción exclusivamente EU",
+          "point2": "Sin exposición al CLOUD Act",
+          "point3": "Centros de datos en Alemania y Finlandia"
+        }
+      }
+    },
+    "zeroKnowledge": {
+      "title": "El Zero-Knowledge Va Más Allá",
+      "subtitle": "Incluso si alguien vulnerara nuestros servidores, solo encontraría ruido cifrado.",
+      "point1": "No podemos leer tus archivos. No es que \"no queramos\" — no podemos.",
+      "point2": "Ningún servicio americano toca jamás tus datos sin cifrar.",
+      "point3": "Tu clave de cifrado nunca sale de tu navegador.",
+      "point4": "Incluso una brecha del servidor solo produce blobs cifrados sin significado."
+    },
+    "honesty": {
+      "title": "Lo Que No Podemos Evitar",
+      "subtitle": "Creemos en la transparencia. Aquí es donde intervienen servicios americanos — y por qué no afecta a tus archivos.",
+      "point1": "El envío de correos (Resend) y el procesamiento de pagos (Stripe) son servicios estadounidenses. Manejan metadatos como direcciones de correo — nunca tus archivos cifrados.",
+      "point2": "Tus documentos se cifran en tu navegador antes de salir de tu dispositivo. Estos servicios nunca ven tus archivos reales.",
+      "point3": "La separación es absoluta: los servicios americanos gestionan comunicación y pagos. Tus documentos cifrados residen exclusivamente en infraestructura europea."
+    },
+    "privacyStack": {
+      "title": "El Stack de Privacidad",
+      "encryption": {
+        "label": "Cifrado",
+        "value": "AES-256-GCM — en tu navegador, antes de subir"
+      },
+      "keyDerivation": {
+        "label": "Derivación de Clave",
+        "value": "Argon2id — tu contraseña, tu dispositivo"
+      },
+      "storage": {
+        "label": "Almacenamiento",
+        "value": "Hetzner — Alemania y Finlandia"
+      },
+      "transit": {
+        "label": "Datos en Tránsito",
+        "value": "TLS 1.3 — cifrado en vuelo"
+      },
+      "atRest": {
+        "label": "Datos en Reposo",
+        "value": "Blob cifrado — no podemos descifrarlo"
+      }
+    },
+    "cta": {
+      "title": "Protege Tus Documentos con Infraestructura Europea",
+      "subtitle": "Cifrado zero-knowledge. Servidores europeos. Sin compromisos.",
+      "button": "Empezar"
+    }
   }
 }

@@ -167,10 +167,10 @@
       "faq": "FAQ",
       "privacy": "Politique de Confidentialité",
       "terms": "Conditions d'Utilisation",
-      "tagline": "Conçu en Europe, hébergé sur une infrastructure européenne"
+      "tagline": "Conçu en Europe, hébergé sur une infrastructure européenne",
+      "madeInEu": "Made in EU"
     }
-  }
-,
+  },
   "referral": {
     "title": "Vous avez été invité sur LegacyShield",
     "subtitle": "Un ami souhaite vous aider à sécuriser vos documents les plus importants pour votre famille.",
@@ -180,5 +180,74 @@
     "cta": "Créer mon coffre-fort gratuit",
     "disclaimer": "Gratuit pour toujours · 10 documents inclus",
     "learnMore": "En savoir plus sur notre chiffrement"
+  },
+  "madeInEu": {
+    "hero": {
+      "title": "Conçu en Europe. Propriété européenne.",
+      "subtitle": "Vos documents les plus sensibles méritent une infrastructure soumise au droit européen — pas aux intérêts de multinationales américaines."
+    },
+    "infrastructure": {
+      "title": "Notre Infrastructure",
+      "subtitle": "Nous n’utilisons pas une région EU d’un cloud américain. Notre infrastructure est entièrement européenne.",
+      "comparison": {
+        "aws": {
+          "title": "AWS Région EU",
+          "subtitle": "Toujours propriété américaine, toujours soumis au droit américain",
+          "point1": "Société mère américaine — soumise au CLOUD Act",
+          "point2": "Le gouvernement américain peut exiger l’accès aux données",
+          "point3": "Données EU stockées sur du matériel américain"
+        },
+        "hetzner": {
+          "title": "Hetzner, Allemagne",
+          "subtitle": "Propriété européenne, droit EU uniquement",
+          "point1": "Entreprise allemande — juridiction EU exclusivement",
+          "point2": "Aucune exposition au CLOUD Act",
+          "point3": "Centres de données en Allemagne et Finlande"
+        }
+      }
+    },
+    "zeroKnowledge": {
+      "title": "Le Zero-Knowledge Va Plus Loin",
+      "subtitle": "Même en cas d’intrusion sur nos serveurs, les attaquants ne trouveraient que du bruit chiffré.",
+      "point1": "Nous ne pouvons pas lire vos fichiers. Pas « ne voulons pas » — ne pouvons pas.",
+      "point2": "Aucun service américain ne touche jamais vos données non chiffrées.",
+      "point3": "Votre clé de chiffrement ne quitte jamais votre navigateur.",
+      "point4": "Même une intrusion serveur ne produit que des blobs chiffrés sans signification."
+    },
+    "honesty": {
+      "title": "Ce Que Nous Ne Pouvons Pas Éviter",
+      "subtitle": "Nous croyons en la transparence. Voici où des services américains interviennent — et pourquoi cela n’affecte pas vos fichiers.",
+      "point1": "L’envoi d’e-mails (Resend) et le traitement des paiements (Stripe) sont des services américains. Ils traitent des métadonnées comme les adresses e-mail — jamais vos fichiers chiffrés.",
+      "point2": "Vos documents sont chiffrés dans votre navigateur avant de quitter votre appareil. Ces services ne voient jamais vos fichiers réels.",
+      "point3": "La séparation est absolue : les services américains gèrent la communication et les paiements. Vos documents chiffrés résident exclusivement sur une infrastructure européenne."
+    },
+    "privacyStack": {
+      "title": "La Stack de Confidentialité",
+      "encryption": {
+        "label": "Chiffrement",
+        "value": "AES-256-GCM — dans votre navigateur, avant l’envoi"
+      },
+      "keyDerivation": {
+        "label": "Dérivation de Clé",
+        "value": "Argon2id — votre mot de passe, votre appareil"
+      },
+      "storage": {
+        "label": "Stockage",
+        "value": "Hetzner — Allemagne & Finlande"
+      },
+      "transit": {
+        "label": "Données en Transit",
+        "value": "TLS 1.3 — chiffré en vol"
+      },
+      "atRest": {
+        "label": "Données au Repos",
+        "value": "Blob chiffré — nous ne pouvons pas le déchiffrer"
+      }
+    },
+    "cta": {
+      "title": "Protégez Vos Documents avec une Infrastructure Européenne",
+      "subtitle": "Chiffrement zero-knowledge. Serveurs européens. Sans compromis.",
+      "button": "Commencer"
+    }
   }
 }

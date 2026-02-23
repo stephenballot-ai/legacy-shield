@@ -181,10 +181,10 @@
       "faq": "FAQ",
       "privacy": "Privacy Policy",
       "terms": "Terms of Service",
-      "tagline": "Built in Europe, hosted on European-owned infrastructure"
+      "tagline": "Built in Europe, hosted on European-owned infrastructure",
+      "madeInEu": "Made in EU"
     }
-  }
-,
+  },
   "referral": {
     "title": "You've been invited to LegacyShield",
     "subtitle": "A friend wants to help you secure your most important documents for your family.",
@@ -194,5 +194,74 @@
     "cta": "Claim My Free Vault",
     "disclaimer": "Free forever · 10 documents included",
     "learnMore": "Learn more about how encryption works"
+  },
+  "madeInEu": {
+    "hero": {
+      "title": "Made in Europe. Owned by Europeans.",
+      "subtitle": "Your most sensitive documents deserve infrastructure that answers to European law — not American boardrooms."
+    },
+    "infrastructure": {
+      "title": "Our Infrastructure",
+      "subtitle": "We don’t just run in an EU region of an American cloud. We use European-owned infrastructure, end to end.",
+      "comparison": {
+        "aws": {
+          "title": "AWS EU Region",
+          "subtitle": "Still US-owned, still subject to US law",
+          "point1": "US parent company — subject to CLOUD Act",
+          "point2": "US government can compel data access",
+          "point3": "EU data stored on US-owned hardware"
+        },
+        "hetzner": {
+          "title": "Hetzner, Germany",
+          "subtitle": "European-owned, EU law only",
+          "point1": "German-owned company — EU jurisdiction only",
+          "point2": "No CLOUD Act exposure",
+          "point3": "Data centres in Germany & Finland"
+        }
+      }
+    },
+    "zeroKnowledge": {
+      "title": "Zero-Knowledge Goes Further",
+      "subtitle": "Even if someone breached our servers, they’d get nothing but encrypted noise.",
+      "point1": "We can’t read your files. Not won’t — can’t.",
+      "point2": "No American service ever touches your unencrypted data.",
+      "point3": "Your encryption key never leaves your browser.",
+      "point4": "Even a server breach yields only meaningless encrypted blobs."
+    },
+    "honesty": {
+      "title": "What We Can’t Avoid",
+      "subtitle": "We believe in transparency. Here’s where US services are involved — and why it doesn’t matter for your files.",
+      "point1": "Email delivery (Resend) and payment processing (Stripe) are US-based services. They handle metadata like email addresses — never your encrypted files.",
+      "point2": "Your documents are encrypted in your browser before they ever leave your device. These services never see your actual files.",
+      "point3": "The separation is absolute: US services handle communication and payments. Your encrypted documents live exclusively on European infrastructure."
+    },
+    "privacyStack": {
+      "title": "The Privacy Stack",
+      "encryption": {
+        "label": "Encryption",
+        "value": "AES-256-GCM — in your browser, before upload"
+      },
+      "keyDerivation": {
+        "label": "Key Derivation",
+        "value": "Argon2id — your password, your device"
+      },
+      "storage": {
+        "label": "Storage",
+        "value": "Hetzner — Germany & Finland"
+      },
+      "transit": {
+        "label": "Data in Transit",
+        "value": "TLS 1.3 — encrypted in flight"
+      },
+      "atRest": {
+        "label": "Data at Rest",
+        "value": "Encrypted blob — we can’t decrypt it"
+      }
+    },
+    "cta": {
+      "title": "Protect Your Documents with European Infrastructure",
+      "subtitle": "Zero-knowledge encryption. European-owned servers. No compromises.",
+      "button": "Get Started"
+    }
   }
 }

@@ -167,10 +167,10 @@
       "faq": "FAQ",
       "privacy": "Informativa sulla Privacy",
       "terms": "Termini di Servizio",
-      "tagline": "Costruito in Europa, ospitato su infrastruttura europea"
+      "tagline": "Costruito in Europa, ospitato su infrastruttura europea",
+      "madeInEu": "Made in EU"
     }
-  }
-,
+  },
   "referral": {
     "title": "Sei stato invitato su LegacyShield",
     "subtitle": "Un amico vuole aiutarti a proteggere i tuoi documenti più importanti per la tua famiglia.",
@@ -180,5 +180,74 @@
     "cta": "Crea il mio caveau gratuito",
     "disclaimer": "Gratis per sempre · 10 documenti inclusi",
     "learnMore": "Scopri di più sulla nostra crittografia"
+  },
+  "madeInEu": {
+    "hero": {
+      "title": "Fatto in Europa. Di proprietà europea.",
+      "subtitle": "I tuoi documenti più sensibili meritano un’infrastruttura soggetta al diritto europeo — non agli interessi di multinazionali americane."
+    },
+    "infrastructure": {
+      "title": "La Nostra Infrastruttura",
+      "subtitle": "Non utilizziamo una regione EU di un cloud americano. La nostra infrastruttura è interamente europea.",
+      "comparison": {
+        "aws": {
+          "title": "AWS Regione EU",
+          "subtitle": "Sempre di proprietà americana, sempre soggetta al diritto USA",
+          "point1": "Società madre americana — soggetta al CLOUD Act",
+          "point2": "Il governo USA può imporre l’accesso ai dati",
+          "point3": "Dati EU archiviati su hardware americano"
+        },
+        "hetzner": {
+          "title": "Hetzner, Germania",
+          "subtitle": "Proprietà europea, solo diritto EU",
+          "point1": "Azienda tedesca — giurisdizione esclusivamente EU",
+          "point2": "Nessuna esposizione al CLOUD Act",
+          "point3": "Data center in Germania e Finlandia"
+        }
+      }
+    },
+    "zeroKnowledge": {
+      "title": "Lo Zero-Knowledge Va Oltre",
+      "subtitle": "Anche in caso di violazione dei nostri server, gli aggressori troverebbero solo rumore crittografato.",
+      "point1": "Non possiamo leggere i tuoi file. Non \"non vogliamo\" — non possiamo.",
+      "point2": "Nessun servizio americano tocca mai i tuoi dati non crittografati.",
+      "point3": "La tua chiave di crittografia non lascia mai il tuo browser.",
+      "point4": "Anche una violazione del server produce solo blob crittografati senza significato."
+    },
+    "honesty": {
+      "title": "Quello Che Non Possiamo Evitare",
+      "subtitle": "Crediamo nella trasparenza. Ecco dove sono coinvolti servizi americani — e perché non influisce sui tuoi file.",
+      "point1": "L’invio di email (Resend) e l’elaborazione dei pagamenti (Stripe) sono servizi americani. Gestiscono metadati come indirizzi email — mai i tuoi file crittografati.",
+      "point2": "I tuoi documenti vengono crittografati nel browser prima di lasciare il dispositivo. Questi servizi non vedono mai i tuoi file reali.",
+      "point3": "La separazione è assoluta: i servizi americani gestiscono comunicazione e pagamenti. I tuoi documenti crittografati risiedono esclusivamente su infrastruttura europea."
+    },
+    "privacyStack": {
+      "title": "Lo Stack della Privacy",
+      "encryption": {
+        "label": "Crittografia",
+        "value": "AES-256-GCM — nel tuo browser, prima dell’upload"
+      },
+      "keyDerivation": {
+        "label": "Derivazione della Chiave",
+        "value": "Argon2id — la tua password, il tuo dispositivo"
+      },
+      "storage": {
+        "label": "Archiviazione",
+        "value": "Hetzner — Germania e Finlandia"
+      },
+      "transit": {
+        "label": "Dati in Transito",
+        "value": "TLS 1.3 — crittografati in volo"
+      },
+      "atRest": {
+        "label": "Dati a Riposo",
+        "value": "Blob crittografato — non possiamo decifrarlo"
+      }
+    },
+    "cta": {
+      "title": "Proteggi i Tuoi Documenti con Infrastruttura Europea",
+      "subtitle": "Crittografia zero-knowledge. Server europei. Senza compromessi.",
+      "button": "Inizia ora"
+    }
   }
 }

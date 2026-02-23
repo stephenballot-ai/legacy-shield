@@ -181,10 +181,10 @@
       "faq": "FAQ",
       "privacy": "Privacybeleid",
       "terms": "Algemene Voorwaarden",
-      "tagline": "Gebouwd in Europa, gehost op Europese infrastructuur"
+      "tagline": "Gebouwd in Europa, gehost op Europese infrastructuur",
+      "madeInEu": "Made in EU"
     }
-  }
-,
+  },
   "referral": {
     "title": "Je bent uitgenodigd voor LegacyShield",
     "subtitle": "Een vriend wil je helpen je belangrijkste documenten veilig te stellen voor je familie.",
@@ -194,5 +194,74 @@
     "cta": "Claim mijn gratis kluis",
     "disclaimer": "Voor altijd gratis · 10 documenten inbegrepen",
     "learnMore": "Meer weten over hoe encryptie werkt"
+  },
+  "madeInEu": {
+    "hero": {
+      "title": "Gemaakt in Europa. In Europese handen.",
+      "subtitle": "Je belangrijkste documenten verdienen infrastructuur die onder Europees recht valt — niet onder Amerikaanse bedrijfsbelangen."
+    },
+    "infrastructure": {
+      "title": "Onze Infrastructuur",
+      "subtitle": "Wij draaien niet op een EU-regio van een Amerikaanse cloud. Wij gebruiken volledig Europese infrastructuur.",
+      "comparison": {
+        "aws": {
+          "title": "AWS EU-regio",
+          "subtitle": "Nog steeds Amerikaans eigendom, nog steeds onder Amerikaanse wetgeving",
+          "point1": "Amerikaans moederbedrijf — onderworpen aan de CLOUD Act",
+          "point2": "Amerikaanse overheid kan toegang tot data afdwingen",
+          "point3": "EU-data opgeslagen op Amerikaanse hardware"
+        },
+        "hetzner": {
+          "title": "Hetzner, Duitsland",
+          "subtitle": "Europees eigendom, alleen EU-wetgeving",
+          "point1": "Duits bedrijf — uitsluitend EU-jurisdictie",
+          "point2": "Geen blootstelling aan de CLOUD Act",
+          "point3": "Datacenters in Duitsland en Finland"
+        }
+      }
+    },
+    "zeroKnowledge": {
+      "title": "Zero-Knowledge Gaat Verder",
+      "subtitle": "Zelfs bij een inbraak op onze servers vinden aanvallers niets anders dan versleutelde ruis.",
+      "point1": "Wij kunnen je bestanden niet lezen. Niet ‘willen niet’ — kunnen niet.",
+      "point2": "Geen enkele Amerikaanse dienst raakt ooit je onversleutelde data aan.",
+      "point3": "Je encryptiesleutel verlaat nooit je browser.",
+      "point4": "Zelfs een serverinbraak levert alleen betekenisloze versleutelde data op."
+    },
+    "honesty": {
+      "title": "Waar We Eerlijk Over Zijn",
+      "subtitle": "Wij geloven in transparantie. Dit is waar Amerikaanse diensten betrokken zijn — en waarom dat voor je bestanden niet uitmaakt.",
+      "point1": "E-mailverzending (Resend) en betalingsverwerking (Stripe) zijn Amerikaanse diensten. Ze verwerken metadata zoals e-mailadressen — nooit je versleutelde bestanden.",
+      "point2": "Je documenten worden in je browser versleuteld voordat ze je apparaat verlaten. Deze diensten zien nooit je daadwerkelijke bestanden.",
+      "point3": "De scheiding is absoluut: Amerikaanse diensten verwerken communicatie en betalingen. Je versleutelde documenten staan uitsluitend op Europese infrastructuur."
+    },
+    "privacyStack": {
+      "title": "De Privacy Stack",
+      "encryption": {
+        "label": "Encryptie",
+        "value": "AES-256-GCM — in je browser, vóór upload"
+      },
+      "keyDerivation": {
+        "label": "Sleutelafleiding",
+        "value": "Argon2id — jouw wachtwoord, jouw apparaat"
+      },
+      "storage": {
+        "label": "Opslag",
+        "value": "Hetzner — Duitsland & Finland"
+      },
+      "transit": {
+        "label": "Data Onderweg",
+        "value": "TLS 1.3 — versleuteld tijdens verzending"
+      },
+      "atRest": {
+        "label": "Data in Rust",
+        "value": "Versleuteld bestand — wij kunnen het niet ontsleutelen"
+      }
+    },
+    "cta": {
+      "title": "Bescherm Je Documenten met Europese Infrastructuur",
+      "subtitle": "Zero-knowledge encryptie. Europese servers. Zonder compromissen.",
+      "button": "Aan de slag"
+    }
   }
 }
