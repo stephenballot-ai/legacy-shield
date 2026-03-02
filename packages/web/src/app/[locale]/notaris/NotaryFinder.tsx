@@ -50,7 +50,17 @@ export function NotaryFinder() {
     return matchesCity && matchesSpecialty && matchesSearch;
   });
 
+  // Fire-and-forget tracking
+  const trackEvent = (notary_id: string | number, event_type: string, extra?: Record<string, string>) => {
+    fetch('/api/notary-referral', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ notary_id, event_type, ...extra }),
+    }).catch(() => {}); // silent fail
+  };
+
   const handleOpenModal = (notary: Notary) => {
+    trackEvent(notary.id, 'click');
     setSelectedNotary(notary);
     setShowModal(true);
   };
@@ -66,19 +76,15 @@ export function NotaryFinder() {
     if (!selectedNotary) return;
 
     try {
-      // Track the referral
-      await fetch('/api/notary-referral', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          notary_id: selectedNotary.id,
-          timestamp: new Date().toISOString(),
-          user_agent: navigator.userAgent,
-          referrer: document.referrer,
-        }),
+      // Track the appointment request with contact details
+      trackEvent(selectedNotary.id, 'appointment_request', {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
       });
 
-      // For MVP, just show success and close modal
+      // Show success and close modal
       alert(t('modal.successMessage'));
       handleCloseModal();
     } catch (error) {
