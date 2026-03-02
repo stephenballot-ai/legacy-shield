@@ -56,6 +56,20 @@ export default function BlogPostPage({ params: { locale, slug } }: Props) {
     keywords: post.keywords.join(', '),
   };
 
+  // FAQ schema for rich snippets (if post has FAQ section)
+  const faqJsonLd = post.faq?.length ? {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: post.faq.map((item: { q: string; a: string }) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.a,
+      },
+    })),
+  } : null;
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -77,6 +91,12 @@ export default function BlogPostPage({ params: { locale, slug } }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      {faqJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+      )}
 
       {/* Article */}
       <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12 sm:py-16">

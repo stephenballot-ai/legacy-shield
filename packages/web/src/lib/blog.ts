@@ -14,6 +14,7 @@ export interface BlogPost {
   keywords: string[];
   readingTime: string;
   content: string;
+  faq?: { q: string; a: string }[];
 }
 
 export function getAllPosts(locale: string): BlogPost[] {
@@ -37,6 +38,7 @@ export function getAllPosts(locale: string): BlogPost[] {
       keywords: data.keywords || [],
       readingTime: data.readingTime || '5 min read',
       content,
+      faq: data.faq || undefined,
     });
   }
 

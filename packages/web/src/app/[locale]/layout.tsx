@@ -26,6 +26,11 @@ export async function generateMetadata({ params: { locale } }: { params: { local
       description: t('description'),
       type: 'website',
       locale: locale === 'en' ? 'en_US' : locale,
+      siteName: 'LegacyShield',
+      url: `https://legacyshield.eu/${locale}`,
+    },
+    alternates: {
+      canonical: `https://legacyshield.eu/${locale}`,
     },
     verification: {
       google: 'rCaiCC_VLBMV6hyyB8NAQwNWMGZKxLGQaGeF2fjfHiQ',
