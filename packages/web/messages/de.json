@@ -171,11 +171,119 @@
     "footer": {
       "blog": "Blog",
       "faq": "FAQ",
+      "continuity": "Kontinuität",
       "privacy": "Datenschutzerklärung",
       "terms": "Nutzungsbedingungen",
       "tagline": "In Europa entwickelt, auf europäischer Infrastruktur gehostet",
       "madeInEu": "Made in EU",
       "notary": "Notar finden"
+    },
+    "whatIf": {
+      "headline": "Was passiert, wenn Sie morgen nicht mehr da sind?",
+      "line1": "Ihr Partner durchsucht Ihre E-Mails nach Versicherungsdokumenten.",
+      "line2": "Ihre Kinder rufen Banken an, von denen sie nichts wussten.",
+      "line3": "Ihr Testament liegt in einer Schublade, von der niemand weiß.",
+      "stat": "Jedes Jahr verlieren Familien den Zugang zu Milliarden an Vermögenswerten — nicht weil das Geld nicht da ist, sondern weil die Informationen fehlen.",
+      "resolution": "LegacyShield stellt sicher, dass das Ihrer Familie nie passiert.",
+      "cta": "Die Zukunft Meiner Familie Absichern"
+    }
+  },
+  "continuity": {
+    "metadata": {
+      "title": "Ihre Daten Gehören Ihnen — LegacyShield Kontinuität & Sicherheitsversprechen",
+      "description": "Was passiert, wenn LegacyShield schließt? Ihre Daten bleiben Ihnen. Zero-Knowledge-Verschlüsselung bedeutet, dass wir niemals Ihre Schlüssel besitzen."
+    },
+    "hero": {
+      "title": "Ihre Daten Gehören Ihnen. Immer.",
+      "subtitle": "Was passiert, wenn wir schließen? Was wenn wir gehackt werden? Hier ist die Wahrheit."
+    },
+    "shutdown": {
+      "title": "Was passiert, wenn Sie schließen?",
+      "intro": "Dies ist die Frage, die jeder Benutzer stellen sollte, bevor er einem Dienst seine wichtigsten Dokumente anvertraut.",
+      "point1": {
+        "title": "Mindestens 90 Tage Kündigungsfrist",
+        "desc": "Wenn wir uns jemals entscheiden, LegacyShield zu schließen, geben wir Ihnen mindestens 90 Tage Zeit, Ihre Daten zu exportieren."
+      },
+      "point2": {
+        "title": "Export-Tool immer verfügbar",
+        "desc": "Laden Sie alles mit einem Klick herunter. Ihre Dateien, Ihre Kontakte, Ihre Einstellungen — alles."
+      },
+      "point3": {
+        "title": "Ihre Schlüssel, Ihre Dateien",
+        "desc": "Verschlüsselungsschlüssel werden von IHREM Passwort abgeleitet — wir besitzen sie nie. Wenn unsere Server verschwinden, sind Ihre Dateien verschlüsselte Daten — aber Sie können den Schlüssel jederzeit neu ableiten."
+      },
+      "point4": {
+        "title": "Keine Vendor-Lock-in",
+        "desc": "Ihre Daten gehören Ihnen. Wir werden sie niemals als Geisel nehmen oder es schwierig machen, zu gehen."
+      },
+      "point5": {
+        "title": "Kein Druck von Investoren",
+        "desc": "Wir haben keine Risikokapitalgeber, die uns drängen, zu pivotieren oder Ihre Daten zu monetarisieren. Wir bauen langfristig."
+      }
+    },
+    "hacked": {
+      "title": "Was passiert, wenn Sie gehackt werden?",
+      "intro": "Jedes Unternehmen ist ein potenzielles Ziel. Hier ist, was passiert, wenn jemand unsere Server kompromittiert.",
+      "point1": {
+        "title": "Zero-Knowledge = Einbruch offenbart nur verschlüsselte Daten",
+        "desc": "Angreifer würden bedeutungslose verschlüsselte Daten finden. Ohne Ihr Passwort können sie nichts entschlüsseln."
+      },
+      "point2": {
+        "title": "Nirgendwo existiert ein Hauptschlüssel",
+        "desc": "Es gibt keine Hintertür, keinen Hauptschlüssel, keine Möglichkeit für uns (oder jemand anderen), Ihre Dateien ohne Ihr Passwort zu entschlüsseln."
+      },
+      "point3": {
+        "title": "AES-256-GCM — derselbe Standard, den Regierungen verwenden",
+        "desc": "Militärische Verschlüsselung. Derselbe Standard, der weltweit von Regierungen und Geheimdiensten verwendet wird."
+      },
+      "point4": {
+        "title": "Ihr Passwort verlässt niemals Ihr Gerät",
+        "desc": "Wir sehen Ihr Passwort nie. Es bleibt auf Ihrem Gerät und wird verwendet, um Ihren Verschlüsselungsschlüssel lokal abzuleiten."
+      }
+    },
+    "privacyLaws": {
+      "title": "Was wenn sich EU-Datenschutzgesetze ändern?",
+      "intro": "Wir haben darüber nachgedacht. Hier ist unser Bekenntnis zum europäischen Datenschutz.",
+      "point1": {
+        "title": "Europäische Infrastruktur (Hetzner, Deutschland)",
+        "desc": "Wir verwenden keine US-Cloud-Anbieter mit einer EU-Region. Wir verwenden europäische Server in Deutschland und Finnland."
+      },
+      "point2": {
+        "title": "Der US CLOUD Act gilt nicht für uns",
+        "desc": "Da wir keine US-Infrastruktur verwenden, können US-Strafverfolgungsbehörden uns nicht zwingen, Ihre Daten herauszugeben."
+      },
+      "point3": {
+        "title": "Wir würden umziehen, bevor wir Datenschutz kompromittieren",
+        "desc": "Wenn die EU jemals den Datenschutz schwächt, würden wir in eine Jurisdiktion umziehen, die Datenschutz schätzt, bevor wir Ihre Sicherheit kompromittieren."
+      },
+      "point4": {
+        "title": "Warrant Canary auf unserer Statusseite",
+        "desc": "Wir veröffentlichen monatlich einen Warrant Canary. Wenn wir jemals gezwungen werden, Daten herauszugeben (oder darüber zu schweigen), werden Sie es wissen."
+      }
+    },
+    "commitment": {
+      "title": "Unser Versprechen",
+      "point1": {
+        "title": "Einfachheit statt Feature-Bloat",
+        "desc": "Wir fügen keine Funktionen hinzu, nur um Funktionen hinzuzufügen. LegacyShield tut eine Sache außergewöhnlich gut: Ihre wichtigsten Dokumente sichern."
+      },
+      "point2": {
+        "title": "Offen über unser Sicherheitsdesign",
+        "desc": "Wir veröffentlichen detaillierte Erklärungen unserer Verschlüsselung, Schlüsselableitung und Architektur. Keine Security durch Obscurity."
+      },
+      "point3": {
+        "title": "Für die nächste Generation gebaut, nicht für das nächste Quartal",
+        "desc": "Dies ist kein schneller Weg zum Reichtum. Wir bauen einen Dienst, der Jahrzehnte, nicht Jahre bestehen wird."
+      },
+      "point4": {
+        "title": "Ihr Vertrauen ist unsere einzige Währung",
+        "desc": "Wenn wir Ihr Vertrauen verlieren, verlieren wir alles. Deshalb sind Transparenz und Ehrlichkeit nicht verhandelbar."
+      }
+    },
+    "cta": {
+      "title": "Bereit, Ihr Erbe Zu Sichern?",
+      "subtitle": "Beginnen Sie mit einem kostenlosen Konto. Keine Kreditkarte erforderlich.",
+      "button": "Loslegen"
     }
   },
   "referral": {

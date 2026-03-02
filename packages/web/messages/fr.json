@@ -165,11 +165,119 @@
     "footer": {
       "blog": "Blog",
       "faq": "FAQ",
+      "continuity": "Continuité",
       "privacy": "Politique de Confidentialité",
       "terms": "Conditions d'Utilisation",
       "tagline": "Conçu en Europe, hébergé sur une infrastructure européenne",
       "madeInEu": "Made in EU",
       "notary": "Trouver un Notaire"
+    },
+    "whatIf": {
+      "headline": "Que se passe-t-il si vous n'êtes plus là demain ?",
+      "line1": "Votre partenaire fouille vos e-mails pour trouver les documents d'assurance.",
+      "line2": "Vos enfants appellent des banques dont ils ignoraient l'existence.",
+      "line3": "Votre testament repose dans un tiroir que personne ne connaît.",
+      "stat": "Chaque année, des familles perdent l'accès à des milliards d'actifs — non pas parce que l'argent n'est pas là, mais parce que l'information manque.",
+      "resolution": "LegacyShield garantit que cela n'arrivera jamais à votre famille.",
+      "cta": "Sécuriser l'Avenir de Ma Famille"
+    }
+  },
+  "continuity": {
+    "metadata": {
+      "title": "Vos Données Vous Appartiennent — Promesse de Continuité et Sécurité LegacyShield",
+      "description": "Que se passe-t-il si LegacyShield ferme ? Vos données restent les vôtres. Le chiffrement à connaissance nulle signifie que nous ne détenons jamais vos clés."
+    },
+    "hero": {
+      "title": "Vos Données Vous Appartiennent. Toujours.",
+      "subtitle": "Que se passe-t-il si nous fermons ? Que se passe-t-il si nous sommes piratés ? Voici la vérité."
+    },
+    "shutdown": {
+      "title": "Que se passe-t-il si vous fermez ?",
+      "intro": "C'est la question que tout utilisateur devrait poser avant de confier ses documents les plus importants à un service.",
+      "point1": {
+        "title": "Préavis minimum de 90 jours",
+        "desc": "Si nous décidons un jour de fermer LegacyShield, nous vous donnerons au moins 90 jours pour exporter vos données."
+      },
+      "point2": {
+        "title": "Outil d'export toujours disponible",
+        "desc": "Téléchargez tout en un clic. Vos fichiers, vos contacts, vos paramètres — tout."
+      },
+      "point3": {
+        "title": "Vos clés, vos fichiers",
+        "desc": "Les clés de chiffrement sont dérivées de VOTRE mot de passe — nous ne les détenons jamais. Si nos serveurs disparaissent, vos fichiers sont des données chiffrées — mais vous pouvez toujours re-dériver la clé."
+      },
+      "point4": {
+        "title": "Pas de verrouillage",
+        "desc": "Vos données sont les vôtres. Nous ne les retiendrons jamais en otage ni ne rendrons difficile votre départ."
+      },
+      "point5": {
+        "title": "Aucune pression d'investisseurs",
+        "desc": "Nous n'avons pas d'investisseurs en capital-risque qui nous poussent à pivoter ou monétiser vos données. Nous construisons sur le long terme."
+      }
+    },
+    "hacked": {
+      "title": "Que se passe-t-il si vous êtes piratés ?",
+      "intro": "Chaque entreprise est une cible potentielle. Voici ce qui se passe si quelqu'un pénètre nos serveurs.",
+      "point1": {
+        "title": "Connaissance nulle = violation n'expose que des données chiffrées",
+        "desc": "Les attaquants trouveraient des données chiffrées sans signification. Sans votre mot de passe, ils ne peuvent rien déchiffrer."
+      },
+      "point2": {
+        "title": "Aucune clé maître n'existe nulle part",
+        "desc": "Il n'y a pas de porte dérobée, pas de clé maître, aucun moyen pour nous (ou quiconque) de déchiffrer vos fichiers sans votre mot de passe."
+      },
+      "point3": {
+        "title": "AES-256-GCM — la même norme utilisée par les gouvernements",
+        "desc": "Chiffrement de niveau militaire. La même norme utilisée par les gouvernements et les agences de renseignement du monde entier."
+      },
+      "point4": {
+        "title": "Votre mot de passe ne quitte jamais votre appareil",
+        "desc": "Nous ne voyons jamais votre mot de passe. Il reste sur votre appareil et est utilisé pour dériver votre clé de chiffrement localement."
+      }
+    },
+    "privacyLaws": {
+      "title": "Que se passe-t-il si les lois européennes sur la vie privée changent ?",
+      "intro": "Nous y avons réfléchi. Voici notre engagement envers la vie privée européenne.",
+      "point1": {
+        "title": "Infrastructure européenne (Hetzner, Allemagne)",
+        "desc": "Nous n'utilisons pas de fournisseurs cloud américains avec une région UE. Nous utilisons des serveurs européens en Allemagne et en Finlande."
+      },
+      "point2": {
+        "title": "Le CLOUD Act américain ne s'applique pas à nous",
+        "desc": "Parce que nous n'utilisons pas d'infrastructure américaine, les forces de l'ordre américaines ne peuvent pas nous contraindre à remettre vos données."
+      },
+      "point3": {
+        "title": "Nous déménagerions plutôt que de compromettre la vie privée",
+        "desc": "Si l'UE affaiblissait un jour les protections de la vie privée, nous déménagerions dans une juridiction qui valorise la vie privée avant de compromettre votre sécurité."
+      },
+      "point4": {
+        "title": "Canari de mandat sur notre page de statut",
+        "desc": "Nous publions un canari de mandat mensuel. Si nous sommes contraints de remettre des données (ou de garder le silence), vous le saurez."
+      }
+    },
+    "commitment": {
+      "title": "Notre Engagement",
+      "point1": {
+        "title": "Simplicité plutôt que surcharge de fonctionnalités",
+        "desc": "Nous n'ajoutons pas de fonctionnalités juste pour en ajouter. LegacyShield fait une chose exceptionnellement bien : sécuriser vos documents les plus importants."
+      },
+      "point2": {
+        "title": "Transparents sur notre conception de sécurité",
+        "desc": "Nous publions des explications détaillées de notre chiffrement, dérivation de clés et architecture. Pas de sécurité par l'obscurité."
+      },
+      "point3": {
+        "title": "Construit pour la prochaine génération, pas le prochain trimestre",
+        "desc": "Ce n'est pas un stratagème pour devenir riche rapidement. Nous construisons un service qui sera là pendant des décennies, pas des années."
+      },
+      "point4": {
+        "title": "Votre confiance est notre seule monnaie",
+        "desc": "Si nous perdons votre confiance, nous perdons tout. C'est pourquoi la transparence et l'honnêteté sont non négociables."
+      }
+    },
+    "cta": {
+      "title": "Prêt à Sécuriser Votre Héritage ?",
+      "subtitle": "Commencez avec un compte gratuit. Aucune carte de crédit requise.",
+      "button": "Commencer"
     }
   },
   "referral": {

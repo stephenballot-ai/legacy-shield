@@ -179,11 +179,21 @@
     "footer": {
       "blog": "Blog",
       "faq": "FAQ",
+      "continuity": "Continuity",
       "privacy": "Privacy Policy",
       "terms": "Terms of Service",
       "tagline": "Built in Europe, hosted on European-owned infrastructure",
       "madeInEu": "Made in EU",
       "notary": "Find a Notary"
+    },
+    "whatIf": {
+      "headline": "What happens if you are not here tomorrow?",
+      "line1": "Your partner searches your email for insurance documents.",
+      "line2": "Your children call banks you never told them about.",
+      "line3": "Your will sits in a drawer no one knows exists.",
+      "stat": "Every year, families lose access to billions in assets — not because the money is not there, but because the information is not.",
+      "resolution": "LegacyShield makes sure that never happens to your family.",
+      "cta": "Secure My Family's Future"
     }
   },
   "referral": {
@@ -262,6 +272,104 @@
     "cta": {
       "title": "Protect Your Documents with European Infrastructure",
       "subtitle": "Zero-knowledge encryption. European-owned servers. No compromises.",
+      "button": "Get Started"
+    }
+  },
+  "continuity": {
+    "metadata": {
+      "title": "Your Data Is Yours — LegacyShield Continuity & Security Promise",
+      "description": "What happens if LegacyShield shuts down? Your data stays yours. Zero-knowledge encryption means we never hold your keys."
+    },
+    "hero": {
+      "title": "Your Data Is Yours. Always.",
+      "subtitle": "What happens if we shut down? What if we get hacked? Here's the truth."
+    },
+    "shutdown": {
+      "title": "What if we shut down?",
+      "intro": "This is the question every user should ask before trusting a service with their most important documents.",
+      "point1": {
+        "title": "90-day notice minimum",
+        "desc": "If we ever decide to shut down LegacyShield, we will give you at least 90 days' notice to export your data."
+      },
+      "point2": {
+        "title": "Export tool always available",
+        "desc": "Download everything in one click. Your files, your contacts, your settings — all of it."
+      },
+      "point3": {
+        "title": "Your keys, your files",
+        "desc": "Encryption keys are derived from YOUR password — we never hold them. If our servers disappear, your files are encrypted blobs — but you can always re-derive the key."
+      },
+      "point4": {
+        "title": "No lock-in",
+        "desc": "Your data is yours. We will never hold it hostage or make it difficult to leave."
+      },
+      "point5": {
+        "title": "No VC pressure",
+        "desc": "We have no venture capital investors pushing us to pivot or monetize your data. We're building for the long term."
+      }
+    },
+    "hacked": {
+      "title": "What if we get hacked?",
+      "intro": "Every company is a potential target. Here's what happens if someone breaches our servers.",
+      "point1": {
+        "title": "Zero-knowledge = breach exposes only encrypted blobs",
+        "desc": "Attackers would find meaningless encrypted data. Without your password, they can't decrypt anything."
+      },
+      "point2": {
+        "title": "No master key exists anywhere",
+        "desc": "There's no backdoor, no master key, no way for us (or anyone else) to decrypt your files without your password."
+      },
+      "point3": {
+        "title": "AES-256-GCM — same standard governments use",
+        "desc": "Military-grade encryption. The same standard used by governments and intelligence agencies worldwide."
+      },
+      "point4": {
+        "title": "Your password never leaves your device",
+        "desc": "We never see your password. It stays on your device and is used to derive your encryption key locally."
+      }
+    },
+    "privacyLaws": {
+      "title": "What if EU privacy laws change?",
+      "intro": "We've thought about this. Here's our commitment to European privacy.",
+      "point1": {
+        "title": "European-owned infrastructure (Hetzner, Germany)",
+        "desc": "We don't use US cloud providers with an EU region. We use European-owned servers in Germany and Finland."
+      },
+      "point2": {
+        "title": "US CLOUD Act does not apply to us",
+        "desc": "Because we don't use US-owned infrastructure, American law enforcement cannot compel us to hand over your data."
+      },
+      "point3": {
+        "title": "We would move jurisdictions before compromising privacy",
+        "desc": "If the EU ever weakened privacy protections, we would relocate to a jurisdiction that values privacy before compromising your security."
+      },
+      "point4": {
+        "title": "Warrant canary on our status page",
+        "desc": "We publish a monthly warrant canary. If we're ever compelled to hand over data (or stay silent about it), you'll know."
+      }
+    },
+    "commitment": {
+      "title": "Our Commitment",
+      "point1": {
+        "title": "Simplicity over feature bloat",
+        "desc": "We won't add features just to add features. LegacyShield does one thing exceptionally well: secure your most important documents."
+      },
+      "point2": {
+        "title": "Open about our security design",
+        "desc": "We publish detailed explanations of our encryption, key derivation, and architecture. No security through obscurity."
+      },
+      "point3": {
+        "title": "Built for the next generation, not the next quarter",
+        "desc": "This isn't a get-rich-quick scheme. We're building a service that will be here for decades, not years."
+      },
+      "point4": {
+        "title": "Your trust is our only currency",
+        "desc": "If we lose your trust, we lose everything. That's why transparency and honesty are non-negotiable."
+      }
+    },
+    "cta": {
+      "title": "Ready to Secure Your Legacy?",
+      "subtitle": "Start with a free account. No credit card required.",
       "button": "Get Started"
     }
   },

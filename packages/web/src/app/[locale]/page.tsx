@@ -84,6 +84,58 @@ function TrustBar() {
   );
 }
 
+function WhatIfSection() {
+  const t = useTranslations('homepage.whatIf');
+  return (
+    <section className="py-20 sm:py-32 bg-gradient-to-br from-navy-900 via-primary-900 to-primary-800 text-white">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-12">
+          {t('headline')}
+        </h2>
+
+        <div className="space-y-6 mb-12">
+          <div className="border-l-4 border-white/30 pl-6 py-2">
+            <p className="text-lg sm:text-xl text-white/90">
+              {t('line1')}
+            </p>
+          </div>
+          <div className="border-l-4 border-white/30 pl-6 py-2">
+            <p className="text-lg sm:text-xl text-white/80">
+              {t('line2')}
+            </p>
+          </div>
+          <div className="border-l-4 border-white/30 pl-6 py-2">
+            <p className="text-lg sm:text-xl text-white/70">
+              {t('line3')}
+            </p>
+          </div>
+        </div>
+
+        <div className="text-center mb-8">
+          <p className="text-base sm:text-lg text-white/90 italic">
+            {t('stat')}
+          </p>
+        </div>
+
+        <div className="text-center mb-10">
+          <p className="text-xl sm:text-2xl font-semibold text-white">
+            {t('resolution')}
+          </p>
+        </div>
+
+        <div className="text-center">
+          <Link
+            href="/register"
+            className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-accent-400 text-primary-900 font-semibold text-lg hover:bg-accent-500 transition-colors shadow-lg"
+          >
+            {t('cta')}
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function FeaturesSection() {
   const t = useTranslations('homepage.features');
   const features = [
@@ -394,6 +446,7 @@ function Footer({ locale }: { locale: string }) {
             <Link href="/blog" className="hover:text-white transition-colors">{t('blog')}</Link>
             {locale === 'nl' && <Link href="/notaris" className="hover:text-white transition-colors">{t('notary')}</Link>}
             <Link href="/faq" className="hover:text-white transition-colors">{t('faq')}</Link>
+            <Link href="/continuity" className="hover:text-white transition-colors">{t('continuity')}</Link>
             <Link href="/privacy" className="hover:text-white transition-colors">{t('privacy')}</Link>
             <Link href="/terms" className="hover:text-white transition-colors">{t('terms')}</Link>
             <Link href="/made-in-eu" className="hover:text-white transition-colors">{t('madeInEu')}</Link>
@@ -412,6 +465,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
     <main>
       <HeroSection />
       <TrustBar />
+      <WhatIfSection />
       <FeaturesSection />
       <ProofOfPrivacySection />
       <HowItWorksSection />

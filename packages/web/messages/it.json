@@ -165,11 +165,119 @@
     "footer": {
       "blog": "Blog",
       "faq": "FAQ",
+      "continuity": "Continuità",
       "privacy": "Informativa sulla Privacy",
       "terms": "Termini di Servizio",
       "tagline": "Costruito in Europa, ospitato su infrastruttura europea",
       "madeInEu": "Made in EU",
       "notary": "Trova un Notaio"
+    },
+    "whatIf": {
+      "headline": "Cosa succede se non ci sei più domani?",
+      "line1": "Il tuo partner cerca nelle tue email i documenti assicurativi.",
+      "line2": "I tuoi figli chiamano banche di cui non sapevano l'esistenza.",
+      "line3": "Il tuo testamento giace in un cassetto che nessuno sa esistere.",
+      "stat": "Ogni anno, le famiglie perdono l'accesso a miliardi di patrimonio — non perché il denaro non c'è, ma perché mancano le informazioni.",
+      "resolution": "LegacyShield garantisce che questo non accada mai alla tua famiglia.",
+      "cta": "Proteggi il Futuro della Mia Famiglia"
+    }
+  },
+  "continuity": {
+    "metadata": {
+      "title": "I Tuoi Dati Sono Tuoi — Promessa di Continuità e Sicurezza LegacyShield",
+      "description": "Cosa succede se LegacyShield chiude? I tuoi dati rimangono tuoi. La crittografia zero-knowledge significa che non deteniamo mai le tue chiavi."
+    },
+    "hero": {
+      "title": "I Tuoi Dati Sono Tuoi. Sempre.",
+      "subtitle": "Cosa succede se chiudiamo? Cosa succede se veniamo hackerati? Ecco la verità."
+    },
+    "shutdown": {
+      "title": "Cosa succede se chiudete?",
+      "intro": "Questa è la domanda che ogni utente dovrebbe porsi prima di affidare i propri documenti più importanti a un servizio.",
+      "point1": {
+        "title": "Preavviso minimo di 90 giorni",
+        "desc": "Se mai decidessimo di chiudere LegacyShield, ti daremo almeno 90 giorni per esportare i tuoi dati."
+      },
+      "point2": {
+        "title": "Strumento di esportazione sempre disponibile",
+        "desc": "Scarica tutto con un clic. I tuoi file, i tuoi contatti, le tue impostazioni — tutto."
+      },
+      "point3": {
+        "title": "Le tue chiavi, i tuoi file",
+        "desc": "Le chiavi di crittografia derivano dalla TUA password — non le deteniamo mai. Se i nostri server scompaiono, i tuoi file sono dati crittografati — ma puoi sempre ri-derivare la chiave."
+      },
+      "point4": {
+        "title": "Nessun vincolo",
+        "desc": "I tuoi dati sono tuoi. Non li terremo mai in ostaggio né renderemo difficile andartene."
+      },
+      "point5": {
+        "title": "Nessuna pressione da investitori",
+        "desc": "Non abbiamo investitori di venture capital che ci spingono a cambiare direzione o monetizzare i tuoi dati. Stiamo costruendo a lungo termine."
+      }
+    },
+    "hacked": {
+      "title": "Cosa succede se venite hackerati?",
+      "intro": "Ogni azienda è un potenziale bersaglio. Ecco cosa succede se qualcuno viola i nostri server.",
+      "point1": {
+        "title": "Zero-knowledge = violazione espone solo dati crittografati",
+        "desc": "Gli attaccanti troverebbero dati crittografati privi di significato. Senza la tua password, non possono decifrare nulla."
+      },
+      "point2": {
+        "title": "Non esiste alcuna chiave master",
+        "desc": "Non c'è backdoor, nessuna chiave master, nessun modo per noi (o chiunque altro) di decifrare i tuoi file senza la tua password."
+      },
+      "point3": {
+        "title": "AES-256-GCM — lo stesso standard usato dai governi",
+        "desc": "Crittografia di livello militare. Lo stesso standard utilizzato da governi e agenzie di intelligence in tutto il mondo."
+      },
+      "point4": {
+        "title": "La tua password non lascia mai il tuo dispositivo",
+        "desc": "Non vediamo mai la tua password. Rimane sul tuo dispositivo e viene utilizzata per derivare la tua chiave di crittografia localmente."
+      }
+    },
+    "privacyLaws": {
+      "title": "Cosa succede se cambiano le leggi UE sulla privacy?",
+      "intro": "Ci abbiamo pensato. Ecco il nostro impegno per la privacy europea.",
+      "point1": {
+        "title": "Infrastruttura europea (Hetzner, Germania)",
+        "desc": "Non utilizziamo provider cloud statunitensi con una regione UE. Utilizziamo server europei in Germania e Finlandia."
+      },
+      "point2": {
+        "title": "Il CLOUD Act USA non si applica a noi",
+        "desc": "Poiché non utilizziamo infrastrutture statunitensi, le forze dell'ordine americane non possono costringerci a consegnare i tuoi dati."
+      },
+      "point3": {
+        "title": "Ci trasferiremmo piuttosto che compromettere la privacy",
+        "desc": "Se l'UE indebolisse mai le protezioni della privacy, ci trasferiremmo in una giurisdizione che valorizza la privacy prima di compromettere la tua sicurezza."
+      },
+      "point4": {
+        "title": "Warrant canary sulla nostra pagina di stato",
+        "desc": "Pubblichiamo un warrant canary mensile. Se mai fossimo costretti a consegnare dati (o tacere al riguardo), lo saprai."
+      }
+    },
+    "commitment": {
+      "title": "Il Nostro Impegno",
+      "point1": {
+        "title": "Semplicità rispetto all'eccesso di funzionalità",
+        "desc": "Non aggiungiamo funzionalità solo per aggiungerne. LegacyShield fa una cosa eccezionalmente bene: proteggere i tuoi documenti più importanti."
+      },
+      "point2": {
+        "title": "Trasparenti sul nostro design di sicurezza",
+        "desc": "Pubblichiamo spiegazioni dettagliate della nostra crittografia, derivazione delle chiavi e architettura. Nessuna security by obscurity."
+      },
+      "point3": {
+        "title": "Costruito per la prossima generazione, non per il prossimo trimestre",
+        "desc": "Questo non è uno schema per arricchirsi velocemente. Stiamo costruendo un servizio che sarà qui per decenni, non anni."
+      },
+      "point4": {
+        "title": "La tua fiducia è la nostra unica valuta",
+        "desc": "Se perdiamo la tua fiducia, perdiamo tutto. Ecco perché trasparenza e onestà sono non negoziabili."
+      }
+    },
+    "cta": {
+      "title": "Pronto a Proteggere la Tua Eredità?",
+      "subtitle": "Inizia con un account gratuito. Nessuna carta di credito richiesta.",
+      "button": "Inizia"
     }
   },
   "referral": {

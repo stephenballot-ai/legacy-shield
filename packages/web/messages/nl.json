@@ -179,11 +179,21 @@
     "footer": {
       "blog": "Blog",
       "faq": "FAQ",
+      "continuity": "Continuïteit",
       "privacy": "Privacybeleid",
       "terms": "Algemene Voorwaarden",
       "tagline": "Gebouwd in Europa, gehost op Europese infrastructuur",
       "madeInEu": "Made in EU",
       "notary": "Notaris Zoeken"
+    },
+    "whatIf": {
+      "headline": "Wat gebeurt er als jij er morgen niet meer bent?",
+      "line1": "Je partner zoekt in je e-mail naar verzekeringspapieren.",
+      "line2": "Je kinderen bellen banken waarvan ze het bestaan niet kenden.",
+      "line3": "Je testament ligt in een la waarvan niemand weet dat die bestaat.",
+      "stat": "Elk jaar verliezen families toegang tot miljarden aan vermogen — niet omdat het geld er niet is, maar omdat de informatie ontbreekt.",
+      "resolution": "LegacyShield zorgt ervoor dat dit jouw familie nooit overkomt.",
+      "cta": "Beveilig de Toekomst van Mijn Gezin"
     }
   },
   "referral": {
@@ -263,6 +273,104 @@
       "title": "Bescherm Je Documenten met Europese Infrastructuur",
       "subtitle": "Zero-knowledge encryptie. Europese servers. Zonder compromissen.",
       "button": "Aan de slag"
+    }
+  },
+  "continuity": {
+    "metadata": {
+      "title": "Je Data Is Van Jou — LegacyShield Continuïteit & Beveiligingsbelofte",
+      "description": "Wat gebeurt er als LegacyShield stopt? Je data blijft van jou. Zero-knowledge encryptie betekent dat wij nooit je sleutels hebben."
+    },
+    "hero": {
+      "title": "Je Data Is Van Jou. Altijd.",
+      "subtitle": "Wat gebeurt er als wij stoppen? Wat als we gehackt worden? Dit is de waarheid."
+    },
+    "shutdown": {
+      "title": "Wat als jullie stoppen?",
+      "intro": "Dit is de vraag die elke gebruiker moet stellen voordat ze een dienst vertrouwen met hun belangrijkste documenten.",
+      "point1": {
+        "title": "Minimaal 90 dagen vooraankondiging",
+        "desc": "Als we ooit besluiten LegacyShield te sluiten, krijg je minstens 90 dagen de tijd om je data te exporteren."
+      },
+      "point2": {
+        "title": "Exporttool altijd beschikbaar",
+        "desc": "Download alles met één klik. Je bestanden, je contacten, je instellingen — alles."
+      },
+      "point3": {
+        "title": "Jouw sleutels, jouw bestanden",
+        "desc": "Encryptiesleutels worden afgeleid van JOUW wachtwoord — wij hebben ze nooit. Als onze servers verdwijnen, zijn je bestanden versleutelde data — maar je kunt de sleutel altijd opnieuw afleiden."
+      },
+      "point4": {
+        "title": "Geen vendor lock-in",
+        "desc": "Je data is van jou. We zullen het nooit gegijzeld houden of moeilijk maken om te vertrekken."
+      },
+      "point5": {
+        "title": "Geen druk van investeerders",
+        "desc": "We hebben geen durfkapitaalinvesteerders die ons pushen om te draaien of je data te gelde te maken. We bouwen voor de lange termijn."
+      }
+    },
+    "hacked": {
+      "title": "Wat als jullie gehackt worden?",
+      "intro": "Elk bedrijf is een potentieel doelwit. Dit is wat er gebeurt als iemand onze servers binnendringt.",
+      "point1": {
+        "title": "Zero-knowledge = inbraak onthult alleen versleutelde data",
+        "desc": "Aanvallers vinden betekenisloze versleutelde data. Zonder jouw wachtwoord kunnen ze niets ontsleutelen."
+      },
+      "point2": {
+        "title": "Er bestaat nergens een hoofdsleutel",
+        "desc": "Er is geen achterdeur, geen hoofdsleutel, geen manier voor ons (of iemand anders) om je bestanden te ontsleutelen zonder jouw wachtwoord."
+      },
+      "point3": {
+        "title": "AES-256-GCM — dezelfde standaard die overheden gebruiken",
+        "desc": "Militaire encryptie. Dezelfde standaard die wereldwijd door overheden en inlichtingendiensten wordt gebruikt."
+      },
+      "point4": {
+        "title": "Je wachtwoord verlaat nooit je apparaat",
+        "desc": "We zien je wachtwoord nooit. Het blijft op je apparaat en wordt gebruikt om lokaal je encryptiesleutel af te leiden."
+      }
+    },
+    "privacyLaws": {
+      "title": "Wat als EU-privacywetten veranderen?",
+      "intro": "We hebben hierover nagedacht. Dit is onze toewijding aan Europese privacy.",
+      "point1": {
+        "title": "Europese infrastructuur (Hetzner, Duitsland)",
+        "desc": "We gebruiken geen Amerikaanse cloudproviders met een EU-regio. We gebruiken Europese servers in Duitsland en Finland."
+      },
+      "point2": {
+        "title": "De Amerikaanse CLOUD Act geldt niet voor ons",
+        "desc": "Omdat we geen Amerikaanse infrastructuur gebruiken, kan Amerikaanse rechtshandhaving ons niet dwingen je data over te dragen."
+      },
+      "point3": {
+        "title": "We verhuizen liever dan privacy te compromitteren",
+        "desc": "Als de EU ooit privacybescherming verzwakt, verhuizen we naar een jurisdictie die privacy waardeert voordat we jouw beveiliging compromitteren."
+      },
+      "point4": {
+        "title": "Warrant canary op onze statuspagina",
+        "desc": "We publiceren maandelijks een warrant canary. Als we ooit gedwongen worden data over te dragen (of er stil over te zijn), weet je het."
+      }
+    },
+    "commitment": {
+      "title": "Onze Toewijding",
+      "point1": {
+        "title": "Eenvoud boven functie-inflatie",
+        "desc": "We voegen geen functies toe om functies toe te voegen. LegacyShield doet één ding uitzonderlijk goed: je belangrijkste documenten beveiligen."
+      },
+      "point2": {
+        "title": "Open over ons beveiligingsontwerp",
+        "desc": "We publiceren gedetailleerde uitleg over onze encryptie, sleutelafleiding en architectuur. Geen security through obscurity."
+      },
+      "point3": {
+        "title": "Gebouwd voor de volgende generatie, niet het volgende kwartaal",
+        "desc": "Dit is geen snel-rijk-worden-schema. We bouwen een dienst die er decennia zal zijn, niet jaren."
+      },
+      "point4": {
+        "title": "Jouw vertrouwen is onze enige valuta",
+        "desc": "Als we jouw vertrouwen verliezen, verliezen we alles. Daarom zijn transparantie en eerlijkheid niet onderhandelbaar."
+      }
+    },
+    "cta": {
+      "title": "Klaar om Je Nalatenschap te Beveiligen?",
+      "subtitle": "Begin met een gratis account. Geen creditcard vereist.",
+      "button": "Aan de Slag"
     }
   },
   "notary": {

@@ -165,11 +165,119 @@
     "footer": {
       "blog": "Blog",
       "faq": "FAQ",
+      "continuity": "Continuidad",
       "privacy": "Política de Privacidad",
       "terms": "Términos de Servicio",
       "tagline": "Construido en Europa, alojado en infraestructura europea",
       "madeInEu": "Made in EU",
       "notary": "Buscar Notario"
+    },
+    "whatIf": {
+      "headline": "¿Qué pasa si no estás aquí mañana?",
+      "line1": "Tu pareja busca en tus correos los documentos del seguro.",
+      "line2": "Tus hijos llaman a bancos que nunca les mencionaste.",
+      "line3": "Tu testamento está en un cajón que nadie sabe que existe.",
+      "stat": "Cada año, las familias pierden acceso a miles de millones en activos — no porque el dinero no esté, sino porque falta la información.",
+      "resolution": "LegacyShield garantiza que esto nunca le suceda a tu familia.",
+      "cta": "Proteger el Futuro de Mi Familia"
+    }
+  },
+  "continuity": {
+    "metadata": {
+      "title": "Tus Datos Son Tuyos — Promesa de Continuidad y Seguridad de LegacyShield",
+      "description": "¿Qué pasa si LegacyShield cierra? Tus datos siguen siendo tuyos. El cifrado de conocimiento cero significa que nunca tenemos tus claves."
+    },
+    "hero": {
+      "title": "Tus Datos Son Tuyos. Siempre.",
+      "subtitle": "¿Qué pasa si cerramos? ¿Qué pasa si nos hackean? Aquí está la verdad."
+    },
+    "shutdown": {
+      "title": "¿Qué pasa si cierran?",
+      "intro": "Esta es la pregunta que todo usuario debería hacer antes de confiar sus documentos más importantes a un servicio.",
+      "point1": {
+        "title": "Aviso mínimo de 90 días",
+        "desc": "Si alguna vez decidimos cerrar LegacyShield, te daremos al menos 90 días para exportar tus datos."
+      },
+      "point2": {
+        "title": "Herramienta de exportación siempre disponible",
+        "desc": "Descarga todo con un clic. Tus archivos, tus contactos, tu configuración — todo."
+      },
+      "point3": {
+        "title": "Tus claves, tus archivos",
+        "desc": "Las claves de cifrado se derivan de TU contraseña — nunca las tenemos. Si nuestros servidores desaparecen, tus archivos son datos cifrados — pero siempre puedes re-derivar la clave."
+      },
+      "point4": {
+        "title": "Sin bloqueo de proveedor",
+        "desc": "Tus datos son tuyos. Nunca los retendremos como rehenes ni dificultaremos tu salida."
+      },
+      "point5": {
+        "title": "Sin presión de inversores",
+        "desc": "No tenemos inversores de capital de riesgo presionándonos para pivotar o monetizar tus datos. Construimos a largo plazo."
+      }
+    },
+    "hacked": {
+      "title": "¿Qué pasa si los hackean?",
+      "intro": "Toda empresa es un objetivo potencial. Esto es lo que pasa si alguien vulnera nuestros servidores.",
+      "point1": {
+        "title": "Conocimiento cero = violación expone solo datos cifrados",
+        "desc": "Los atacantes encontrarían datos cifrados sin sentido. Sin tu contraseña, no pueden descifrar nada."
+      },
+      "point2": {
+        "title": "No existe ninguna clave maestra",
+        "desc": "No hay puerta trasera, ni clave maestra, ni forma para nosotros (o nadie más) de descifrar tus archivos sin tu contraseña."
+      },
+      "point3": {
+        "title": "AES-256-GCM — el mismo estándar que usan los gobiernos",
+        "desc": "Cifrado de grado militar. El mismo estándar utilizado por gobiernos y agencias de inteligencia en todo el mundo."
+      },
+      "point4": {
+        "title": "Tu contraseña nunca sale de tu dispositivo",
+        "desc": "Nunca vemos tu contraseña. Permanece en tu dispositivo y se usa para derivar tu clave de cifrado localmente."
+      }
+    },
+    "privacyLaws": {
+      "title": "¿Qué pasa si cambian las leyes de privacidad de la UE?",
+      "intro": "Hemos pensado en esto. Este es nuestro compromiso con la privacidad europea.",
+      "point1": {
+        "title": "Infraestructura europea (Hetzner, Alemania)",
+        "desc": "No usamos proveedores cloud estadounidenses con una región UE. Usamos servidores europeos en Alemania y Finlandia."
+      },
+      "point2": {
+        "title": "El CLOUD Act de EE.UU. no se aplica a nosotros",
+        "desc": "Como no usamos infraestructura estadounidense, las autoridades estadounidenses no pueden obligarnos a entregar tus datos."
+      },
+      "point3": {
+        "title": "Nos mudaríamos antes que comprometer la privacidad",
+        "desc": "Si la UE alguna vez debilitara las protecciones de privacidad, nos mudaríamos a una jurisdicción que valore la privacidad antes de comprometer tu seguridad."
+      },
+      "point4": {
+        "title": "Canario de orden judicial en nuestra página de estado",
+        "desc": "Publicamos un canario de orden judicial mensual. Si alguna vez nos obligan a entregar datos (o a guardar silencio), lo sabrás."
+      }
+    },
+    "commitment": {
+      "title": "Nuestro Compromiso",
+      "point1": {
+        "title": "Simplicidad sobre exceso de funciones",
+        "desc": "No agregamos funciones solo por agregar. LegacyShield hace una cosa excepcionalmente bien: proteger tus documentos más importantes."
+      },
+      "point2": {
+        "title": "Transparentes sobre nuestro diseño de seguridad",
+        "desc": "Publicamos explicaciones detalladas de nuestro cifrado, derivación de claves y arquitectura. Sin seguridad por oscuridad."
+      },
+      "point3": {
+        "title": "Construido para la próxima generación, no para el próximo trimestre",
+        "desc": "Esto no es un esquema para enriquecerse rápido. Estamos construyendo un servicio que estará aquí durante décadas, no años."
+      },
+      "point4": {
+        "title": "Tu confianza es nuestra única moneda",
+        "desc": "Si perdemos tu confianza, lo perdemos todo. Por eso la transparencia y honestidad son innegociables."
+      }
+    },
+    "cta": {
+      "title": "¿Listo Para Asegurar Tu Legado?",
+      "subtitle": "Comienza con una cuenta gratuita. No se requiere tarjeta de crédito.",
+      "button": "Comenzar"
     }
   },
   "referral": {
