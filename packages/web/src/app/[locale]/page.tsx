@@ -380,7 +380,7 @@ function CTASection() {
   );
 }
 
-function Footer() {
+function Footer({ locale }: { locale: string }) {
   const t = useTranslations('homepage.footer');
   return (
     <footer className="bg-gray-900 text-gray-400 py-12">
@@ -392,7 +392,7 @@ function Footer() {
           </div>
           <div className="flex gap-6 text-sm">
             <Link href="/blog" className="hover:text-white transition-colors">{t('blog')}</Link>
-            <Link href="/notaris" className="hover:text-white transition-colors">{t('notary')}</Link>
+            {locale === 'nl' && <Link href="/notaris" className="hover:text-white transition-colors">{t('notary')}</Link>}
             <Link href="/faq" className="hover:text-white transition-colors">{t('faq')}</Link>
             <Link href="/privacy" className="hover:text-white transition-colors">{t('privacy')}</Link>
             <Link href="/terms" className="hover:text-white transition-colors">{t('terms')}</Link>
@@ -418,7 +418,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
       <UseCasesSection />
       <PricingSection locale={params.locale} />
       <CTASection />
-      <Footer />
+      <Footer locale={params.locale} />
     </main>
   );
 }
