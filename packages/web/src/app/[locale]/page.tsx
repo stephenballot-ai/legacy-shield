@@ -392,6 +392,7 @@ function Footer() {
           </div>
           <div className="flex gap-6 text-sm">
             <Link href="/blog" className="hover:text-white transition-colors">{t('blog')}</Link>
+            <Link href="/notaris" className="hover:text-white transition-colors">{t('notary')}</Link>
             <Link href="/faq" className="hover:text-white transition-colors">{t('faq')}</Link>
             <Link href="/privacy" className="hover:text-white transition-colors">{t('privacy')}</Link>
             <Link href="/terms" className="hover:text-white transition-colors">{t('terms')}</Link>
