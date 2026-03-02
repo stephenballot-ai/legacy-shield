@@ -263,5 +263,51 @@
       "subtitle": "Zero-knowledge encryption. European-owned servers. No compromises.",
       "button": "Get Started"
     }
+  },
+  "notary": {
+    "nav": {
+      "findNotary": "Find a Notary",
+      "signIn": "Sign In"
+    },
+    "hero": {
+      "title": "Find a Notary Near You",
+      "subtitle": "Compare notaries across the Netherlands. Find the right specialist for wills, estate law, real estate and more.",
+      "searchPlaceholder": "Search by name or city..."
+    },
+    "cities": {
+      "title": "Search by city"
+    },
+    "specialties": {
+      "title": "Filter by specialty"
+    },
+    "filters": {
+      "active": "Active filters"
+    },
+    "results": {
+      "count": "notaries found",
+      "noResults": "No notaries found with these filters.",
+      "clearFilters": "Clear all filters"
+    },
+    "card": {
+      "requestAppointment": "Request an Appointment"
+    },
+    "modal": {
+      "title": "Request an Appointment",
+      "subtitle": "Contact",
+      "nameLabel": "Name",
+      "emailLabel": "Email",
+      "phoneLabel": "Phone Number",
+      "messageLabel": "Message (optional)",
+      "messagePlaceholder": "Tell us what you need help with...",
+      "cancel": "Cancel",
+      "submit": "Send Request",
+      "successMessage": "Thank you! We've sent your request to the notary.",
+      "errorMessage": "Something went wrong. Please try again later."
+    },
+    "cta": {
+      "title": "Store your will securely?",
+      "subtitle": "Store your will and important documents securely with zero-knowledge encryption. Always free.",
+      "button": "Get Started Free"
+    }
   }
 }

@@ -263,5 +263,51 @@
       "subtitle": "Zero-knowledge encryptie. Europese servers. Zonder compromissen.",
       "button": "Aan de slag"
     }
+  },
+  "notary": {
+    "nav": {
+      "findNotary": "Vind een Notaris",
+      "signIn": "Inloggen"
+    },
+    "hero": {
+      "title": "Vind een Notaris bij jou in de buurt",
+      "subtitle": "Vergelijk notarissen in heel Nederland. Vind de juiste specialist voor testament, erfrecht, vastgoed en meer.",
+      "searchPlaceholder": "Zoek op naam of stad..."
+    },
+    "cities": {
+      "title": "Zoek op stad"
+    },
+    "specialties": {
+      "title": "Filter op specialisatie"
+    },
+    "filters": {
+      "active": "Actieve filters"
+    },
+    "results": {
+      "count": "notarissen gevonden",
+      "noResults": "Geen notarissen gevonden met deze filters.",
+      "clearFilters": "Alle filters wissen"
+    },
+    "card": {
+      "requestAppointment": "Vraag een afspraak aan"
+    },
+    "modal": {
+      "title": "Vraag een afspraak aan",
+      "subtitle": "Neem contact op met",
+      "nameLabel": "Naam",
+      "emailLabel": "E-mail",
+      "phoneLabel": "Telefoonnummer",
+      "messageLabel": "Bericht (optioneel)",
+      "messagePlaceholder": "Vertel waar je hulp bij nodig hebt...",
+      "cancel": "Annuleren",
+      "submit": "Verstuur aanvraag",
+      "successMessage": "Bedankt! We hebben je aanvraag verstuurd naar de notaris.",
+      "errorMessage": "Er is iets misgegaan. Probeer het later opnieuw."
+    },
+    "cta": {
+      "title": "Je testament veilig opslaan?",
+      "subtitle": "Bewaar je testament en belangrijke documenten veilig met zero-knowledge encryptie. Altijd gratis.",
+      "button": "Gratis beginnen"
+    }
   }
 }
