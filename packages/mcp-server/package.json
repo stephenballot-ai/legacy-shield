@@ -1,10 +1,13 @@
 {
-  "name": "mcp-server",
-  "version": "1.0.0",
-  "description": "",
+  "name": "@legacy-shield/mcp-server",
+  "version": "1.0.1",
+  "description": "LegacyShield MCP Server - Zero-Knowledge Persistence for AI Agents",
   "main": "index.js",
+  "bin": {
+    "legacy-shield-mcp": "./index.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",

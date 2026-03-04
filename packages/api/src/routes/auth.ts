@@ -828,4 +828,68 @@ router.post('/recovery/use-code', loginLimiter, validate(recoveryCodeSchema), as
   }
 });
 
+/**
+ * POST /auth/headless/register
+ * Allows an agent to initiate account creation for a user.
+ */
+router.post('/headless/register', async (req: Request, res: Response) => {
+  try {
+    const { email, agentName, userPublicKey } = req.body as { 
+      email: string; 
+      agentName: string;
+      userPublicKey: string; // The public key generated on the user's device
+    };
+
+    const existing = await prisma.user.findUnique({ where: { email } });
+    if (existing) {
+      // If user exists, we initiate a 'link agent' flow instead
+      res.status(200).json({ 
+        status: 'EXISTING_USER', 
+        message: 'User already has a vault. Initiation link sent to email.' 
+      });
+      // TODO: Send email with deep link to "Authorize [agentName]"
+      return;
+    }
+
+    // Create a 'Pending' user
+    const tempPassword = crypto.randomBytes(16).toString('hex');
+    const passwordHash = await hashPassword(tempPassword);
+    const keyDerivationSalt = generateSalt();
+    const verificationToken = generateEmailVerificationToken();
+
+    const user = await prisma.user.create({
+      data: {
+        email,
+        passwordHash, // Temporary, will be reset by user during setup
+        keyDerivationSalt,
+        emailVerificationToken: verificationToken,
+        emailVerificationExpires: new Date(Date.now() + 1 * 60 * 60 * 1000), // 1 hour
+        // Store the agent's intent
+        managedAgents: {
+          create: {
+            name: agentName,
+            apiKeyHash: crypto.createHash('sha256').update(crypto.randomBytes(32)).digest('hex'),
+            status: 'SILENT'
+          }
+        }
+      },
+    });
+
+    // Send the "Headless Onboarding" email
+    // This email contains a link that handles the local key generation
+    // and sends the encrypted sub-keys back to the agent.
+    await sendVerificationEmail({ to: user.email, token: verificationToken })
+      .catch((err) => logger.error('[email] Headless verification failed:', err));
+
+    res.status(201).json({
+      status: 'PENDING_USER',
+      userId: user.id,
+      message: 'Headless onboarding initiated. User must verify via email to complete key handoff.'
+    });
+  } catch (err) {
+    logger.error('Headless registration failed:', err);
+    res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Headless registration failed' } });
+  }
+});
+
 export default router;
