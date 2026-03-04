@@ -30,7 +30,7 @@ function getJwtSecret(): string {
 export interface TokenPayload {
   userId: string;
   sessionId: string;
-  sessionType: SessionType;
+  sessionType: SessionType | 'AGENT';
   tier: string;
   type: 'access' | 'refresh';
 }
@@ -223,7 +223,7 @@ export async function logAudit(params: {
   action: string;
   resourceType: string;
   resourceId?: string;
-  sessionType?: SessionType;
+  sessionType?: SessionType | 'AGENT';
   ipAddress?: string;
   userAgent?: string;
   metadata?: Record<string, unknown>;
@@ -235,7 +235,7 @@ export async function logAudit(params: {
         action: params.action as never,
         resourceType: params.resourceType,
         resourceId: params.resourceId ?? null,
-        sessionType: params.sessionType ?? null,
+        sessionType: (params.sessionType as SessionType) ?? null,
         ipAddress: params.ipAddress ?? null,
         userAgent: params.userAgent ?? null,
         metadata: params.metadata
