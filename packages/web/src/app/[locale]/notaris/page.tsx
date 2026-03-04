@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { Link } from '@/i18n/routing';
 import { Logo } from '@/components/ui/Logo';
 import { NotaryFinder } from './NotaryFinder';
+import { notaries } from '@/data/notaries';
 
 interface Props {
   params: { locale: string };
@@ -36,8 +37,33 @@ export async function generateMetadata({ params: { locale } }: Props): Promise<M
 export default function NotarisPage({ params }: Props) {
   const { locale } = params;
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    'itemListElement': notaries.map((notary, index) => ({
+      '@type': 'ListItem',
+      'position': index + 1,
+      'item': {
+        '@type': 'LocalBusiness',
+        'name': notary.name,
+        'address': {
+          '@type': 'PostalAddress',
+          'streetAddress': notary.address,
+          'addressLocality': notary.city,
+          'addressCountry': 'NL',
+        },
+        'telephone': notary.phone,
+        'url': `https://legacyshield.eu/${locale}/notaris#${notary.slug}`,
+      },
+    })),
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Header */}
       <header className="bg-gradient-to-r from-primary-900 via-primary-800 to-navy-900 text-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex items-center justify-between">

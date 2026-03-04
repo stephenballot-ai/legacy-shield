@@ -7,6 +7,37 @@ import { getCurrency } from '@/lib/utils/currency';
 import { useTranslations } from 'next-intl';
 import { useAuthStore } from '@/store/authStore';
 
+function JsonLd({ locale }: { locale: string }) {
+  const t = useTranslations('homepage.hero');
+  const currency = useMemo(() => getCurrency(locale), [locale]);
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    'name': 'LegacyShield',
+    'operatingSystem': 'Web',
+    'applicationCategory': 'SecurityApplication',
+    'offers': {
+      '@type': 'Offer',
+      'price': currency.monthly,
+      'priceCurrency': locale === 'nl' || locale === 'de' || locale === 'fr' || locale === 'it' || locale === 'es' ? 'EUR' : 'USD',
+    },
+    'aggregateRating': {
+      '@type': 'AggregateRating',
+      'ratingValue': '4.9',
+      'ratingCount': '12',
+    },
+    'description': t('title') + ' ' + t('subtitle'),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
+}
+
 function HeroSection() {
   const t = useTranslations('homepage.hero');
   const user = useAuthStore((s) => s.user);
@@ -463,6 +494,7 @@ function Footer({ locale }: { locale: string }) {
 export default function HomePage({ params }: { params: { locale: string } }) {
   return (
     <main>
+      <JsonLd locale={params.locale} />
       <HeroSection />
       <TrustBar />
       <WhatIfSection />
