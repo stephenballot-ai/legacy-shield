@@ -16,6 +16,7 @@ import emergencyAccessRoutes from './routes/emergencyAccess';
 import subscriptionRoutes from './routes/subscriptions';
 import userRoutes from './routes/users';
 import webhookRoutes from './routes/webhooks';
+import agentRoutes from './routes/agents';
 
 // Load environment variables
 dotenv.config();
@@ -128,6 +129,7 @@ app.use('/api/v1/emergency-access', emergencyAccessRoutes);
 app.use('/api/v1/subscriptions', subscriptionRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/webhooks', webhookRoutes);
+app.use('/api/v1/agents', agentRoutes);
 
 // ============================================================================
 // ERROR HANDLING

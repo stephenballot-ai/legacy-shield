@@ -8,15 +8,15 @@ declare module 'express-serve-static-core' {
     user?: {
       userId: string;
       sessionId: string;
-      sessionType: 'OWNER' | 'EMERGENCY_CONTACT';
+      sessionType: 'OWNER' | 'EMERGENCY_CONTACT' | 'AGENT';
       tier: string;
+      agentId?: string;
     };
   }
 }
 
 /**
- * JWT authentication middleware.
- * Extracts and verifies the Bearer token from Authorization header.
+ * Combined authentication middleware (JWT + API Key).
  */
 export async function authenticate(
   req: Request,
@@ -24,6 +24,50 @@ export async function authenticate(
   next: NextFunction
 ): Promise<void> {
   const authHeader = req.headers.authorization;
+  const apiKey = req.headers['x-api-key'] as string;
+
+  // Handle API Key Authentication (Agent OS)
+  if (apiKey) {
+    try {
+      const crypto = await import('crypto');
+      const apiKeyHash = crypto.createHash('sha256').update(apiKey).digest('hex');
+
+      const agent = await prisma.managedAgent.findUnique({
+        where: { apiKeyHash },
+        include: { user: true }
+      });
+
+      if (!agent) {
+        res.status(401).json({
+          error: { code: 'INVALID_API_KEY', message: 'The provided API key is invalid' },
+        });
+        return;
+      }
+
+      // Update heartbeat
+      await prisma.managedAgent.update({
+        where: { id: agent.id },
+        data: { lastHeartbeatAt: new Date(), status: 'ACTIVE' }
+      });
+
+      req.user = {
+        userId: agent.userId,
+        sessionId: `agent-${agent.id}`,
+        sessionType: 'AGENT',
+        tier: agent.user.tier,
+        agentId: agent.id,
+      };
+
+      return next();
+    } catch (err) {
+      res.status(500).json({
+        error: { code: 'INTERNAL_ERROR', message: 'API key verification failed' },
+      });
+      return;
+    }
+  }
+
+  // Handle JWT Authentication (Human Web App)
   if (!authHeader?.startsWith('Bearer ')) {
     res.status(401).json({
       error: { code: 'UNAUTHORIZED', message: 'Authentication required' },
@@ -78,7 +122,7 @@ export async function authenticate(
 }
 
 /**
- * Middleware that blocks EMERGENCY_CONTACT sessions.
+ * Middleware that blocks non-owner/non-agent sessions.
  * Must be used after authenticate().
  */
 export function requireOwner(
@@ -86,11 +130,11 @@ export function requireOwner(
   res: Response,
   next: NextFunction
 ): void {
-  if (req.user?.sessionType !== 'OWNER') {
+  if (req.user?.sessionType !== 'OWNER' && req.user?.sessionType !== 'AGENT') {
     res.status(403).json({
       error: {
         code: 'READ_ONLY_SESSION',
-        message: 'This action requires owner access',
+        message: 'This action requires owner or authorized agent access',
       },
     });
     return;
