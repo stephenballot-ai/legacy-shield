@@ -61,6 +61,7 @@ model User {
   emergencyContacts EmergencyContact[]
   sessions          Session[]
   auditLogs         AuditLog[]
+  managedAgents     ManagedAgent[]
 
   @@index([email])
 }
@@ -292,4 +293,52 @@ enum JobStatus {
   RUNNING
   COMPLETED
   FAILED
+}
+
+// ============================================================================
+// AGENT OS LAYER
+// ============================================================================
+
+model ManagedAgent {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  name        String   // e.g. "Tax-Bot-3000"
+  description String?
+  
+  // Scoping & Access
+  apiKeyHash  String   @unique
+  scopes      FileCategory[] 
+  
+  // The "Handshake" secret
+  // Encrypted with Agent's Public Key, can only be decrypted by the agent
+  encryptedVaultSecret String? 
+  
+  // Monitoring (Dead Man's Switch for Agents)
+  status            AgentStatus @default(ACTIVE)
+  lastHeartbeatAt   DateTime    @default(now())
+  heartbeatInterval Int         @default(86400) // Seconds (default 24h)
+  
+  // Trigger on failure
+  failureAction     AgentFailureAction @default(NOTIFY_OWNER)
+  failureWebhookUrl String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+  @@index([apiKeyHash])
+}
+
+enum AgentStatus {
+  ACTIVE
+  SILENT  // Missed one heartbeat
+  DEAD    // Missed multiple, failure action triggered
+}
+
+enum AgentFailureAction {
+  NOTIFY_OWNER
+  TRIGGER_RECOVERY_WEBHOOK
+  LOG_ONLY
 }
