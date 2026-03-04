@@ -318,6 +318,8 @@ model ManagedAgent {
   // Monitoring (Dead Man's Switch for Agents)
   status            AgentStatus @default(ACTIVE)
   lastHeartbeatAt   DateTime    @default(now())
+  lastIpAddress     String?     // Tracking the agent "home"
+  lastUserAgent     String?     // Tracking the software version
   heartbeatInterval Int         @default(86400) // Seconds (default 24h)
   
   // Trigger on failure

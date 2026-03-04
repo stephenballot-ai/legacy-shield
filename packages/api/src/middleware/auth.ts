@@ -44,10 +44,15 @@ export async function authenticate(
         return;
       }
 
-      // Update heartbeat
+      // Update heartbeat and track agent "home"
       await prisma.managedAgent.update({
         where: { id: agent.id },
-        data: { lastHeartbeatAt: new Date(), status: 'ACTIVE' }
+        data: { 
+          lastHeartbeatAt: new Date(), 
+          status: 'ACTIVE',
+          lastIpAddress: req.ip,
+          lastUserAgent: req.headers['user-agent']
+        }
       });
 
       req.user = {
