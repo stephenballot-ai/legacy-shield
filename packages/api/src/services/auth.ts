@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import speakeasy from 'speakeasy';
 import QRCode from 'qrcode';
-import { Prisma } from '@prisma/client';
+
 import { prisma } from '../lib/prisma';
 import { logger } from '../utils/logger';
 
@@ -29,7 +29,7 @@ function getJwtSecret(): string {
 export interface TokenPayload {
   userId: string;
   sessionId: string;
-  sessionType: string;
+  sessionType: string; // SessionType enum
   tier: string;
   type: 'access' | 'refresh';
 }

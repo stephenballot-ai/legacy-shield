@@ -42,7 +42,6 @@ router.post('/agent-register', agentRegisterLimiter, async (req: Request, res: R
       data: {
         email: `agent-${crypto.randomUUID()}@agent.legacyshield.internal`,
         passwordHash: 'AGENT_NO_PASSWORD',
-        displayName: name.trim(),
         emailVerified: true,
         tier: 'FREE',
       },

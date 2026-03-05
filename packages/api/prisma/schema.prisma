@@ -203,6 +203,7 @@ model Session {
 enum SessionType {
   OWNER
   EMERGENCY_CONTACT
+  AGENT
 }
 
 model AuditLog {
