@@ -44,6 +44,8 @@ router.post('/agent-register', agentRegisterLimiter, async (req: Request, res: R
         passwordHash: 'AGENT_NO_PASSWORD',
         emailVerified: true,
         tier: 'FREE',
+        referralCode: `agent-${crypto.randomBytes(6).toString('hex')}`,
+        keyDerivationSalt: crypto.randomBytes(32).toString('base64'),
       },
     });
 

@@ -104,7 +104,7 @@ export async function createSession(
   const session = await prisma.session.create({
     data: {
       userId,
-      sessionType,
+      sessionType: sessionType as any,
       token: crypto.randomBytes(48).toString('hex'),
       userAgent: (req.headers['user-agent'] as string) ?? null,
       ipAddress: req.ip ?? null,
@@ -234,7 +234,7 @@ export async function logAudit(params: {
         action: params.action as never,
         resourceType: params.resourceType,
         resourceId: params.resourceId ?? null,
-        sessionType: (params.sessionType as string) ?? null,
+        sessionType: (params.sessionType as any) ?? null,
         ipAddress: params.ipAddress ?? null,
         userAgent: params.userAgent ?? null,
         metadata: params.metadata
