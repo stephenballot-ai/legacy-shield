@@ -236,7 +236,7 @@ export async function getFile(
 
   if (!file) return null;
 
-  const downloadUrl = await generatePresignedDownloadUrl(file.storageKey);
+  // downloadUrl removed — agents and frontend use the proxy route /files/:id/blob
 
   // Audit - VIEW
   await logAudit({
