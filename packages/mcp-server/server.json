@@ -33,5 +33,10 @@
         }
       ]
     }
+  ],
+  "icons": [
+    {
+      "src": "https://legacyshield.eu/icon.png"
+    }
   ]
 }
