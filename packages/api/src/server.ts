@@ -143,7 +143,7 @@ app.get('/.well-known/mcp.json', (_req: Request, res: Response) => {
     version: '1.0.0',
     description: 'Zero-knowledge encrypted document vault — secure long-term storage for AI agents and humans.',
     install: {
-      command: 'npx -y @legacyshield/mcp-server',
+      command: 'npx -y @legacy-shield/mcp-server',
       env: {
         LEGACY_SHIELD_API_KEY: { required: true, description: 'Your agent API key (starts with ls_)' },
         LEGACY_SHIELD_API_URL: { required: false, default: 'https://api.legacyshield.eu/api/v1' },

@@ -72,7 +72,7 @@ router.post('/agent-register', agentRegisterLimiter, async (req: Request, res: R
       mcpServers: {
         'legacy-shield': {
           command: 'npx',
-          args: ['-y', '@legacyshield/mcp-server'],
+          args: ['-y', '@legacy-shield/mcp-server'],
           env: {
             LEGACY_SHIELD_API_KEY: apiKey,
             LEGACY_SHIELD_API_URL: 'https://api.legacyshield.eu/api/v1',

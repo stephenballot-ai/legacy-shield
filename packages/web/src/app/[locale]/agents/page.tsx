@@ -10,7 +10,7 @@ const mcpConfig = `{
   "mcpServers": {
     "legacy-shield": {
       "command": "npx",
-      "args": ["-y", "@legacyshield/mcp-server"],
+      "args": ["-y", "@legacy-shield/mcp-server"],
       "env": {
         "LEGACY_SHIELD_API_KEY": "YOUR_API_KEY",
         "LEGACY_SHIELD_API_URL": "https://api.legacyshield.eu/api/v1"
