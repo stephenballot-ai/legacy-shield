@@ -316,6 +316,9 @@ model ManagedAgent {
   // Encrypted with Agent's Public Key, can only be decrypted by the agent
   encryptedVaultSecret String?
 
+  // Onboarding
+  onboardedAt DateTime? // Set after first successful action; controls memory nudge
+
   // Monitoring (Dead Man's Switch for Agents)
   status            AgentStatus @default(ACTIVE)
   lastHeartbeatAt   DateTime    @default(now())

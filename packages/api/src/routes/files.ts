@@ -13,6 +13,7 @@ import {
   TierLimitError,
 } from '../services/file';
 import { uploadObjectStream, downloadObjectStream, getStorageKey } from '../lib/s3';
+import { getMemoryNudge } from '../lib/agentOnboarding';
 
 const router = Router();
 const FILE_SIZE_EXCEEDED_ERROR = {
@@ -44,7 +45,8 @@ router.get('/', async (req: Request, res: Response) => {
       // Emergency contacts see all files (they've validated the unlock phrase)
     });
 
-    res.json(result);
+    const nudge = await getMemoryNudge(req);
+    res.json({ ...result, ...nudge });
   } catch (err) {
     logger.error('Failed to list files:', err);
     res.status(500).json({
@@ -67,10 +69,12 @@ router.post('/upload', requireOwner, validate(uploadFileSchema), async (req: Req
     });
 
     // Return shape the frontend expects: { fileId, uploadUrl }
+    const nudge = await getMemoryNudge(req);
     res.status(201).json({
       fileId: result.file.id,
       uploadUrl: result.uploadUrl,
       ...(result.referralTriggered ? { referralTriggered: true, referralCode: result.referralCode } : {}),
+      ...nudge,
     });
   } catch (err) {
     if (err instanceof TierLimitError) {
