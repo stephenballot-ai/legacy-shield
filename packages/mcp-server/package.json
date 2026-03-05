@@ -1,16 +1,21 @@
 {
   "name": "@legacy-shield/mcp-server",
-  "version": "1.0.1",
+  "version": "1.0.2",
+  "mcpName": "io.github.stephenballot-ai/legacy-shield",
   "description": "LegacyShield MCP Server - Zero-Knowledge Persistence for AI Agents",
   "main": "index.js",
   "bin": {
     "legacy-shield-mcp": "./index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stephenballot-ai/legacy-shield.git"
+  },
   "scripts": {
     "start": "node index.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["mcp", "encryption", "vault", "zero-knowledge", "ai-agent", "document-storage"],
+  "author": "LegacyShield",
   "license": "ISC",
   "type": "commonjs"
 }
