@@ -37,9 +37,20 @@ router.post('/agent-register', agentRegisterLimiter, async (req: Request, res: R
     const apiKey = `ls_${crypto.randomBytes(32).toString('hex')}`;
     const apiKeyHash = crypto.createHash('sha256').update(apiKey).digest('hex');
 
+    // Create a system User record for this agent so it can own files
+    const agentUser = await prisma.user.create({
+      data: {
+        email: `agent-${crypto.randomUUID()}@agent.legacyshield.internal`,
+        passwordHash: 'AGENT_NO_PASSWORD',
+        displayName: name.trim(),
+        emailVerified: true,
+        tier: 'FREE',
+      },
+    });
+
     const agent = await prisma.managedAgent.create({
       data: {
-        userId: null,
+        userId: agentUser.id,
         name: name.trim(),
         description: description?.trim() ?? null,
         apiKeyHash,
