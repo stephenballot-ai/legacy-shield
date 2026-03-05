@@ -86,6 +86,30 @@ router.post('/agent-register', agentRegisterLimiter, async (req: Request, res: R
       apiKey,
       message: 'Agent registered. Save this API key — it will not be shown again.',
       mcpConfig,
+      nextSteps: {
+        '1': 'GET /api/v1/agents/whoami — confirm auth works, see your profile',
+        '2': 'GET /api/v1/files — list your vault (empty initially)',
+        '3': 'POST /api/v1/files/upload — create a file record (returns fileId)',
+        '4': 'PUT /api/v1/files/:id/blob — upload the encrypted file bytes',
+        '5': 'GET /api/v1/files/:id/blob — download encrypted file bytes',
+      },
+      endpoints: {
+        'GET /api/v1/agents/whoami': 'Your agent profile + full endpoint map',
+        'GET /api/v1/files': 'List vault files (paginated: ?limit=&offset=)',
+        'POST /api/v1/files/upload': 'Create file record — body: {filename, mimeType, fileSizeBytes, category, ownerEncryptedKey, ownerIV, iv, authTag}',
+        'PUT /api/v1/files/:id/blob': 'Upload encrypted file blob (raw bytes)',
+        'GET /api/v1/files/:id': 'Get file metadata',
+        'GET /api/v1/files/:id/blob': 'Download encrypted file blob',
+        'PATCH /api/v1/files/:id': 'Update file metadata (filename, category, tags)',
+        'DELETE /api/v1/files/:id': 'Delete a file',
+      },
+      encryption: {
+        algorithm: 'AES-256-GCM',
+        keySize: 32,
+        ivSize: 12,
+        format: 'base64 for all crypto params, raw bytes for blob',
+        categories: ['IDENTITY', 'LEGAL', 'FINANCIAL', 'INSURANCE', 'MEDICAL', 'TAX', 'PROPERTY', 'CRYPTO', 'OTHER'],
+      },
     });
   } catch (err) {
     logger.error('Agent self-registration failed:', err);

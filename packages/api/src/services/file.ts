@@ -263,7 +263,8 @@ export async function getFile(
       createdAt: file.createdAt,
       updatedAt: file.updatedAt,
     },
-    downloadUrl,
+    downloadUrl: null, // Use GET /api/v1/files/:id/blob instead (MinIO is internal-only)
+    downloadVia: `GET /api/v1/files/${file.id}/blob`,
     ownerEncryptedKey: file.ownerEncryptedKey,
     ownerIV: file.ownerIV,
     emergencyEncryptedKey: file.emergencyEncryptedKey,

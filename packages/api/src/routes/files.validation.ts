@@ -5,8 +5,13 @@ const fileCategoryEnum = z.enum([
   'LEGAL', 'TAX', 'TRAVEL', 'FAMILY', 'DIGITAL_ASSETS', 'OTHER',
 ]);
 
+// Sanitize filenames: strip HTML tags and control characters
+const safeFilename = z.string().min(1).max(255)
+  .transform((v) => v.replace(/<[^>]*>/g, '').replace(/[\x00-\x1f]/g, '').trim())
+  .pipe(z.string().min(1, 'Filename cannot be empty after sanitization'));
+
 export const uploadFileSchema = z.object({
-  filename: z.string().min(1).max(255),
+  filename: safeFilename,
   mimeType: z.string().min(1).max(127),
   fileSizeBytes: z.number().int().positive(),
   category: fileCategoryEnum.nullable().optional(),
@@ -21,7 +26,7 @@ export const uploadFileSchema = z.object({
 });
 
 export const updateFileSchema = z.object({
-  filename: z.string().min(1).max(255).optional(),
+  filename: safeFilename.optional(),
   category: fileCategoryEnum.nullish(),
   tags: z.array(z.string().max(50)).max(20).optional(),
   isFavorite: z.boolean().optional(),
