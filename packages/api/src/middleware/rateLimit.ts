@@ -18,6 +18,23 @@ export const loginLimiter = rateLimit({
 });
 
 /**
+ * Agent self-registration rate limiter: 5 requests per hour per IP
+ */
+export const agentRegisterLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 5,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    error: {
+      code: 'SERVICE_UNAVAILABLE',
+      message: 'Too many agent registration attempts. Please try again in an hour.',
+    },
+  },
+  keyGenerator: (req) => req.ip ?? 'unknown',
+});
+
+/**
  * General API rate limiter: 100 requests per minute per IP
  */
 export const apiLimiter = rateLimit({

@@ -15,15 +15,15 @@ datasource db {
 // ============================================================================
 
 model User {
-  id       String   @id @default(uuid())
-  email    String   @unique
+  id           String @id @default(uuid())
+  email        String @unique
   passwordHash String
 
   // Account status
-  emailVerified        Boolean   @default(false)
-  emailVerificationToken String?   @unique
+  emailVerified            Boolean   @default(false)
+  emailVerificationToken   String?   @unique
   emailVerificationExpires DateTime?
-  tier                 UserTier  @default(FREE)
+  tier                     UserTier  @default(FREE)
 
   // Subscription
   stripeCustomerId     String?   @unique
@@ -33,10 +33,10 @@ model User {
   subscriptionEndsAt   DateTime?
 
   // Referrals
-  referralCode        String  @unique @default("")
-  referredBy          String?
-  referralBonus       Int     @default(0)
-  upgradeIntentCount  Int     @default(0)
+  referralCode       String  @unique @default("")
+  referredBy         String?
+  referralBonus      Int     @default(0)
+  upgradeIntentCount Int     @default(0)
 
   // Security
   twoFactorSecret  String?
@@ -44,7 +44,7 @@ model User {
   recoveryCodes    String[]
 
   // Key derivation (MUST be set at registration, NEVER changes)
-  keyDerivationSalt     String
+  keyDerivationSalt String
 
   // Emergency access
   emergencyKeyEncrypted String?
@@ -68,7 +68,7 @@ model User {
 
 enum UserTier {
   FREE // 15 docs, 1 emergency contact
-  PRO  // 100 docs, 5 emergency contacts
+  PRO // 100 docs, 5 emergency contacts
 }
 
 // ============================================================================
@@ -300,34 +300,34 @@ enum JobStatus {
 // ============================================================================
 
 model ManagedAgent {
-  id          String   @id @default(uuid())
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  name        String   // e.g. "Tax-Bot-3000"
+  id     String  @id @default(uuid())
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name        String // e.g. "Tax-Bot-3000"
   description String?
-  
+
   // Scoping & Access
-  apiKeyHash  String   @unique
-  scopes      FileCategory[] 
-  
+  apiKeyHash String         @unique
+  scopes     FileCategory[]
+
   // The "Handshake" secret
   // Encrypted with Agent's Public Key, can only be decrypted by the agent
-  encryptedVaultSecret String? 
-  
+  encryptedVaultSecret String?
+
   // Monitoring (Dead Man's Switch for Agents)
   status            AgentStatus @default(ACTIVE)
   lastHeartbeatAt   DateTime    @default(now())
-  lastIpAddress     String?     // Tracking the agent "home"
-  lastUserAgent     String?     // Tracking the software version
+  lastIpAddress     String? // Tracking the agent "home"
+  lastUserAgent     String? // Tracking the software version
   heartbeatInterval Int         @default(86400) // Seconds (default 24h)
-  
+
   // Trigger on failure
   failureAction     AgentFailureAction @default(NOTIFY_OWNER)
   failureWebhookUrl String?
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([userId])
   @@index([apiKeyHash])
@@ -335,8 +335,8 @@ model ManagedAgent {
 
 enum AgentStatus {
   ACTIVE
-  SILENT  // Missed one heartbeat
-  DEAD    // Missed multiple, failure action triggered
+  SILENT // Missed one heartbeat
+  DEAD // Missed multiple, failure action triggered
 }
 
 enum AgentFailureAction {

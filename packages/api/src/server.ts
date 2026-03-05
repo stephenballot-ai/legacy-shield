@@ -17,6 +17,7 @@ import subscriptionRoutes from './routes/subscriptions';
 import userRoutes from './routes/users';
 import webhookRoutes from './routes/webhooks';
 import agentRoutes from './routes/agents';
+import agentAuthRoutes from './routes/agentAuth';
 
 // Load environment variables
 dotenv.config();
@@ -130,6 +131,52 @@ app.use('/api/v1/subscriptions', subscriptionRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/webhooks', webhookRoutes);
 app.use('/api/v1/agents', agentRoutes);
+app.use('/api/v1/auth', agentAuthRoutes);
+
+// ============================================================================
+// WELL-KNOWN DISCOVERY (Agent-friendly)
+// ============================================================================
+
+app.get('/.well-known/mcp.json', (_req: Request, res: Response) => {
+  res.json({
+    name: 'legacy-shield-vault',
+    version: '1.0.0',
+    description: 'Zero-knowledge encrypted document vault — secure long-term storage for AI agents and humans.',
+    install: {
+      command: 'npx -y @legacyshield/mcp-server',
+      env: {
+        LEGACY_SHIELD_API_KEY: { required: true, description: 'Your agent API key (starts with ls_)' },
+        LEGACY_SHIELD_API_URL: { required: false, default: 'https://api.legacyshield.eu/api/v1' },
+      },
+    },
+    tools: ['list_vault_files', 'get_file_metadata'],
+    signup: 'https://api.legacyshield.eu/api/v1/auth/agent-register',
+    homepage: 'https://legacyshield.eu/agents',
+  });
+});
+
+app.get('/.well-known/agent.json', (_req: Request, res: Response) => {
+  res.json({
+    name: 'LegacyShield',
+    description: 'Zero-knowledge encrypted vault. Store, retrieve, and manage sensitive documents with end-to-end encryption. All crypto happens client-side.',
+    auth: {
+      type: 'api-key',
+      header: 'x-api-key',
+      prefix: 'ls_',
+      signup: {
+        method: 'POST',
+        url: 'https://api.legacyshield.eu/api/v1/auth/agent-register',
+        body: { name: 'string (required)', description: 'string (optional)' },
+        returns: 'agentId, apiKey, mcpConfig',
+        rateLimit: '5 per hour per IP',
+      },
+    },
+    capabilities: ['encrypted-storage', 'file-management', 'emergency-access', 'heartbeat'],
+    mcp: 'https://api.legacyshield.eu/.well-known/mcp.json',
+    dataResidency: 'EU (Hetzner, Germany — European-owned infrastructure)',
+    encryption: 'AES-256-GCM, zero-knowledge (server never sees plaintext)',
+  });
+});
 
 // ============================================================================
 // ERROR HANDLING
