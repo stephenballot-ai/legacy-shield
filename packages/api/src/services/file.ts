@@ -3,7 +3,6 @@ import {
   getStorageKey,
   getBucket,
   generatePresignedUploadUrl,
-  generatePresignedDownloadUrl,
   deleteObject,
 } from '../lib/s3';
 import { logAudit } from './auth';
