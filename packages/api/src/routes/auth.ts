@@ -834,7 +834,7 @@ router.post('/recovery/use-code', loginLimiter, validate(recoveryCodeSchema), as
  */
 router.post('/headless/register', async (req: Request, res: Response) => {
   try {
-    const { email, agentName, userPublicKey } = req.body as { 
+    const { email, agentName, userPublicKey: _userPublicKey } = req.body as { 
       email: string; 
       agentName: string;
       userPublicKey: string; // The public key generated on the user's device

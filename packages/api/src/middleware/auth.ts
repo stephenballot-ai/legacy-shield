@@ -59,7 +59,7 @@ export async function authenticate(
         userId: agent.userId,
         sessionId: `agent-${agent.id}`,
         sessionType: 'AGENT',
-        tier: agent.user.tier,
+        tier: agent.user?.tier ?? 'FREE',
         agentId: agent.id,
       };
 
