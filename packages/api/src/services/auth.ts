@@ -6,7 +6,6 @@ import QRCode from 'qrcode';
 import { Prisma } from '@prisma/client';
 import { prisma } from '../lib/prisma';
 import { logger } from '../utils/logger';
-import type { SessionType } from '@prisma/client';
 
 // ============================================================================
 // CONSTANTS
@@ -30,7 +29,7 @@ function getJwtSecret(): string {
 export interface TokenPayload {
   userId: string;
   sessionId: string;
-  sessionType: SessionType | 'AGENT';
+  sessionType: string;
   tier: string;
   type: 'access' | 'refresh';
 }
@@ -97,7 +96,7 @@ export function verifyToken<T = TokenPayload>(token: string): T {
 
 export async function createSession(
   userId: string,
-  sessionType: SessionType,
+  sessionType: string,
   req: { ip?: string; headers: Record<string, string | string[] | undefined> }
 ): Promise<{ accessToken: string; refreshToken: string; sessionId: string }> {
   const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days
@@ -223,7 +222,7 @@ export async function logAudit(params: {
   action: string;
   resourceType: string;
   resourceId?: string;
-  sessionType?: SessionType | 'AGENT';
+  sessionType?: string;
   ipAddress?: string;
   userAgent?: string;
   metadata?: Record<string, unknown>;
@@ -235,12 +234,12 @@ export async function logAudit(params: {
         action: params.action as never,
         resourceType: params.resourceType,
         resourceId: params.resourceId ?? null,
-        sessionType: (params.sessionType as SessionType) ?? null,
+        sessionType: (params.sessionType as string) ?? null,
         ipAddress: params.ipAddress ?? null,
         userAgent: params.userAgent ?? null,
         metadata: params.metadata
-          ? (params.metadata as Prisma.InputJsonValue)
-          : Prisma.JsonNull,
+          ? (params.metadata as any)
+          : null,
       },
     });
   } catch (err) {

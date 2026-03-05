@@ -511,7 +511,7 @@ router.post('/password/change', authenticate, requireOwner, validate(changePassw
       where: { userId: user.id, deletedAt: null },
       select: { id: true },
     });
-    const expectedFileIds = new Set(userFiles.map((f) => f.id));
+    const expectedFileIds = new Set(userFiles.map((f: { id: string }) => f.id));
 
     if (expectedFileIds.size > 0 && (!reencryptedKeys || reencryptedKeys.length !== expectedFileIds.size)) {
       res.status(400).json({
@@ -561,7 +561,7 @@ router.post('/password/change', authenticate, requireOwner, validate(changePassw
 
     // Update everything in a single transaction
     const newHash = await hashPassword(newPassword);
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: any) => {
       // Update password hash
       await tx.user.update({
         where: { id: user.id },
