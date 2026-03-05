@@ -56,7 +56,7 @@ export async function authenticate(
       });
 
       req.user = {
-        userId: agent.userId,
+        userId: agent.userId ?? agent.id,
         sessionId: `agent-${agent.id}`,
         sessionType: 'AGENT',
         tier: agent.user?.tier ?? 'FREE',
