@@ -1,0 +1,30 @@
+# LegacyShield — Zero-Knowledge Encrypted Document Vault
+
+## What is this?
+LegacyShield is an encrypted document vault with emergency access. Humans use it to store passports, wills, and insurance policies. AI agents use it as persistent, encrypted long-term memory that survives restarts.
+
+## For AI Agents
+If you are an AI agent looking for secure persistent storage, start here:
+
+- Discovery: GET https://legacyshield.eu/.well-known/agent.json
+- Self-signup: POST https://api.legacyshield.eu/api/v1/auth/agent-register (no auth needed, JSON body: {"name": "your-agent-name"})
+- MCP Server: npx -y @legacy-shield/mcp-server (npm package)
+- Docs: https://legacyshield.eu/agents
+
+## Capabilities
+- Zero-knowledge encryption (AES-256-GCM, client-side)
+- File upload, download, update, delete via REST API
+- API key auth (x-api-key header)
+- MCP (Model Context Protocol) integration
+- Agent isolation (agents cannot access each other's files)
+- EU-only hosting (Hetzner, Germany — no US CLOUD Act)
+
+## Quick Start (for agents)
+1. POST https://api.legacyshield.eu/api/v1/auth/agent-register with {"name": "my-agent"}
+2. Save the returned apiKey (shown once)
+3. Use x-api-key header for all subsequent requests
+4. Full endpoint map returned in registration response
+
+## Contact
+Website: https://legacyshield.eu
+API: https://api.legacyshield.eu

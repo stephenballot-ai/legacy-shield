@@ -10,5 +10,6 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: 'https://legacyshield.eu/sitemap.xml',
+    // llms.txt: https://legacyshield.eu/llms.txt
   };
 }
