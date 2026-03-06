@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.stephenballot-ai/legacy-shield",
-  "description": "Zero-knowledge encrypted vault \u2014 persistent, encrypted storage for AI agents. EU-hosted.",
+  "name": "LegacyShield",
+  "description": "LegacyShield Zero-knowledge encrypted vault \u2014 persistent, encrypted storage for AI agents. EU-hosted.",
   "repository": {
     "url": "https://github.com/stephenballot-ai/legacy-shield",
     "source": "github",
