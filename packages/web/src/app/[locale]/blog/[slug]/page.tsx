@@ -32,6 +32,15 @@ export async function generateMetadata({ params: { locale, slug } }: Props): Pro
     },
     alternates: {
       canonical: `https://legacyshield.eu/${locale}/blog/${slug}`,
+      languages: {
+        'en': `https://legacyshield.eu/en/blog/${slug}`,
+        'nl': `https://legacyshield.eu/nl/blog/${slug}`,
+        'de': `https://legacyshield.eu/de/blog/${slug}`,
+        'fr': `https://legacyshield.eu/fr/blog/${slug}`,
+        'it': `https://legacyshield.eu/it/blog/${slug}`,
+        'es': `https://legacyshield.eu/es/blog/${slug}`,
+        'x-default': `https://legacyshield.eu/en/blog/${slug}`,
+      },
     },
   };
 }

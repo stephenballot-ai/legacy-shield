@@ -120,11 +120,14 @@ export const filesApi = {
         headers,
       });
       if (!res.ok) throw new Error('Failed to download file');
-      return res.blob();
+      const blob = await res.blob();
+      // Ensure the blob is forced to application/octet-stream to prevent browser auto-execution
+      return new Blob([blob], { type: 'application/octet-stream' });
     }
     const res = await fetch(url);
     if (!res.ok) throw new Error('Failed to download file');
-    return res.blob();
+    const blob = await res.blob();
+    return new Blob([blob], { type: 'application/octet-stream' });
   },
 
   updateFile: (id: string, updates: UpdateFileParams) =>

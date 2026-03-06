@@ -106,11 +106,11 @@ export function DocumentViewer({ file, onClose }: DocumentViewerProps) {
         )}
 
         {blobUrl && file.mimeType.startsWith('image/') && (
-          <img src={blobUrl} alt={file.filename} className="max-w-full max-h-full object-contain rounded-lg" />
+          <img src={blobUrl} alt="Document Preview" className="max-w-full max-h-full object-contain rounded-lg" />
         )}
 
         {blobUrl && file.mimeType === 'application/pdf' && (
-          <iframe src={blobUrl} className="w-full h-full rounded-lg bg-white" title={file.filename} />
+          <iframe src={blobUrl} className="w-full h-full rounded-lg bg-white" title="Document Preview" />
         )}
 
         {blobUrl && !file.mimeType.startsWith('image/') && file.mimeType !== 'application/pdf' && (

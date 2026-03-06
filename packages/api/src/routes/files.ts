@@ -72,7 +72,7 @@ router.post('/upload', requireOwner, validate(uploadFileSchema), async (req: Req
     const nudge = await getMemoryNudge(req);
     res.status(201).json({
       fileId: result.file.id,
-      uploadUrl: result.uploadUrl,
+      uploadUrl: `/api/v1/files/${result.file.id}/blob`, // Mask internal MinIO URL
       ...(result.referralTriggered ? { referralTriggered: true, referralCode: result.referralCode } : {}),
       ...nudge,
     });

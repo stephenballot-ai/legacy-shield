@@ -31,6 +31,15 @@ export async function generateMetadata({ params: { locale } }: { params: { local
     },
     alternates: {
       canonical: `https://legacyshield.eu/${locale}`,
+      languages: {
+        'en': 'https://legacyshield.eu/en',
+        'nl': 'https://legacyshield.eu/nl',
+        'de': 'https://legacyshield.eu/de',
+        'fr': 'https://legacyshield.eu/fr',
+        'it': 'https://legacyshield.eu/it',
+        'es': 'https://legacyshield.eu/es',
+        'x-default': 'https://legacyshield.eu/en',
+      },
     },
     verification: {
       google: 'rCaiCC_VLBMV6hyyB8NAQwNWMGZKxLGQaGeF2fjfHiQ',
