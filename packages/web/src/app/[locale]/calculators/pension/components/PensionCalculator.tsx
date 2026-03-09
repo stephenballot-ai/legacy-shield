@@ -11,7 +11,7 @@ export default function PensionCalculator() {
   const [retireAge, setRetireAge] = useState(65);
   const [currentPot, setCurrentPot] = useState(1000000);
   const [monthlyContribution, setMonthlyContribution] = useState(5000);
-  const [growthRate, setGrowthRate] = useState(7);
+  const [growthRate] = useState(7);
   
   const [projection, setProjection] = useState<{ futureValue: number; monthlyPayout: number; tax: number }>({
     futureValue: 0,
