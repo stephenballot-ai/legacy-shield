@@ -20,6 +20,7 @@ export interface UserProfile {
   emergencyKeySalt: string | null;
   createdAt: string;
   lastLoginAt: string | null;
+  foundingMember: boolean;
   documentCount: number;
   emergencyContactCount: number;
   documentLimit: number;
