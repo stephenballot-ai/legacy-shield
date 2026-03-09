@@ -1,0 +1,45 @@
+{
+  "nextIndex": 1,
+  "topics": [
+    {
+      "slug": "why-you-need-a-digital-executor",
+      "keywords": ["digital executor", "digital estate planning", "manage accounts after death", "digital legacy planning", "appoint digital executor"],
+      "brief": "Why everyone needs a digital executor — someone authorized to manage your digital accounts, passwords, and files after death or incapacity. Practical steps to appoint one."
+    },
+    {
+      "slug": "password-manager-not-enough-after-death",
+      "keywords": ["password manager death", "1Password inheritance", "Bitwarden estate planning", "password vault after death"],
+      "brief": "Why a password manager alone won't save your family after you die — and what you actually need."
+    },
+    {
+      "slug": "what-happens-to-your-spotify-when-you-die",
+      "keywords": ["Spotify account death", "digital subscriptions after death", "streaming accounts inheritance", "digital assets estate"],
+      "brief": "Your Spotify playlists, Netflix profile, and subscriptions — what happens to them when you die, and why nobody thinks about this."
+    },
+    {
+      "slug": "expat-estate-planning-mistakes",
+      "keywords": ["expat estate planning", "expat will mistakes", "cross-border inheritance", "EU succession regulation"],
+      "brief": "The 5 most common estate planning mistakes expats make — and how to avoid them."
+    },
+    {
+      "slug": "two-factor-authentication-nightmare-after-death",
+      "keywords": ["2FA after death", "two factor authentication inheritance", "authenticator app death", "recovery codes estate planning"],
+      "brief": "2FA protects your accounts while you're alive — but locks everyone out when you die. How to plan for this."
+    },
+    {
+      "slug": "digital-will-vs-paper-will",
+      "keywords": ["digital will", "electronic will", "paper will vs digital", "store will online", "legal will digital"],
+      "brief": "Can you make a legally valid digital will? What's the difference between a digital will and storing your paper will digitally?"
+    },
+    {
+      "slug": "what-happens-to-your-photos-when-you-die",
+      "keywords": ["photos after death", "iCloud photos inheritance", "Google Photos death", "digital memories legacy"],
+      "brief": "Your family photos are trapped in cloud accounts. Here's what happens to them when you die — and how to make sure they survive."
+    },
+    {
+      "slug": "gdpr-data-portability-estate-planning",
+      "keywords": ["GDPR data portability", "right to data portability death", "EU data rights inheritance", "digital estate GDPR"],
+      "brief": "GDPR gives you the right to your data. But does that right transfer to your heirs? The legal grey zone that affects every European."
+    }
+  ]
+}
