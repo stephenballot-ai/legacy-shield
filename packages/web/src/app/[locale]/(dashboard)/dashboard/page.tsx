@@ -8,7 +8,7 @@ import { useFilesStore } from '@/store/filesStore';
 import { DOCUMENT_LIMITS } from '@legacy-shield/shared';
 import { usersApi } from '@/lib/api/users';
 import { emergencyAccessApi } from '@/lib/api/emergencyAccess';
-import { FileText, ShieldAlert, Upload, Clock, ArrowRight, Gift, Copy, Check } from 'lucide-react';
+import { FileText, ShieldAlert, Upload, Clock, ArrowRight, Gift, Copy, Check, Star } from 'lucide-react';
 import { formatFileSize, formatDate, cn } from '@/lib/utils';
 import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
@@ -33,6 +33,7 @@ export default function DashboardPage() {
   const [initialCategory, setInitialCategory] = useState<FileCategory | null>(null);
 
   const tier = user?.tier || 'FREE';
+  const [isFoundingMember, setIsFoundingMember] = useState(false);
   const fallbackMax = tier === 'PRO' ? DOCUMENT_LIMITS.PRO_TIER : DOCUMENT_LIMITS.FREE_TIER;
   const maxFiles = docLimit ?? fallbackMax;
 
@@ -46,6 +47,7 @@ export default function DashboardPage() {
     usersApi.getMe().then((p) => {
       setDocLimit(p.documentLimit);
       if (p.referralCode) setReferralCode(p.referralCode);
+      if (p.foundingMember) setIsFoundingMember(true);
     }).catch(() => {});
 
     // Fetch emergency status
@@ -81,6 +83,12 @@ export default function DashboardPage() {
             {t('welcome')}
           </h1>
           <p className="text-sm text-gray-500 mt-1">{t('subtitle')}</p>
+          {isFoundingMember && (
+            <div className="mt-2 inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200 rounded-full px-3 py-1">
+              <span className="text-amber-600 text-sm">⭐</span>
+              <span className="text-xs font-semibold text-amber-700 uppercase tracking-wider">Founding Member</span>
+            </div>
+          )}
         </div>
         <div className="flex items-center gap-3">
           <Button 

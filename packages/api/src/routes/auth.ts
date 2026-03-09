@@ -63,6 +63,11 @@ router.post('/register', validate(registerSchema), async (req: Request, res: Res
     const emailVerificationToken = generateEmailVerificationToken();
     const emailVerificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
 
+    // Founding member: first 10 users get Pro tier automatically
+    const FOUNDING_MEMBER_LIMIT = 10;
+    const userCount = await prisma.user.count();
+    const isFoundingMember = userCount < FOUNDING_MEMBER_LIMIT;
+
     const user = await prisma.user.create({
       data: {
         email,
@@ -72,6 +77,7 @@ router.post('/register', validate(registerSchema), async (req: Request, res: Res
         referredBy: referredBy ?? null,
         emailVerificationToken,
         emailVerificationExpires,
+        ...(isFoundingMember ? { tier: 'PRO', foundingMember: true } : {}),
       },
     });
 

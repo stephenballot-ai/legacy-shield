@@ -26,6 +26,7 @@ router.get('/me', authenticate, requireOwner, async (req: Request, res: Response
         emergencyKeySalt: true,
         createdAt: true,
         lastLoginAt: true,
+        foundingMember: true,
         _count: { select: { files: { where: { deletedAt: null } }, emergencyContacts: true } },
       },
     });
