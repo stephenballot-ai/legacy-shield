@@ -1,0 +1,140 @@
+---
+title: "LegacyShield ahora habla MCP: cualquier agente de IA puede acceder a tu bóveda cifrada"
+description: "LegacyShield ya está disponible como servidor MCP. Cualquier cliente de IA compatible con MCP — Claude, Cursor, Windsurf o tu propio agente — puede listar e inspeccionar los archivos de tu bóveda cifrada. Aquí te explicamos qué es MCP y cómo configurarlo."
+date: "2026-03-16"
+author: "LegacyShield Team"
+locale: "es"
+slug: "legacyshield-mcp-server-ai-agents"
+keywords: ["servidor MCP", "Model Context Protocol", "bóveda agente IA", "Claude MCP", "LegacyShield API", "bóveda cifrada IA", "cliente compatible MCP", "zero-knowledge IA"]
+faq:
+  - q: "¿Qué es el Model Context Protocol (MCP)?"
+    a: "MCP es un estándar abierto creado por Anthropic que permite a los agentes de IA conectarse a herramientas y fuentes de datos externas a través de una interfaz unificada. Piensa en él como un puerto USB-C para la IA: un protocolo, cualquier agente."
+  - q: "¿Puede un agente de IA leer mis archivos cifrados a través de MCP?"
+    a: "No. LegacyShield utiliza cifrado zero-knowledge. El servidor MCP puede listar archivos y recuperar metadatos, pero el contenido real de los archivos permanece cifrado. Tu clave de cifrado nunca sale de tu dispositivo."
+  - q: "¿Qué clientes de IA son compatibles con MCP?"
+    a: "Claude Desktop, Cursor, Windsurf, Cline y cualquier cliente construido sobre el MCP SDK. El ecosistema está creciendo rápidamente."
+  - q: "¿Es segura mi API key?"
+    a: "Tu API key se almacena localmente en la configuración de tu cliente MCP y nunca se comparte con el modelo de IA. Autentica las solicitudes de tu agente a la API de LegacyShield."
+readingTime: "5 min de lectura"
+---
+
+## Tu bóveda acaba de aprender a hablar con la IA
+
+Hasta ahora, interactuar con tu bóveda de LegacyShield significaba iniciar sesión en el panel, subir archivos y gestionar todo manualmente. Eso funciona, pero vivimos en una era en la que los agentes de IA se están convirtiendo en nuestros copilotos digitales. ¿No deberían poder trabajar también con tu bóveda?
+
+Hoy anunciamos que **LegacyShield ya está disponible como servidor MCP**. Esto significa que cualquier agente de IA que hable el Model Context Protocol puede conectarse directamente a tu bóveda cifrada.
+
+## ¿Qué es MCP?
+
+El **Model Context Protocol (MCP)** es un estándar abierto desarrollado originalmente por Anthropic. Resuelve un problema simple pero fundamental: ¿cómo permitir que los agentes de IA interactúen con herramientas y fuentes de datos externas de forma segura y estandarizada?
+
+Antes de MCP, cada integración era a medida. ¿Quieres que Claude revise tu calendario? API personalizada. ¿Que consulte una base de datos? Otra integración personalizada. Cada herramienta, cada agente, cada conexión — construida desde cero.
+
+MCP cambia eso. Define un protocolo universal que cualquier cliente de IA puede usar para descubrir y llamar herramientas en cualquier servidor MCP. Piensa en él como **USB-C para la IA**: un conector estándar, posibilidades infinitas.
+
+### Cómo funciona
+
+```
+┌─────────────┐     MCP Protocol     ┌──────────────────┐     HTTPS     ┌─────────────────┐
+│  AI Client   │ ◄──────────────────► │  MCP Server       │ ◄───────────► │  LegacyShield   │
+│  (Claude,    │    stdio / SSE       │  (legacy-shield)  │               │  API             │
+│   Cursor)    │                      │                    │               │                  │
+└─────────────┘                       └──────────────────┘               └─────────────────┘
+```
+
+1. Tu cliente de IA se conecta al servidor MCP de LegacyShield
+2. El servidor expone herramientas: `list_vault_files` y `get_file_metadata`
+3. El agente de IA puede explorar tu bóveda, revisar categorías de archivos e inspeccionar metadatos
+4. Todo el contenido real de los archivos permanece cifrado — el servidor nunca descifra nada
+
+## ¿Qué puede hacer un agente con tu bóveda?
+
+Con acceso MCP, tu agente de IA puede:
+
+- **Listar todos los archivos** de tu bóveda, opcionalmente filtrados por categoría (IDENTITY, TAX, LEGAL, etc.)
+- **Inspeccionar metadatos de archivos** — ver cuándo se subió un archivo, su categoría, cabeceras de cifrado y estado
+- **Ayudarte a organizar** — "¿Tengo mi declaración de impuestos holandesa de 2025 en la bóveda?"
+- **Auditar tu cobertura** — "¿Qué categorías de documentos me faltan?"
+- **Integrarse en flujos de trabajo** — los agentes de planificación patrimonial pueden verificar que los documentos críticos estén realmente almacenados
+
+Lo que **no** puede hacer:
+
+- Leer el contenido real de tus archivos (el cifrado zero-knowledge significa que solo tú tienes la clave)
+- Subir, modificar o eliminar archivos (acceso de solo lectura por diseño)
+- Acceder a tu clave de cifrado de ninguna manera
+
+Esto es intencional. Tu bóveda es un **sistema zero-knowledge**. MCP da a los agentes una ventana a lo que hay dentro, no las llaves para abrirlo.
+
+## Cómo configurarlo
+
+### 1. Obtén tu API key
+
+Inicia sesión en tu cuenta de LegacyShield y genera una API key de agente. Esta clave identifica las solicitudes de tu agente a la bóveda.
+
+### 2. Configura tu cliente MCP
+
+Añade el servidor de LegacyShield a la configuración MCP de tu cliente. Así se hace en los clientes más populares:
+
+**Claude Desktop** (`claude_desktop_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "legacy-shield": {
+      "command": "npx",
+      "args": ["-y", "@legacy-shield/mcp-server"],
+      "env": {
+        "LEGACY_SHIELD_API_KEY": "your-api-key-here"
+      }
+    }
+  }
+}
+```
+
+**Cursor** (Ajustes → MCP → Añadir servidor):
+
+```json
+{
+  "legacy-shield": {
+    "command": "npx",
+    "args": ["-y", "@legacy-shield/mcp-server"],
+    "env": {
+      "LEGACY_SHIELD_API_KEY": "your-api-key-here"
+    }
+  }
+}
+```
+
+**Cualquier cliente compatible con MCP** — el patrón es el mismo: apunta a `@legacy-shield/mcp-server` vía npx y pasa tu API key como variable de entorno.
+
+### 3. Empieza a hablar con tu bóveda
+
+Una vez configurado, tu agente de IA descubrirá automáticamente las herramientas de LegacyShield. Prueba a preguntar:
+
+- *"Lista todos los archivos de mi bóveda de LegacyShield"*
+- *"¿Tengo algún documento LEGAL almacenado?"*
+- *"Muéstrame los metadatos de mi última subida"*
+
+Eso es todo. Sin configuraciones complejas, sin complicaciones con APIs. Solo conectar y listo.
+
+## Por qué esto importa
+
+Creemos que el futuro de la gestión de documentos personales es **asistido por agentes**. No deberías tener que comprobar manualmente si tu bóveda está completa, si tu testamento está actualizado o si has guardado los documentos de pensión de tu pareja.
+
+Un agente de IA con acceso MCP puede hacerlo por ti — de forma proactiva, conversacional y sin comprometer jamás tu cifrado.
+
+LegacyShield fue construido desde el primer día con una arquitectura zero-knowledge. Añadir MCP no cambia eso. Simplemente hace que tu bóveda sea más inteligente en cómo comunica lo que sabe — sin revelar nunca lo que contiene.
+
+## ¿Qué viene después?
+
+Esta es la versión 1.0 de nuestro servidor MCP. Ya estamos trabajando en:
+
+- **Soporte de subida** — permite a los agentes añadir archivos a tu bóveda (con tu aprobación explícita)
+- **Notificaciones inteligentes** — agentes que te recuerdan cuando los documentos están por vencer
+- **Consultas multi-bóveda** — para planificadores patrimoniales que gestionan múltiples clientes
+
+El Model Context Protocol aún es joven, pero crece rápidamente. Al hacer LegacyShield compatible con MCP hoy, nos aseguramos de que tu bóveda esté lista para como sea que decidas interactuar con ella mañana.
+
+---
+
+*¿Listo para conectar tu agente de IA a tu bóveda? [Crea tu cuenta gratuita de LegacyShield](https://legacyshield.eu) y genera una API key para empezar.*

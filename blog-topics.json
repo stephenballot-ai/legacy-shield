@@ -1,5 +1,5 @@
 {
-  "nextIndex": 1,
+  "nextIndex": 10,
   "topics": [
     {
       "slug": "why-you-need-a-digital-executor",
@@ -40,6 +40,16 @@
       "slug": "gdpr-data-portability-estate-planning",
       "keywords": ["GDPR data portability", "right to data portability death", "EU data rights inheritance", "digital estate GDPR"],
       "brief": "GDPR gives you the right to your data. But does that right transfer to your heirs? The legal grey zone that affects every European."
+    },
+    {
+      "slug": "inheriting-a-digital-business-stripe-shopify",
+      "keywords": ["digital business inheritance", "Stripe account death", "Shopify store succession", "e-commerce estate planning", "transfer online business after death"],
+      "brief": "What happens to your Stripe balance or Shopify store when you die? For many entrepreneurs, their business is their biggest asset, yet its digital keys are often lost. How to ensure your online business survives you."
+    },
+    {
+      "slug": "social-media-memorialization-guide",
+      "keywords": ["social media legacy", "Facebook legacy contact", "Instagram memorialized account", "LinkedIn account after death", "digital footprint inheritance"],
+      "brief": "A complete guide to setting up legacy contacts and memorialization settings on major social platforms. Don't leave your profile to chance."
     }
   ]
 }

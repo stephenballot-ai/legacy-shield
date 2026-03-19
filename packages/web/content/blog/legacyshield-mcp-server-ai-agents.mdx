@@ -1,0 +1,140 @@
+---
+title: "LegacyShield Now Speaks MCP: Any AI Agent Can Access Your Encrypted Vault"
+description: "LegacyShield is now available as an MCP server. Any MCP-compatible AI client — Claude, Cursor, Windsurf, or your own agent — can list and inspect your encrypted vault files. Here's what MCP is and how to set it up."
+date: "2026-03-16"
+author: "LegacyShield Team"
+locale: "en"
+slug: "legacyshield-mcp-server-ai-agents"
+keywords: ["MCP server", "Model Context Protocol", "AI agent vault", "Claude MCP", "LegacyShield API", "encrypted vault AI", "MCP compatible client", "zero-knowledge AI"]
+faq:
+  - q: "What is the Model Context Protocol (MCP)?"
+    a: "MCP is an open standard created by Anthropic that lets AI agents connect to external tools and data sources through a unified interface. Think of it as a USB-C port for AI — one protocol, any agent."
+  - q: "Can an AI agent read my encrypted files through MCP?"
+    a: "No. LegacyShield uses zero-knowledge encryption. The MCP server can list files and retrieve metadata, but the actual file contents remain encrypted. Your encryption key never leaves your device."
+  - q: "Which AI clients support MCP?"
+    a: "Claude Desktop, Cursor, Windsurf, Cline, and any client built on the MCP SDK. The ecosystem is growing rapidly."
+  - q: "Is my API key safe?"
+    a: "Your API key is stored locally in your MCP client configuration and is never shared with the AI model itself. It authenticates your agent's requests to the LegacyShield API."
+readingTime: "5 min read"
+---
+
+## Your Vault Just Learned to Talk to AI
+
+Until now, interacting with your LegacyShield vault meant logging into the dashboard, uploading files, and managing everything manually. That works — but we live in an era where AI agents are becoming our digital co-pilots. Shouldn't they be able to work with your vault too?
+
+Today, we're announcing that **LegacyShield is now available as an MCP server**. That means any AI agent that speaks the Model Context Protocol can connect directly to your encrypted vault.
+
+## What Is MCP?
+
+The **Model Context Protocol (MCP)** is an open standard originally developed by Anthropic. It solves a simple but critical problem: how do you let AI agents interact with external tools and data sources in a safe, standardized way?
+
+Before MCP, every integration was custom. Want Claude to check your calendar? Custom API. Want it to query a database? Another custom integration. Every tool, every agent, every connection — built from scratch.
+
+MCP changes that. It defines a universal protocol that any AI client can use to discover and call tools on any MCP server. Think of it like **USB-C for AI**: one standard connector, infinite possibilities.
+
+### How It Works
+
+```
+┌─────────────┐     MCP Protocol     ┌──────────────────┐     HTTPS     ┌─────────────────┐
+│  AI Client   │ ◄──────────────────► │  MCP Server       │ ◄───────────► │  LegacyShield   │
+│  (Claude,    │    stdio / SSE       │  (legacy-shield)  │               │  API             │
+│   Cursor)    │                      │                    │               │                  │
+└─────────────┘                       └──────────────────┘               └─────────────────┘
+```
+
+1. Your AI client connects to the LegacyShield MCP server
+2. The server exposes tools: `list_vault_files` and `get_file_metadata`
+3. The AI agent can browse your vault, check file categories, and inspect metadata
+4. All actual file contents stay encrypted — the server never decrypts anything
+
+## What Can an Agent Do With Your Vault?
+
+With MCP access, your AI agent can:
+
+- **List all files** in your vault, optionally filtered by category (IDENTITY, TAX, LEGAL, etc.)
+- **Inspect file metadata** — see when a file was uploaded, its category, encryption headers, and status
+- **Help you organize** — "Do I have my Dutch tax return from 2025 in the vault?"
+- **Audit your coverage** — "What document categories am I missing?"
+- **Integrate into workflows** — estate planning agents can verify that critical documents are actually stored
+
+What it **cannot** do:
+
+- Read your actual file contents (zero-knowledge encryption means only you hold the key)
+- Upload, modify, or delete files (read-only access by design)
+- Access your encryption key in any way
+
+This is intentional. Your vault is a **zero-knowledge system**. MCP gives agents a window into what's there, not the keys to open it.
+
+## How to Set It Up
+
+### 1. Get Your API Key
+
+Log into your LegacyShield account and generate an agent API key. This key identifies your agent's requests to the vault.
+
+### 2. Configure Your MCP Client
+
+Add the LegacyShield server to your client's MCP configuration. Here's how for the most popular clients:
+
+**Claude Desktop** (`claude_desktop_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "legacy-shield": {
+      "command": "npx",
+      "args": ["-y", "@legacy-shield/mcp-server"],
+      "env": {
+        "LEGACY_SHIELD_API_KEY": "your-api-key-here"
+      }
+    }
+  }
+}
+```
+
+**Cursor** (Settings → MCP → Add Server):
+
+```json
+{
+  "legacy-shield": {
+    "command": "npx",
+    "args": ["-y", "@legacy-shield/mcp-server"],
+    "env": {
+      "LEGACY_SHIELD_API_KEY": "your-api-key-here"
+    }
+  }
+}
+```
+
+**Any MCP-compatible client** — the pattern is the same: point it at `@legacy-shield/mcp-server` via npx and pass your API key as an environment variable.
+
+### 3. Start Talking to Your Vault
+
+Once configured, your AI agent will automatically discover the LegacyShield tools. Try asking:
+
+- *"List all files in my LegacyShield vault"*
+- *"Do I have any LEGAL documents stored?"*
+- *"Show me the metadata for my most recent upload"*
+
+That's it. No complex setup, no API wrangling. Just connect and go.
+
+## Why This Matters
+
+We believe the future of personal document management is **agent-assisted**. You shouldn't have to manually check whether your vault is complete, whether your will is up to date, or whether you've stored your partner's pension documents.
+
+An AI agent with MCP access can do that for you — proactively, conversationally, and without ever compromising your encryption.
+
+LegacyShield was built from day one with a zero-knowledge architecture. Adding MCP doesn't change that. It just makes your vault smarter about how it communicates what it knows — without ever revealing what it holds.
+
+## What's Next
+
+This is version 1.0 of our MCP server. We're already working on:
+
+- **Upload support** — let agents add files to your vault (with your explicit approval)
+- **Smart notifications** — agents that remind you when documents are expiring
+- **Multi-vault queries** — for estate planners managing multiple clients
+
+The Model Context Protocol is still young, but it's growing fast. By making LegacyShield MCP-compatible today, we're ensuring your vault is ready for however you choose to interact with it tomorrow.
+
+---
+
+*Ready to connect your AI agent to your vault? [Create your free LegacyShield account](https://legacyshield.eu) and generate an API key to get started.*

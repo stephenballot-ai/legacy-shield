@@ -1,6 +1,6 @@
 # MEMORY.md - Long-Term Memory
 
-_Last updated: 2026-03-12_
+_Last updated: 2026-03-18_
 
 ## People
 
@@ -10,28 +10,37 @@ _Last updated: 2026-03-12_
 
 ## Projects
 
+### BitAtlas (bitatlas.com)
+- **Vision**: Zero Knowledge Cloud Drive for Humans and Agents.
+- **Status**: Spun off as a standalone horizontal product on March 17. Repository `bitatlas-group/bitatlas` initialized and pushed with core scaffold on March 18.
+- **GitHub**: Org `bitatlas-group` created. Repo `bitatlas` contains MCP server, encryption SDK (AES-256-GCM), architecture specs, and a modern Next.js 14 landing page.
+- **Landing Page**: Modern Next.js 14, Tailwind, EU-hosted, Zero-Knowledge focus. Initial scaffold pushed on March 18.
+- **Logo**: Atlas carrying encrypted data — finalized March 17. Stored at `assets/bitatlas-logo.jpg`. Integrated into the landing page.
+
 ### LegacyShield
-- Digital legacy / end-of-life planning platform
-- **Pension Forecaster** launched at `/calculators/pension` — covers South Africa (SARS tax tables), Netherlands (AOW gap), Germany (Rentenbescheid)
-- Frontend migrated from PM2 → Docker container
-- Infra: Nginx reverse proxy, had port conflict issues during migration (4000 vs 3000)
-- Security incident: caught attempted push of GSC service account creds, scrubbed git history
-- **Growth strategies**: llms.txt injection, robots.txt breadcrumbs for LLM crawlers, agent referral program concept, "Dead Man's Prompt" concept
-- **Content engine**: multilingual blog posts (6 languages)
-- **Founding Member Program**: first 10 users tier launched
-- **Side opportunity identified**: Pension Calculation Auditor for SMBs
+- Digital legacy / end-of-life planning platform.
+- **Migration**: Plan for moving `stephenballot-ai/legacy-shield` to `bitatlas-group` is documented at `MIGRATION_PLAN_LEGACYSHIELD.md`.
+- **Platform Status (March 14)**: 20 users (9 PRO, 1 Lifetime, 10 FREE), 24 files, 12 agents, 52 sessions.
+- **Infra**: Dockerized (API on port 4000), healthy. OpenClaw updated to 2026.3.13.
+- **Growth & Distribution**:
+    - Registrations planned for **MCP.run** and **Smithery.ai**.
+    - llms.txt submitted to aggregators.
+    - Potential **Mem0** integration for secure agent persistence.
+- **Calculators**: Pension Forecaster launched at `/calculators/pension` (covers ZA, NL, DE).
+- **Content engine**: daily blog posts (6 languages).
 
 ### Context Hub
-- PR #54 open at andrewyng/context-hub — monitoring via heartbeat
+- PR #54 open at andrewyng/context-hub — waiting for maintainer review.
 
 ### Daily Crons
-- **LegacyShield Daily Report** (9AM) — SSHes into prod (root@89.167.36.119), queries postgres + runs GSC report script, sends to Telegram
-- **Agent Distribution Scout** (10AM) — finds new MCP directories, agent registries, distribution channels for LegacyShield
-- **Daily Blog Post Engine** (7AM) — writes SEO blog posts in 6 languages (en/nl/de/fr/it/es), commits & pushes to main
-- **Product Discovery Scout** (8:30AM) — Teresa Torres framework, finds product opportunities, logs to product-ideas.md
-- Prod infra: server at 89.167.36.119, postgres container (db: legacyshield_prod, user: legacyshield)
+- **LegacyShield Daily Report** (9AM) — Stats via production DB audit (root@89.167.36.119).
+- **Agent Distribution Scout** (10AM) — Registry discovery and SEO/LLM-crawler optimization.
+- **Daily Blog Post Engine** (7AM) — Multilingual SEO generation.
+- **Product Discovery Scout** (8:30AM) — Teresa Torres framework.
 
 ## Lessons
 
-- Always create MEMORY.md on first session — daily files alone aren't enough
-- Port conflicts during Docker migrations: always verify Nginx upstream matches container port
+- Always create MEMORY.md on first session — daily files alone aren't enough.
+- Port conflicts during Docker migrations: always verify Nginx upstream matches container port.
+- **Distribution**: AI registries (MCP.run, Smithery) are first-class channels in 2026.
+- **Separation of Concerns**: Horizontal infrastructure (BitAtlas) should be independent of vertical products (LegacyShield) from day one.

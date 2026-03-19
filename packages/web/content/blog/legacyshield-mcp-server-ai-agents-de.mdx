@@ -1,0 +1,140 @@
+---
+title: "LegacyShield spricht jetzt MCP: Jeder KI-Agent kann auf deinen verschlüsselten Tresor zugreifen"
+description: "LegacyShield ist jetzt als MCP-Server verfügbar. Jeder MCP-kompatible KI-Client — Claude, Cursor, Windsurf oder dein eigener Agent — kann deine verschlüsselten Tresordateien auflisten und inspizieren. Hier erfährst du, was MCP ist und wie du es einrichtest."
+date: "2026-03-16"
+author: "LegacyShield Team"
+locale: "de"
+slug: "legacyshield-mcp-server-ai-agents"
+keywords: ["MCP Server", "Model Context Protocol", "KI-Agent Tresor", "Claude MCP", "LegacyShield API", "verschlüsselter Tresor KI", "MCP-kompatibler Client", "Zero-Knowledge KI"]
+faq:
+  - q: "Was ist das Model Context Protocol (MCP)?"
+    a: "MCP ist ein offener Standard von Anthropic, der es KI-Agenten ermöglicht, sich über eine einheitliche Schnittstelle mit externen Tools und Datenquellen zu verbinden. Stell es dir wie einen USB-C-Anschluss für KI vor — ein Protokoll, jeder Agent."
+  - q: "Kann ein KI-Agent meine verschlüsselten Dateien über MCP lesen?"
+    a: "Nein. LegacyShield verwendet Zero-Knowledge-Verschlüsselung. Der MCP-Server kann Dateien auflisten und Metadaten abrufen, aber der eigentliche Dateiinhalt bleibt verschlüsselt. Dein Verschlüsselungsschlüssel verlässt niemals dein Gerät."
+  - q: "Welche KI-Clients unterstützen MCP?"
+    a: "Claude Desktop, Cursor, Windsurf, Cline und jeder Client, der auf dem MCP SDK basiert. Das Ökosystem wächst rasant."
+  - q: "Ist mein API-Key sicher?"
+    a: "Dein API-Key wird lokal in der Konfiguration deines MCP-Clients gespeichert und wird niemals mit dem KI-Modell selbst geteilt. Er authentifiziert die Anfragen deines Agenten an die LegacyShield API."
+readingTime: "5 Min. Lesezeit"
+---
+
+## Dein Tresor kann jetzt mit KI sprechen
+
+Bisher bedeutete die Interaktion mit deinem LegacyShield-Tresor: ins Dashboard einloggen, Dateien hochladen und alles manuell verwalten. Das funktioniert — aber wir leben in einer Zeit, in der KI-Agenten zu unseren digitalen Co-Piloten werden. Sollten sie nicht auch mit deinem Tresor arbeiten können?
+
+Heute geben wir bekannt, dass **LegacyShield ab sofort als MCP-Server verfügbar ist**. Das bedeutet: Jeder KI-Agent, der das Model Context Protocol spricht, kann sich direkt mit deinem verschlüsselten Tresor verbinden.
+
+## Was ist MCP?
+
+Das **Model Context Protocol (MCP)** ist ein offener Standard, der ursprünglich von Anthropic entwickelt wurde. Es löst ein einfaches, aber entscheidendes Problem: Wie lässt man KI-Agenten auf sichere und standardisierte Weise mit externen Tools und Datenquellen interagieren?
+
+Vor MCP war jede Integration maßgeschneidert. Claude soll deinen Kalender prüfen? Eigene API. Eine Datenbank abfragen? Noch eine eigene Integration. Jedes Tool, jeder Agent, jede Verbindung — von Grund auf gebaut.
+
+MCP ändert das. Es definiert ein universelles Protokoll, über das jeder KI-Client Tools auf jedem MCP-Server entdecken und aufrufen kann. Stell es dir vor wie **USB-C für KI**: ein Standard-Anschluss, unendliche Möglichkeiten.
+
+### So funktioniert es
+
+```
+┌─────────────┐     MCP Protocol     ┌──────────────────┐     HTTPS     ┌─────────────────┐
+│  AI Client   │ ◄──────────────────► │  MCP Server       │ ◄───────────► │  LegacyShield   │
+│  (Claude,    │    stdio / SSE       │  (legacy-shield)  │               │  API             │
+│   Cursor)    │                      │                    │               │                  │
+└─────────────┘                       └──────────────────┘               └─────────────────┘
+```
+
+1. Dein KI-Client verbindet sich mit dem LegacyShield MCP-Server
+2. Der Server stellt Tools bereit: `list_vault_files` und `get_file_metadata`
+3. Der KI-Agent kann deinen Tresor durchsuchen, Dateikategorien prüfen und Metadaten inspizieren
+4. Alle eigentlichen Dateiinhalte bleiben verschlüsselt — der Server entschlüsselt niemals etwas
+
+## Was kann ein Agent mit deinem Tresor machen?
+
+Mit MCP-Zugriff kann dein KI-Agent:
+
+- **Alle Dateien auflisten** in deinem Tresor, optional gefiltert nach Kategorie (IDENTITY, TAX, LEGAL usw.)
+- **Datei-Metadaten inspizieren** — sehen, wann eine Datei hochgeladen wurde, ihre Kategorie, Verschlüsselungs-Header und Status
+- **Dir beim Organisieren helfen** — „Habe ich meine niederländische Steuererklärung von 2025 im Tresor?"
+- **Deine Abdeckung prüfen** — „Welche Dokumentenkategorien fehlen mir?"
+- **In Workflows integrieren** — Nachlassplanungs-Agenten können überprüfen, ob wichtige Dokumente tatsächlich gespeichert sind
+
+Was er **nicht** kann:
+
+- Deine tatsächlichen Dateiinhalte lesen (Zero-Knowledge-Verschlüsselung bedeutet, dass nur du den Schlüssel hast)
+- Dateien hochladen, ändern oder löschen (bewusst nur Lesezugriff)
+- In irgendeiner Weise auf deinen Verschlüsselungsschlüssel zugreifen
+
+Das ist Absicht. Dein Tresor ist ein **Zero-Knowledge-System**. MCP gibt Agenten einen Einblick in das, was vorhanden ist — nicht die Schlüssel, um es zu öffnen.
+
+## So richtest du es ein
+
+### 1. Hol dir deinen API-Key
+
+Logge dich in dein LegacyShield-Konto ein und erstelle einen Agent-API-Key. Dieser Key identifiziert die Anfragen deines Agenten an den Tresor.
+
+### 2. Konfiguriere deinen MCP-Client
+
+Füge den LegacyShield-Server zur MCP-Konfiguration deines Clients hinzu. So geht es bei den beliebtesten Clients:
+
+**Claude Desktop** (`claude_desktop_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "legacy-shield": {
+      "command": "npx",
+      "args": ["-y", "@legacy-shield/mcp-server"],
+      "env": {
+        "LEGACY_SHIELD_API_KEY": "your-api-key-here"
+      }
+    }
+  }
+}
+```
+
+**Cursor** (Einstellungen → MCP → Server hinzufügen):
+
+```json
+{
+  "legacy-shield": {
+    "command": "npx",
+    "args": ["-y", "@legacy-shield/mcp-server"],
+    "env": {
+      "LEGACY_SHIELD_API_KEY": "your-api-key-here"
+    }
+  }
+}
+```
+
+**Jeder MCP-kompatible Client** — das Muster ist immer dasselbe: Verweise auf `@legacy-shield/mcp-server` via npx und übergib deinen API-Key als Umgebungsvariable.
+
+### 3. Sprich mit deinem Tresor
+
+Sobald alles konfiguriert ist, erkennt dein KI-Agent automatisch die LegacyShield-Tools. Probiere zum Beispiel:
+
+- *„Liste alle Dateien in meinem LegacyShield-Tresor auf"*
+- *„Habe ich LEGAL-Dokumente gespeichert?"*
+- *„Zeig mir die Metadaten meines letzten Uploads"*
+
+Das war's. Kein kompliziertes Setup, kein API-Gefummel. Einfach verbinden und loslegen.
+
+## Warum das wichtig ist
+
+Wir glauben, dass die Zukunft der persönlichen Dokumentenverwaltung **agentengestützt** ist. Du solltest nicht manuell prüfen müssen, ob dein Tresor vollständig ist, ob dein Testament aktuell ist oder ob du die Rentendokumente deines Partners gespeichert hast.
+
+Ein KI-Agent mit MCP-Zugang kann das für dich erledigen — proaktiv, im Gespräch und ohne jemals deine Verschlüsselung zu gefährden.
+
+LegacyShield wurde von Anfang an mit einer Zero-Knowledge-Architektur gebaut. MCP ändert daran nichts. Es macht deinen Tresor nur intelligenter in der Art, wie er kommuniziert, was er weiß — ohne jemals preiszugeben, was er enthält.
+
+## Was kommt als Nächstes
+
+Dies ist Version 1.0 unseres MCP-Servers. Wir arbeiten bereits an:
+
+- **Upload-Unterstützung** — Agenten können Dateien zu deinem Tresor hinzufügen (mit deiner ausdrücklichen Genehmigung)
+- **Intelligente Benachrichtigungen** — Agenten, die dich erinnern, wenn Dokumente ablaufen
+- **Multi-Tresor-Abfragen** — für Nachlassplaner, die mehrere Mandanten betreuen
+
+Das Model Context Protocol ist noch jung, aber es wächst schnell. Indem wir LegacyShield heute MCP-kompatibel machen, stellen wir sicher, dass dein Tresor bereit ist — egal wie du morgen mit ihm interagieren möchtest.
+
+---
+
+*Bereit, deinen KI-Agenten mit deinem Tresor zu verbinden? [Erstelle dein kostenloses LegacyShield-Konto](https://legacyshield.eu) und generiere einen API-Key, um loszulegen.*

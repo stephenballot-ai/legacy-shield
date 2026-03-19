@@ -1,0 +1,140 @@
+---
+title: "LegacyShield spreekt nu MCP: elke AI-agent heeft toegang tot je versleutelde kluis"
+description: "LegacyShield is nu beschikbaar als MCP-server. Elke MCP-compatibele AI-client — Claude, Cursor, Windsurf of je eigen agent — kan je versleutelde kluisbestanden bekijken en inspecteren. Dit is wat MCP is en hoe je het instelt."
+date: "2026-03-16"
+author: "LegacyShield Team"
+locale: "nl"
+slug: "legacyshield-mcp-server-ai-agents"
+keywords: ["MCP server", "Model Context Protocol", "AI-agent kluis", "Claude MCP", "LegacyShield API", "versleutelde kluis AI", "MCP-compatibele client", "zero-knowledge AI"]
+faq:
+  - q: "Wat is het Model Context Protocol (MCP)?"
+    a: "MCP is een open standaard van Anthropic waarmee AI-agenten via een uniforme interface verbinding kunnen maken met externe tools en databronnen. Zie het als een USB-C-poort voor AI — één protocol, elke agent."
+  - q: "Kan een AI-agent mijn versleutelde bestanden lezen via MCP?"
+    a: "Nee. LegacyShield gebruikt zero-knowledge-encryptie. De MCP-server kan bestanden oplijsten en metadata ophalen, maar de daadwerkelijke bestandsinhoud blijft versleuteld. Je encryptiesleutel verlaat nooit je apparaat."
+  - q: "Welke AI-clients ondersteunen MCP?"
+    a: "Claude Desktop, Cursor, Windsurf, Cline en elke client die op de MCP SDK is gebouwd. Het ecosysteem groeit snel."
+  - q: "Is mijn API-key veilig?"
+    a: "Je API-key wordt lokaal opgeslagen in de configuratie van je MCP-client en wordt nooit gedeeld met het AI-model zelf. Het authenticeert de verzoeken van je agent aan de LegacyShield API."
+readingTime: "5 min leestijd"
+---
+
+## Je kluis kan nu praten met AI
+
+Tot nu toe betekende werken met je LegacyShield-kluis: inloggen op het dashboard, bestanden uploaden en alles handmatig beheren. Dat werkt — maar we leven in een tijd waarin AI-agenten onze digitale co-piloten worden. Zouden ze niet ook met je kluis moeten kunnen werken?
+
+Vandaag kondigen we aan dat **LegacyShield nu beschikbaar is als MCP-server**. Dat betekent dat elke AI-agent die het Model Context Protocol spreekt, rechtstreeks verbinding kan maken met je versleutelde kluis.
+
+## Wat is MCP?
+
+Het **Model Context Protocol (MCP)** is een open standaard die oorspronkelijk is ontwikkeld door Anthropic. Het lost een eenvoudig maar cruciaal probleem op: hoe laat je AI-agenten op een veilige, gestandaardiseerde manier communiceren met externe tools en databronnen?
+
+Vóór MCP was elke integratie maatwerk. Wil je dat Claude je agenda checkt? Eigen API. Een database bevragen? Weer een andere integratie. Elk tool, elke agent, elke verbinding — helemaal opnieuw gebouwd.
+
+MCP verandert dat. Het definieert een universeel protocol waarmee elke AI-client tools kan ontdekken en aanroepen op elke MCP-server. Zie het als **USB-C voor AI**: één standaard connector, eindeloze mogelijkheden.
+
+### Hoe het werkt
+
+```
+┌─────────────┐     MCP Protocol     ┌──────────────────┐     HTTPS     ┌─────────────────┐
+│  AI Client   │ ◄──────────────────► │  MCP Server       │ ◄───────────► │  LegacyShield   │
+│  (Claude,    │    stdio / SSE       │  (legacy-shield)  │               │  API             │
+│   Cursor)    │                      │                    │               │                  │
+└─────────────┘                       └──────────────────┘               └─────────────────┘
+```
+
+1. Je AI-client maakt verbinding met de LegacyShield MCP-server
+2. De server biedt tools aan: `list_vault_files` en `get_file_metadata`
+3. De AI-agent kan je kluis doorzoeken, bestandscategorieën bekijken en metadata inspecteren
+4. Alle daadwerkelijke bestandsinhoud blijft versleuteld — de server ontsleutelt nooit iets
+
+## Wat kan een agent met je kluis doen?
+
+Met MCP-toegang kan je AI-agent:
+
+- **Alle bestanden oplijsten** in je kluis, optioneel gefilterd op categorie (IDENTITY, TAX, LEGAL, enz.)
+- **Bestandsmetadata inspecteren** — zien wanneer een bestand is geüpload, de categorie, encryptie-headers en status
+- **Je helpen organiseren** — "Heb ik mijn Nederlandse belastingaangifte van 2025 in de kluis?"
+- **Je dekking controleren** — "Welke documentcategorieën mis ik?"
+- **Integreren in workflows** — agents voor nalatenschapsplanning kunnen controleren of belangrijke documenten daadwerkelijk zijn opgeslagen
+
+Wat het **niet** kan:
+
+- Je daadwerkelijke bestandsinhoud lezen (zero-knowledge-encryptie betekent dat alleen jij de sleutel hebt)
+- Bestanden uploaden, wijzigen of verwijderen (bewust alleen leestoegang)
+- Op welke manier dan ook toegang krijgen tot je encryptiesleutel
+
+Dit is bewust zo ontworpen. Je kluis is een **zero-knowledge-systeem**. MCP geeft agents een kijkje in wat er is — niet de sleutels om het te openen.
+
+## Zo stel je het in
+
+### 1. Haal je API-key op
+
+Log in op je LegacyShield-account en genereer een agent-API-key. Deze key identificeert de verzoeken van je agent aan de kluis.
+
+### 2. Configureer je MCP-client
+
+Voeg de LegacyShield-server toe aan de MCP-configuratie van je client. Zo doe je dat voor de populairste clients:
+
+**Claude Desktop** (`claude_desktop_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "legacy-shield": {
+      "command": "npx",
+      "args": ["-y", "@legacy-shield/mcp-server"],
+      "env": {
+        "LEGACY_SHIELD_API_KEY": "your-api-key-here"
+      }
+    }
+  }
+}
+```
+
+**Cursor** (Instellingen → MCP → Server toevoegen):
+
+```json
+{
+  "legacy-shield": {
+    "command": "npx",
+    "args": ["-y", "@legacy-shield/mcp-server"],
+    "env": {
+      "LEGACY_SHIELD_API_KEY": "your-api-key-here"
+    }
+  }
+}
+```
+
+**Elke MCP-compatibele client** — het patroon is hetzelfde: verwijs naar `@legacy-shield/mcp-server` via npx en geef je API-key mee als omgevingsvariabele.
+
+### 3. Praat met je kluis
+
+Zodra alles is geconfigureerd, ontdekt je AI-agent automatisch de LegacyShield-tools. Probeer bijvoorbeeld:
+
+- *"Geef een lijst van alle bestanden in mijn LegacyShield-kluis"*
+- *"Heb ik LEGAL-documenten opgeslagen?"*
+- *"Laat me de metadata zien van mijn meest recente upload"*
+
+Dat is alles. Geen ingewikkelde setup, geen API-gedoe. Gewoon verbinden en aan de slag.
+
+## Waarom dit belangrijk is
+
+Wij geloven dat de toekomst van persoonlijk documentbeheer **agent-gestuurd** is. Je zou niet handmatig hoeven te controleren of je kluis compleet is, of je testament up-to-date is, of je de pensioendocumenten van je partner hebt opgeslagen.
+
+Een AI-agent met MCP-toegang kan dat voor je doen — proactief, in een gesprek, en zonder ooit je encryptie in gevaar te brengen.
+
+LegacyShield is vanaf dag één gebouwd met een zero-knowledge-architectuur. MCP verandert daar niets aan. Het maakt je kluis alleen slimmer in hoe het communiceert wat het weet — zonder ooit prijs te geven wat het bevat.
+
+## Wat komt er nog aan
+
+Dit is versie 1.0 van onze MCP-server. We werken al aan:
+
+- **Upload-ondersteuning** — agents kunnen bestanden toevoegen aan je kluis (met jouw uitdrukkelijke goedkeuring)
+- **Slimme notificaties** — agents die je herinneren wanneer documenten verlopen
+- **Multi-kluis-queries** — voor nalatenschapsplanners die meerdere cliënten beheren
+
+Het Model Context Protocol is nog jong, maar groeit snel. Door LegacyShield vandaag MCP-compatibel te maken, zorgen we ervoor dat je kluis klaar is — hoe je er morgen ook mee wilt werken.
+
+---
+
+*Klaar om je AI-agent te verbinden met je kluis? [Maak je gratis LegacyShield-account aan](https://legacyshield.eu) en genereer een API-key om te beginnen.*

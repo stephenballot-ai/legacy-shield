@@ -1,0 +1,140 @@
+---
+title: "LegacyShield parle désormais MCP : n'importe quel agent IA peut accéder à votre coffre-fort chiffré"
+description: "LegacyShield est désormais disponible en tant que serveur MCP. Tout client IA compatible MCP — Claude, Cursor, Windsurf ou votre propre agent — peut lister et inspecter les fichiers de votre coffre-fort chiffré. Voici ce qu'est MCP et comment le configurer."
+date: "2026-03-16"
+author: "LegacyShield Team"
+locale: "fr"
+slug: "legacyshield-mcp-server-ai-agents"
+keywords: ["serveur MCP", "Model Context Protocol", "coffre-fort agent IA", "Claude MCP", "LegacyShield API", "coffre-fort chiffré IA", "client compatible MCP", "zero-knowledge IA"]
+faq:
+  - q: "Qu'est-ce que le Model Context Protocol (MCP) ?"
+    a: "MCP est un standard ouvert créé par Anthropic qui permet aux agents IA de se connecter à des outils et sources de données externes via une interface unifiée. Voyez-le comme un port USB-C pour l'IA : un protocole, n'importe quel agent."
+  - q: "Un agent IA peut-il lire mes fichiers chiffrés via MCP ?"
+    a: "Non. LegacyShield utilise un chiffrement zero-knowledge. Le serveur MCP peut lister les fichiers et récupérer les métadonnées, mais le contenu réel des fichiers reste chiffré. Votre clé de chiffrement ne quitte jamais votre appareil."
+  - q: "Quels clients IA prennent en charge MCP ?"
+    a: "Claude Desktop, Cursor, Windsurf, Cline et tout client construit sur le MCP SDK. L'écosystème se développe rapidement."
+  - q: "Ma clé API est-elle en sécurité ?"
+    a: "Votre clé API est stockée localement dans la configuration de votre client MCP et n'est jamais partagée avec le modèle IA lui-même. Elle authentifie les requêtes de votre agent auprès de l'API LegacyShield."
+readingTime: "5 min de lecture"
+---
+
+## Votre coffre-fort sait désormais parler aux agents IA
+
+Jusqu'à présent, interagir avec votre coffre-fort LegacyShield signifiait se connecter au tableau de bord, téléverser des fichiers et tout gérer manuellement. Ça fonctionne — mais nous vivons à une époque où les agents IA deviennent nos copilotes numériques. Ne devraient-ils pas aussi pouvoir travailler avec votre coffre-fort ?
+
+Aujourd'hui, nous annonçons que **LegacyShield est désormais disponible en tant que serveur MCP**. Cela signifie que tout agent IA parlant le Model Context Protocol peut se connecter directement à votre coffre-fort chiffré.
+
+## Qu'est-ce que MCP ?
+
+Le **Model Context Protocol (MCP)** est un standard ouvert développé à l'origine par Anthropic. Il résout un problème simple mais crucial : comment permettre aux agents IA d'interagir avec des outils et sources de données externes de manière sécurisée et standardisée ?
+
+Avant MCP, chaque intégration était sur mesure. Vous voulez que Claude vérifie votre agenda ? API dédiée. Interroger une base de données ? Encore une autre intégration. Chaque outil, chaque agent, chaque connexion — construits à partir de zéro.
+
+MCP change la donne. Il définit un protocole universel permettant à tout client IA de découvrir et d'appeler des outils sur n'importe quel serveur MCP. Voyez-le comme **l'USB-C de l'IA** : un connecteur standard, des possibilités infinies.
+
+### Comment ça marche
+
+```
+┌─────────────┐     MCP Protocol     ┌──────────────────┐     HTTPS     ┌─────────────────┐
+│  AI Client   │ ◄──────────────────► │  MCP Server       │ ◄───────────► │  LegacyShield   │
+│  (Claude,    │    stdio / SSE       │  (legacy-shield)  │               │  API             │
+│   Cursor)    │                      │                    │               │                  │
+└─────────────┘                       └──────────────────┘               └─────────────────┘
+```
+
+1. Votre client IA se connecte au serveur MCP de LegacyShield
+2. Le serveur expose des outils : `list_vault_files` et `get_file_metadata`
+3. L'agent IA peut parcourir votre coffre-fort, vérifier les catégories de fichiers et inspecter les métadonnées
+4. Tout le contenu réel des fichiers reste chiffré — le serveur ne déchiffre jamais rien
+
+## Que peut faire un agent avec votre coffre-fort ?
+
+Avec un accès MCP, votre agent IA peut :
+
+- **Lister tous les fichiers** de votre coffre-fort, avec filtrage optionnel par catégorie (IDENTITY, TAX, LEGAL, etc.)
+- **Inspecter les métadonnées des fichiers** — voir quand un fichier a été téléversé, sa catégorie, ses en-têtes de chiffrement et son statut
+- **Vous aider à organiser** — « Est-ce que j'ai ma déclaration d'impôts néerlandaise de 2025 dans le coffre-fort ? »
+- **Auditer votre couverture** — « Quelles catégories de documents me manquent ? »
+- **S'intégrer dans vos workflows** — les agents de planification successorale peuvent vérifier que les documents critiques sont bien stockés
+
+Ce qu'il **ne peut pas** faire :
+
+- Lire le contenu réel de vos fichiers (le chiffrement zero-knowledge signifie que vous seul détenez la clé)
+- Téléverser, modifier ou supprimer des fichiers (accès en lecture seule, par conception)
+- Accéder à votre clé de chiffrement de quelque manière que ce soit
+
+C'est intentionnel. Votre coffre-fort est un **système zero-knowledge**. MCP donne aux agents une fenêtre sur ce qui s'y trouve, pas les clés pour l'ouvrir.
+
+## Comment le configurer
+
+### 1. Obtenez votre clé API
+
+Connectez-vous à votre compte LegacyShield et générez une clé API d'agent. Cette clé identifie les requêtes de votre agent auprès du coffre-fort.
+
+### 2. Configurez votre client MCP
+
+Ajoutez le serveur LegacyShield à la configuration MCP de votre client. Voici comment faire pour les clients les plus populaires :
+
+**Claude Desktop** (`claude_desktop_config.json`) :
+
+```json
+{
+  "mcpServers": {
+    "legacy-shield": {
+      "command": "npx",
+      "args": ["-y", "@legacy-shield/mcp-server"],
+      "env": {
+        "LEGACY_SHIELD_API_KEY": "your-api-key-here"
+      }
+    }
+  }
+}
+```
+
+**Cursor** (Paramètres → MCP → Ajouter un serveur) :
+
+```json
+{
+  "legacy-shield": {
+    "command": "npx",
+    "args": ["-y", "@legacy-shield/mcp-server"],
+    "env": {
+      "LEGACY_SHIELD_API_KEY": "your-api-key-here"
+    }
+  }
+}
+```
+
+**Tout client compatible MCP** — le principe est le même : pointez vers `@legacy-shield/mcp-server` via npx et passez votre clé API en variable d'environnement.
+
+### 3. Parlez à votre coffre-fort
+
+Une fois configuré, votre agent IA découvrira automatiquement les outils LegacyShield. Essayez de demander :
+
+- *« Liste tous les fichiers de mon coffre-fort LegacyShield »*
+- *« Est-ce que j'ai des documents LEGAL stockés ? »*
+- *« Montre-moi les métadonnées de mon dernier téléversement »*
+
+Et voilà. Pas de configuration complexe, pas de casse-tête avec les API. Connectez-vous et c'est parti.
+
+## Pourquoi c'est important
+
+Nous croyons que l'avenir de la gestion documentaire personnelle est **assisté par des agents**. Vous ne devriez pas avoir à vérifier manuellement si votre coffre-fort est complet, si votre testament est à jour ou si vous avez stocké les documents de retraite de votre partenaire.
+
+Un agent IA avec un accès MCP peut le faire pour vous — de manière proactive, conversationnelle, et sans jamais compromettre votre chiffrement.
+
+LegacyShield a été conçu dès le premier jour avec une architecture zero-knowledge. L'ajout de MCP ne change rien à cela. Il rend simplement votre coffre-fort plus intelligent dans sa façon de communiquer ce qu'il sait — sans jamais révéler ce qu'il contient.
+
+## Et ensuite ?
+
+Ceci est la version 1.0 de notre serveur MCP. Nous travaillons déjà sur :
+
+- **Le support du téléversement** — permettre aux agents d'ajouter des fichiers à votre coffre-fort (avec votre approbation explicite)
+- **Les notifications intelligentes** — des agents qui vous rappellent quand des documents arrivent à expiration
+- **Les requêtes multi-coffres** — pour les planificateurs successoraux gérant plusieurs clients
+
+Le Model Context Protocol est encore jeune, mais il se développe rapidement. En rendant LegacyShield compatible MCP dès aujourd'hui, nous nous assurons que votre coffre-fort est prêt, quelle que soit la façon dont vous choisirez d'interagir avec lui demain.
+
+---
+
+*Prêt à connecter votre agent IA à votre coffre-fort ? [Créez votre compte LegacyShield gratuit](https://legacyshield.eu) et générez une clé API pour commencer.*
