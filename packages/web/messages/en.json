@@ -13,8 +13,8 @@
     "done": "Done"
   },
   "metadata": {
-    "title": "LegacyShield | Secure Digital Estate Planning & Document Vault",
-    "description": "Securely store your most precious documents — passports, wills, insurance — with zero-knowledge encryption and emergency access for loved ones."
+    "title": "LegacyShield — Zero-Knowledge Vault for Wills, Passports & Digital Legacy",
+    "description": "Your family can't access your Dropbox when you die. LegacyShield encrypts everything client-side and gives your loved ones emergency access — no passwords needed."
   },
   "auth": {
     "login": {
