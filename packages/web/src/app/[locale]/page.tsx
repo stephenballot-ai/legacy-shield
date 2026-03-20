@@ -2,7 +2,7 @@
 
 import { Link } from '@/i18n/routing';
 import { useMemo } from 'react';
-import { Shield, Lock, Users, Server, Upload, UserPlus, CheckCircle, Heart } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 import { getCurrency } from '@/lib/utils/currency';
 import { useTranslations } from 'next-intl';
 import { useAuthStore } from '@/store/authStore';
@@ -43,49 +43,47 @@ function HeroSection() {
   const user = useAuthStore((s) => s.user);
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-primary-900 via-primary-800 to-navy-900 text-white">
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDE4YzMuMzE0IDAgNi0yLjY4NiA2LTZzLTIuNjg2LTYtNi02LTYgMi42ODYtNiA2IDIuNjg2IDYgNiA2eiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-32 lg:py-40">
-        <div className="text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 text-sm font-medium mb-8">
-            <Shield className="h-4 w-4 text-trust-400" />
-            <span>{t('badge')}</span>
-          </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
-            {t('title')}
-          </h1>
-          <p className="mt-6 text-lg sm:text-xl text-white/80 max-w-2xl mx-auto">
-            {t.rich('subtitle', {
-              strongItem: (chunks) => <strong>{chunks}</strong>
-            })}
-          </p>
-          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-            {user ? (
+    <section className="px-6 pt-12 pb-16 sentinel-gradient relative overflow-hidden">
+      <div className="relative z-10 max-w-6xl mx-auto sm:py-20">
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] tracking-tight mb-6 font-sans">
+          {t('title')}
+        </h1>
+        <p className="text-lg sm:text-xl text-primary-fixed-dim/90 leading-relaxed mb-10 font-light max-w-2xl">
+          {t.rich('subtitle', {
+            strongItem: (chunks) => <strong className="text-white">{chunks}</strong>
+          })}
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4">
+          {user ? (
+            <Link
+              href="/dashboard"
+              className="bg-secondary-container text-on-secondary-container font-semibold py-4 px-8 rounded-xl shadow-lg active:scale-95 transition-all text-center"
+            >
+              Go to Dashboard
+            </Link>
+          ) : (
+            <>
               <Link
-                href="/dashboard"
-                className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-accent-400 text-primary-900 font-semibold text-lg hover:bg-accent-500 transition-colors shadow-lg shadow-black/20"
+                href="/register"
+                className="bg-secondary-container text-on-secondary-container font-semibold py-4 px-8 rounded-xl shadow-lg active:scale-95 transition-all text-center"
               >
-                Go to Dashboard
+                {t('ctaPrimary')}
               </Link>
-            ) : (
-              <>
-                <Link
-                  href="/register"
-                  className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-accent-400 text-primary-900 font-semibold text-lg hover:bg-accent-500 transition-colors shadow-lg shadow-black/20"
-                >
-                  {t('ctaPrimary')}
-                </Link>
-                <a
-                  href="#how-it-works"
-                  className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl border-2 border-white/30 text-white font-semibold text-lg hover:bg-white/10 transition-colors"
-                >
-                  {t('ctaSecondary')}
-                </a>
-              </>
-            )}
-          </div>
-          {!user && <p className="mt-4 text-sm text-white/50">{t('disclaimer')}</p>}
+              <a
+                href="#how-it-works"
+                className="bg-transparent border border-white/20 text-white font-medium py-4 px-8 rounded-xl active:scale-95 transition-all text-center"
+              >
+                {t('ctaSecondary')}
+              </a>
+            </>
+          )}
         </div>
+        {!user && <p className="mt-4 text-sm text-white/40">{t('disclaimer')}</p>}
+      </div>
+      {/* Abstract glow */}
+      <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-secondary-container/10 rounded-full blur-[100px]" />
+      <div className="absolute top-10 right-10 opacity-20 hidden sm:block">
+        <span className="material-symbols-outlined text-[160px] text-white" style={{ fontVariationSettings: "'FILL' 1" }}>shield_with_heart</span>
       </div>
     </section>
   );
@@ -93,201 +91,65 @@ function HeroSection() {
 
 function TrustBar() {
   const items = [
-    { icon: '🇪🇺', label: 'European-Owned Infrastructure' },
-    { icon: '🔐', label: 'Zero-Knowledge Encryption' },
-    { icon: '🛡️', label: 'AES-256-GCM' },
-    { icon: '✅', label: 'GDPR-native' },
+    { icon: 'verified_user', label: 'Zero-Knowledge' },
+    { icon: 'euro', label: 'EU Infrastructure' },
+    { icon: 'enhanced_encryption', label: 'Military Grade' },
   ];
 
   return (
-    <section className="border-b border-gray-200 bg-gray-50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4">
-        <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm text-gray-600 font-medium">
-          {items.map((item) => (
-            <span key={item.label} className="flex items-center gap-1.5">
-              <span>{item.icon}</span>
-              {item.label}
-            </span>
-          ))}
+    <section className="bg-surface-container-low px-6 py-8 flex justify-center sm:justify-between items-center max-w-6xl mx-auto gap-6 flex-wrap">
+      {items.map((item, i) => (
+        <div key={item.label} className="flex flex-col items-center gap-1">
+          <span className="material-symbols-outlined text-primary-900/60 text-xl">{item.icon}</span>
+          <span className="text-[10px] font-bold uppercase tracking-widest text-primary-900/60">{item.label}</span>
         </div>
-      </div>
-    </section>
-  );
-}
-
-function WhatIfSection() {
-  const t = useTranslations('homepage.whatIf');
-  return (
-    <section className="py-20 sm:py-32 bg-gradient-to-br from-navy-900 via-primary-900 to-primary-800 text-white">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-12">
-          {t('headline')}
-        </h2>
-
-        <div className="space-y-6 mb-12">
-          <div className="border-l-4 border-white/30 pl-6 py-2">
-            <p className="text-lg sm:text-xl text-white/90">
-              {t('line1')}
-            </p>
-          </div>
-          <div className="border-l-4 border-white/30 pl-6 py-2">
-            <p className="text-lg sm:text-xl text-white/80">
-              {t('line2')}
-            </p>
-          </div>
-          <div className="border-l-4 border-white/30 pl-6 py-2">
-            <p className="text-lg sm:text-xl text-white/70">
-              {t('line3')}
-            </p>
-          </div>
-        </div>
-
-        <div className="text-center mb-8">
-          <p className="text-base sm:text-lg text-white/90 italic">
-            {t('stat')}
-          </p>
-        </div>
-
-        <div className="text-center mb-10">
-          <p className="text-xl sm:text-2xl font-semibold text-white">
-            {t('resolution')}
-          </p>
-        </div>
-
-        <div className="text-center">
-          <Link
-            href="/register"
-            className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-accent-400 text-primary-900 font-semibold text-lg hover:bg-accent-500 transition-colors shadow-lg"
-          >
-            {t('cta')}
-          </Link>
-        </div>
-      </div>
+      ))}
     </section>
   );
 }
 
 function FeaturesSection() {
   const t = useTranslations('homepage.features');
-  const features = [
-    {
-      icon: Lock,
-      title: t('encryption.title'),
-      description: t('encryption.desc'),
-      color: 'bg-primary-100 text-primary-700',
-    },
-    {
-      icon: Users,
-      title: t('emergency.title'),
-      description: t('emergency.desc'),
-      color: 'bg-trust-100 text-trust-700',
-    },
-    {
-      icon: Server,
-      title: t('hosting.title'),
-      description: t('hosting.desc'),
-      color: 'bg-navy-100 text-navy-700',
-    },
-  ];
 
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
-            {t('sectionTitle')}
-          </h2>
-          <p className="mt-4 text-lg text-gray-600">
-            {t('sectionSubtitle')}
-          </p>
+    <section className="px-6 py-16 bg-surface max-w-6xl mx-auto">
+      <h2 className="text-2xl sm:text-3xl font-bold text-primary-900 mb-8">{t('sectionTitle')}</h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-outline-variant/10 md:col-span-3 lg:col-span-1">
+          <span className="material-symbols-outlined text-secondary-container text-3xl mb-4">description</span>
+          <h3 className="text-lg font-bold text-primary-900 mb-2">{t('encryption.title')}</h3>
+          <p className="text-on-surface-variant text-sm leading-relaxed">{t('encryption.desc')}</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {features.map((feature) => (
-            <div key={feature.title} className="text-center p-8 rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-lg transition-all">
-              <div className={`inline-flex items-center justify-center w-14 h-14 rounded-xl ${feature.color} mb-6`}>
-                <feature.icon className="h-7 w-7" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">{feature.title}</h3>
-              <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-            </div>
-          ))}
+        <div className="bg-surface-container-low p-6 rounded-2xl border border-outline-variant/5">
+          <span className="material-symbols-outlined text-primary-900 text-2xl mb-4">account_balance</span>
+          <h3 className="text-md font-bold text-primary-900 mb-1">{t('emergency.title')}</h3>
+          <p className="text-on-surface-variant text-xs">{t('emergency.desc')}</p>
+        </div>
+        <div className="bg-surface-container-high p-6 rounded-2xl">
+          <span className="material-symbols-outlined text-primary-900 text-2xl mb-4">history_edu</span>
+          <h3 className="text-md font-bold text-primary-900 mb-1">{t('hosting.title')}</h3>
+          <p className="text-on-surface-variant text-xs">{t('hosting.desc')}</p>
         </div>
       </div>
     </section>
   );
 }
 
-function ProofOfPrivacySection() {
+function SecuritySection() {
   const t = useTranslations('homepage.proof');
+
   return (
-    <section className="py-20 bg-white border-t border-gray-100">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
-            {t('title')}
-          </h2>
-          <p className="mt-4 text-lg text-gray-600">
-            {t('subtitle')}
-          </p>
-        </div>
-
-        {/* Encryption Visual */}
-        <div className="max-w-2xl mx-auto mb-16">
-          <div className="bg-gray-50 rounded-2xl border border-gray-200 p-8 space-y-6">
-            {/* Your Device */}
-            <div className="text-center">
-              <span className="text-xs font-bold uppercase tracking-wider text-trust-600 bg-trust-50 px-3 py-1 rounded-full">{t('visual.yourDevice')}</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="flex-1 bg-white rounded-xl border border-gray-200 p-4 text-center">
-                <p className="text-sm font-medium text-gray-900">my-will.pdf</p>
-                <p className="text-xs text-gray-400 mt-1">{t('visual.originalFile')}</p>
-              </div>
-              <div className="text-2xl text-gray-400">→</div>
-              <div className="flex-1 bg-primary-900 rounded-xl p-4 text-center">
-                <p className="text-sm font-mono text-primary-300 break-all">a7f2c9e8b1d4...</p>
-                <p className="text-xs text-primary-400 mt-1">{t('visual.encryptedFile')}</p>
-              </div>
-            </div>
-
-            {/* Divider */}
-            <div className="relative">
-              <div className="border-t-2 border-dashed border-gray-300" />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gray-50 px-4">
-                <Lock className="h-5 w-5 text-gray-400" />
-              </div>
-            </div>
-
-            {/* Our Servers */}
-            <div className="text-center">
-              <span className="text-xs font-bold uppercase tracking-wider text-gray-400 bg-gray-100 px-3 py-1 rounded-full">{t('visual.ourServers')}</span>
-            </div>
-            <div className="bg-gray-100 rounded-xl p-4 text-center">
-              <p className="text-sm font-mono text-gray-400 break-all">a7f2c9e8b1d4f6a2e8c1b9d3f7a5...</p>
-              <p className="text-xs text-gray-400 mt-1">{t('visual.blindText')}</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Three proof points */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-          <div className="text-center p-6">
-            <div className="text-3xl mb-4">🔑</div>
-            <h3 className="font-semibold text-gray-900 mb-2">{t('points.keys.title')}</h3>
-            <p className="text-sm text-gray-600">{t('points.keys.desc')}</p>
-          </div>
-          <div className="text-center p-6">
-            <div className="text-3xl mb-4">🚫</div>
-            <h3 className="font-semibold text-gray-900 mb-2">{t('points.noReset.title')}</h3>
-            <p className="text-sm text-gray-600">{t('points.noReset.desc')}</p>
-          </div>
-          <div className="text-center p-6">
-            <div className="text-3xl mb-4">⚖️</div>
-            <h3 className="font-semibold text-gray-900 mb-2">{t('points.noHandover.title')}</h3>
-            <p className="text-sm text-gray-600">{t('points.noHandover.desc')}</p>
-          </div>
+    <section className="px-6 py-16 bg-primary-900 text-white overflow-hidden relative">
+      <div className="relative z-10 max-w-6xl mx-auto">
+        <h2 className="text-3xl sm:text-4xl font-bold mb-4 leading-tight">{t('title')}</h2>
+        <p className="text-primary-fixed-dim/80 mb-8 font-light max-w-xl">{t('subtitle')}</p>
+        <div className="aspect-square w-full max-w-[280px] mx-auto bg-primary-container rounded-full flex items-center justify-center relative shadow-[0_0_100px_rgba(253,187,18,0.15)]">
+          <div className="absolute inset-0 rounded-full border border-secondary-container/20 animate-pulse" />
+          <div className="absolute inset-4 rounded-full border border-secondary-container/10" />
+          <span className="material-symbols-outlined text-secondary-container text-8xl" style={{ fontVariationSettings: "'wght' 100" }}>fingerprint</span>
         </div>
       </div>
+      <div className="absolute -left-20 top-20 w-64 h-64 bg-secondary-container/5 rounded-full blur-[80px]" />
     </section>
   );
 }
@@ -295,33 +157,28 @@ function ProofOfPrivacySection() {
 function HowItWorksSection({ id = 'how-it-works' }: { id?: string }) {
   const t = useTranslations('homepage.howItWorks');
   const steps = [
-    { icon: Upload, step: '1', title: t('step1.title'), description: t('step1.desc') },
-    { icon: UserPlus, step: '2', title: t('step2.title'), description: t('step2.desc') },
-    { icon: CheckCircle, step: '3', title: t('step3.title'), description: t('step3.desc') },
+    { step: '1', title: t('step1.title'), description: t('step1.desc') },
+    { step: '2', title: t('step2.title'), description: t('step2.desc') },
+    { step: '3', title: t('step3.title'), description: t('step3.desc') },
   ];
 
   return (
-    <section id={id} className="py-12 sm:py-20 bg-gray-50 scroll-mt-16">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
-            {t('title')}
-          </h2>
-          <p className="mt-4 text-lg text-gray-600">
-            {t('subtitle')}
-          </p>
+    <section id={id} className="px-6 py-16 bg-surface scroll-mt-16">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary-900 mb-2">{t('title')}</h2>
+          <div className="w-12 h-1 bg-secondary-container mx-auto" />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="space-y-12 max-w-2xl mx-auto">
           {steps.map((s) => (
-            <div key={s.step} className="relative text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary-900 text-white mb-6">
-                <s.icon className="h-8 w-8" />
-              </div>
-              <div className="absolute -top-2 left-1/2 ml-6 bg-trust-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">
+            <div key={s.step} className="flex gap-6">
+              <div className="flex-shrink-0 w-10 h-10 bg-primary-900 text-white rounded-full flex items-center justify-center font-bold">
                 {s.step}
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">{s.title}</h3>
-              <p className="text-gray-600 leading-relaxed">{s.description}</p>
+              <div>
+                <h3 className="text-lg font-bold text-primary-900 mb-2">{s.title}</h3>
+                <p className="text-on-surface-variant text-sm">{s.description}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -333,32 +190,21 @@ function HowItWorksSection({ id = 'how-it-works' }: { id?: string }) {
 function UseCasesSection() {
   const t = useTranslations('homepage.useCases');
   const cases = [
-    { icon: '🛂', key: 'passports' },
-    { icon: '📜', key: 'wills' },
-    { icon: '🏠', key: 'property' },
-    { icon: '💼', key: 'insurance' },
-    { icon: '🏥', key: 'medical' },
-    { icon: '💰', key: 'financial' },
-    { icon: '🔑', key: 'crypto' },
-    { icon: '📋', key: 'tax' },
+    { icon: 'travel', key: 'passports' },
+    { icon: 'contract', key: 'wills' },
+    { icon: 'domain', key: 'property' },
+    { icon: 'vpn_key', key: 'crypto' },
   ];
 
   return (
-    <section className="py-12 sm:py-20 bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
-            {t('title')}
-          </h2>
-          <p className="mt-4 text-lg text-gray-600">
-            {t('subtitle')}
-          </p>
-        </div>
+    <section className="px-6 py-16 bg-surface-container-low">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-2xl sm:text-3xl font-bold text-primary-900 mb-8 text-center">{t('title')}</h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {cases.map((c) => (
-            <div key={c.key} className="flex items-center gap-3 p-4 rounded-xl bg-gray-50 border border-gray-100">
-              <span className="text-2xl">{c.icon}</span>
-              <span className="font-medium text-gray-800 text-sm">{t(`items.${c.key}`)}</span>
+            <div key={c.key} className="bg-surface-container-lowest p-4 rounded-xl flex flex-col items-center text-center gap-3">
+              <span className="material-symbols-outlined text-primary-900/70">{c.icon}</span>
+              <span className="text-sm font-medium text-primary-900">{t(`items.${c.key}`)}</span>
             </div>
           ))}
         </div>
@@ -374,64 +220,56 @@ function PricingSection({ locale }: { locale: string }) {
   const proFeatures = ['f1', 'f2', 'f3', 'f4', 'f5'] as const;
 
   return (
-    <section className="py-12 sm:py-20 bg-gray-50" id="pricing">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
-            {t('title')}
-          </h2>
-          <p className="mt-4 text-lg text-gray-600">
-            {t('subtitle')}
-          </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-          {/* Free */}
-          <div className="bg-white rounded-2xl border border-gray-200 p-8">
-            <h3 className="text-lg font-semibold text-gray-900">{t('free.name')}</h3>
-            <div className="mt-4">
-              <span className="text-4xl font-bold text-gray-900">{currency.symbol}0</span>
-              <span className="text-gray-500 ml-1">{t('free.period')}</span>
-            </div>
-            <ul className="mt-8 space-y-3">
-              {freeFeatures.map((key) => (
-                <li key={key} className="flex items-center gap-3 text-sm text-gray-700">
-                  <CheckCircle className="h-4 w-4 text-trust-500 flex-shrink-0" />
-                  {t(`free.features.${key}`)}
-                </li>
-              ))}
-            </ul>
-            <Link
-              href="/register"
-              className="mt-8 block w-full text-center px-6 py-3 rounded-xl border-2 border-gray-200 font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
-            >
-              {t('free.cta')}
-            </Link>
-          </div>
-
-          {/* Pro */}
-          <div className="bg-white rounded-2xl border-2 border-accent-400 p-8 relative shadow-lg">
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent-400 text-primary-900 text-xs font-bold px-3 py-1 rounded-full">
+    <section className="px-6 py-16 bg-surface" id="pricing">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-2xl sm:text-3xl font-bold text-primary-900 mb-8 text-center">{t('title')}</h2>
+        <div className="space-y-6 max-w-lg mx-auto">
+          {/* Pro Card */}
+          <div className="bg-primary-900 text-white p-8 rounded-3xl relative overflow-hidden ring-4 ring-secondary-container/20">
+            <div className="absolute top-0 right-0 bg-secondary-container text-on-secondary-container px-4 py-1 text-[10px] font-bold uppercase rounded-bl-xl tracking-tighter">
               {t('pro.badge')}
             </div>
-            <h3 className="text-lg font-semibold text-gray-900">{t('pro.name')}</h3>
-            <div className="mt-4">
-              <span className="text-4xl font-bold text-gray-900">{currency.symbol}{currency.monthly}</span>
-              <span className="text-gray-500 ml-1">{t('pro.period')}</span>
+            <h3 className="text-xl font-bold mb-2">{t('pro.name')}</h3>
+            <div className="flex items-baseline gap-1 mb-6">
+              <span className="text-4xl font-extrabold text-secondary-container">{currency.symbol}{currency.monthly}</span>
+              <span className="text-primary-fixed-dim/60 text-sm">{t('pro.period')}</span>
             </div>
-            <p className="text-sm text-gray-500 mt-1">{t('pro.lifetime', { symbol: currency.symbol, price: currency.lifetime })}</p>
-            <ul className="mt-8 space-y-3">
+            <ul className="space-y-4 mb-8">
               {proFeatures.map((key) => (
-                <li key={key} className="flex items-center gap-3 text-sm text-gray-700">
-                  <CheckCircle className="h-4 w-4 text-trust-500 flex-shrink-0" />
+                <li key={key} className="flex items-center gap-3 text-sm">
+                  <span className="material-symbols-outlined text-secondary-container text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
                   {t(`pro.features.${key}`)}
                 </li>
               ))}
             </ul>
             <Link
               href="/register"
-              className="mt-8 block w-full text-center px-6 py-3 rounded-xl bg-accent-400 text-primary-900 font-semibold hover:bg-accent-500 transition-colors"
+              className="w-full block text-center bg-secondary-container text-on-secondary-container font-bold py-3 rounded-xl active:scale-95 transition-all"
             >
               {t('pro.cta')}
+            </Link>
+          </div>
+
+          {/* Free Card */}
+          <div className="bg-surface-container-high p-8 rounded-3xl border border-outline-variant/20">
+            <h3 className="text-xl font-bold text-primary-900 mb-2">{t('free.name')}</h3>
+            <div className="flex items-baseline gap-1 mb-6">
+              <span className="text-4xl font-extrabold text-primary-900">{currency.symbol}0</span>
+              <span className="text-on-surface-variant text-sm">{t('free.period')}</span>
+            </div>
+            <ul className="space-y-4 mb-8">
+              {freeFeatures.map((key) => (
+                <li key={key} className="flex items-center gap-3 text-sm text-on-surface-variant">
+                  <span className="material-symbols-outlined text-primary-900 text-lg">check_circle</span>
+                  {t(`free.features.${key}`)}
+                </li>
+              ))}
+            </ul>
+            <Link
+              href="/register"
+              className="w-full block text-center bg-primary-900 text-white font-bold py-3 rounded-xl active:scale-95 transition-all"
+            >
+              {t('free.cta')}
             </Link>
           </div>
         </div>
@@ -443,18 +281,13 @@ function PricingSection({ locale }: { locale: string }) {
 function CTASection() {
   const t = useTranslations('homepage.cta');
   return (
-    <section className="py-12 sm:py-20 bg-gradient-to-br from-primary-900 via-primary-800 to-navy-900 text-white">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-        <Heart className="h-12 w-12 mx-auto mb-6 text-trust-400" />
-        <h2 className="text-3xl sm:text-4xl font-bold">
-          {t('title')}
-        </h2>
-        <p className="mt-4 text-lg text-white/80">
-          {t('subtitle')}
-        </p>
+    <section className="px-6 py-20 bg-primary-container text-white text-center">
+      <div className="max-w-3xl mx-auto">
+        <h2 className="text-3xl sm:text-4xl font-bold mb-4">{t('title')}</h2>
+        <p className="text-on-primary-container mb-10">{t('subtitle')}</p>
         <Link
           href="/register"
-          className="mt-8 inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-accent-400 text-primary-900 font-semibold text-lg hover:bg-accent-500 transition-colors shadow-lg"
+          className="bg-secondary-container text-on-secondary-container font-bold py-4 px-12 rounded-full shadow-2xl active:scale-95 transition-all inline-block"
         >
           {t('button')}
         </Link>
@@ -466,14 +299,14 @@ function CTASection() {
 function Footer({ locale }: { locale: string }) {
   const t = useTranslations('homepage.footer');
   return (
-    <footer className="bg-gray-900 text-gray-400 py-12">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <footer className="bg-primary-900 text-on-primary-container/60 py-12">
+      <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2">
-            <Shield className="h-5 w-5 text-primary-400" />
+            <span className="material-symbols-outlined text-secondary-container">security</span>
             <span className="font-semibold text-white">LegacyShield</span>
           </div>
-          <div className="flex gap-6 text-sm">
+          <div className="flex flex-wrap gap-4 text-sm justify-center">
             <Link href="/blog" className="hover:text-white transition-colors">{t('blog')}</Link>
             {locale === 'nl' && <Link href="/notaris" className="hover:text-white transition-colors">{t('notary')}</Link>}
             <Link href="/faq" className="hover:text-white transition-colors">{t('faq')}</Link>
@@ -482,9 +315,7 @@ function Footer({ locale }: { locale: string }) {
             <Link href="/terms" className="hover:text-white transition-colors">{t('terms')}</Link>
             <Link href="/made-in-eu" className="hover:text-white transition-colors">{t('madeInEu')}</Link>
           </div>
-          <p className="text-sm">
-            {t('tagline')} 🇪🇺
-          </p>
+          <p className="text-sm">{t('tagline')} 🇪🇺</p>
         </div>
       </div>
     </footer>
@@ -493,13 +324,12 @@ function Footer({ locale }: { locale: string }) {
 
 export default function HomePage({ params }: { params: { locale: string } }) {
   return (
-    <main>
+    <main className="bg-surface text-on-surface">
       <JsonLd locale={params.locale} />
       <HeroSection />
       <TrustBar />
-      <WhatIfSection />
       <FeaturesSection />
-      <ProofOfPrivacySection />
+      <SecuritySection />
       <HowItWorksSection />
       <UseCasesSection />
       <PricingSection locale={params.locale} />
