@@ -61,14 +61,32 @@
     "hero": {
       "badge": "Active Digital Estate Protection",
       "title": "If you died tomorrow, would your family be locked out?",
-      "subtitle": "Most loved ones spend 6 months fighting banks and cloud providers just to access basic documents. LegacyShield gives them a <strongItem>single unlock phrase</strongItem> to your most important papers — passports, wills, and insurance.",
-      "ctaPrimary": "Start Free — Protect Your Family",
+      "subtitle": "LegacyShield ensures your most sensitive documents, credentials, and final wishes reach the right people when they need them most. Secure, private, and permanent.",
+      "ctaPrimary": "Secure Your Legacy",
       "ctaSecondary": "How It Works",
       "disclaimer": "Free forever · No credit card required"
+    },
+    "trust": {
+      "zeroKnowledge": "Zero-Knowledge",
+      "euInfrastructure": "EU Infrastructure",
+      "militaryGrade": "Military Grade"
     },
     "features": {
       "sectionTitle": "Security Without Compromise",
       "sectionSubtitle": "Built from the ground up for people who take document security seriously.",
+      "bentoTitle": "Core Protection Units",
+      "insurance": {
+        "title": "Insurance Documents",
+        "desc": "Instantly accessible policies for your beneficiaries during critical moments."
+      },
+      "bank": {
+        "title": "Bank Accounts",
+        "desc": "Secure credential transfer."
+      },
+      "wills": {
+        "title": "Final Wills",
+        "desc": "Legal document custody."
+      },
       "encryption": {
         "title": "Military-Grade Encryption",
         "desc": "Your files are encrypted in your browser before they ever leave your device. Not on our servers. Not in transit. On YOUR device. We never see the original — only you hold the key."
@@ -81,6 +99,10 @@
         "title": "EU-Only Hosting",
         "desc": "Your encrypted data lives on European-owned servers (Hetzner, Germany) — not AWS, not Google. No US CLOUD Act. No foreign government access. GDPR-native by design."
       }
+    },
+    "sentinelX": {
+      "title": "Security Without Compromise",
+      "subtitle": "Powered by the Sentinel-X engine, our encryption protocol ensures that even we cannot see your data. You hold the only keys."
     },
     "proof": {
       "title": "We Can't See Your Files. Literally.",
@@ -142,33 +164,33 @@
       }
     },
     "pricing": {
-      "title": "Simple Pricing",
+      "title": "Transparent Protection",
       "subtitle": "Start free. Upgrade when you need more.",
       "free": {
-        "name": "Free",
+        "name": "Legacy Basic",
         "period": "forever",
         "features": {
           "f1": "3 Documents",
-          "f2": "Emergency Access",
-          "f3": "1 Emergency Contact",
+          "f2": "1 Dedicated Heir",
+          "f3": "Emergency Access",
           "f4": "Zero-knowledge encryption",
           "f5": "EU hosting"
         },
         "cta": "Get Started"
       },
       "pro": {
-        "name": "Pro",
-        "badge": "MOST POPULAR",
+        "name": "Legacy Pro",
+        "badge": "Most Secure",
         "period": "/month",
         "lifetime": "or {symbol}{price} one-time (lifetime)",
         "features": {
-          "f1": "100 Documents",
-          "f2": "5 Emergency Contacts",
-          "f3": "Everything in Free",
+          "f1": "Unlimited Document Vault",
+          "f2": "5 Dedicated Heirs",
+          "f3": "Sentinel-X Encryption",
           "f4": "Priority Support",
           "f5": "10MB File size limit"
         },
-        "cta": "Start Free, Upgrade Later"
+        "cta": "Start 14-Day Trial"
       }
     },
     "cta": {
