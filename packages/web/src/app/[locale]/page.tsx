@@ -47,7 +47,7 @@ function NavHeader() {
       </div>
       <Link
         href="/register"
-        className="text-sm font-semibold bg-secondary-container text-on-secondary-container px-4 py-2 rounded-xl active:scale-95 transition-transform"
+        className="text-xs sm:text-sm font-semibold bg-secondary-container text-on-secondary-container px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl active:scale-95 transition-transform whitespace-nowrap"
       >
         {t('ctaPrimary')}
       </Link>
