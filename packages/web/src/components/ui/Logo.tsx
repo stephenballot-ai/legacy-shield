@@ -1,4 +1,3 @@
-import { Shield } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface LogoProps {
@@ -18,9 +17,15 @@ export function Logo({ size = 'md', variant = 'light', className }: LogoProps) {
   const isDark = variant === 'dark';
   return (
     <div className={cn('flex items-center gap-2', className)}>
-      <Shield className={cn(s.icon, isDark ? 'text-white/80' : 'text-primary-600')} />
-      <span className={cn(s.text, 'font-bold', isDark ? 'text-white/70' : 'text-gray-900')}>
-        Legacy<span className={isDark ? 'text-white' : 'text-primary-600'}>Shield</span>
+      <span className={cn(
+        "material-symbols-outlined",
+        s.text === 'text-lg' ? 'text-xl' : s.text === 'text-xl' ? 'text-2xl' : 'text-3xl',
+        isDark ? 'text-white/80' : 'text-primary-900'
+      )}>
+        security
+      </span>
+      <span className={cn(s.text, 'font-bold tracking-tight', isDark ? 'text-white' : 'text-primary-900')}>
+        LegacyShield
       </span>
     </div>
   );

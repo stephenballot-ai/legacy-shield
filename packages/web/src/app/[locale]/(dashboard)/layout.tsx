@@ -48,7 +48,7 @@ function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
         )}
       >
         <div className="h-16 flex items-center px-6 border-b border-gray-100">
-          <Logo size="sm" />
+          <Link href="/dashboard"><Logo size="sm" /></Link>
         </div>
 
         <nav className="flex-1 py-4 px-3 space-y-1">
@@ -150,22 +150,10 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                 <Menu className="h-5 w-5" />
               </button>
               <div className="lg:hidden">
-                <Logo size="sm" />
+                <Link href="/dashboard"><Logo size="sm" /></Link>
               </div>
             </div>
             <div className="flex-1" />
-            {user?.tier === 'PRO' ? (
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 mr-3">
-                <Crown className="h-3 w-3" /> PRO
-              </span>
-            ) : (
-              <Link
-                href="/settings?tab=subscription"
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold bg-primary-600 text-white hover:bg-primary-700 transition-colors mr-3"
-              >
-                <Sparkles className="h-3 w-3" /> Upgrade
-              </Link>
-            )}
             <div className="relative">
               <button
                 onClick={() => setMenuOpen(!menuOpen)}

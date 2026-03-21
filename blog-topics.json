@@ -1,5 +1,5 @@
 {
-  "nextIndex": 10,
+  "nextIndex": 12,
   "topics": [
     {
       "slug": "why-you-need-a-digital-executor",
@@ -50,6 +50,16 @@
       "slug": "social-media-memorialization-guide",
       "keywords": ["social media legacy", "Facebook legacy contact", "Instagram memorialized account", "LinkedIn account after death", "digital footprint inheritance"],
       "brief": "A complete guide to setting up legacy contacts and memorialization settings on major social platforms. Don't leave your profile to chance."
+    },
+    {
+      "slug": "digital-nomad-digital-legacy-jurisdiction",
+      "keywords": ["digital nomad estate planning", "cross-border digital legacy", "remote work inheritance", "digital assets jurisdiction", "international digital legacy"],
+      "brief": "Digital nomads live in one country, work in another, and have servers in a third. When they pass away, which laws apply to their digital assets? A guide to the jurisdictional complexity of digital legacy for the modern remote worker."
+    },
+    {
+      "slug": "digital-inheritance-laws-europe-2026",
+      "keywords": ["digital inheritance laws Europe", "EU digital legacy regulations", "inheritance of digital assets", "digital estate law 2026", "EU succession digital data"],
+      "brief": "A 2026 update on digital inheritance laws across Europe. What's changed, what's still a grey area, and how the new EU regulations impact your digital estate. Comparing Germany, France, Netherlands, and Spain."
     }
   ]
 }

@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 import { getCurrency } from '@/lib/utils/currency';
 import { useTranslations } from 'next-intl';
 import { useAuthStore } from '@/store/authStore';
+import { Logo } from '@/components/ui/Logo';
 
 function JsonLd({ locale }: { locale: string }) {
   const t = useTranslations('homepage.hero');
@@ -38,18 +39,10 @@ function JsonLd({ locale }: { locale: string }) {
 }
 
 function NavHeader() {
-  const t = useTranslations('homepage.hero');
   return (
     <header className="fixed top-0 w-full z-50 glass-panel flex justify-between items-center px-6 py-4">
-      <div className="flex items-center gap-2">
-        <span className="material-symbols-outlined text-primary-900 text-2xl">security</span>
-        <span className="text-xl font-bold text-primary-900 tracking-tight">LegacyShield</span>
-      </div>
-      <Link
-        href="/register"
-        className="text-xs sm:text-sm font-semibold bg-secondary-container text-on-secondary-container px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl active:scale-95 transition-transform whitespace-nowrap"
-      >
-        {t('ctaPrimary')}
+      <Link href="/">
+        <Logo size="md" />
       </Link>
     </header>
   );

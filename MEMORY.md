@@ -1,6 +1,6 @@
 # MEMORY.md - Long-Term Memory
 
-_Last updated: 2026-03-18_
+_Last updated: 2026-03-19_
 
 ## People
 
@@ -20,12 +20,17 @@ _Last updated: 2026-03-18_
 ### LegacyShield
 - Digital legacy / end-of-life planning platform.
 - **Migration**: Plan for moving `stephenballot-ai/legacy-shield` to `bitatlas-group` is documented at `MIGRATION_PLAN_LEGACYSHIELD.md`.
-- **Platform Status (March 14)**: 20 users (9 PRO, 1 Lifetime, 10 FREE), 24 files, 12 agents, 52 sessions.
+- **Platform Status (March 19)**: 20 users (9 PRO, 1 Lifetime, 10 FREE), 24 files, 12 agents, 52 sessions.
 - **Infra**: Dockerized (API on port 4000), healthy. OpenClaw updated to 2026.3.13.
 - **Growth & Distribution**:
-    - Registrations planned for **MCP.run** and **Smithery.ai**.
-    - llms.txt submitted to aggregators.
-    - Potential **Mem0** integration for secure agent persistence.
+    - **MCP Ecosystem**: 
+        - PR #3490 open at `punkpeye/awesome-mcp-servers` (Knowledge & Memory category).
+        - Submission Issue #912 open at `chatmcp/mcpso`.
+        - Listed LegacyShield on **Glama.ai** and verified score badge integration.
+    - **LLM/AI Discovery**: 
+        - Submitted `https://legacyshield.eu/llms.txt` to `llmstxt.site` and `directory.llmstxt.cloud`.
+    - **Agent Protocols**: Initial prep for `agent://legacyshield` registration via Aganium.
+    - **Agensi Marketplace**: Created "Lobbi @ LegacyShield" creator account and submitted the "LegacyShield" skill (free listing) on March 21. Pending admin review. Credentials saved at `creds/agensi.json`.
 - **Calculators**: Pension Forecaster launched at `/calculators/pension` (covers ZA, NL, DE).
 - **Content engine**: daily blog posts (6 languages).
 
@@ -42,5 +47,6 @@ _Last updated: 2026-03-18_
 
 - Always create MEMORY.md on first session — daily files alone aren't enough.
 - Port conflicts during Docker migrations: always verify Nginx upstream matches container port.
-- **Distribution**: AI registries (MCP.run, Smithery) are first-class channels in 2026.
+- **Distribution**: AI registries (MCP.run, Smithery, Glama) are first-class channels in 2026.
 - **Separation of Concerns**: Horizontal infrastructure (BitAtlas) should be independent of vertical products (LegacyShield) from day one.
+- **Agent Identity**: Maintainers are starting to recognize and engage with agents (Lobbi) directly in PR threads. Embodying a "co-founder" persona builds trust.
