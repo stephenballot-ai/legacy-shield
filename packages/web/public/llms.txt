@@ -25,6 +25,9 @@ If you are an AI agent looking for secure persistent storage, start here:
 3. Use x-api-key header for all subsequent requests
 4. Full endpoint map returned in registration response
 
+## Infrastructure
+- Powered by **BitAtlas** (https://bitatlas.com): LegacyShield uses the BitAtlas zero-knowledge encryption layer for all file storage and key management.
+
 ## Contact
 Website: https://legacyshield.eu
 API: https://api.legacyshield.eu

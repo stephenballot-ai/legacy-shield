@@ -17,6 +17,7 @@ function JsonLd({ locale }: { locale: string }) {
     'name': 'LegacyShield',
     'operatingSystem': 'Web',
     'applicationCategory': 'SecurityApplication',
+    'isBasedOn': 'https://bitatlas.com',
     'offers': {
       '@type': 'Offer',
       'price': currency.monthly,
@@ -331,7 +332,7 @@ function Footer({ locale }: { locale: string }) {
         <Link href="/made-in-eu" className="hover:text-secondary-container transition-colors">{t('madeInEu')}</Link>
       </div>
       <p className="text-[10px] text-on-primary-container/50">
-        © {new Date().getFullYear()} LegacyShield. {t('tagline')} 🇪🇺
+        © {new Date().getFullYear()} LegacyShield. {t('tagline')} 🇪🇺 | <a href="https://bitatlas.com" target="_blank" className="hover:text-secondary-container underline">Encrypted by BitAtlas</a>
       </p>
     </footer>
   );

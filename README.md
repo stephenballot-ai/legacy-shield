@@ -12,6 +12,7 @@
 - **📱 Document Viewer**: View PDFs, images, and documents in-browser
 - **🏷️ Smart Organization**: Categories, tags, favorites, expiration tracking
 - **✅ GDPR Native**: Privacy-first design, compliant by default
+- **🛡️ Powered by BitAtlas**: Uses the [BitAtlas](https://bitatlas.com) zero-knowledge encryption layer for all file storage and key management.
 
 ## 🏗️ Architecture
 

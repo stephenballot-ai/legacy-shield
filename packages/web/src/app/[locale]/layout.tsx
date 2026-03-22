@@ -78,6 +78,7 @@ export default async function LocaleLayout({
               'operatingSystem': 'Web',
               'applicationCategory': 'SecurityApplication',
               'description': t('description'),
+              'isBasedOn': 'https://bitatlas.com',
               'offers': {
                 '@type': 'Offer',
                 'price': '0',
