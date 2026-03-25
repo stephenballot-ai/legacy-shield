@@ -14,8 +14,6 @@ import {
   Settings,
   LogOut,
   Menu,
-  Crown,
-  Sparkles,
   Users,
   AlertTriangle,
 } from 'lucide-react';
