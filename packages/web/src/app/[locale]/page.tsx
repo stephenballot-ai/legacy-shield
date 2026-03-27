@@ -40,11 +40,21 @@ function JsonLd({ locale }: { locale: string }) {
 }
 
 function NavHeader() {
+  const t = useTranslations('homepage.footer');
   return (
     <header className="fixed top-0 w-full z-50 glass-panel flex justify-between items-center px-6 py-4">
       <Link href="/">
         <Logo size="md" />
       </Link>
+      <nav className="flex items-center gap-6 text-sm font-medium text-on-surface/70">
+        <Link href="/blog" className="hover:text-on-surface transition-colors">{t('blog')}</Link>
+        <Link
+          href="/register"
+          className="bg-secondary-container text-on-secondary-container font-semibold py-2 px-5 rounded-lg shadow-sm active:scale-95 transition-all"
+        >
+          Get Started
+        </Link>
+      </nav>
     </header>
   );
 }
