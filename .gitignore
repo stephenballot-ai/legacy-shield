@@ -77,3 +77,6 @@ TOOLS.md
 USER.md
 memory/
 .openclaw/
+
+# MemPalace local index (secondary, regenerable)
+.mempalace/
