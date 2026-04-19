@@ -18,6 +18,7 @@ import userRoutes from './routes/users';
 import webhookRoutes from './routes/webhooks';
 import agentRoutes from './routes/agents';
 import agentAuthRoutes from './routes/agentAuth';
+import adminStatsRoutes from './routes/adminStats';
 
 // Load environment variables
 dotenv.config();
@@ -132,6 +133,7 @@ app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/webhooks', webhookRoutes);
 app.use('/api/v1/agents', agentRoutes);
 app.use('/api/v1/auth', agentAuthRoutes);
+app.use('/api/v1/admin/stats', adminStatsRoutes);
 
 // ============================================================================
 // WELL-KNOWN DISCOVERY (Agent-friendly)
