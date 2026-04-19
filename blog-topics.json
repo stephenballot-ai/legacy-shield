@@ -1,5 +1,5 @@
 {
-  "nextIndex": 12,
+  "nextIndex": 13,
   "topics": [
     {
       "slug": "why-you-need-a-digital-executor",
@@ -60,6 +60,81 @@
       "slug": "digital-inheritance-laws-europe-2026",
       "keywords": ["digital inheritance laws Europe", "EU digital legacy regulations", "inheritance of digital assets", "digital estate law 2026", "EU succession digital data"],
       "brief": "A 2026 update on digital inheritance laws across Europe. What's changed, what's still a grey area, and how the new EU regulations impact your digital estate. Comparing Germany, France, Netherlands, and Spain."
+    },
+    {
+      "slug": "whatsapp-messages-lost-after-death",
+      "keywords": ["WhatsApp after death", "Telegram inheritance", "signal account death", "messaging apps legacy"],
+      "brief": "Your WhatsApp chats vanish when you die. Unlike photos and emails, messaging apps offer zero options for legacy access. What this means for your digital footprint."
+    },
+    {
+      "slug": "biometric-authentication-digital-legacy-problem",
+      "keywords": ["biometric unlock after death", "fingerprint inheritance", "face ID digital estate", "biometric lock legacy access"],
+      "brief": "You unlocked your phone with your fingerprint — but when you die, your family can't. The biometric security problem nobody talks about in digital estate planning."
+    },
+    {
+      "slug": "cryptocurrency-hardware-wallet-inheritance",
+      "keywords": ["bitcoin inheritance", "cold storage wallet death", "crypto legacy planning", "ledger trezor heir access"],
+      "brief": "Your hardware wallet holds €100,000 in Bitcoin, but nobody knows the PIN. A brutal reality check for crypto estate planning in Europe."
+    },
+    {
+      "slug": "expat-germany-erbrecht-digital-assets",
+      "keywords": ["Erbrecht digital assets", "German inheritance law digital", "Nachlass online", "expat inheritance Germany"],
+      "brief": "German Erbrecht is centuries old — but it wasn't written for cloud accounts, cryptocurrency, or digital businesses. What German law actually says about your online legacy."
+    },
+    {
+      "slug": "expat-france-succession-numerique",
+      "keywords": ["succession numérique France", "French digital inheritance", "notaire succession online", "expat France heredité"],
+      "brief": "French succession law requires a notaire, but what about your Gmail? How French law treats digital assets, and why notaires are scrambling to adapt."
+    },
+    {
+      "slug": "expat-italy-successione-digitale",
+      "keywords": ["successione digitale Italia", "Italian inheritance online assets", "expat Italy inheritance", "digital estate Italy"],
+      "brief": "Italian inheritance law (successione) is family-focused, but digital assets weren't invented yet. Where your digital estate fits in Italy's legal framework."
+    },
+    {
+      "slug": "expat-spain-herencia-digital",
+      "keywords": ["herencia digital España", "Spanish digital inheritance", "notario succession Spain", "expat Spain digital assets"],
+      "brief": "Spanish notarios traditionally handle inheritance (herencia). Now they're facing digital assets nobody planned for. A guide to inheritance law in Spain for digital-first expats."
+    },
+    {
+      "slug": "email-dead-reckoning-accessing-gmail-after-death",
+      "keywords": ["Gmail after death recovery", "Outlook account inheritance", "email access after death legal", "family email access"],
+      "brief": "Google lets you plan for your Gmail with the Inactive Account Manager. Microsoft is slower. Yahoo never replying. A country-by-country guide to email access after death."
+    },
+    {
+      "slug": "family-shared-plans-apple-google-break-after-death",
+      "keywords": ["Apple family sharing after death", "Google family group inheritance", "Microsoft family account death", "shared subscriptions inheritance"],
+      "brief": "Your family shares your Apple One subscription — but when you die, what happens to the shared Netflix, iCloud storage, and app library?"
+    },
+    {
+      "slug": "employment-pension-cross-border-eu-inheritance",
+      "keywords": ["EU pension inheritance death", "cross-border pension death benefit", "employment pension succession EU", "occupational pension heir"],
+      "brief": "You worked 15 years in Germany, 8 in the Netherlands, and now live in Spain. When you die, which country's pension laws apply? A guide to cross-border pension death benefits in the EU."
+    },
+    {
+      "slug": "digital-mental-health-records-therapy-accounts-after-death",
+      "keywords": ["therapy notes after death", "mental health records inheritance", "Headspace Calm accounts death", "online psychiatrist records legacy"],
+      "brief": "Your therapist's notes, your psychiatric evaluations, your meditation app history — all in the cloud. Privacy, inheritance, and who should have access when you die."
+    },
+    {
+      "slug": "domain-names-intellectual-property-digital-assets-inheritance",
+      "keywords": ["domain name inheritance", "intellectual property death succession", "business domain death", "trademark inheritance"],
+      "brief": "Your domain name (and everything on it) is your digital real estate. Unlike physical real estate, inheritance law barely touches it. How to ensure your domains pass to your heirs."
+    },
+    {
+      "slug": "self-hosted-servers-personal-vps-after-death",
+      "keywords": ["self-hosted server death", "personal VPS inheritance", "home server legacy", "cloud server account succession"],
+      "brief": "You run your own mail server, personal wiki, or side project on a VPS. When you die, who pays for the hosting? Who has the root password? A checklist for self-hosted digital assets."
+    },
+    {
+      "slug": "employer-data-separation-personal-digital-assets",
+      "keywords": ["employer account cleanup death", "work email vs personal", "separating work and personal digital", "company data after death"],
+      "brief": "You use your work Google account for personal files, photos, and documents. When you leave — or die — your employer can lock you out. How to separate work and life."
+    },
+    {
+      "slug": "digital-legacy-power-of-attorney-versus-will",
+      "keywords": ["digital power of attorney", "legal authority digital assets", "POA for online accounts", "legal control after incapacity"],
+      "brief": "Your will only works after you die. But what if you're incapacitated — in a coma, dementia, or just unreachable? A power of attorney for digital assets handles this, but most people don't have one."
     }
   ]
 }
