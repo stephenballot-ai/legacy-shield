@@ -61,6 +61,19 @@
     "features": {
       "sectionTitle": "Sicherheit ohne Kompromisse",
       "sectionSubtitle": "Von Grund auf für Menschen entwickelt, die Dokumentensicherheit ernst nehmen.",
+      "bentoTitle": "Kern-Schutzmodule",
+      "insurance": {
+        "title": "Versicherungsunterlagen",
+        "desc": "Sofort zugängliche Policen für Ihre Begünstigten in entscheidenden Momenten."
+      },
+      "bank": {
+        "title": "Bankkonten",
+        "desc": "Sichere Übertragung von Zugangsdaten."
+      },
+      "wills": {
+        "title": "Testamente",
+        "desc": "Verwahrung rechtlicher Dokumente."
+      },
       "encryption": {
         "title": "Militärische Verschlüsselung",
         "desc": "Ihre Dateien werden in Ihrem Browser verschlüsselt, bevor sie Ihr Gerät verlassen. Nicht auf unseren Servern. Nicht bei der Übertragung. Nur Sie haben den Schlüssel."
@@ -73,6 +86,10 @@
         "title": "Hosting nur in der EU",
         "desc": "Ihre verschlüsselten Daten liegen auf Servern in europäischem Besitz (Hetzner, Deutschland) — kein US CLOUD Act. Kein Zugriff durch ausländische Regierungen."
       }
+    },
+    "sentinelX": {
+      "title": "Sicherheit ohne Kompromisse",
+      "subtitle": "Angetrieben von der Sentinel-X-Engine stellt unser Verschlüsselungsprotokoll sicher, dass selbst wir Ihre Daten nicht sehen können. Nur Sie halten die Schlüssel."
     },
     "proof": {
       "title": "Wir können Ihre Dateien nicht sehen. Wortwörtlich.",

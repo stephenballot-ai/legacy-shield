@@ -55,6 +55,19 @@
     "features": {
       "sectionTitle": "La Sécurité sans Compromis",
       "sectionSubtitle": "Conçu dès le départ pour ceux qui prennent la sécurité des documents au sérieux.",
+      "bentoTitle": "Modules de Protection Essentiels",
+      "insurance": {
+        "title": "Documents d'Assurance",
+        "desc": "Des polices immédiatement accessibles pour vos bénéficiaires dans les moments cruciaux."
+      },
+      "bank": {
+        "title": "Comptes Bancaires",
+        "desc": "Transfert sécurisé des identifiants."
+      },
+      "wills": {
+        "title": "Testaments",
+        "desc": "Conservation de documents juridiques."
+      },
       "encryption": {
         "title": "Chiffrement Militaire",
         "desc": "Vos fichiers sont chiffrés dans votre navigateur avant de quitter votre appareil. Pas sur nos serveurs. Pas en transit. Sur VOTRE appareil. Nous ne voyons jamais l'original — vous seul détenez la clé."
@@ -67,6 +80,10 @@
         "title": "Hébergement UE uniquement",
         "desc": "Vos données chiffrées vivent sur des serveurs appartenant à des Européens (Hetzner, Allemagne) — pas AWS, pas Google. Pas d'accès par un gouvernement étranger."
       }
+    },
+    "sentinelX": {
+      "title": "La Sécurité sans Compromis",
+      "subtitle": "Propulsé par le moteur Sentinel-X, notre protocole de chiffrement garantit que même nous ne pouvons pas voir vos données. Vous seul détenez les clés."
     },
     "proof": {
       "title": "Nous ne pouvons pas voir vos fichiers. Littéralement.",
