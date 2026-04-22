@@ -12,7 +12,9 @@
     "url": "https://github.com/stephenballot-ai/legacy-shield.git"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "lint": "echo 'mcp-server: no lint configured'",
+    "type-check": "echo 'mcp-server: no type-check configured'"
   },
   "keywords": ["mcp", "encryption", "vault", "zero-knowledge", "ai-agent", "document-storage"],
   "author": "LegacyShield",
