@@ -68,7 +68,9 @@ for _ in $(seq 1 15); do
 done
 
 # ---- Enumerate from a one-shot mc client on the same isolated network ----
-# minio/mc has `mc` as its entrypoint, so we override to /bin/sh to run a script.
+# minio/mc has `mc` as its entrypoint, so we override to /bin/sh.
+# minio/mc's sh is busybox without awk, so we use POSIX parameter expansion
+# and sed for parsing.
 echo
 echo "=== Inventory of ${VOLUME} (RO) ==="
 docker run --rm --network "${NETWORK}" --entrypoint /bin/sh minio/mc:latest -c "
@@ -76,11 +78,17 @@ docker run --rm --network "${NETWORK}" --entrypoint /bin/sh minio/mc:latest -c "
   echo 'Buckets:'
   mc ls old/
   echo
-  for b in \$(mc ls old/ | awk '{print \$NF}' | tr -d /); do
-    cnt=\$(mc ls --recursive old/\$b/ | wc -l)
+  mc ls old/ | while IFS= read -r line; do
+    last=\${line##* }
+    b=\${last%/}
+    [ -z \"\$b\" ] && continue
+    cnt=\$(mc ls --recursive \"old/\$b/\" 2>/dev/null | wc -l)
     echo \"[bucket=\$b  objects=\$cnt]\"
     echo '  sample keys (first 8):'
-    mc ls --recursive old/\$b/ | head -8 | awk '{print \"   \", \$NF}'
+    mc ls --recursive \"old/\$b/\" 2>/dev/null | head -8 | while IFS= read -r kline; do
+      key=\${kline##* }
+      echo \"    \$key\"
+    done
     echo
   done
 "
