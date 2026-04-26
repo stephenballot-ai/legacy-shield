@@ -123,6 +123,69 @@ app.get('/api/v1/health/storage', async (_req: Request, res: Response) => {
   res.status(result.reachable ? 200 : 503).json(result);
 });
 
+// Storage audit — STATS_TOKEN-protected. Walks every bucket the API can see,
+// counts objects (paginated, capped at 10k), summarises distinct user
+// prefixes, and cross-references against the DB File-row count so we can
+// quantify the blob/metadata gap from the BitAtlas spin-off bucket-rename.
+app.get('/api/v1/admin/storage/audit', async (req: Request, res: Response) => {
+  const expected = process.env.STATS_TOKEN;
+  if (!expected) {
+    res.status(503).json({ error: { code: 'NOT_CONFIGURED', message: 'STATS_TOKEN not set' } });
+    return;
+  }
+  const header = req.header('authorization') || '';
+  const provided = header.startsWith('Bearer ') ? header.slice(7) : '';
+  if (provided !== expected) {
+    res.status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Invalid stats token' } });
+    return;
+  }
+
+  try {
+    const [{ auditStorage }, { prisma }] = await Promise.all([
+      import('./lib/s3'),
+      import('./lib/prisma'),
+    ]);
+    const storage = await auditStorage();
+
+    const dbTotal = await prisma.file.count({ where: { deletedAt: null } });
+    const dbDeleted = await prisma.file.count({ where: { deletedAt: { not: null } } });
+    const dbDistinctUsers = await prisma.file.groupBy({
+      by: ['userId'],
+      where: { deletedAt: null },
+      _count: true,
+    });
+
+    res.json({
+      storage,
+      database: {
+        fileRows: dbTotal,
+        fileRowsDeleted: dbDeleted,
+        distinctUsersWithFiles: dbDistinctUsers.length,
+      },
+      gap: {
+        // For each bucket, expected = dbTotal (files that should have a blob).
+        // actual = bucket.objectCount.
+        expectedBlobs: dbTotal,
+        perBucket: storage.buckets.map((b) => ({
+          name: b.name,
+          actual: b.objectCount,
+          delta: b.objectCount === -1 ? null : b.objectCount - dbTotal,
+        })),
+      },
+    });
+  } catch (err) {
+    logger.error('storage audit failed', err);
+    const e = err as { message?: string; name?: string };
+    res.status(500).json({
+      error: {
+        code: 'AUDIT_FAILED',
+        message: e.message || 'audit failed',
+        name: e.name,
+      },
+    });
+  }
+});
+
 // API info
 app.get('/', (_req: Request, res: Response) => {
   res.json({

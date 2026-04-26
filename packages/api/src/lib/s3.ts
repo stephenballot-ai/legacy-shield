@@ -271,3 +271,103 @@ export async function probeStorage(): Promise<{
     };
   }
 }
+
+/**
+ * Deep audit of every bucket reachable from the API's MinIO. Returns:
+ *  - For each bucket: total object count (paginated, capped 10k), distinct
+ *    user prefixes (first segment after `users/`), and a sample of keys with
+ *    UUIDs masked.
+ *
+ * The point of this is recovery diagnostics: cross-reference these counts
+ * with the DB's File row count to find blob/metadata gaps from the
+ * BitAtlas spin-off bucket-rename incident.
+ */
+export async function auditStorage(): Promise<{
+  bucket: string;
+  endpointHost: string;
+  buckets: Array<{
+    name: string;
+    objectCount: number;
+    truncated: boolean;
+    distinctUserPrefixes: number;
+    sampleKeys: string[];
+    error?: string;
+  }>;
+}> {
+  const endpointHost = (() => {
+    try {
+      return new URL(STORAGE_ENDPOINT).host;
+    } catch {
+      return STORAGE_ENDPOINT;
+    }
+  })();
+  const list = await s3Client.send(new ListBucketsCommand({}));
+  const names = (list.Buckets || []).map((b) => b.Name).filter((n): n is string => !!n);
+
+  const buckets = await Promise.all(
+    names.map(async (name) => {
+      try {
+        let token: string | undefined;
+        let total = 0;
+        const userPrefixes = new Set<string>();
+        const sample: string[] = [];
+        const HARD_CAP = 10_000;
+        let truncated = false;
+        do {
+          const resp = await s3Client.send(
+            new ListObjectsV2Command({
+              Bucket: name,
+              MaxKeys: 1000,
+              ContinuationToken: token,
+            })
+          );
+          for (const obj of resp.Contents || []) {
+            if (!obj.Key) continue;
+            total++;
+            // users/<userId>/files/<fileId>.encrypted
+            const m = obj.Key.match(/^users\/([^/]+)\//);
+            if (m) userPrefixes.add(m[1]);
+            if (sample.length < 5) {
+              // Mask UUIDs so logs don't leak file IDs verbatim.
+              const masked = obj.Key.replace(
+                /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/gi,
+                '<uuid>'
+              );
+              sample.push(masked);
+            }
+            if (total >= HARD_CAP) {
+              truncated = true;
+              break;
+            }
+          }
+          token = resp.NextContinuationToken;
+          if (total >= HARD_CAP) break;
+        } while (token);
+
+        return {
+          name,
+          objectCount: total,
+          truncated,
+          distinctUserPrefixes: userPrefixes.size,
+          sampleKeys: sample,
+        };
+      } catch (err) {
+        const e = err as { name?: string; Code?: string };
+        return {
+          name,
+          objectCount: -1,
+          truncated: false,
+          distinctUserPrefixes: 0,
+          sampleKeys: [],
+          error: e.name || e.Code || 'Unknown',
+        };
+      }
+    })
+  );
+
+  return {
+    bucket: STORAGE_BUCKET,
+    endpointHost,
+    buckets,
+  };
+}
