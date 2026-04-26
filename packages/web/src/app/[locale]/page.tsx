@@ -127,30 +127,27 @@ function Hero() {
     <section
       className="relative overflow-hidden border-b border-line"
       style={{
-        padding: '88px 0 96px',
+        padding: '64px 0 80px',
         background:
           'radial-gradient(1200px 400px at 80% -100px, color-mix(in oklab, var(--accent) 9%, transparent), transparent 60%), linear-gradient(180deg, var(--bg-sunken), var(--bg) 60%)',
       }}
     >
       <div className="container">
-        <div className="grid items-end gap-[var(--s-12)] md:grid-cols-[1.3fr_1fr]">
+        <div className="grid gap-[var(--s-11)] md:grid-cols-[1.4fr_1fr] md:items-start">
           <div>
             <Eyebrow color="accent">Custody · Encrypted · EU Infrastructure</Eyebrow>
             <h1
-              className="mt-6 font-display text-fg"
+              className="mt-[var(--s-7)] font-display text-fg text-balance"
               style={{
-                fontSize: 'clamp(40px, 5.4vw, 76px)',
-                lineHeight: 0.98,
+                fontSize: 'clamp(36px, 4.6vw, 60px)',
+                lineHeight: 1.04,
                 letterSpacing: 'var(--tracking-tight)',
                 fontWeight: 400,
                 margin: 0,
+                maxWidth: '14ch',
               }}
             >
-              If you died tomorrow,
-              <br />
-              would your family
-              <br />
-              be{' '}
+              If you died tomorrow, would your family be{' '}
               <em
                 style={{
                   fontStyle: 'italic',
@@ -162,7 +159,7 @@ function Hero() {
               </em>
             </h1>
             <p
-              className="mt-[var(--s-9)] text-fg-muted"
+              className="mt-[var(--s-7)] text-fg-muted"
               style={{
                 fontSize: 'var(--t-md)',
                 lineHeight: 'var(--lh-loose)',
