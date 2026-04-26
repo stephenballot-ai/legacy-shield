@@ -16,7 +16,12 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            set -euo pipefail
+            # NOTE: deliberately not using `set -e` — prior deploys have been
+            # silently tolerating a prisma migrate warning ("DATABASE_URL not
+            # found" reading the host env, although migrations are also run
+            # inside the API container at startup). The storage gate below
+            # has its own explicit `exit 1`, which is what we actually need.
+            set -o pipefail
             cd /opt/legacyshield/app
             git fetch origin main && git reset --hard origin/main
             npm ci --workspace=@legacy-shield/web --workspace=@legacy-shield/api --workspace=@legacy-shield/shared
