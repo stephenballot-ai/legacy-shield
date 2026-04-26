@@ -4,6 +4,8 @@ import {
   PutObjectCommand,
   GetObjectCommand,
   HeadBucketCommand,
+  ListBucketsCommand,
+  ListObjectsV2Command,
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { Transform } from 'stream';
@@ -160,6 +162,8 @@ export async function probeStorage(): Promise<{
   error?: string;
   status?: number;
   hasCredentials: boolean;
+  availableBuckets?: Array<{ name: string; objectCount: number }>;
+  listError?: string;
 }> {
   const endpointHost = (() => {
     try {
@@ -171,9 +175,43 @@ export async function probeStorage(): Promise<{
   const hasCredentials =
     !!process.env.STORAGE_ACCESS_KEY && !!process.env.STORAGE_SECRET_KEY;
 
+  // Always try ListBuckets so we can show what bucket names actually exist on
+  // this storage backend — much faster diagnostic than guessing names.
+  let availableBuckets: Array<{ name: string; objectCount: number }> | undefined;
+  let listError: string | undefined;
+  try {
+    const list = await s3Client.send(new ListBucketsCommand({}));
+    const names = (list.Buckets || []).map((b) => b.Name).filter((n): n is string => !!n);
+    // For each bucket, do a tiny ListObjectsV2 (max-keys=1) to get a hint of
+    // whether files are present. Cheap; bounded by bucket count.
+    availableBuckets = await Promise.all(
+      names.map(async (name) => {
+        try {
+          const objs = await s3Client.send(
+            new ListObjectsV2Command({ Bucket: name, MaxKeys: 1 })
+          );
+          return { name, objectCount: objs.KeyCount ?? 0 };
+        } catch {
+          return { name, objectCount: -1 };
+        }
+      })
+    );
+  } catch (err) {
+    const e = err as { name?: string; Code?: string };
+    listError = e.name || e.Code || 'Unknown';
+  }
+
   try {
     await s3Client.send(new HeadBucketCommand({ Bucket: STORAGE_BUCKET }));
-    return { bucket: STORAGE_BUCKET, endpointHost, region: STORAGE_REGION, reachable: true, hasCredentials };
+    return {
+      bucket: STORAGE_BUCKET,
+      endpointHost,
+      region: STORAGE_REGION,
+      reachable: true,
+      hasCredentials,
+      availableBuckets,
+      listError,
+    };
   } catch (err) {
     const e = err as { name?: string; Code?: string; $metadata?: { httpStatusCode?: number }; message?: string };
     return {
@@ -184,6 +222,8 @@ export async function probeStorage(): Promise<{
       error: e.name || e.Code || 'Unknown',
       status: e.$metadata?.httpStatusCode,
       hasCredentials,
+      availableBuckets,
+      listError,
     };
   }
 }
