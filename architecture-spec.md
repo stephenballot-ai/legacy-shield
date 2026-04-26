@@ -1393,6 +1393,19 @@ External EU Services:
 
 ### 7.4 Environment Variables
 
+> **Reality vs. aspiration (2026-04-26 update).** Production *currently*
+> runs a self-hosted MinIO container alongside the API on the same
+> Hetzner Cloud VM, **not** Hetzner Object Storage. The legacyshield.eu
+> stack co-exists with bitatlas.com on this VM as parallel docker-compose
+> projects with disjoint MinIO instances and volumes. The `ls-legacy-minio`
+> service (see `infrastructure/legacy-minio.compose.yml`) is the
+> LegacyShield-owned MinIO; it mounts the `legacyshield_minio_data`
+> Docker volume and serves bucket `legacy-shield-vault`. **BitAtlas
+> volumes/containers/networks (`bitatlas_*`) must never be touched from
+> LegacyShield code or scripts.** Migration to Hetzner Object Storage
+> proper remains the long-term path — when that happens, restore the
+> `*.your-objectstorage.com` endpoint configuration below.
+
 ```bash
 # .env.production
 NODE_ENV=production
@@ -1403,12 +1416,20 @@ DATABASE_URL=postgresql://user:pass@postgres.hetzner.example:5432/legacyshield
 # Redis (Hetzner Cloud instance)
 REDIS_URL=redis://10.0.0.5:6379
 
-# Hetzner Object Storage (S3-compatible)
-STORAGE_ENDPOINT=https://fsn1.your-objectstorage.com
-STORAGE_BUCKET=legacy-shield-vault-eu
-STORAGE_REGION=fsn1
+# Storage — current production reality: self-hosted MinIO on the same VM.
+# The `ls-legacy-minio` container (compose-managed) mounts the
+# legacyshield_minio_data volume and is reached by service name on the
+# legacyshield_internal docker network.
+STORAGE_ENDPOINT=http://ls-legacy-minio:9000
+STORAGE_BUCKET=legacy-shield-vault
+STORAGE_REGION=eu-central
 STORAGE_ACCESS_KEY=xxx
 STORAGE_SECRET_KEY=xxx
+
+# Future state — when migrating to Hetzner Object Storage proper:
+# STORAGE_ENDPOINT=https://fsn1.your-objectstorage.com
+# STORAGE_BUCKET=legacy-shield-vault-eu
+# STORAGE_REGION=fsn1
 
 # Authentication
 JWT_SECRET=xxx-long-random-secret-xxx

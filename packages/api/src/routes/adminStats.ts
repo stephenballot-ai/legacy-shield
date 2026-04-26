@@ -1,6 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { prisma } from '../lib/prisma';
 import { logger } from '../utils/logger';
+import { probeStorage } from '../lib/s3';
 
 const router = Router();
 
@@ -90,6 +91,7 @@ router.get('/', requireStatsToken, async (_req: Request, res: Response) => {
       emergencyContacts,
       activeSessions,
       gsc,
+      storage,
     ] = await Promise.all([
       prisma.user.count(),
       prisma.user.count({ where: { tier: 'PRO' } }),
@@ -102,6 +104,14 @@ router.get('/', requireStatsToken, async (_req: Request, res: Response) => {
       prisma.emergencyContact.count(),
       prisma.session.count({ where: { expiresAt: { gte: now } } }),
       fetchGscData(),
+      // Storage health is in the daily stats so the cron's downstream
+      // (Slack alert / dashboard / etc.) can flag bucket / endpoint /
+      // credential drift the day it happens, not the next time someone
+      // tries to download a file.
+      probeStorage().catch((err: unknown) => ({
+        reachable: false,
+        error: err instanceof Error ? err.message : String(err),
+      })),
     ]);
 
     res.json({
@@ -119,6 +129,7 @@ router.get('/', requireStatsToken, async (_req: Request, res: Response) => {
       emergencyContacts,
       activeSessions,
       gsc,
+      storage,
     });
   } catch (err) {
     logger.error('Admin stats failed:', err);

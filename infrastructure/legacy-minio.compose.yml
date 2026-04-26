@@ -1,0 +1,43 @@
+# LegacyShield-owned MinIO — promoted into compose from the free-standing
+# `docker run` originally created by scripts/recover-legacy-minio.sh during
+# the 2026-04-26 bucket-drift recovery.
+#
+# Layered on top of /opt/legacyshield/docker-compose.prod.yml via:
+#   docker compose --env-file /opt/legacyshield/.env.prod \
+#     -f /opt/legacyshield/docker-compose.prod.yml \
+#     -f /opt/legacyshield/app/infrastructure/legacy-minio.compose.yml \
+#     up -d ...
+#
+# IMPORTANT: do NOT add BitAtlas resources here. legacyshield.eu and
+# bitatlas.com share this VM as parallel compose projects; the
+# `bitatlas_*` volumes/containers/networks belong to BitAtlas's stack and
+# must remain untouched.
+
+services:
+  ls-legacy-minio:
+    image: minio/minio:latest
+    container_name: ls-legacy-minio
+    restart: unless-stopped
+    command: server /data
+    environment:
+      MINIO_ROOT_USER:     ${STORAGE_ACCESS_KEY:?STORAGE_ACCESS_KEY required in .env.prod}
+      MINIO_ROOT_PASSWORD: ${STORAGE_SECRET_KEY:?STORAGE_SECRET_KEY required in .env.prod}
+    volumes:
+      - legacyshield_minio_data:/data
+    networks:
+      - legacyshield_internal
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  legacyshield_minio_data:
+    name: legacyshield_minio_data
+    external: true
+
+networks:
+  legacyshield_internal:
+    name: legacyshield_internal
+    external: true

@@ -28,7 +28,27 @@ jobs:
 
             # API & DB
             cd packages/api && npx prisma migrate deploy
-            cd /opt/legacyshield && docker compose -f docker-compose.prod.yml up -d --build api
+            cd /opt/legacyshield
+
+            # One-time transition: if ls-legacy-minio exists as a free-standing
+            # container (no compose project label), remove it so compose can
+            # take ownership on the next up. The legacyshield_minio_data volume
+            # is preserved — only the container is replaced. Idempotent: after
+            # the first deploy, the container has compose labels and this
+            # block becomes a no-op.
+            if docker inspect ls-legacy-minio >/dev/null 2>&1; then
+              ls_owner=$(docker inspect ls-legacy-minio --format '{{ index .Config.Labels "com.docker.compose.project" }}' 2>/dev/null || true)
+              if [ -z "$ls_owner" ]; then
+                echo "Removing free-standing ls-legacy-minio so compose can take over…"
+                docker rm -f ls-legacy-minio
+              fi
+            fi
+
+            docker compose \
+              --env-file /opt/legacyshield/.env.prod \
+              -f docker-compose.prod.yml \
+              -f /opt/legacyshield/app/infrastructure/legacy-minio.compose.yml \
+              up -d --build api ls-legacy-minio
 
             # ----- API storage gate -----
             # Poll the public storage probe until it reports reachable: true,
