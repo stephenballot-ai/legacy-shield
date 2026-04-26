@@ -32,8 +32,9 @@ export default function RegisterPage() {
       useCryptoStore.getState().setMasterKey(masterKey);
     }
     // Meta Pixel conversion tracking
-    if (typeof window !== 'undefined' && (window as any).fbq) {
-      (window as any).fbq('track', 'CompleteRegistration');
+    const fbq = (window as unknown as { fbq?: (...args: unknown[]) => void }).fbq;
+    if (typeof window !== 'undefined' && fbq) {
+      fbq('track', 'CompleteRegistration');
     }
     router.push('/documents');
   };

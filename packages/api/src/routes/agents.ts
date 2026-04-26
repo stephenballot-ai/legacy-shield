@@ -85,7 +85,7 @@ router.post('/register', authenticate, requireOwner, async (req: Request, res: R
 
     await logAudit({
       userId: req.user.userId,
-      action: 'AGENT_CREATED' as any,
+      action: 'AGENT_CREATED',
       resourceType: 'agent',
       resourceId: agent.id,
       ipAddress: req.ip,
@@ -144,7 +144,7 @@ router.delete('/:id', authenticate, requireOwner, async (req: Request, res: Resp
 
     await logAudit({
       userId: req.user!.userId,
-      action: 'AGENT_DELETED' as any,
+      action: 'AGENT_DELETED',
       resourceType: 'agent',
       resourceId: agent.id,
       ipAddress: req.ip,

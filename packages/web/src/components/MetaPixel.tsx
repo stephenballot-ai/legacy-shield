@@ -24,6 +24,7 @@ export function MetaPixel() {
         `}
       </Script>
       <noscript>
+        {/* eslint-disable-next-line @next/next/no-img-element -- Meta Pixel 1x1 tracking beacon must be raw <img>, no optimization */}
         <img
           height="1"
           width="1"

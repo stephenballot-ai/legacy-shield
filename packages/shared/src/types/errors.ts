@@ -31,5 +31,5 @@ export interface APIError {
   code: ErrorCode;
   message: string;
   field?: string;
-  details?: Record<string, any>;
+  details?: Record<string, unknown>;
 }

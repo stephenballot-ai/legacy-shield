@@ -6,6 +6,7 @@ import QRCode from 'qrcode';
 
 import { prisma } from '../lib/prisma';
 import { logger } from '../utils/logger';
+import { Prisma, type SessionType } from '@prisma/client';
 
 // ============================================================================
 // CONSTANTS
@@ -104,7 +105,7 @@ export async function createSession(
   const session = await prisma.session.create({
     data: {
       userId,
-      sessionType: sessionType as any,
+      sessionType: sessionType as SessionType,
       token: crypto.randomBytes(48).toString('hex'),
       userAgent: (req.headers['user-agent'] as string) ?? null,
       ipAddress: req.ip ?? null,
@@ -234,12 +235,12 @@ export async function logAudit(params: {
         action: params.action as never,
         resourceType: params.resourceType,
         resourceId: params.resourceId ?? null,
-        sessionType: (params.sessionType as any) ?? null,
+        sessionType: (params.sessionType as SessionType | undefined) ?? null,
         ipAddress: params.ipAddress ?? null,
         userAgent: params.userAgent ?? null,
         metadata: params.metadata
-          ? (params.metadata as any)
-          : null,
+          ? (params.metadata as Prisma.InputJsonValue)
+          : Prisma.JsonNull,
       },
     });
   } catch (err) {

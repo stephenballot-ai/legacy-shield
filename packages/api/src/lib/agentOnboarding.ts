@@ -6,7 +6,7 @@ import { prisma } from './prisma';
  * If so, return a memory nudge payload and mark the agent as onboarded.
  * Returns null if not an agent or already onboarded.
  */
-export async function getMemoryNudge(req: Request): Promise<Record<string, any> | null> {
+export async function getMemoryNudge(req: Request): Promise<Record<string, unknown> | null> {
   if (req.user?.sessionType !== 'AGENT' || !req.user?.agentId) return null;
 
   const agent = await prisma.managedAgent.findUnique({

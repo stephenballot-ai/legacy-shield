@@ -4,6 +4,7 @@ import { validate, registerSchema, loginSchema, twoFactorSchema, verifyEmailSche
 import { loginLimiter } from '../middleware/rateLimit';
 import { authenticate, requireOwner } from '../middleware/auth';
 import { prisma } from '../lib/prisma';
+import type { Prisma } from '@prisma/client';
 import { logger } from '../utils/logger';
 import {
   hashPassword,
@@ -144,7 +145,7 @@ router.post('/verify-email', validate(verifyEmailSchema), async (req: Request, r
 
     await logAudit({
       userId: user.id,
-      action: 'EMAIL_VERIFIED' as any,
+      action: 'EMAIL_VERIFIED',
       resourceType: 'user',
       resourceId: user.id,
       ipAddress: req.ip,
@@ -567,7 +568,7 @@ router.post('/password/change', authenticate, requireOwner, validate(changePassw
 
     // Update everything in a single transaction
     const newHash = await hashPassword(newPassword);
-    await prisma.$transaction(async (tx: any) => {
+    await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       // Update password hash
       await tx.user.update({
         where: { id: user.id },
@@ -840,10 +841,10 @@ router.post('/recovery/use-code', loginLimiter, validate(recoveryCodeSchema), as
  */
 router.post('/headless/register', async (req: Request, res: Response) => {
   try {
-    const { email, agentName, userPublicKey: _userPublicKey } = req.body as { 
-      email: string; 
+    const { email, agentName } = req.body as {
+      email: string;
       agentName: string;
-      userPublicKey: string; // The public key generated on the user's device
+      userPublicKey: string;
     };
 
     const existing = await prisma.user.findUnique({ where: { email } });

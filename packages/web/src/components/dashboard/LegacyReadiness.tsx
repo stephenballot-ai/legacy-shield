@@ -1,5 +1,6 @@
 'use client';
 
+import type * as React from 'react';
 import { useTranslations } from 'next-intl';
 import { useFilesStore } from '@/store/filesStore';
 import { Card } from '@/components/ui/Card';
@@ -19,7 +20,7 @@ export function LegacyReadiness({
   const t = useTranslations('dashboard.readiness');
   const { files } = useFilesStore();
 
-  const ESSENTIAL_DOCS: Array<{ id: string; key: any; categories: FileCategory[]; icon: any }> = [
+  const ESSENTIAL_DOCS: Array<{ id: string; key: string; categories: FileCategory[]; icon: React.ComponentType<{ className?: string; size?: string | number }> }> = [
     { id: 'IDENTITY', key: 'passport', categories: ['IDENTITY'], icon: Fingerprint },
     { id: 'WILL', key: 'will', categories: ['LEGAL'], icon: Scale },
     { id: 'INSURANCE', key: 'insurance', categories: ['INSURANCE'], icon: ShieldCheck },

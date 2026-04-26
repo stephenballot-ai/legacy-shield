@@ -28,8 +28,6 @@ export async function POST(req: NextRequest) {
     // Append as JSONL (one JSON object per line — easy to parse, grep, and analyze)
     await fs.appendFile(LOG_PATH, JSON.stringify(entry) + '\n');
 
-    console.log('Notary referral tracked:', entry.event_type, entry.notary_id);
-
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
     console.error('Error tracking notary referral:', error);

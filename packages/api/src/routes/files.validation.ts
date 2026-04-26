@@ -7,6 +7,7 @@ const fileCategoryEnum = z.enum([
 
 // Sanitize filenames: strip HTML tags and control characters
 const safeFilename = z.string().min(1).max(255)
+  // eslint-disable-next-line no-control-regex -- intentionally stripping C0 control chars from filenames
   .transform((v) => v.replace(/<[^>]*>/g, '').replace(/[\u0000-\u001f]/g, '').trim())
   .pipe(z.string().min(1, 'Filename cannot be empty after sanitization'));
 

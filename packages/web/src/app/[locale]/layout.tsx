@@ -54,7 +54,7 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
     notFound();
   }
 
@@ -64,6 +64,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={inter.variable}>
       <head>
+        {/* eslint-disable-next-line @next/next/no-page-custom-font -- Material Symbols icon font is intentionally global */}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"

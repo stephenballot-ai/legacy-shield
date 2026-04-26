@@ -533,6 +533,7 @@ function SecuritySection({ profile }: { profile: UserProfile }) {
               Scan this QR code with your authenticator app, then enter the code below.
             </p>
             <div className="flex justify-center">
+              {/* eslint-disable-next-line @next/next/no-img-element -- inline data: URI from QR generator, not optimizable */}
               <img src={qrData.qrCode} alt="2FA QR Code" className="w-48 h-48" />
             </div>
             <p className="text-xs text-gray-500 font-mono text-center break-all">{qrData.secret}</p>

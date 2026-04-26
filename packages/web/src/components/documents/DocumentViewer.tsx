@@ -106,6 +106,7 @@ export function DocumentViewer({ file, onClose }: DocumentViewerProps) {
         )}
 
         {blobUrl && file.mimeType.startsWith('image/') && (
+          // eslint-disable-next-line @next/next/no-img-element -- decrypted blob: URL, can't be served via next/image
           <img src={blobUrl} alt="Document Preview" className="max-w-full max-h-full object-contain rounded-lg" />
         )}
 
