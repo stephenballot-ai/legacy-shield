@@ -57,6 +57,16 @@ async function refreshAccessToken(): Promise<string | null> {
   }
 }
 
+/** Public refresh helper — coalesces concurrent calls into a single in-flight refresh. */
+export async function refreshToken(): Promise<string | null> {
+  if (!refreshPromise) {
+    refreshPromise = refreshAccessToken().finally(() => {
+      refreshPromise = null;
+    });
+  }
+  return refreshPromise;
+}
+
 async function request<T>(
   path: string,
   options: RequestInit = {}

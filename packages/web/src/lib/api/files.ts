@@ -80,20 +80,35 @@ export const filesApi = {
     api.post<UploadFileResponse>('/files/upload', metadata),
 
   uploadToPresignedUrl: async (url: string, encryptedBlob: Blob, fileId?: string): Promise<void> => {
-    // If fileId provided, use proxy endpoint instead of presigned URL
+    // If fileId provided, use proxy endpoint with bearer auth + refresh-on-401.
     if (fileId) {
-      const { getAccessToken } = await import('./client');
+      const { getAccessToken, refreshToken } = await import('./client');
       const API_ROOT = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
-      const headers: Record<string, string> = { 'Content-Type': 'application/octet-stream' };
-      const token = getAccessToken();
-      if (token) headers['Authorization'] = `Bearer ${token}`;
-      const res = await fetch(`${API_ROOT}/api/v1/files/${fileId}/blob`, {
-        method: 'PUT',
-        body: encryptedBlob,
-        credentials: 'include',
-        headers,
-      });
-      if (!res.ok) throw new Error('Failed to upload file to storage');
+      const blobUrl = `${API_ROOT}/api/v1/files/${fileId}/blob`;
+
+      const fetchWith = async (token: string | null) => {
+        const headers: Record<string, string> = { 'Content-Type': 'application/octet-stream' };
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+        return fetch(blobUrl, { method: 'PUT', body: encryptedBlob, credentials: 'include', headers });
+      };
+
+      let token = getAccessToken();
+      if (!token) token = await refreshToken();
+
+      let res = await fetchWith(token);
+      if (res.status === 401) {
+        const fresh = await refreshToken();
+        if (fresh) res = await fetchWith(fresh);
+      }
+
+      if (!res.ok) {
+        const detail = await res.text().catch(() => '');
+        throw new Error(
+          `Upload failed (${res.status}${res.statusText ? ' ' + res.statusText : ''})${
+            detail ? ': ' + detail.slice(0, 200) : ''
+          }`
+        );
+      }
       return;
     }
     const res = await fetch(url, {
@@ -108,24 +123,47 @@ export const filesApi = {
     api.get<GetFileResponse>(`/files/${id}`),
 
   downloadFromPresignedUrl: async (url: string, fileId?: string): Promise<Blob> => {
-    // If fileId provided, use proxy endpoint
+    // If fileId provided, use proxy endpoint with bearer auth + refresh-on-401.
+    // The API's authenticate middleware accepts Bearer only (not cookies), so a
+    // stale in-memory token must be refreshed before/around the fetch.
     if (fileId) {
-      const { getAccessToken } = await import('./client');
+      const { getAccessToken, refreshToken } = await import('./client');
       const API_ROOT = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
-      const headers: Record<string, string> = {};
-      const token = getAccessToken();
-      if (token) headers['Authorization'] = `Bearer ${token}`;
-      const res = await fetch(`${API_ROOT}/api/v1/files/${fileId}/blob`, {
-        credentials: 'include',
-        headers,
-      });
-      if (!res.ok) throw new Error('Failed to download file');
+      const blobUrl = `${API_ROOT}/api/v1/files/${fileId}/blob`;
+
+      const fetchWith = async (token: string | null) => {
+        const headers: Record<string, string> = {};
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+        return fetch(blobUrl, { credentials: 'include', headers });
+      };
+
+      // Make sure we have a token; refresh if missing.
+      let token = getAccessToken();
+      if (!token) token = await refreshToken();
+
+      let res = await fetchWith(token);
+      if (res.status === 401) {
+        // Stale token — try one refresh and retry.
+        const fresh = await refreshToken();
+        if (fresh) res = await fetchWith(fresh);
+      }
+
+      if (!res.ok) {
+        const detail = await res.text().catch(() => '');
+        throw new Error(
+          `Download failed (${res.status}${res.statusText ? ' ' + res.statusText : ''})${
+            detail ? ': ' + detail.slice(0, 200) : ''
+          }`
+        );
+      }
       const blob = await res.blob();
-      // Ensure the blob is forced to application/octet-stream to prevent browser auto-execution
+      // Force application/octet-stream to prevent browser auto-execution.
       return new Blob([blob], { type: 'application/octet-stream' });
     }
     const res = await fetch(url);
-    if (!res.ok) throw new Error('Failed to download file');
+    if (!res.ok) {
+      throw new Error(`Download failed (${res.status}${res.statusText ? ' ' + res.statusText : ''})`);
+    }
     const blob = await res.blob();
     return new Blob([blob], { type: 'application/octet-stream' });
   },
