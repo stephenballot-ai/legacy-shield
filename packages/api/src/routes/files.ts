@@ -151,7 +151,13 @@ router.get('/:id/blob', async (req: Request, res: Response) => {
     body.on('error', (streamErr) => {
       logger.error('S3 blob stream failed:', streamErr);
       if (!res.headersSent) {
-        res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Download failed' } });
+        res.status(500).json({
+          error: {
+            code: 'STORAGE_STREAM_FAILED',
+            message: 'Download failed',
+            detail: describeStorageError(streamErr),
+          },
+        });
       } else {
         res.destroy(streamErr as Error);
       }
@@ -159,9 +165,29 @@ router.get('/:id/blob', async (req: Request, res: Response) => {
     body.pipe(res);
   } catch (err) {
     logger.error('File blob download failed:', err);
-    res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Download failed' } });
+    res.status(500).json({
+      error: {
+        code: 'STORAGE_DOWNLOAD_FAILED',
+        message: 'Download failed',
+        detail: describeStorageError(err),
+      },
+    });
   }
 });
+
+// AWS-SDK errors carry the S3 error code on `name` (e.g. 'NoSuchKey',
+// 'AccessDenied', 'NoSuchBucket'). Surface that plus the bucket so we can
+// diagnose without server access — never include credentials or the full key.
+function describeStorageError(err: unknown): string {
+  if (err && typeof err === 'object') {
+    const e = err as { name?: string; Code?: string; message?: string; $metadata?: { httpStatusCode?: number } };
+    const code = e.name || e.Code || 'Error';
+    const status = e.$metadata?.httpStatusCode;
+    const msg = (e.message || '').slice(0, 140);
+    return `${code}${status ? ' ' + status : ''}${msg ? ': ' + msg : ''}`;
+  }
+  return 'Unknown';
+}
 
 // ============================================================================
 // GET /files/:id — Get file details + download URL (OWNER + EMERGENCY_CONTACT)
