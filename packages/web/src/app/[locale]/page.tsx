@@ -107,14 +107,14 @@ function Eyebrow({ children, color = 'subtle' }: { children: React.ReactNode; co
 
 function SectionMark({ no, children }: { no: string; children: React.ReactNode }) {
   return (
-    <div className="grid grid-cols-1 gap-[var(--s-12)] md:grid-cols-[220px_1fr] md:items-baseline">
-      <span
-        className="font-mono text-[12px] uppercase tracking-[0.08em] text-fg-subtle"
+    <div>
+      <div
+        className="mb-[var(--s-9)] font-mono text-[12px] uppercase tracking-[0.08em] text-fg-subtle"
         style={{ borderTop: '1px solid var(--line-ink)', paddingTop: 10 }}
       >
         § {no}
-      </span>
-      <div>{children}</div>
+      </div>
+      {children}
     </div>
   );
 }
