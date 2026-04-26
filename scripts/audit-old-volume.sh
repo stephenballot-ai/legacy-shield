@@ -68,9 +68,10 @@ for _ in $(seq 1 15); do
 done
 
 # ---- Enumerate from a one-shot mc client on the same isolated network ----
+# minio/mc has `mc` as its entrypoint, so we override to /bin/sh to run a script.
 echo
 echo "=== Inventory of ${VOLUME} (RO) ==="
-docker run --rm --network "${NETWORK}" minio/mc:latest sh -c "
+docker run --rm --network "${NETWORK}" --entrypoint /bin/sh minio/mc:latest -c "
   mc alias set old http://${SIDECAR}:9000 minioadmin minioadmin >/dev/null 2>&1
   echo 'Buckets:'
   mc ls old/
