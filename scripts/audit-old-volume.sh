@@ -1,71 +1,88 @@
 #!/usr/bin/env bash
 # audit-old-volume.sh — read-only inventory of the legacyshield_minio_data
-# Docker volume (the pre-BitAtlas-spinoff blob store).
+# Docker volume (the pre-BitAtlas-spinoff blob store), without touching the
+# running LegacyShield or BitAtlas stacks.
 #
-# Why: after the March 2026 BitAtlas spin-off, the LegacyShield API was
-# pointed at `bitatlas-vault` (BitAtlas's bucket, with key format
-# `user/<id>/<id>`), but LegacyShield's own code writes keys as
-# `users/<id>/files/<id>.encrypted`. The 22 LegacyShield File rows in the
-# DB don't match the 10 blobs in `bitatlas-vault`, so the encrypted bytes
-# almost certainly still live in the orphan `legacyshield_minio_data`
-# volume. This script verifies that without modifying anything.
+# Why: the audit endpoint showed the active bucket holds 10 objects in
+# BitAtlas's `user/<id>/<id>` key format — none of which match the 22
+# LegacyShield File rows that write keys as `users/<id>/files/<id>.encrypted`.
+# The bytes almost certainly still live in the orphan `legacyshield_minio_data`
+# volume from before the spin-off.
 #
-# It:
-#   1. Spins up a temporary MinIO container against legacyshield_minio_data
-#   2. Lists buckets, object counts, and sample keys
-#   3. Tears the temporary container down
-#
-# Run on the production VM:  bash scripts/audit-old-volume.sh
+# Isolation guarantees (deliberate, since legacyshield.eu and bitatlas.com
+# share this VM):
+#   - Volume is mounted RO via `:ro`
+#   - Container and network use `ls-recovery-*` prefix to avoid clobbering
+#     anything in either stack
+#   - Network is `--internal` (no external connectivity at all)
+#   - Sidecar is NOT attached to legacyshield's or bitatlas's docker network
+#   - We refuse to start if names collide (no force-remove of unknown stuff)
+#   - `trap` ensures the sidecar + network are torn down even on error
 
 set -uo pipefail
 
-NET=$(docker inspect legacyshield-api-1 \
-        --format '{{range $n,$v := .NetworkSettings.Networks}}{{$n}}{{end}}' 2>/dev/null \
-        || true)
+SIDECAR="ls-recovery-minio"
+NETWORK="ls-recovery-net"
+VOLUME="legacyshield_minio_data"
 
-if [[ -z "${NET}" ]]; then
-  echo "✗ Could not detect docker network for legacyshield-api-1." >&2
+cleanup() {
+  docker rm -f "${SIDECAR}" >/dev/null 2>&1 || true
+  docker network rm "${NETWORK}" >/dev/null 2>&1 || true
+}
+trap cleanup EXIT
+
+# ---- Pre-flight: refuse to clobber anything ----
+if docker ps -a --format '{{.Names}}' | grep -qx "${SIDECAR}"; then
+  echo "✗ A container named '${SIDECAR}' already exists. Run 'docker rm -f ${SIDECAR}' if it's stale, then re-run." >&2
   exit 1
 fi
-echo "Network: ${NET}"
+if docker network ls --format '{{.Name}}' | grep -qx "${NETWORK}"; then
+  echo "✗ A network named '${NETWORK}' already exists. Run 'docker network rm ${NETWORK}' if it's stale, then re-run." >&2
+  exit 1
+fi
+if ! docker volume ls --format '{{.Name}}' | grep -qx "${VOLUME}"; then
+  echo "✗ Volume '${VOLUME}' not found. Aborting." >&2
+  exit 1
+fi
 
-# Tear down any previous run.
-docker rm -f minio-old >/dev/null 2>&1 || true
+# ---- Isolated docker network (no internet, no other containers) ----
+echo "Creating isolated network ${NETWORK}…"
+docker network create --internal "${NETWORK}" >/dev/null
 
-echo "Bringing up minio-old (read of legacyshield_minio_data, port 9100 internal)…"
+# ---- Sidecar MinIO, RO mount of the orphan volume ----
+echo "Starting ${SIDECAR} (RO mount of ${VOLUME})…"
 docker run -d --rm \
-  --name minio-old \
-  --network "${NET}" \
-  -v legacyshield_minio_data:/data:ro \
+  --name "${SIDECAR}" \
+  --network "${NETWORK}" \
+  -v "${VOLUME}:/data:ro" \
   -e MINIO_ROOT_USER=minioadmin \
   -e MINIO_ROOT_PASSWORD=minioadmin \
   minio/minio:latest server /data >/dev/null
 
-# Give MinIO a couple seconds to come up.
-for _ in 1 2 3 4 5 6 7 8 9 10; do
-  if docker exec minio-old curl -fsS http://localhost:9000/minio/health/live >/dev/null 2>&1; then
+# Wait for readiness (max 15s).
+for _ in $(seq 1 15); do
+  if docker exec "${SIDECAR}" curl -fsS http://localhost:9000/minio/health/live >/dev/null 2>&1; then
     break
   fi
   sleep 1
 done
 
+# ---- Enumerate from a one-shot mc client on the same isolated network ----
 echo
-echo "=== Inventory of legacyshield_minio_data ==="
-docker run --rm --network "${NET}" minio/mc:latest sh -c '
-  mc alias set old http://minio-old:9000 minioadmin minioadmin >/dev/null 2>&1
-  echo "Buckets:"
+echo "=== Inventory of ${VOLUME} (RO) ==="
+docker run --rm --network "${NETWORK}" minio/mc:latest sh -c "
+  mc alias set old http://${SIDECAR}:9000 minioadmin minioadmin >/dev/null 2>&1
+  echo 'Buckets:'
   mc ls old/
   echo
-  for b in $(mc ls old/ | awk "{print \$NF}" | tr -d /); do
-    cnt=$(mc ls --recursive old/$b/ | wc -l)
-    echo "[bucket=$b  objects=$cnt]"
-    echo "  sample keys (first 5):"
-    mc ls --recursive old/$b/ | head -5 | awk "{print \"   \", \$NF}"
+  for b in \$(mc ls old/ | awk '{print \$NF}' | tr -d /); do
+    cnt=\$(mc ls --recursive old/\$b/ | wc -l)
+    echo \"[bucket=\$b  objects=\$cnt]\"
+    echo '  sample keys (first 8):'
+    mc ls --recursive old/\$b/ | head -8 | awk '{print \"   \", \$NF}'
     echo
   done
-'
+"
 
-echo "=== Tearing down minio-old ==="
-docker rm -f minio-old >/dev/null 2>&1 || true
-
-echo "Done."
+# trap handles teardown.
+echo "Done. Sidecar + network removed."
