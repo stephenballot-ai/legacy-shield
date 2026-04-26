@@ -19,6 +19,7 @@ import webhookRoutes from './routes/webhooks';
 import agentRoutes from './routes/agents';
 import agentAuthRoutes from './routes/agentAuth';
 import adminStatsRoutes from './routes/adminStats';
+import { verifyStorageOrExit } from './lib/s3';
 
 // Load environment variables
 dotenv.config();
@@ -282,12 +283,20 @@ app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
 // SERVER START
 // ============================================================================
 
-app.listen(PORT, () => {
-  logger.info(`🚀 Legacy Shield API running on port ${PORT}`);
-  logger.info(`🌍 Environment: ${NODE_ENV}`);
-  logger.info(`🇪🇺 Data Residency: EU (Germany)`);
-  logger.info(`📖 API Documentation: http://localhost:${PORT}/api/docs`);
-});
+(async () => {
+  // Pre-flight: in production this verifies STORAGE_* env + HeadBucket and
+  // calls process.exit(1) on failure rather than serving requests on broken
+  // config (the silent-default + healthy-when-broken trap that hid the
+  // bitatlas-vault → legacy-shield-vault drift). Local dev is permissive.
+  await verifyStorageOrExit();
+
+  app.listen(PORT, () => {
+    logger.info(`🚀 Legacy Shield API running on port ${PORT}`);
+    logger.info(`🌍 Environment: ${NODE_ENV}`);
+    logger.info(`🇪🇺 Data Residency: EU (Germany)`);
+    logger.info(`📖 API Documentation: http://localhost:${PORT}/api/docs`);
+  });
+})();
 
 // Graceful shutdown
 process.on('SIGTERM', () => {

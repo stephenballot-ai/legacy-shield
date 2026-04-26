@@ -16,24 +16,45 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            set -euo pipefail
             cd /opt/legacyshield/app
             git fetch origin main && git reset --hard origin/main
             npm ci --workspace=@legacy-shield/web --workspace=@legacy-shield/api --workspace=@legacy-shield/shared
-            
+
             # API & DB
             cd packages/api && npx prisma migrate deploy
             cd /opt/legacyshield && docker compose -f docker-compose.prod.yml up -d --build api
-            
+
+            # ----- API storage gate -----
+            # Poll the public storage probe until it reports reachable: true,
+            # or fail the deploy after 60s. Catches bucket / endpoint /
+            # credential drift at deploy time instead of after a user clicks
+            # download.
+            echo "Verifying API storage reachability…"
+            for i in $(seq 1 12); do
+              body=$(curl -fsS --max-time 5 "https://api.legacyshield.eu/api/v1/health/storage" || true)
+              if [ -n "$body" ] && echo "$body" | grep -q '"reachable":true'; then
+                echo "✓ Storage reachable: $body"
+                break
+              fi
+              if [ "$i" = "12" ]; then
+                echo "✗ Storage NOT reachable after 60s. Last response: $body"
+                docker logs --tail 80 legacyshield-api-1 || true
+                exit 1
+              fi
+              sleep 5
+            done
+
             # Web (Standalone Build)
             cd /opt/legacyshield/app/packages/web
             rm -rf .next
             NEXT_PUBLIC_API_URL=https://api.legacyshield.eu npm run build
-            
+
             # Prepare Standalone output
             mkdir -p .next/standalone/packages/web/.next
             cp -r .next/static .next/standalone/packages/web/.next/static
             cp -r public .next/standalone/packages/web/public 2>/dev/null || true
-            
+
             # Restart with PM2
             cd .next/standalone/packages/web
             PORT=3000 pm2 delete legacyshield-web 2>/dev/null || true

@@ -21,17 +21,61 @@ const STORAGE_REGION = process.env.STORAGE_REGION || 'eu-central-1';
 const STORAGE_ACCESS_KEY = process.env.STORAGE_ACCESS_KEY || 'minioadmin';
 const STORAGE_SECRET_KEY = process.env.STORAGE_SECRET_KEY || 'minioadmin';
 
-// Loud warning when production is running on local-dev defaults — the cause
-// of the "NoSuchBucket" silent failure we just hit. Logged once at boot.
-if (process.env.NODE_ENV === 'production') {
-  const issues: string[] = [];
-  if (!process.env.STORAGE_BUCKET) issues.push("STORAGE_BUCKET unset (defaulting to 'legacyshield' — wrong for prod)");
-  if (!process.env.STORAGE_ENDPOINT) issues.push("STORAGE_ENDPOINT unset (defaulting to localhost:9000)");
-  if (!process.env.STORAGE_ACCESS_KEY) issues.push("STORAGE_ACCESS_KEY unset (defaulting to MinIO devkey)");
-  if (!process.env.STORAGE_SECRET_KEY) issues.push("STORAGE_SECRET_KEY unset (defaulting to MinIO devkey)");
-  if (issues.length) {
-    logger.error('STORAGE CONFIG MISSING in production:', { issues, effective: { bucket: STORAGE_BUCKET, endpoint: STORAGE_ENDPOINT, region: STORAGE_REGION } });
+/**
+ * Hard pre-flight check called at boot. In production, refuses to start the
+ * server unless every STORAGE_* env var is explicitly set AND HeadBucket
+ * succeeds against the configured bucket. Retries 3× with exponential backoff
+ * to forgive a brief storage-network hiccup at deploy time, then exits 1
+ * (PM2 / docker will surface the crashloop instead of pretending healthy).
+ *
+ * Local dev (NODE_ENV !== 'production') is permissive — MinIO defaults stay
+ * usable for `docker compose up`.
+ */
+export async function verifyStorageOrExit(): Promise<void> {
+  if (process.env.NODE_ENV !== 'production') return;
+
+  const required = ['STORAGE_BUCKET', 'STORAGE_ENDPOINT', 'STORAGE_ACCESS_KEY', 'STORAGE_SECRET_KEY'];
+  const missing = required.filter((k) => !process.env[k]);
+  if (missing.length) {
+    logger.error('STORAGE CONFIG MISSING — refusing to start.', { missing });
+    process.exit(1);
   }
+
+  // Reject the local-dev fallbacks even when something is set — they're
+  // unmistakably wrong for production.
+  const looksLikeDev =
+    process.env.STORAGE_ACCESS_KEY === 'minioadmin' &&
+    process.env.STORAGE_SECRET_KEY === 'minioadmin' &&
+    /localhost|127\.0\.0\.1/.test(process.env.STORAGE_ENDPOINT || '');
+  if (looksLikeDev) {
+    logger.error('STORAGE CONFIG looks like local-dev defaults in production — refusing to start.', {
+      endpoint: STORAGE_ENDPOINT,
+    });
+    process.exit(1);
+  }
+
+  // Verify the bucket actually exists, with retries.
+  const delays = [0, 1000, 2000];
+  let lastError: string | undefined;
+  for (const delay of delays) {
+    if (delay) await new Promise((r) => setTimeout(r, delay));
+    try {
+      await s3Client.send(new HeadBucketCommand({ Bucket: STORAGE_BUCKET }));
+      logger.info('Storage pre-flight OK', { bucket: STORAGE_BUCKET, endpoint: STORAGE_ENDPOINT });
+      return;
+    } catch (err) {
+      const e = err as { name?: string; Code?: string };
+      lastError = e.name || e.Code || 'Unknown';
+    }
+  }
+
+  logger.error('STORAGE PRE-FLIGHT FAILED — refusing to start.', {
+    bucket: STORAGE_BUCKET,
+    endpoint: STORAGE_ENDPOINT,
+    region: STORAGE_REGION,
+    error: lastError,
+  });
+  process.exit(1);
 }
 
 export const s3Client = new S3Client({
