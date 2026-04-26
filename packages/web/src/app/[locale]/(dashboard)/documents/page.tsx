@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import type { File as LSFile } from '@legacy-shield/shared';
 import { Plus } from 'lucide-react';
+import { toast } from 'sonner';
 import { Button } from '@/components/ui/Button';
 import { useFilesStore } from '@/store/filesStore';
 import { useCryptoStore } from '@/store/cryptoStore';
@@ -37,22 +38,30 @@ export default function DocumentsPage() {
     try {
       const updated = await filesApi.updateFile(file.id, { isFavorite: !file.isFavorite });
       updateFile(file.id, updated);
-    } catch {
-      // silent fail
+    } catch (err) {
+      console.error('Toggle favorite failed:', err);
     }
   }, [updateFile]);
 
   const handleDownload = useCallback(async (file: LSFile) => {
     try {
       const fileData = await filesApi.getFile(file.id);
-      const encryptedBlob = await filesApi.downloadFromPresignedUrl(fileData.downloadUrl);
+      // Route through the API proxy (passing file.id) so we don't depend on
+      // the presigned-URL TTL or storage CORS — same path the viewer uses.
+      const encryptedBlob = await filesApi.downloadFromPresignedUrl(fileData.downloadUrl, file.id);
 
       const key = masterKey || emergencyKey;
-      if (!key) return;
+      if (!key) {
+        toast.error('Vault is locked. Re-enter your password and try again.');
+        return;
+      }
 
       const encKey = masterKey ? fileData.ownerEncryptedKey : fileData.emergencyEncryptedKey;
       const keyIV = masterKey ? fileData.ownerIV : fileData.emergencyIV;
-      if (!encKey || !keyIV) return;
+      if (!encKey || !keyIV) {
+        toast.error('This file is missing decryption metadata.');
+        return;
+      }
 
       const decrypted = await decryptFile(encryptedBlob, encKey, keyIV, fileData.iv, fileData.authTag, key);
 
@@ -63,8 +72,10 @@ export default function DocumentsPage() {
       a.download = file.filename;
       a.click();
       URL.revokeObjectURL(url);
-    } catch {
-      // TODO: toast error
+    } catch (err) {
+      console.error('Download failed:', err);
+      const message = err instanceof Error ? err.message : 'Failed to download file';
+      toast.error(message);
     }
   }, [masterKey, emergencyKey]);
 
@@ -73,8 +84,11 @@ export default function DocumentsPage() {
     try {
       await filesApi.deleteFile(file.id);
       removeFile(file.id);
-    } catch {
-      // TODO: toast error
+      toast.success('Document deleted.');
+    } catch (err) {
+      console.error('Delete failed:', err);
+      const message = err instanceof Error ? err.message : 'Failed to delete document';
+      toast.error(message);
     }
   }, [removeFile]);
 
