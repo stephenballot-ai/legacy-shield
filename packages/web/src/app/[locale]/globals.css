@@ -12,3 +12,69 @@
     text-wrap: balance;
   }
 }
+
+/* Prose long-form override — keep blog headings in the display serif so the
+   article body matches the post title rather than dropping into bold sans. */
+.ls-prose :is(h1, h2, h3, h4) {
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-snug);
+  font-weight: 500;
+  color: var(--fg);
+}
+.ls-prose h2 {
+  font-size: var(--t-2xl);
+  line-height: var(--lh-snug);
+  margin-top: var(--s-12);
+  margin-bottom: var(--s-6);
+}
+.ls-prose h3 {
+  font-size: var(--t-xl);
+  line-height: var(--lh-snug);
+  margin-top: var(--s-10);
+  margin-bottom: var(--s-5);
+}
+.ls-prose h4 {
+  font-size: var(--t-lg);
+  line-height: var(--lh-snug);
+  margin-top: var(--s-9);
+  margin-bottom: var(--s-4);
+}
+.ls-prose strong {
+  font-weight: 600;
+  color: var(--fg);
+}
+.ls-prose blockquote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  border-left-width: 2px;
+  border-color: var(--accent);
+  color: var(--fg);
+}
+.ls-prose code {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  background: var(--bg-sunken);
+  padding: 1px 6px;
+  border-radius: var(--r-xs);
+  border: 1px solid var(--line);
+}
+.ls-prose code::before,
+.ls-prose code::after {
+  content: none;
+}
+.ls-prose pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+.ls-prose hr {
+  border-color: var(--line);
+}
+.ls-prose a {
+  text-decoration-color: color-mix(in oklab, var(--accent) 50%, transparent);
+  text-underline-offset: 4px;
+}
+.ls-prose a:hover {
+  text-decoration-color: var(--accent);
+}

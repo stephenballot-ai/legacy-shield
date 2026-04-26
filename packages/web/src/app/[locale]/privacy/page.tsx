@@ -19,7 +19,7 @@ export default function PrivacyPage() {
         </h1>
         <p className="text-fg-muted mb-12">Last updated: February 15, 2026</p>
 
-        <div className="prose prose-gray max-w-none space-y-8 text-fg leading-relaxed">
+        <div className="prose prose-lg ls-prose max-w-none space-y-6 text-fg leading-relaxed">
 
           <section>
             <h2 className="text-xl font-semibold mb-3" style={{ color: '#1e3a5f' }}>The short version</h2>

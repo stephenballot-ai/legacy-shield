@@ -181,7 +181,7 @@ export default function BlogPostPage({ params: { locale, slug } }: Props) {
         <hr style={{ margin: 'var(--s-11) 0', border: 0, borderTop: '1px solid var(--line)' }} />
 
         <div
-          className="prose prose-lg max-w-none"
+          className="prose prose-lg ls-prose max-w-none"
           style={{
             color: 'var(--fg)',
             fontSize: 'var(--t-md)',
