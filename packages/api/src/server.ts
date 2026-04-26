@@ -113,6 +113,15 @@ app.get('/health', (_req: Request, res: Response) => {
   });
 });
 
+// Storage probe — public, non-sensitive, lets us diagnose bucket / credential
+// drift without SSH access. Returns 503 when not reachable so monitoring can
+// alert on it.
+app.get('/api/v1/health/storage', async (_req: Request, res: Response) => {
+  const { probeStorage } = await import('./lib/s3');
+  const result = await probeStorage();
+  res.status(result.reachable ? 200 : 503).json(result);
+});
+
 // API info
 app.get('/', (_req: Request, res: Response) => {
   res.json({

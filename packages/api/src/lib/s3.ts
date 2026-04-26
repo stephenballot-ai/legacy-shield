@@ -3,9 +3,11 @@ import {
   DeleteObjectCommand,
   PutObjectCommand,
   GetObjectCommand,
+  HeadBucketCommand,
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { Transform } from 'stream';
+import { logger } from '../utils/logger';
 
 // ============================================================================
 // S3 CLIENT (MinIO locally / Hetzner Object Storage in prod)
@@ -16,6 +18,19 @@ const STORAGE_BUCKET = process.env.STORAGE_BUCKET || 'legacyshield';
 const STORAGE_REGION = process.env.STORAGE_REGION || 'eu-central-1';
 const STORAGE_ACCESS_KEY = process.env.STORAGE_ACCESS_KEY || 'minioadmin';
 const STORAGE_SECRET_KEY = process.env.STORAGE_SECRET_KEY || 'minioadmin';
+
+// Loud warning when production is running on local-dev defaults — the cause
+// of the "NoSuchBucket" silent failure we just hit. Logged once at boot.
+if (process.env.NODE_ENV === 'production') {
+  const issues: string[] = [];
+  if (!process.env.STORAGE_BUCKET) issues.push("STORAGE_BUCKET unset (defaulting to 'legacyshield' — wrong for prod)");
+  if (!process.env.STORAGE_ENDPOINT) issues.push("STORAGE_ENDPOINT unset (defaulting to localhost:9000)");
+  if (!process.env.STORAGE_ACCESS_KEY) issues.push("STORAGE_ACCESS_KEY unset (defaulting to MinIO devkey)");
+  if (!process.env.STORAGE_SECRET_KEY) issues.push("STORAGE_SECRET_KEY unset (defaulting to MinIO devkey)");
+  if (issues.length) {
+    logger.error('STORAGE CONFIG MISSING in production:', { issues, effective: { bucket: STORAGE_BUCKET, endpoint: STORAGE_ENDPOINT, region: STORAGE_REGION } });
+  }
+}
 
 export const s3Client = new S3Client({
   endpoint: STORAGE_ENDPOINT,
@@ -126,4 +141,49 @@ export async function deleteObject(key: string): Promise<void> {
     Key: key,
   });
   await s3Client.send(command);
+}
+
+/**
+ * Probe storage reachability (HeadBucket). Returns config + a boolean +
+ * any AWS-SDK error name. Used by GET /api/v1/health/storage so we can
+ * diagnose without going inside the container.
+ *
+ * Bucket name and endpoint host are NOT secrets — they're inferable from
+ * the architecture spec — so it's safe to expose. Credentials are never
+ * returned.
+ */
+export async function probeStorage(): Promise<{
+  bucket: string;
+  endpointHost: string;
+  region: string;
+  reachable: boolean;
+  error?: string;
+  status?: number;
+  hasCredentials: boolean;
+}> {
+  const endpointHost = (() => {
+    try {
+      return new URL(STORAGE_ENDPOINT).host;
+    } catch {
+      return STORAGE_ENDPOINT;
+    }
+  })();
+  const hasCredentials =
+    !!process.env.STORAGE_ACCESS_KEY && !!process.env.STORAGE_SECRET_KEY;
+
+  try {
+    await s3Client.send(new HeadBucketCommand({ Bucket: STORAGE_BUCKET }));
+    return { bucket: STORAGE_BUCKET, endpointHost, region: STORAGE_REGION, reachable: true, hasCredentials };
+  } catch (err) {
+    const e = err as { name?: string; Code?: string; $metadata?: { httpStatusCode?: number }; message?: string };
+    return {
+      bucket: STORAGE_BUCKET,
+      endpointHost,
+      region: STORAGE_REGION,
+      reachable: false,
+      error: e.name || e.Code || 'Unknown',
+      status: e.$metadata?.httpStatusCode,
+      hasCredentials,
+    };
+  }
 }
