@@ -59,7 +59,7 @@ export default function NotarisPage({ params }: Props) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-bg-sunken">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -112,8 +112,8 @@ export default function NotarisPage({ params }: Props) {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 bg-white py-8">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center text-sm text-gray-500">
+      <footer className="border-t border-line bg-white py-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center text-sm text-fg-muted">
           © {new Date().getFullYear()} LegacyShield. All rights reserved.
         </div>
       </footer>

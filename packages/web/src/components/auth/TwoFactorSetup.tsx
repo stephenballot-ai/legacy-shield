@@ -57,7 +57,7 @@ export function TwoFactorSetup({ onComplete }: TwoFactorSetupProps) {
     return (
       <div className="text-center space-y-4">
         <h3 className="text-lg font-semibold">Secure your account</h3>
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-fg-muted">
           Add two-factor authentication for extra security. You&apos;ll need an authenticator app like Google Authenticator or Authy.
         </p>
         {error && <Alert variant="error">{error}</Alert>}
@@ -71,7 +71,7 @@ export function TwoFactorSetup({ onComplete }: TwoFactorSetupProps) {
   return (
     <div className="space-y-5">
       <h3 className="text-lg font-semibold text-center">Scan QR code</h3>
-      <p className="text-sm text-gray-600 text-center">
+      <p className="text-sm text-fg-muted text-center">
         Scan this code with your authenticator app, then enter the 6-digit code to confirm.
       </p>
 
@@ -84,7 +84,7 @@ export function TwoFactorSetup({ onComplete }: TwoFactorSetupProps) {
 
       <Card className="flex items-center justify-between gap-2 !p-3">
         <code className="text-xs font-mono break-all flex-1">{secret}</code>
-        <button onClick={copySecret} className="text-gray-400 hover:text-gray-600 flex-shrink-0">
+        <button onClick={copySecret} className="text-fg-subtle hover:text-fg-muted flex-shrink-0">
           {copied ? <Check className="h-4 w-4 text-trust-500" /> : <Copy className="h-4 w-4" />}
         </button>
       </Card>

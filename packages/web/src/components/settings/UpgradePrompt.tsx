@@ -35,10 +35,10 @@ export function UpgradePrompt({ feature, onDismiss }: Props) {
           <Crown className="h-5 w-5 text-white" />
         </div>
         <div className="flex-1">
-          <h3 className="font-semibold text-gray-900">
+          <h3 className="font-semibold text-fg">
             {feature ? `Upgrade to unlock ${feature}` : 'Upgrade to Pro'}
           </h3>
-          <p className="text-sm text-gray-600 mt-1">
+          <p className="text-sm text-fg-muted mt-1">
             Get 100 documents, 5 emergency contacts, and 10MB uploads.
             Starting at $10/month or $500 lifetime.
           </p>

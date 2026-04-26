@@ -68,9 +68,9 @@ export default function EmergencyAccessPortal() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-bg-sunken flex flex-col">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 px-4 py-4">
+      <header className="bg-white border-b border-line px-4 py-4">
         <div className="max-w-lg mx-auto">
           <Logo size="sm" />
         </div>
@@ -84,14 +84,14 @@ export default function EmergencyAccessPortal() {
             <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full mb-4">
               <ShieldAlert className="h-8 w-8 text-primary-600" />
             </div>
-            <h1 className="text-2xl font-bold text-gray-900">Emergency Access</h1>
-            <p className="text-sm text-gray-500 mt-2">
+            <h1 className="text-2xl font-bold text-fg">Emergency Access</h1>
+            <p className="text-sm text-fg-muted mt-2">
               Enter the unlock phrase provided by the vault owner to access their documents.
             </p>
           </div>
 
           {/* Form */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div className="bg-white rounded-xl shadow-sm border border-line p-6">
             <form onSubmit={handleSubmit} className="space-y-4">
               <Input
                 id="owner-email"
@@ -119,11 +119,11 @@ export default function EmergencyAccessPortal() {
 
           {/* Trust signals */}
           <div className="text-center space-y-2">
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-fg-subtle">
               Your phrase is never stored or transmitted in plain text.
               All decryption happens locally in your browser.
             </p>
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-fg-subtle">
               Access is read-only. Documents cannot be modified or deleted.
             </p>
           </div>
@@ -131,7 +131,7 @@ export default function EmergencyAccessPortal() {
       </main>
 
       {/* Footer */}
-      <footer className="py-4 text-center text-xs text-gray-400 border-t border-gray-100">
+      <footer className="py-4 text-center text-xs text-fg-subtle border-t border-line">
         <Logo size="sm" className="justify-center mb-2" />
         Secure document vault for life&apos;s important moments
       </footer>

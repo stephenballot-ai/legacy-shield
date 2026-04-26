@@ -80,8 +80,8 @@ export function PasswordPrompt({ onUnlocked }: PasswordPromptProps) {
       <div className="p-3 bg-primary-50 rounded-full mb-4">
         <Lock className="h-6 w-6 text-primary-600" />
       </div>
-      <h3 className="text-lg font-semibold text-gray-900 mb-1">Vault Locked</h3>
-      <p className="text-sm text-gray-500 mb-6 text-center max-w-sm">
+      <h3 className="text-lg font-semibold text-fg mb-1">Vault Locked</h3>
+      <p className="text-sm text-fg-muted mb-6 text-center max-w-sm">
         Your session is active but your encryption keys need to be re-derived. Enter your password to unlock.
       </p>
       <form onSubmit={handleSubmit} className="w-full max-w-xs space-y-4">

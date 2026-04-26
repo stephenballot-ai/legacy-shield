@@ -3,22 +3,26 @@ import { Link } from '@/i18n/routing';
 import { getAllPosts } from '@/lib/blog';
 import { Logo } from '@/components/ui/Logo';
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
   const titles: Record<string, string> = {
-    en: 'Blog — LegacyShield',
-    nl: 'Blog — LegacyShield',
-    de: 'Blog — LegacyShield',
-    fr: 'Blog — LegacyShield',
-    it: 'Blog — LegacyShield',
-    es: 'Blog — LegacyShield',
+    en: 'Notes — LegacyShield',
+    nl: 'Notities — LegacyShield',
+    de: 'Notizen — LegacyShield',
+    fr: 'Notes — LegacyShield',
+    it: 'Note — LegacyShield',
+    es: 'Notas — LegacyShield',
   };
   const descriptions: Record<string, string> = {
-    en: 'Tips and guides on digital estate planning, secure document storage, and protecting your digital legacy.',
-    nl: 'Tips en gidsen over digitale nalatenschapsplanning, veilige documentopslag en het beschermen van je digitale nalatenschap.',
-    de: 'Tipps und Leitfäden zur digitalen Nachlassplanung, sicheren Dokumentenaufbewahrung und zum Schutz Ihres digitalen Erbes.',
-    fr: 'Conseils et guides sur la planification successorale numérique et le stockage sécurisé de documents.',
-    it: 'Consigli e guide sulla pianificazione patrimoniale digitale e l&apos;archiviazione sicura dei documenti.',
-    es: 'Consejos y guías sobre planificación patrimonial digital y almacenamiento seguro de documentos.',
+    en: 'Notes on digital estate planning, secure document custody, and protecting your digital legacy.',
+    nl: 'Notities over digitale nalatenschapsplanning, veilige documentopslag en het beschermen van je digitale nalatenschap.',
+    de: 'Notizen zur digitalen Nachlassplanung, sicheren Dokumentenaufbewahrung und zum Schutz Ihres digitalen Erbes.',
+    fr: 'Notes sur la planification successorale numérique et la garde sécurisée des documents.',
+    it: 'Note sulla pianificazione patrimoniale digitale e la custodia sicura dei documenti.',
+    es: 'Notas sobre planificación patrimonial digital y custodia segura de documentos.',
   };
   return {
     title: titles[locale] || titles.en,
@@ -33,81 +37,186 @@ export default function BlogListingPage({ params: { locale } }: { params: { loca
   const posts = getAllPosts(locale);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-gradient-to-r from-primary-900 via-primary-800 to-navy-900 text-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex items-center justify-between">
-          <Link href="/">
-            <Logo size="sm" variant="dark" />
+    <div className="min-h-screen bg-bg text-fg">
+      <header
+        className="border-b border-line"
+        style={{
+          background: 'color-mix(in oklab, var(--bg) 88%, transparent)',
+          backdropFilter: 'blur(12px) saturate(140%)',
+        }}
+      >
+        <div
+          className="container flex items-center justify-between"
+          style={{ padding: '14px var(--gutter)' }}
+        >
+          <Link href="/" className="no-underline">
+            <Logo size="sm" />
           </Link>
-          <nav className="flex items-center gap-6 text-sm font-medium">
-            <Link href="/" className="hover:text-trust-300 transition-colors">Home</Link>
-            <span className="text-accent-400">Blog</span>
-            <Link href="/login" className="hover:text-trust-300 transition-colors">Sign In</Link>
+          <nav className="flex items-center gap-[var(--s-2)] text-[13px]">
+            <Link
+              href="/"
+              className="rounded-sm px-2.5 py-1.5 text-fg-muted no-underline transition-colors hover:bg-bg-sunken hover:text-fg"
+            >
+              Home
+            </Link>
+            <span
+              className="rounded-sm px-2.5 py-1.5 text-fg"
+              style={{ background: 'var(--bg-sunken)' }}
+            >
+              Notes
+            </span>
+            <Link
+              href="/login"
+              className="rounded-sm px-2.5 py-1.5 text-fg-muted no-underline transition-colors hover:bg-bg-sunken hover:text-fg"
+            >
+              Sign in
+            </Link>
+            <Link href="/register" className="ls-btn ls-btn--sm ml-2">
+              Open a vault
+            </Link>
           </nav>
         </div>
       </header>
 
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-navy-900 to-primary-900 text-white py-16 sm:py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
-            {locale === 'nl' ? 'LegacyShield Blog' : 'LegacyShield Blog'}
+      <section
+        className="border-b border-line"
+        style={{
+          padding: '88px 0 72px',
+          background:
+            'radial-gradient(900px 320px at 80% -100px, color-mix(in oklab, var(--accent) 8%, transparent), transparent 60%), linear-gradient(180deg, var(--bg-sunken), var(--bg) 60%)',
+        }}
+      >
+        <div className="container">
+          <span className="t-eyebrow text-fg-subtle">§ Notes — vol. {posts.length}</span>
+          <h1
+            className="mt-[var(--s-7)] font-display text-fg"
+            style={{
+              fontSize: 'clamp(40px, 5vw, 64px)',
+              lineHeight: 1.05,
+              letterSpacing: 'var(--tracking-tight)',
+              fontWeight: 400,
+              margin: 0,
+              maxWidth: '20ch',
+            }}
+          >
+            Field notes on digital{' '}
+            <em
+              style={{
+                fontStyle: 'italic',
+                color: 'var(--accent)',
+                fontFamily: 'var(--font-display)',
+              }}
+            >
+              custody
+            </em>
+            .
           </h1>
-          <p className="mt-4 text-lg text-white/70 max-w-2xl mx-auto">
+          <p
+            className="mt-[var(--s-7)] text-fg-muted"
+            style={{
+              fontSize: 'var(--t-md)',
+              lineHeight: 'var(--lh-loose)',
+              maxWidth: '54ch',
+            }}
+          >
             {locale === 'nl'
-              ? 'Inzichten over digitale nalatenschapsplanning, encryptie en het beschermen van wat belangrijk is.'
-              : 'Insights on digital estate planning, encryption, and protecting what matters most.'}
+              ? 'Notities over digitale nalatenschapsplanning, encryptie en het beschermen van wat belangrijk is.'
+              : 'Quiet writing on digital estate planning, encryption, and the protection of what outlives us.'}
           </p>
         </div>
       </section>
 
-      {/* Posts Grid */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+      <section className="container" style={{ padding: '72px 0 96px' }}>
         {posts.length === 0 ? (
-          <p className="text-center text-gray-500 text-lg">
-            {locale === 'nl' ? 'Nog geen artikelen beschikbaar.' : 'No articles available yet.'}
-          </p>
-        ) : (
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post) => (
-              <Link
-                key={post.slug}
-                href={`/blog/${post.slug}`}
-                className="group block bg-white rounded-2xl border border-gray-200 hover:border-trust-400 hover:shadow-lg transition-all duration-200 overflow-hidden"
-              >
-                <div className="p-6">
-                  <div className="flex items-center gap-3 text-xs text-gray-500 mb-3">
-                    <time dateTime={post.date}>
-                      {new Date(post.date).toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' })}
-                    </time>
-                    <span>·</span>
-                    <span>{post.readingTime}</span>
-                  </div>
-                  <h2 className="text-lg font-semibold text-navy-900 group-hover:text-primary-600 transition-colors leading-snug">
-                    {post.title}
-                  </h2>
-                  <p className="mt-2 text-sm text-gray-600 line-clamp-3">
-                    {post.description}
-                  </p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {post.keywords.slice(0, 3).map((kw) => (
-                      <span key={kw} className="inline-block text-xs bg-primary-50 text-primary-700 rounded-full px-2.5 py-0.5 font-medium">
-                        {kw}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </Link>
-            ))}
+          <div className="ls-empty">
+            <div className="ls-empty__crest">L</div>
+            <h2 className="ls-empty__title">The archive is awaiting its first note.</h2>
+            <p className="ls-empty__body">Check back soon.</p>
           </div>
+        ) : (
+          <ol
+            className="m-0 grid list-none gap-px overflow-hidden p-0"
+            style={{ borderTop: '1px solid var(--line-ink)' }}
+          >
+            {posts.map((post, i) => (
+              <li
+                key={post.slug}
+                style={{ borderBottom: '1px solid var(--line)' }}
+              >
+                <Link
+                  href={`/blog/${post.slug}` as any}
+                  className="group grid items-baseline gap-[var(--s-7)] py-[var(--s-9)] no-underline transition-colors hover:bg-bg-sunken md:grid-cols-[80px_1fr_220px]"
+                >
+                  <span className="font-mono text-[12px] tracking-[0.08em] text-fg-subtle">
+                    № {String(i + 1).padStart(3, '0')}
+                  </span>
+                  <div className="min-w-0">
+                    <h2
+                      className="font-display text-fg transition-colors group-hover:text-accent"
+                      style={{
+                        fontSize: 'var(--t-2xl)',
+                        letterSpacing: 'var(--tracking-snug)',
+                        lineHeight: 'var(--lh-snug)',
+                        margin: 0,
+                        fontWeight: 400,
+                      }}
+                    >
+                      {post.title}
+                    </h2>
+                    <p
+                      className="mt-[var(--s-4)] text-fg-muted"
+                      style={{
+                        fontSize: 'var(--t-sm)',
+                        lineHeight: 'var(--lh-loose)',
+                        maxWidth: '60ch',
+                      }}
+                    >
+                      {post.description}
+                    </p>
+                    {post.keywords.slice(0, 3).length > 0 && (
+                      <div className="mt-[var(--s-5)] flex flex-wrap gap-[var(--s-3)]">
+                        {post.keywords.slice(0, 3).map((kw) => (
+                          <span
+                            key={kw}
+                            className="font-mono text-[11px] uppercase tracking-[0.08em] text-fg-subtle"
+                          >
+                            {kw}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <div className="text-fg-subtle md:text-right">
+                    <time
+                      dateTime={post.date}
+                      className="block font-mono text-[12px] tracking-[0.04em]"
+                    >
+                      {new Date(post.date).toLocaleDateString(locale, {
+                        year: 'numeric',
+                        month: 'short',
+                        day: '2-digit',
+                      })}
+                    </time>
+                    <span className="mt-1 block font-mono text-[11px] text-fg-subtle">
+                      {post.readingTime}
+                    </span>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ol>
         )}
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-gray-200 bg-white py-8">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center text-sm text-gray-500">
-          © {new Date().getFullYear()} LegacyShield. All rights reserved.
+      <footer className="border-t border-line">
+        <div
+          className="container flex items-center justify-between text-[11px] uppercase tracking-[0.14em] text-fg-subtle"
+          style={{ padding: '32px var(--gutter)' }}
+        >
+          <span>© {new Date().getFullYear()} LegacyShield · EU custody</span>
+          <Link href="/" className="text-fg-subtle no-underline hover:text-accent">
+            Return to vault
+          </Link>
         </div>
       </footer>
     </div>

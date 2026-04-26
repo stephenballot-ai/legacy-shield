@@ -32,7 +32,7 @@ const curlResponse = `{
 
 export default function AgentsPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-bg-sunken">
       {/* Hero */}
       <section className="bg-gray-900 text-white py-20 px-4">
         <div className="max-w-3xl mx-auto text-center">
@@ -43,7 +43,7 @@ export default function AgentsPage() {
           <h1 className="text-4xl font-bold mb-4">
             Your Agent Needs a Vault
           </h1>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+          <p className="text-lg text-fg-subtle max-w-2xl mx-auto">
             Agents lose everything when their process dies. LegacyShield gives them 
             zero-knowledge encrypted storage that persists across sessions, restarts, and migrations.
           </p>
@@ -52,37 +52,37 @@ export default function AgentsPage() {
 
       {/* Why */}
       <section className="py-16 px-4 max-w-3xl mx-auto">
-        <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Why Agents Need This</h2>
+        <h2 className="text-2xl font-bold text-fg mb-8 text-center">Why Agents Need This</h2>
         <div className="grid md:grid-cols-3 gap-6">
           {[
             { icon: Database, title: 'Persistent Memory', desc: 'Store context, credentials, and state that survives restarts.' },
             { icon: Shield, title: 'Zero-Knowledge', desc: 'AES-256-GCM encryption. We never see your data. Ever.' },
             { icon: Key, title: 'One API Call to Start', desc: 'Self-signup, get an API key, connect via MCP. Under 60 seconds.' },
           ].map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="bg-white rounded-xl p-6 border border-gray-200">
+            <div key={title} className="bg-white rounded-xl p-6 border border-line">
               <Icon className="h-8 w-8 text-primary-600 mb-3" />
-              <h3 className="font-semibold text-gray-900 mb-2">{title}</h3>
-              <p className="text-sm text-gray-500">{desc}</p>
+              <h3 className="font-semibold text-fg mb-2">{title}</h3>
+              <p className="text-sm text-fg-muted">{desc}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* Quick Start */}
-      <section className="py-16 px-4 bg-white border-y border-gray-200">
+      <section className="py-16 px-4 bg-white border-y border-line">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Quick Start</h2>
+          <h2 className="text-2xl font-bold text-fg mb-8 text-center">Quick Start</h2>
           
           {/* Step 1 */}
           <div className="mb-10">
             <div className="flex items-center gap-3 mb-4">
               <span className="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">1</span>
-              <h3 className="text-lg font-semibold text-gray-900">Register your agent</h3>
+              <h3 className="text-lg font-semibold text-fg">Register your agent</h3>
             </div>
             <pre className="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto text-sm">
               <code>{curlExample}</code>
             </pre>
-            <p className="text-sm text-gray-500 mt-2">Returns your <code className="bg-gray-100 px-1 rounded">apiKey</code> and a ready-to-paste MCP config:</p>
+            <p className="text-sm text-fg-muted mt-2">Returns your <code className="bg-bg-sunken px-1 rounded">apiKey</code> and a ready-to-paste MCP config:</p>
             <pre className="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto text-sm mt-2">
               <code>{curlResponse}</code>
             </pre>
@@ -92,9 +92,9 @@ export default function AgentsPage() {
           <div className="mb-10">
             <div className="flex items-center gap-3 mb-4">
               <span className="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">2</span>
-              <h3 className="text-lg font-semibold text-gray-900">Connect via MCP</h3>
+              <h3 className="text-lg font-semibold text-fg">Connect via MCP</h3>
             </div>
-            <p className="text-sm text-gray-500 mb-3">Add this to your MCP client config (Claude Desktop, OpenClaw, etc.):</p>
+            <p className="text-sm text-fg-muted mb-3">Add this to your MCP client config (Claude Desktop, OpenClaw, etc.):</p>
             <pre className="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto text-sm">
               <code>{mcpConfig}</code>
             </pre>
@@ -104,30 +104,30 @@ export default function AgentsPage() {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <span className="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">3</span>
-              <h3 className="text-lg font-semibold text-gray-900">Use it</h3>
+              <h3 className="text-lg font-semibold text-fg">Use it</h3>
             </div>
-            <p className="text-sm text-gray-500">Your agent can now list files, store documents, and manage its vault through MCP tools.</p>
+            <p className="text-sm text-fg-muted">Your agent can now list files, store documents, and manage its vault through MCP tools.</p>
           </div>
         </div>
       </section>
 
       {/* Discovery */}
       <section className="py-16 px-4 max-w-3xl mx-auto">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">Auto-Discovery</h2>
-        <p className="text-gray-500 text-center mb-8">Agents can discover LegacyShield programmatically:</p>
+        <h2 className="text-2xl font-bold text-fg mb-4 text-center">Auto-Discovery</h2>
+        <p className="text-fg-muted text-center mb-8">Agents can discover LegacyShield programmatically:</p>
         <div className="space-y-3">
-          <div className="bg-white rounded-lg border border-gray-200 p-4 flex items-center gap-4">
-            <Terminal className="h-5 w-5 text-gray-400 flex-shrink-0" />
+          <div className="bg-white rounded-lg border border-line p-4 flex items-center gap-4">
+            <Terminal className="h-5 w-5 text-fg-subtle flex-shrink-0" />
             <div>
               <code className="text-sm font-mono text-primary-600">GET /.well-known/mcp.json</code>
-              <p className="text-xs text-gray-500 mt-1">MCP server metadata, install instructions, environment variables</p>
+              <p className="text-xs text-fg-muted mt-1">MCP server metadata, install instructions, environment variables</p>
             </div>
           </div>
-          <div className="bg-white rounded-lg border border-gray-200 p-4 flex items-center gap-4">
-            <Terminal className="h-5 w-5 text-gray-400 flex-shrink-0" />
+          <div className="bg-white rounded-lg border border-line p-4 flex items-center gap-4">
+            <Terminal className="h-5 w-5 text-fg-subtle flex-shrink-0" />
             <div>
               <code className="text-sm font-mono text-primary-600">GET /.well-known/agent.json</code>
-              <p className="text-xs text-gray-500 mt-1">Capabilities, auth method, self-signup endpoint, encryption details</p>
+              <p className="text-xs text-fg-muted mt-1">Capabilities, auth method, self-signup endpoint, encryption details</p>
             </div>
           </div>
         </div>
@@ -135,7 +135,7 @@ export default function AgentsPage() {
 
       {/* Footer */}
       <section className="py-12 px-4 bg-gray-900 text-center">
-        <p className="text-gray-400 text-sm">
+        <p className="text-fg-subtle text-sm">
           EU-hosted on European-owned infrastructure (Hetzner, Germany) · Zero-knowledge AES-256-GCM · No CLOUD Act exposure
         </p>
       </section>

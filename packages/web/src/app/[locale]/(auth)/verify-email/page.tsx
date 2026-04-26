@@ -8,7 +8,6 @@ import { Alert } from '@/components/ui/Alert';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { Button } from '@/components/ui/Button';
 import { authApi } from '@/lib/api/auth';
-import { CheckCircle2 } from 'lucide-react';
 
 function VerifyEmailContent() {
   const searchParams = useSearchParams();
@@ -20,25 +19,38 @@ function VerifyEmailContent() {
       setStatus('error');
       return;
     }
-    authApi.verifyEmail(token)
+    authApi
+      .verifyEmail(token)
       .then(() => setStatus('success'))
       .catch(() => setStatus('error'));
   }, [token]);
 
   return (
-    <Card className="text-center">
+    <Card>
       {status === 'loading' && (
-        <div className="py-8 flex flex-col items-center gap-4">
+        <div className="flex flex-col items-center gap-[var(--s-6)] py-[var(--s-9)] text-center">
           <LoadingSpinner size="lg" />
-          <p className="text-gray-600">Verifying your email...</p>
+          <p className="text-[13px] text-fg-muted">Verifying your email…</p>
         </div>
       )}
 
       {status === 'success' && (
-        <div className="py-8 flex flex-col items-center gap-4">
-          <CheckCircle2 className="h-12 w-12 text-trust-500" />
-          <h2 className="text-xl font-semibold">Email verified</h2>
-          <p className="text-sm text-gray-600">Your email has been verified successfully.</p>
+        <div className="flex flex-col items-center gap-[var(--s-6)] py-[var(--s-9)] text-center">
+          <span className="ls-badge ls-badge--ok">
+            <span className="dot" />
+            Verified
+          </span>
+          <h2
+            className="font-display text-fg"
+            style={{
+              fontSize: 'var(--t-xl)',
+              letterSpacing: 'var(--tracking-snug)',
+              margin: 0,
+            }}
+          >
+            Email verified
+          </h2>
+          <p className="text-[13px] text-fg-muted">Your address is now on record.</p>
           <Link href="/login">
             <Button>Sign in</Button>
           </Link>
@@ -46,12 +58,14 @@ function VerifyEmailContent() {
       )}
 
       {status === 'error' && (
-        <div className="py-8 space-y-4">
+        <div className="flex flex-col gap-[var(--s-6)] py-[var(--s-7)]">
           <Alert variant="error">
             {token ? 'Invalid or expired verification link.' : 'No verification token provided.'}
           </Alert>
           <Link href="/login">
-            <Button variant="secondary">Go to login</Button>
+            <Button variant="secondary" block>
+              Go to sign in
+            </Button>
           </Link>
         </div>
       )}
@@ -61,7 +75,15 @@ function VerifyEmailContent() {
 
 export default function VerifyEmailPage() {
   return (
-    <Suspense fallback={<Card className="text-center py-8"><LoadingSpinner size="lg" /></Card>}>
+    <Suspense
+      fallback={
+        <Card>
+          <div className="flex justify-center py-[var(--s-9)]">
+            <LoadingSpinner size="lg" />
+          </div>
+        </Card>
+      }
+    >
       <VerifyEmailContent />
     </Suspense>
   );

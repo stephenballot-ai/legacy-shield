@@ -200,7 +200,7 @@ export function DocumentUpload({ open, onClose, initialCategory }: DocumentUploa
       >
         <div className="flex items-center justify-between p-4 border-b">
           <h2 className="text-lg font-semibold">Upload Documents</h2>
-          <button onClick={handleClose} className="p-1 text-gray-400 hover:text-gray-600" disabled={isUploading}>
+          <button onClick={handleClose} className="p-1 text-fg-subtle hover:text-fg-muted" disabled={isUploading}>
             <X className="h-5 w-5" />
           </button>
         </div>
@@ -227,14 +227,14 @@ export function DocumentUpload({ open, onClose, initialCategory }: DocumentUploa
             onClick={() => fileInputRef.current?.click()}
             className={cn(
               'border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors',
-              dragOver ? 'border-primary-400 bg-primary-50' : 'border-gray-300 hover:border-gray-400'
+              dragOver ? 'border-primary-400 bg-primary-50' : 'border-line-strong hover:border-gray-400'
             )}
           >
-            <Upload className="h-8 w-8 text-gray-400 mx-auto mb-2" />
-            <p className="text-sm text-gray-600">
+            <Upload className="h-8 w-8 text-fg-subtle mx-auto mb-2" />
+            <p className="text-sm text-fg-muted">
               Drag & drop files here, or <span className="text-primary-600 font-medium">browse</span>
             </p>
-            <p className="text-xs text-gray-400 mt-1">Max {formatFileSize(maxSize)} per file</p>
+            <p className="text-xs text-fg-subtle mt-1">Max {formatFileSize(maxSize)} per file</p>
           </div>
           <input
             ref={fileInputRef}
@@ -250,19 +250,19 @@ export function DocumentUpload({ open, onClose, initialCategory }: DocumentUploa
           {/* Category */}
           {uploads.length === 0 && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+              <label className="block text-sm font-medium text-fg mb-1">Category</label>
               <div className="relative">
                 <select
                   value={category || ''}
                   onChange={(e) => setCategory((e.target.value || null) as FileCategory | null)}
-                  className="block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm bg-white appearance-none pr-8"
+                  className="block w-full rounded-lg border border-line-strong px-3 py-2.5 text-sm bg-white appearance-none pr-8"
                 >
                   <option value="">No category</option>
                   {ALL_CATEGORIES.map((c) => (
                     <option key={c} value={c}>{categoryLabel[c]}</option>
                   ))}
                 </select>
-                <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+                <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 text-fg-subtle pointer-events-none" />
               </div>
             </div>
           )}
@@ -270,13 +270,13 @@ export function DocumentUpload({ open, onClose, initialCategory }: DocumentUploa
           {/* Tags */}
           {uploads.length === 0 && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Tags (comma separated)</label>
+              <label className="block text-sm font-medium text-fg mb-1">Tags (comma separated)</label>
               <input
                 type="text"
                 value={tags}
                 onChange={(e) => setTags(e.target.value)}
                 placeholder="e.g. passport, 2024"
-                className="block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm"
+                className="block w-full rounded-lg border border-line-strong px-3 py-2.5 text-sm"
               />
             </div>
           )}
@@ -287,31 +287,31 @@ export function DocumentUpload({ open, onClose, initialCategory }: DocumentUploa
               {uploads.map((item, i) => (
                 <div key={i} className={cn(
                   "flex flex-col gap-2 p-3 rounded-xl border transition-all duration-500",
-                  item.status === 'done' ? "bg-primary-900 border-primary-800 text-white" : "bg-gray-50 border-gray-100"
+                  item.status === 'done' ? "bg-primary-900 border-primary-800 text-white" : "bg-bg-sunken border-line"
                 )}>
                   <div className="flex items-center gap-3">
                     <div className={cn(
                       "p-2 rounded-lg",
-                      item.status === 'done' ? "bg-primary-800" : "bg-white border border-gray-200"
+                      item.status === 'done' ? "bg-primary-800" : "bg-white border border-line"
                     )}>
-                      <FileText className={cn("h-4 w-4", item.status === 'done' ? "text-primary-300" : "text-gray-400")} />
+                      <FileText className={cn("h-4 w-4", item.status === 'done' ? "text-primary-300" : "text-fg-subtle")} />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="truncate font-medium text-sm">{item.file.name}</p>
-                      <p className={cn("text-xs", item.status === 'done' ? "text-primary-300" : "text-gray-400")}>
+                      <p className={cn("text-xs", item.status === 'done' ? "text-primary-300" : "text-fg-subtle")}>
                         {formatFileSize(item.file.size)}
                       </p>
                     </div>
                     {item.status === 'pending' && (
-                      <button onClick={() => removeUpload(i)} className="text-gray-400 hover:text-gray-600">
+                      <button onClick={() => removeUpload(i)} className="text-fg-subtle hover:text-fg-muted">
                         <X className="h-4 w-4" />
                       </button>
                     )}
-                    {item.status === 'encrypting' && <span className="text-xs text-amber-600 animate-pulse">Encrypting…</span>}
+                    {item.status === 'encrypting' && <span className="text-xs text-warn animate-pulse">Encrypting…</span>}
                     {item.status === 'uploading' && <span className="text-xs text-blue-600 animate-pulse">Uploading…</span>}
                     {item.status === 'done' && <ShieldCheck className="h-5 w-5 text-accent-400" />}
                     {item.status === 'error' && (
-                      <span className="text-xs text-red-600 flex items-center gap-1">
+                      <span className="text-xs text-danger flex items-center gap-1">
                         <AlertCircle className="h-3 w-3" /> {item.error}
                       </span>
                     )}
@@ -335,13 +335,13 @@ export function DocumentUpload({ open, onClose, initialCategory }: DocumentUploa
         </div>
 
         {referralToast && (
-          <div className="mx-4 mb-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+          <div className="mx-4 mb-4 p-4 bg-ok-bg border border-ok/30 rounded-lg">
             <p className="text-sm font-semibold text-green-800">🎉 Nice! You just helped your friend earn bonus storage.</p>
-            <p className="text-sm text-green-700 mt-1">
+            <p className="text-sm text-ok mt-1">
               Want more space too? Share your invite link:
             </p>
             <div className="flex items-center gap-2 mt-2">
-              <code className="text-xs bg-white border border-green-200 rounded-lg px-3 py-2 flex-1 truncate">
+              <code className="text-xs bg-white border border-ok/30 rounded-lg px-3 py-2 flex-1 truncate">
                 legacyshield.eu/r/{referralToast}
               </code>
               <button
@@ -356,8 +356,8 @@ export function DocumentUpload({ open, onClose, initialCategory }: DocumentUploa
           </div>
         )}
 
-        <div className="flex items-center justify-between p-4 border-t bg-gray-50 rounded-b-xl">
-          <span className="text-xs text-gray-500">
+        <div className="flex items-center justify-between p-4 border-t bg-bg-sunken rounded-b-xl">
+          <span className="text-xs text-fg-muted">
             {doneCount > 0 && `${doneCount} uploaded`}
             {pendingCount > 0 && ` · ${pendingCount} pending`}
           </span>

@@ -108,13 +108,13 @@ export function NotaryFinder() {
 
             {/* Search Input */}
             <div className="mt-8 max-w-2xl mx-auto relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-fg-subtle" />
               <input
                 type="text"
                 placeholder={t('hero.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-4 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent-400"
+                className="w-full pl-12 pr-4 py-4 rounded-xl text-fg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent-400"
               />
             </div>
           </div>
@@ -137,7 +137,7 @@ export function NotaryFinder() {
                 className={`px-4 py-3 rounded-lg font-medium text-sm transition-colors ${
                   selectedCity === city
                     ? 'bg-primary-600 text-white'
-                    : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+                    : 'bg-white text-fg hover:bg-bg-sunken border border-line'
                 }`}
               >
                 {city}
@@ -163,7 +163,7 @@ export function NotaryFinder() {
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                   selectedSpecialty === specialty
                     ? 'bg-primary-600 text-white'
-                    : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+                    : 'bg-white text-fg hover:bg-bg-sunken border border-line'
                 }`}
               >
                 {specialty}
@@ -175,7 +175,7 @@ export function NotaryFinder() {
         {/* Active Filters */}
         {(selectedCity || selectedSpecialty) && (
           <div className="mb-6 flex flex-wrap gap-2 items-center">
-            <span className="text-sm text-gray-600">{t('filters.active')}:</span>
+            <span className="text-sm text-fg-muted">{t('filters.active')}:</span>
             {selectedCity && (
               <span className="inline-flex items-center gap-1 bg-primary-100 text-primary-800 px-3 py-1 rounded-full text-sm">
                 {selectedCity}
@@ -203,7 +203,7 @@ export function NotaryFinder() {
 
         {/* Results Count */}
         <div className="mb-6">
-          <p className="text-gray-600">
+          <p className="text-fg-muted">
             {filteredNotaries.length} {t('results.count')}
           </p>
         </div>
@@ -213,14 +213,14 @@ export function NotaryFinder() {
           {filteredNotaries.map((notary) => (
             <div
               key={notary.id}
-              className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
+              className="bg-white rounded-xl p-6 shadow-sm border border-line hover:shadow-md transition-shadow"
             >
               <h3 className="text-xl font-bold text-navy-900 mb-3">
                 {notary.name}
               </h3>
 
               <div className="space-y-2 mb-4">
-                <div className="flex items-start gap-2 text-gray-600">
+                <div className="flex items-start gap-2 text-fg-muted">
                   <MapPin className="h-5 w-5 text-primary-600 flex-shrink-0 mt-0.5" />
                   <span className="text-sm">
                     {notary.address}
@@ -229,7 +229,7 @@ export function NotaryFinder() {
                   </span>
                 </div>
 
-                <div className="flex items-center gap-2 text-gray-600">
+                <div className="flex items-center gap-2 text-fg-muted">
                   <Phone className="h-5 w-5 text-primary-600 flex-shrink-0" />
                   <a
                     href={`tel:${notary.phone}`}
@@ -239,7 +239,7 @@ export function NotaryFinder() {
                   </a>
                 </div>
 
-                <div className="flex items-start gap-2 text-gray-600">
+                <div className="flex items-start gap-2 text-fg-muted">
                   <Briefcase className="h-5 w-5 text-primary-600 flex-shrink-0 mt-0.5" />
                   <div className="flex flex-wrap gap-1">
                     {notary.specialties.map((spec) => (
@@ -266,7 +266,7 @@ export function NotaryFinder() {
 
         {filteredNotaries.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-gray-600">{t('results.noResults')}</p>
+            <p className="text-fg-muted">{t('results.noResults')}</p>
             <button
               onClick={() => {
                 setSelectedCity('');
@@ -291,19 +291,19 @@ export function NotaryFinder() {
               </h3>
               <button
                 onClick={handleCloseModal}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-fg-subtle hover:text-fg-muted"
               >
                 <X className="h-6 w-6" />
               </button>
             </div>
 
-            <p className="text-sm text-gray-600 mb-6">
+            <p className="text-sm text-fg-muted mb-6">
               {t('modal.subtitle')} <strong>{selectedNotary.name}</strong>
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-fg mb-1">
                   {t('modal.nameLabel')}
                 </label>
                 <input
@@ -313,12 +313,12 @@ export function NotaryFinder() {
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })
                   }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-3 py-2 border border-line-strong rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-fg mb-1">
                   {t('modal.emailLabel')}
                 </label>
                 <input
@@ -328,12 +328,12 @@ export function NotaryFinder() {
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
                   }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-3 py-2 border border-line-strong rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-fg mb-1">
                   {t('modal.phoneLabel')}
                 </label>
                 <input
@@ -343,12 +343,12 @@ export function NotaryFinder() {
                   onChange={(e) =>
                     setFormData({ ...formData, phone: e.target.value })
                   }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-3 py-2 border border-line-strong rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-fg mb-1">
                   {t('modal.messageLabel')}
                 </label>
                 <textarea
@@ -357,7 +357,7 @@ export function NotaryFinder() {
                   onChange={(e) =>
                     setFormData({ ...formData, message: e.target.value })
                   }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-3 py-2 border border-line-strong rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                   placeholder={t('modal.messagePlaceholder')}
                 />
               </div>
@@ -366,7 +366,7 @@ export function NotaryFinder() {
                 <button
                   type="button"
                   onClick={handleCloseModal}
-                  className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                  className="flex-1 px-4 py-2.5 border border-line-strong rounded-lg font-medium text-fg hover:bg-bg-sunken transition-colors"
                 >
                   {t('modal.cancel')}
                 </button>

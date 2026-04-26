@@ -14,21 +14,24 @@ function JsonLd({ locale }: { locale: string }) {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    'name': 'LegacyShield',
-    'operatingSystem': 'Web',
-    'applicationCategory': 'SecurityApplication',
-    'isBasedOn': 'https://bitatlas.com',
-    'offers': {
+    name: 'LegacyShield',
+    operatingSystem: 'Web',
+    applicationCategory: 'SecurityApplication',
+    isBasedOn: 'https://bitatlas.com',
+    offers: {
       '@type': 'Offer',
-      'price': currency.monthly,
-      'priceCurrency': locale === 'nl' || locale === 'de' || locale === 'fr' || locale === 'it' || locale === 'es' ? 'EUR' : 'USD',
+      price: currency.monthly,
+      priceCurrency:
+        locale === 'nl' || locale === 'de' || locale === 'fr' || locale === 'it' || locale === 'es'
+          ? 'EUR'
+          : 'USD',
     },
-    'aggregateRating': {
+    aggregateRating: {
       '@type': 'AggregateRating',
-      'ratingValue': '4.9',
-      'ratingCount': '12',
+      ratingValue: '4.9',
+      ratingCount: '12',
     },
-    'description': t('title') + ' ' + t('subtitle'),
+    description: t('title') + ' ' + t('subtitle'),
   };
 
   return (
@@ -39,124 +42,508 @@ function JsonLd({ locale }: { locale: string }) {
   );
 }
 
-function NavHeader() {
+function TopBar() {
   const t = useTranslations('homepage.footer');
   return (
-    <header className="fixed top-0 w-full z-50 glass-panel flex justify-between items-center px-6 py-4">
-      <Link href="/">
-        <Logo size="md" />
-      </Link>
-      <nav className="flex items-center gap-3 sm:gap-6 text-sm font-medium text-on-surface/70">
-        <Link href="/blog" className="hidden sm:inline hover:text-on-surface transition-colors">{t('blog')}</Link>
-        <Link
-          href="/register"
-          className="bg-secondary-container text-on-secondary-container font-semibold py-2 px-4 sm:px-5 rounded-lg shadow-sm active:scale-95 transition-all text-xs sm:text-sm"
-        >
-          Get Started
+    <header
+      className="sticky top-0 z-30 border-b border-line"
+      style={{
+        background: 'color-mix(in oklab, var(--bg) 88%, transparent)',
+        backdropFilter: 'blur(12px) saturate(140%)',
+      }}
+    >
+      <div className="container flex items-center" style={{ padding: '14px var(--gutter)' }}>
+        <Link href="/" className="no-underline">
+          <Logo size="md" />
         </Link>
-      </nav>
+        <nav className="ml-auto flex items-center gap-1 text-[13px]" aria-label="Sections">
+          <Link
+            href="/blog"
+            className="hidden rounded-sm px-2.5 py-1.5 text-fg-muted transition-colors hover:bg-bg-sunken hover:text-fg sm:inline"
+          >
+            {t('blog')}
+          </Link>
+          <a
+            href="#how"
+            className="hidden rounded-sm px-2.5 py-1.5 text-fg-muted transition-colors hover:bg-bg-sunken hover:text-fg md:inline"
+          >
+            How it works
+          </a>
+          <a
+            href="#pricing"
+            className="hidden rounded-sm px-2.5 py-1.5 text-fg-muted transition-colors hover:bg-bg-sunken hover:text-fg md:inline"
+          >
+            Pricing
+          </a>
+          <Link
+            href="/login"
+            className="hidden rounded-sm px-2.5 py-1.5 text-fg-muted transition-colors hover:bg-bg-sunken hover:text-fg sm:inline"
+          >
+            Sign in
+          </Link>
+          <Link href="/register" className="ls-btn ls-btn--sm ml-2">
+            Open a vault
+          </Link>
+        </nav>
+      </div>
     </header>
   );
 }
 
-function HeroSection() {
+function Eyebrow({ children, color = 'subtle' }: { children: React.ReactNode; color?: 'subtle' | 'accent' | 'ok' }) {
+  const colorVar =
+    color === 'accent' ? 'var(--accent)' : color === 'ok' ? 'var(--ok)' : 'var(--fg-subtle)';
+  return (
+    <span className="t-eyebrow inline-flex items-center" style={{ color: colorVar }}>
+      <span
+        aria-hidden="true"
+        className="mr-2 inline-block h-1.5 w-1.5 rounded-full align-middle"
+        style={{ background: colorVar }}
+      />
+      {children}
+    </span>
+  );
+}
+
+function SectionMark({ no, children }: { no: string; children: React.ReactNode }) {
+  return (
+    <div className="grid grid-cols-1 gap-[var(--s-12)] md:grid-cols-[220px_1fr] md:items-baseline">
+      <span
+        className="font-mono text-[12px] uppercase tracking-[0.08em] text-fg-subtle"
+        style={{ borderTop: '1px solid var(--line-ink)', paddingTop: 10 }}
+      >
+        § {no}
+      </span>
+      <div>{children}</div>
+    </div>
+  );
+}
+
+function Hero() {
   const t = useTranslations('homepage.hero');
   const user = useAuthStore((s) => s.user);
 
   return (
-    <section className="sentinel-gradient relative overflow-hidden px-6 pt-32 pb-16">
-      <div className="relative z-10">
-        <h1 className="text-4xl font-extrabold text-white leading-[1.1] tracking-tight mb-6">
-          {t('title')}
-        </h1>
-        <p className="text-lg text-primary-fixed-dim/90 leading-relaxed mb-10 font-light">
-          {t('subtitle')}
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4">
-          {user ? (
-            <Link
-              href="/dashboard"
-              className="bg-secondary-container text-on-secondary-container font-semibold py-4 px-8 rounded-xl shadow-lg active:scale-95 transition-all text-center"
+    <section
+      className="relative overflow-hidden border-b border-line"
+      style={{
+        padding: '88px 0 96px',
+        background:
+          'radial-gradient(1200px 400px at 80% -100px, color-mix(in oklab, var(--accent) 9%, transparent), transparent 60%), linear-gradient(180deg, var(--bg-sunken), var(--bg) 60%)',
+      }}
+    >
+      <div className="container">
+        <div className="grid items-end gap-[var(--s-12)] md:grid-cols-[1.3fr_1fr]">
+          <div>
+            <Eyebrow color="accent">Custody · Encrypted · EU Infrastructure</Eyebrow>
+            <h1
+              className="mt-6 font-display text-fg"
+              style={{
+                fontSize: 'clamp(40px, 5.4vw, 76px)',
+                lineHeight: 0.98,
+                letterSpacing: 'var(--tracking-tight)',
+                fontWeight: 400,
+                margin: 0,
+              }}
             >
-              Go to Dashboard
-            </Link>
-          ) : (
-            <>
-              <Link
-                href="/register"
-                className="bg-secondary-container text-on-secondary-container font-semibold py-4 px-8 rounded-xl shadow-lg active:scale-95 transition-all text-center"
+              If you died tomorrow,
+              <br />
+              would your family
+              <br />
+              be{' '}
+              <em
+                style={{
+                  fontStyle: 'italic',
+                  color: 'var(--accent)',
+                  fontFamily: 'var(--font-display)',
+                }}
               >
-                {t('ctaPrimary')}
-              </Link>
-              <a
-                href="#how-it-works"
-                className="bg-transparent border border-white/20 text-white font-medium py-4 px-8 rounded-xl active:scale-95 transition-all text-center"
+                locked out?
+              </em>
+            </h1>
+            <p
+              className="mt-[var(--s-9)] text-fg-muted"
+              style={{
+                fontSize: 'var(--t-md)',
+                lineHeight: 'var(--lh-loose)',
+                maxWidth: '52ch',
+              }}
+            >
+              {t('subtitle')}
+            </p>
+
+            <div className="mt-[var(--s-9)] flex flex-wrap items-center gap-[var(--s-5)]">
+              {user ? (
+                <Link href="/dashboard" className="ls-btn ls-btn--lg">
+                  Go to dashboard
+                </Link>
+              ) : (
+                <>
+                  <Link href="/register" className="ls-btn ls-btn--lg">
+                    {t('ctaPrimary')}
+                  </Link>
+                  <a href="#how" className="ls-btn ls-btn--secondary ls-btn--lg">
+                    {t('ctaSecondary')}
+                  </a>
+                </>
+              )}
+            </div>
+
+            {!user && (
+              <p className="mt-[var(--s-6)] text-[13px] text-fg-subtle">{t('disclaimer')}</p>
+            )}
+          </div>
+
+          <dl
+            aria-label="System summary"
+            className="grid grid-cols-2 gap-px overflow-hidden rounded-md border border-line"
+            style={{ background: 'var(--line)' }}
+          >
+            <div className="bg-bg-raised" style={{ padding: 'var(--s-7)' }}>
+              <dt className="t-eyebrow" style={{ color: 'var(--fg-subtle)', marginBottom: 6 }}>
+                Custody
+              </dt>
+              <dd
+                className="font-display text-fg"
+                style={{ fontSize: 'var(--t-lg)', letterSpacing: 'var(--tracking-snug)', margin: 0 }}
               >
-                {t('ctaSecondary')}
-              </a>
-            </>
-          )}
+                Zero-knowledge
+              </dd>
+            </div>
+            <div className="bg-bg-raised" style={{ padding: 'var(--s-7)' }}>
+              <dt className="t-eyebrow" style={{ color: 'var(--fg-subtle)', marginBottom: 6 }}>
+                Hosting
+              </dt>
+              <dd
+                className="font-display text-fg"
+                style={{ fontSize: 'var(--t-lg)', letterSpacing: 'var(--tracking-snug)', margin: 0 }}
+              >
+                Frankfurt · EU
+              </dd>
+            </div>
+            <div className="bg-bg-raised" style={{ padding: 'var(--s-7)' }}>
+              <dt className="t-eyebrow" style={{ color: 'var(--fg-subtle)', marginBottom: 6 }}>
+                Protocol
+              </dt>
+              <dd className="font-mono text-fg" style={{ fontSize: 'var(--t-md)', margin: 0 }}>
+                Sentinel-X · v3
+              </dd>
+            </div>
+            <div className="bg-bg-raised" style={{ padding: 'var(--s-7)' }}>
+              <dt className="t-eyebrow" style={{ color: 'var(--fg-subtle)', marginBottom: 6 }}>
+                Compliance
+              </dt>
+              <dd
+                className="font-display text-fg"
+                style={{ fontSize: 'var(--t-lg)', letterSpacing: 'var(--tracking-snug)', margin: 0 }}
+              >
+                GDPR · WCAG&nbsp;AA
+              </dd>
+            </div>
+          </dl>
         </div>
-        {!user && <p className="mt-4 text-sm text-white/50">{t('disclaimer')}</p>}
-      </div>
-      <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-secondary-container/10 rounded-full blur-[100px]" />
-      <div className="absolute top-10 right-10 opacity-20 pointer-events-none">
-        <span
-          className="material-symbols-outlined text-white"
-          style={{ fontSize: '160px', fontVariationSettings: "'FILL' 1" }}
-        >
-          shield_with_heart
-        </span>
+
+        <div className="mt-[var(--s-11)] flex flex-wrap items-center gap-[var(--s-5)]">
+          <span className="ls-status">
+            <span className="pulse" />
+            Vault online · Frankfurt
+          </span>
+          <span className="ls-badge ls-badge--seal">Sealed · 2026.04</span>
+          <span className="ls-key">7F·A2·19·E4</span>
+        </div>
       </div>
     </section>
   );
 }
 
-function TrustBar() {
-  const t = useTranslations('homepage.trust');
+function WhatIfSection() {
+  const t = useTranslations('homepage.whatIf');
   return (
-    <section className="bg-surface-container-low px-6 py-8 flex justify-between items-center">
-      <div className="flex flex-col items-center gap-1">
-        <span className="material-symbols-outlined text-primary-900/60 text-xl">verified_user</span>
-        <span className="text-[10px] font-bold uppercase tracking-widest text-primary-900/60">{t('zeroKnowledge')}</span>
-      </div>
-      <div className="w-px h-8 bg-outline-variant/30" />
-      <div className="flex flex-col items-center gap-1">
-        <span className="material-symbols-outlined text-primary-900/60 text-xl">euro</span>
-        <span className="text-[10px] font-bold uppercase tracking-widest text-primary-900/60">{t('euInfrastructure')}</span>
-      </div>
-      <div className="w-px h-8 bg-outline-variant/30" />
-      <div className="flex flex-col items-center gap-1">
-        <span className="material-symbols-outlined text-primary-900/60 text-xl">enhanced_encryption</span>
-        <span className="text-[10px] font-bold uppercase tracking-widest text-primary-900/60">{t('militaryGrade')}</span>
+    <section
+      className="border-b border-line"
+      style={{ padding: '80px 0', background: 'var(--bg-sunken)' }}
+    >
+      <div className="container">
+        <SectionMark no="00 — The moment">
+          <h2
+            className="font-display text-fg"
+            style={{
+              fontSize: 'var(--t-3xl)',
+              lineHeight: 1.1,
+              letterSpacing: 'var(--tracking-snug)',
+              margin: '0 0 var(--s-9)',
+            }}
+          >
+            {t('headline')}
+          </h2>
+          <ul className="grid gap-[var(--s-6)]" style={{ maxWidth: '60ch' }}>
+            {(['line1', 'line2', 'line3'] as const).map((k, i) => (
+              <li
+                key={k}
+                className="flex items-baseline gap-[var(--s-5)] text-fg"
+                style={{ fontSize: 'var(--t-md)', lineHeight: 'var(--lh-loose)' }}
+              >
+                <span className="font-mono text-fg-subtle" style={{ fontSize: 'var(--t-xs)', minWidth: 24 }}>
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <span>{t(k)}</span>
+              </li>
+            ))}
+          </ul>
+          <p
+            className="mt-[var(--s-9)] text-fg-muted"
+            style={{ maxWidth: '60ch', fontSize: 'var(--t-sm)', lineHeight: 'var(--lh-loose)' }}
+          >
+            {t('stat')}
+          </p>
+          <p
+            className="mt-[var(--s-7)] font-display text-fg"
+            style={{
+              fontSize: 'var(--t-2xl)',
+              letterSpacing: 'var(--tracking-snug)',
+              maxWidth: '40ch',
+              lineHeight: 'var(--lh-snug)',
+            }}
+          >
+            {t('resolution')}
+          </p>
+        </SectionMark>
       </div>
     </section>
   );
 }
 
-function FeatureBentoSection() {
+function PrinciplesSection() {
+  const principles = [
+    { no: 'i.', title: 'Discretion over display.', body: 'No theatre, no decoration. Restraint is the loudest signal of seriousness we possess.' },
+    { no: 'ii.', title: 'Permanence in form.', body: 'Materials echo paper, ink, and notarial seals — the language of documents that outlive their authors.' },
+    { no: 'iii.', title: 'Evidence, not assurance.', body: 'We show encryption state, custody, and timestamps. We never merely promise security in marketing copy.' },
+    { no: 'iv.', title: 'Tone of counsel.', body: 'We write the way a fiduciary advisor speaks — calm, measured, and never jovial about consequence.' },
+    { no: 'v.', title: 'European in posture.', body: 'Hosted on European-owned hardware. Built to European editorial and privacy traditions.' },
+    { no: 'vi.', title: 'Legibility above all.', body: 'If a beneficiary cannot read it on their worst day, the design has failed its only job.' },
+  ];
+  return (
+    <section className="border-b border-line" style={{ padding: '80px 0' }}>
+      <div className="container">
+        <SectionMark no="01 — Principles">
+          <h2
+            className="font-display text-fg"
+            style={{
+              fontSize: 'var(--t-3xl)',
+              lineHeight: 1.1,
+              letterSpacing: 'var(--tracking-snug)',
+              margin: '0 0 var(--s-5)',
+            }}
+          >
+            Six quiet covenants.
+          </h2>
+          <p
+            className="text-fg-muted"
+            style={{
+              fontSize: 'var(--t-md)',
+              lineHeight: 'var(--lh-loose)',
+              maxWidth: '60ch',
+              margin: 0,
+            }}
+          >
+            Each principle exists to be felt, not noticed — the way a lawyer&apos;s office signals
+            competence without ever announcing it.
+          </p>
+
+          <div
+            className="mt-[var(--s-11)] grid gap-x-[var(--s-9)] gap-y-[var(--s-9)] md:grid-cols-3"
+          >
+            {principles.map((p) => (
+              <article
+                key={p.no}
+                style={{ borderTop: '1px solid var(--line-ink)', paddingTop: 'var(--s-7)' }}
+              >
+                <div className="font-mono text-[11px] tracking-[0.06em] text-fg-subtle">{p.no}</div>
+                <h3
+                  className="my-[var(--s-5)] font-display text-fg"
+                  style={{
+                    fontSize: 'var(--t-xl)',
+                    letterSpacing: 'var(--tracking-snug)',
+                    lineHeight: 'var(--lh-snug)',
+                  }}
+                >
+                  {p.title}
+                </h3>
+                <p
+                  className="text-fg-muted"
+                  style={{
+                    fontSize: 'var(--t-sm)',
+                    lineHeight: 'var(--lh-loose)',
+                    maxWidth: '36ch',
+                    margin: 0,
+                  }}
+                >
+                  {p.body}
+                </p>
+              </article>
+            ))}
+          </div>
+        </SectionMark>
+      </div>
+    </section>
+  );
+}
+
+function CustodySection() {
   const t = useTranslations('homepage.features');
+  const items = [
+    { key: 'insurance', badge: 'In custody', tone: 'info' as const },
+    { key: 'bank', badge: 'Encrypted', tone: 'ok' as const },
+    { key: 'wills', badge: 'Sealed', tone: 'seal' as const },
+    { key: 'encryption', badge: 'Sentinel-X', tone: 'solid' as const },
+    { key: 'emergency', badge: 'Heir-bound', tone: 'info' as const },
+    { key: 'hosting', badge: 'Frankfurt · EU', tone: 'ok' as const },
+  ] as const;
+
+  const badgeClass = (tone: 'info' | 'ok' | 'seal' | 'solid') =>
+    tone === 'seal'
+      ? 'ls-badge ls-badge--seal'
+      : tone === 'solid'
+      ? 'ls-badge ls-badge--solid'
+      : tone === 'ok'
+      ? 'ls-badge ls-badge--ok'
+      : 'ls-badge ls-badge--info';
+
   return (
-    <section className="px-6 py-16 bg-surface">
-      <h2 className="text-2xl font-bold text-primary-900 mb-8">{t('bentoTitle')}</h2>
-      <div className="grid grid-cols-1 gap-4">
-        <div className="bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-outline-variant/10">
-          <span className="material-symbols-outlined text-secondary-container text-3xl mb-4 block">description</span>
-          <h3 className="text-lg font-bold text-primary-900 mb-2">{t('insurance.title')}</h3>
-          <p className="text-on-surface-variant text-sm leading-relaxed">{t('insurance.desc')}</p>
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-surface-container-low p-6 rounded-2xl border border-outline-variant/5">
-            <span className="material-symbols-outlined text-primary-900 text-2xl mb-4 block">account_balance</span>
-            <h3 className="text-base font-bold text-primary-900 mb-1">{t('bank.title')}</h3>
-            <p className="text-on-surface-variant text-xs">{t('bank.desc')}</p>
+    <section className="border-b border-line" style={{ padding: '80px 0' }}>
+      <div className="container">
+        <SectionMark no="02 — Custody">
+          <h2
+            className="font-display text-fg"
+            style={{
+              fontSize: 'var(--t-3xl)',
+              lineHeight: 1.1,
+              letterSpacing: 'var(--tracking-snug)',
+              margin: '0 0 var(--s-5)',
+            }}
+          >
+            {t('sectionTitle')}
+          </h2>
+          <p
+            className="text-fg-muted"
+            style={{
+              fontSize: 'var(--t-md)',
+              lineHeight: 'var(--lh-loose)',
+              maxWidth: '60ch',
+              margin: 0,
+            }}
+          >
+            {t('sectionSubtitle')}
+          </p>
+
+          <div className="mt-[var(--s-11)] grid gap-[var(--s-6)] md:grid-cols-2 lg:grid-cols-3">
+            {items.map(({ key, badge, tone }) => (
+              <article key={key} className="ls-surface" style={{ padding: 'var(--s-9)' }}>
+                <div className="flex items-center justify-between">
+                  <span className={badgeClass(tone)}>
+                    {tone !== 'seal' && tone !== 'solid' && <span className="dot" />}
+                    {badge}
+                  </span>
+                  <span className="font-mono text-[11px] text-fg-subtle">
+                    LSV-2026-{(key.charCodeAt(0) % 90) + 10}
+                  </span>
+                </div>
+                <h3
+                  className="mt-[var(--s-7)] font-display text-fg"
+                  style={{
+                    fontSize: 'var(--t-xl)',
+                    letterSpacing: 'var(--tracking-snug)',
+                    lineHeight: 'var(--lh-snug)',
+                    margin: 0,
+                  }}
+                >
+                  {t(`${key}.title`)}
+                </h3>
+                <p
+                  className="mt-[var(--s-5)] text-fg-muted"
+                  style={{ fontSize: 'var(--t-sm)', lineHeight: 'var(--lh-loose)', margin: 0 }}
+                >
+                  {t(`${key}.desc`)}
+                </p>
+              </article>
+            ))}
           </div>
-          <div className="bg-surface-container-high p-6 rounded-2xl">
-            <span className="material-symbols-outlined text-primary-900 text-2xl mb-4 block">history_edu</span>
-            <h3 className="text-base font-bold text-primary-900 mb-1">{t('wills.title')}</h3>
-            <p className="text-on-surface-variant text-xs">{t('wills.desc')}</p>
-          </div>
-        </div>
+        </SectionMark>
+      </div>
+    </section>
+  );
+}
+
+function HowItWorksSection() {
+  const t = useTranslations('homepage.howItWorks');
+  const steps = [
+    { step: '01', key: 'step1' },
+    { step: '02', key: 'step2' },
+    { step: '03', key: 'step3' },
+  ] as const;
+  return (
+    <section
+      id="how"
+      className="border-b border-line scroll-mt-20"
+      style={{ padding: '80px 0', background: 'var(--bg-sunken)' }}
+    >
+      <div className="container">
+        <SectionMark no="03 — Procedure">
+          <h2
+            className="font-display text-fg"
+            style={{
+              fontSize: 'var(--t-3xl)',
+              lineHeight: 1.1,
+              letterSpacing: 'var(--tracking-snug)',
+              margin: '0 0 var(--s-5)',
+            }}
+          >
+            {t('title')}
+          </h2>
+          <p
+            className="text-fg-muted"
+            style={{
+              fontSize: 'var(--t-md)',
+              lineHeight: 'var(--lh-loose)',
+              maxWidth: '60ch',
+              margin: 0,
+            }}
+          >
+            {t('subtitle')}
+          </p>
+
+          <ol className="mt-[var(--s-11)] grid gap-px overflow-hidden rounded-md border border-line bg-line md:grid-cols-3">
+            {steps.map(({ step, key }) => (
+              <li key={step} className="bg-bg-raised" style={{ padding: 'var(--s-9)' }}>
+                <div className="flex items-baseline gap-[var(--s-5)]">
+                  <span className="font-mono text-[12px] tracking-[0.08em] text-fg-subtle">{step}</span>
+                  <span
+                    aria-hidden="true"
+                    className="block h-px flex-1"
+                    style={{ background: 'var(--line)' }}
+                  />
+                </div>
+                <h3
+                  className="mt-[var(--s-6)] font-display text-fg"
+                  style={{
+                    fontSize: 'var(--t-xl)',
+                    letterSpacing: 'var(--tracking-snug)',
+                    lineHeight: 'var(--lh-snug)',
+                    margin: 0,
+                  }}
+                >
+                  {t(`${key}.title`)}
+                </h3>
+                <p
+                  className="mt-[var(--s-5)] text-fg-muted"
+                  style={{ fontSize: 'var(--t-sm)', lineHeight: 'var(--lh-loose)', margin: 0 }}
+                >
+                  {t(`${key}.desc`)}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </SectionMark>
       </div>
     </section>
   );
@@ -165,52 +552,77 @@ function FeatureBentoSection() {
 function SentinelXSection() {
   const t = useTranslations('homepage.sentinelX');
   return (
-    <section className="px-6 py-16 bg-primary-900 text-white overflow-hidden relative">
-      <div className="relative z-10">
-        <h2 className="text-3xl font-bold mb-4 leading-tight">{t('title')}</h2>
-        <p className="text-primary-fixed-dim/80 mb-8 font-light">{t('subtitle')}</p>
-        <div className="aspect-square w-full max-w-[280px] mx-auto bg-primary-container rounded-full flex items-center justify-center relative shadow-[0_0_100px_rgba(253,187,18,0.15)]">
-          <div className="absolute inset-0 rounded-full border border-secondary-container/20 animate-pulse" />
-          <div className="absolute inset-4 rounded-full border border-secondary-container/10" />
-          <span
-            className="material-symbols-outlined text-secondary-container text-8xl"
-            style={{ fontVariationSettings: "'wght' 100" }}
-          >
-            fingerprint
-          </span>
-        </div>
-      </div>
-      <div className="absolute -left-20 top-20 w-64 h-64 bg-secondary-container/5 rounded-full blur-[80px]" />
-    </section>
-  );
-}
-
-function HowItWorksSection({ id = 'how-it-works' }: { id?: string }) {
-  const t = useTranslations('homepage.howItWorks');
-  const steps = [
-    { step: '1', title: t('step1.title'), description: t('step1.desc') },
-    { step: '2', title: t('step2.title'), description: t('step2.desc') },
-    { step: '3', title: t('step3.title'), description: t('step3.desc') },
-  ];
-
-  return (
-    <section id={id} className="px-6 py-16 bg-surface scroll-mt-16">
-      <div className="text-center mb-12">
-        <h2 className="text-2xl font-bold text-primary-900 mb-2">{t('title')}</h2>
-        <div className="w-12 h-1 bg-secondary-container mx-auto" />
-      </div>
-      <div className="space-y-12">
-        {steps.map((s) => (
-          <div key={s.step} className="flex gap-6">
-            <div className="flex-shrink-0 w-10 h-10 bg-primary-900 text-white rounded-full flex items-center justify-center font-bold">
-              {s.step}
-            </div>
+    <section
+      className="border-b border-line"
+      style={{ padding: '80px 0', background: 'var(--bg-inset)' }}
+    >
+      <div className="container">
+        <SectionMark no="04 — Protocol">
+          <div className="grid gap-[var(--s-12)] md:grid-cols-[1.1fr_1fr] md:items-center">
             <div>
-              <h3 className="text-lg font-bold text-primary-900 mb-2">{s.title}</h3>
-              <p className="text-on-surface-variant text-sm">{s.description}</p>
+              <span className="ls-badge ls-badge--solid">Sentinel-X · v3.2</span>
+              <h2
+                className="mt-[var(--s-6)] font-display text-fg"
+                style={{
+                  fontSize: 'var(--t-3xl)',
+                  lineHeight: 1.05,
+                  letterSpacing: 'var(--tracking-snug)',
+                  margin: 0,
+                }}
+              >
+                {t('title')}
+              </h2>
+              <p
+                className="mt-[var(--s-7)] text-fg-muted"
+                style={{
+                  fontSize: 'var(--t-md)',
+                  lineHeight: 'var(--lh-loose)',
+                  maxWidth: '52ch',
+                  margin: 0,
+                }}
+              >
+                {t('subtitle')}
+              </p>
+              <div className="mt-[var(--s-9)] flex flex-wrap items-center gap-[var(--s-4)]">
+                <span className="ls-encrypting">
+                  <span className="glyph" />
+                  End-to-end · client-side
+                </span>
+              </div>
+            </div>
+
+            <div className="ls-surface ls-surface--ink" style={{ padding: 'var(--s-9)' }}>
+              <div className="t-eyebrow" style={{ color: 'var(--accent)', marginBottom: 'var(--s-6)' }}>
+                Custody record
+              </div>
+              <div
+                className="font-mono"
+                style={{
+                  fontSize: 'var(--t-sm)',
+                  lineHeight: 1.9,
+                  color: 'var(--fg-on-ink)',
+                  opacity: 0.86,
+                }}
+              >
+                <div>vault.id      <span style={{ color: 'var(--ls-gold-soft)' }}>LSV-2026-074</span></div>
+                <div>cipher        AES-256-GCM</div>
+                <div>kdf           Argon2id · t=4 · m=64 MiB</div>
+                <div>region        eu-central-1 · Frankfurt</div>
+                <div>seal          7F·A2·19·E4</div>
+                <div>last_rotated  2026-04-22T14:32Z</div>
+                <div>state         <span style={{ color: '#6FB58C' }}>VERIFIED</span></div>
+              </div>
+              <div className="mt-[var(--s-7)] flex items-center gap-[var(--s-4)]">
+                <span className="ls-key" style={{ background: 'transparent', borderColor: 'var(--ls-ink-soft)', color: 'var(--ls-bone-soft)' }}>
+                  ⌘ K
+                </span>
+                <span className="font-mono text-[11px]" style={{ color: 'var(--ls-bone-soft)', opacity: 0.6 }}>
+                  Inspect ledger entry
+                </span>
+              </div>
             </div>
           </div>
-        ))}
+        </SectionMark>
       </div>
     </section>
   );
@@ -218,23 +630,64 @@ function HowItWorksSection({ id = 'how-it-works' }: { id?: string }) {
 
 function UseCasesSection() {
   const t = useTranslations('homepage.useCases');
-  const cases = [
-    { icon: 'travel_explore', key: 'passports' },
-    { icon: 'contract', key: 'wills' },
-    { icon: 'domain', key: 'property' },
-    { icon: 'vpn_key', key: 'crypto' },
-  ] as const;
-
+  const items = ['passports', 'wills', 'property', 'insurance', 'medical', 'financial', 'crypto', 'tax'] as const;
   return (
-    <section className="px-6 py-16 bg-surface-container-low">
-      <h2 className="text-2xl font-bold text-primary-900 mb-8 text-center">{t('title')}</h2>
-      <div className="grid grid-cols-2 gap-4">
-        {cases.map((c) => (
-          <div key={c.key} className="bg-surface-container-lowest p-4 rounded-xl flex flex-col items-center text-center gap-3">
-            <span className="material-symbols-outlined text-primary-900/70">{c.icon}</span>
-            <span className="text-sm font-medium text-primary-900">{t(`items.${c.key}`)}</span>
-          </div>
-        ))}
+    <section className="border-b border-line" style={{ padding: '80px 0' }}>
+      <div className="container">
+        <SectionMark no="05 — Manifest">
+          <h2
+            className="font-display text-fg"
+            style={{
+              fontSize: 'var(--t-3xl)',
+              lineHeight: 1.1,
+              letterSpacing: 'var(--tracking-snug)',
+              margin: '0 0 var(--s-5)',
+            }}
+          >
+            {t('title')}
+          </h2>
+          <p
+            className="text-fg-muted"
+            style={{
+              fontSize: 'var(--t-md)',
+              lineHeight: 'var(--lh-loose)',
+              maxWidth: '60ch',
+              margin: 0,
+            }}
+          >
+            {t('subtitle')}
+          </p>
+
+          <ul
+            className="mt-[var(--s-11)] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+            style={{ borderTop: '1px solid var(--line-ink)' }}
+          >
+            {items.map((k, i) => (
+              <li
+                key={k}
+                className="flex items-center justify-between"
+                style={{
+                  padding: 'var(--s-7) var(--s-6)',
+                  borderBottom: '1px solid var(--line)',
+                  borderRight: i % 4 !== 3 ? '1px solid var(--line)' : 'none',
+                }}
+              >
+                <span className="font-mono text-[12px] tracking-[0.04em] text-fg-subtle">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <span
+                  className="font-display text-fg"
+                  style={{
+                    fontSize: 'var(--t-md)',
+                    letterSpacing: 'var(--tracking-snug)',
+                  }}
+                >
+                  {t(`items.${k}`)}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </SectionMark>
       </div>
     </section>
   );
@@ -244,84 +697,227 @@ function PricingSection({ locale }: { locale: string }) {
   const t = useTranslations('homepage.pricing');
   const currency = useMemo(() => getCurrency(locale), [locale]);
   const proFeatures = ['f1', 'f2', 'f3', 'f4', 'f5'] as const;
-  const freeFeatures = ['f1', 'f2'] as const;
+  const freeFeatures = ['f1', 'f2', 'f3', 'f4', 'f5'] as const;
+
+  const Check = () => (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      aria-hidden="true"
+      style={{ flexShrink: 0, marginTop: 4 }}
+    >
+      <path
+        d="M2 7.5 L5.5 11 L12 3.5"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
 
   return (
-    <section className="px-6 py-16 bg-surface" id="pricing">
-      <h2 className="text-2xl font-bold text-primary-900 mb-8 text-center">{t('title')}</h2>
-      <div className="space-y-6">
-        {/* Pro Card */}
-        <div className="bg-primary-900 text-white p-8 rounded-3xl relative overflow-hidden ring-4 ring-secondary-container/20">
-          <div className="absolute top-0 right-0 bg-secondary-container text-on-secondary-container px-4 py-1 text-[10px] font-bold uppercase rounded-bl-xl tracking-tighter">
-            {t('pro.badge')}
-          </div>
-          <h3 className="text-xl font-bold mb-2">{t('pro.name')}</h3>
-          <div className="flex items-baseline gap-1 mb-6">
-            <span className="text-4xl font-extrabold text-secondary-container">
-              {currency.symbol}{currency.monthly}
-            </span>
-            <span className="text-primary-fixed-dim/60 text-sm">{t('pro.period')}</span>
-          </div>
-          <ul className="space-y-4 mb-8">
-            {proFeatures.map((key) => (
-              <li key={key} className="flex items-center gap-3 text-sm">
-                <span
-                  className="material-symbols-outlined text-secondary-container text-lg"
-                  style={{ fontVariationSettings: "'FILL' 1" }}
-                >
-                  check_circle
-                </span>
-                {t(`pro.features.${key}`)}
-              </li>
-            ))}
-          </ul>
-          <Link
-            href="/register"
-            className="block w-full bg-secondary-container text-on-secondary-container font-bold py-3 rounded-xl active:scale-95 transition-all text-center"
+    <section
+      id="pricing"
+      className="border-b border-line scroll-mt-20"
+      style={{ padding: '80px 0' }}
+    >
+      <div className="container">
+        <SectionMark no="06 — Engagement">
+          <h2
+            className="font-display text-fg"
+            style={{
+              fontSize: 'var(--t-3xl)',
+              lineHeight: 1.1,
+              letterSpacing: 'var(--tracking-snug)',
+              margin: '0 0 var(--s-5)',
+            }}
           >
-            {t('pro.cta')}
-          </Link>
-        </div>
+            {t('title')}
+          </h2>
+          <p
+            className="text-fg-muted"
+            style={{
+              fontSize: 'var(--t-md)',
+              lineHeight: 'var(--lh-loose)',
+              maxWidth: '60ch',
+              margin: 0,
+            }}
+          >
+            {t('subtitle')}
+          </p>
 
-        {/* Basic Card */}
-        <div className="bg-surface-container-high p-8 rounded-3xl border border-outline-variant/20">
-          <h3 className="text-xl font-bold text-primary-900 mb-2">{t('free.name')}</h3>
-          <div className="flex items-baseline gap-1 mb-6">
-            <span className="text-4xl font-extrabold text-primary-900">{currency.symbol}0</span>
-            <span className="text-on-surface-variant text-sm">{t('free.period')}</span>
+          <div className="mt-[var(--s-11)] grid gap-[var(--s-7)] md:grid-cols-2">
+            {/* Free / Basic */}
+            <div className="ls-surface" style={{ padding: 'var(--s-10)' }}>
+              <div className="flex items-baseline justify-between">
+                <span className="t-eyebrow" style={{ color: 'var(--fg-subtle)' }}>
+                  Tier I
+                </span>
+                <span className="font-mono text-[11px] text-fg-subtle">forever</span>
+              </div>
+              <h3
+                className="mt-[var(--s-5)] font-display text-fg"
+                style={{
+                  fontSize: 'var(--t-2xl)',
+                  letterSpacing: 'var(--tracking-snug)',
+                  margin: 0,
+                }}
+              >
+                {t('free.name')}
+              </h3>
+              <div className="mt-[var(--s-6)] flex items-baseline gap-2">
+                <span
+                  className="font-display text-fg"
+                  style={{ fontSize: 'var(--t-4xl)', letterSpacing: 'var(--tracking-tight)' }}
+                >
+                  {currency.symbol}0
+                </span>
+                <span className="text-fg-subtle" style={{ fontSize: 'var(--t-sm)' }}>
+                  {t('free.period')}
+                </span>
+              </div>
+              <ul className="mt-[var(--s-9)] grid gap-[var(--s-5)]">
+                {freeFeatures.map((k) => (
+                  <li key={k} className="flex gap-[var(--s-4)] text-fg" style={{ fontSize: 'var(--t-sm)' }}>
+                    <span style={{ color: 'var(--fg-subtle)' }}>
+                      <Check />
+                    </span>
+                    <span>{t(`free.features.${k}`)}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link href="/register" className="ls-btn ls-btn--secondary ls-btn--block mt-[var(--s-9)]">
+                {t('free.cta')}
+              </Link>
+            </div>
+
+            {/* Pro */}
+            <div className="ls-surface ls-surface--ink relative" style={{ padding: 'var(--s-10)' }}>
+              <span
+                className="ls-badge ls-badge--seal absolute"
+                style={{
+                  top: 'var(--s-7)',
+                  right: 'var(--s-7)',
+                  background: 'transparent',
+                  color: 'var(--accent)',
+                  borderColor: 'var(--accent)',
+                }}
+              >
+                {t('pro.badge')}
+              </span>
+              <div className="flex items-baseline justify-between">
+                <span className="t-eyebrow" style={{ color: 'var(--accent)' }}>
+                  Tier II
+                </span>
+              </div>
+              <h3
+                className="mt-[var(--s-5)] font-display"
+                style={{
+                  fontSize: 'var(--t-2xl)',
+                  letterSpacing: 'var(--tracking-snug)',
+                  margin: 0,
+                  color: 'var(--ls-bone-soft)',
+                }}
+              >
+                {t('pro.name')}
+              </h3>
+              <div className="mt-[var(--s-6)] flex items-baseline gap-2">
+                <span
+                  className="font-display"
+                  style={{
+                    fontSize: 'var(--t-4xl)',
+                    letterSpacing: 'var(--tracking-tight)',
+                    color: 'var(--ls-bone-soft)',
+                  }}
+                >
+                  {currency.symbol}
+                  {currency.monthly}
+                </span>
+                <span style={{ fontSize: 'var(--t-sm)', color: 'var(--ls-bone-soft)', opacity: 0.6 }}>
+                  {t('pro.period')}
+                </span>
+              </div>
+              <ul className="mt-[var(--s-9)] grid gap-[var(--s-5)]">
+                {proFeatures.map((k) => (
+                  <li
+                    key={k}
+                    className="flex gap-[var(--s-4)]"
+                    style={{ fontSize: 'var(--t-sm)', color: 'var(--ls-bone-soft)' }}
+                  >
+                    <span style={{ color: 'var(--accent)' }}>
+                      <Check />
+                    </span>
+                    <span>{t(`pro.features.${k}`)}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link href="/register" className="ls-btn ls-btn--accent ls-btn--block mt-[var(--s-9)]">
+                {t('pro.cta')}
+              </Link>
+            </div>
           </div>
-          <ul className="space-y-4 mb-8">
-            {freeFeatures.map((key) => (
-              <li key={key} className="flex items-center gap-3 text-sm text-on-surface-variant">
-                <span className="material-symbols-outlined text-primary-900 text-lg">check_circle</span>
-                {t(`free.features.${key}`)}
-              </li>
-            ))}
-          </ul>
-          <Link
-            href="/register"
-            className="block w-full bg-primary-900 text-white font-bold py-3 rounded-xl active:scale-95 transition-all text-center"
-          >
-            {t('free.cta')}
-          </Link>
-        </div>
+        </SectionMark>
       </div>
     </section>
   );
 }
 
-function CTASection() {
+function ClosingCTA() {
   const t = useTranslations('homepage.cta');
   return (
-    <section className="px-6 py-20 bg-primary-container text-white text-center">
-      <h2 className="text-3xl font-bold mb-4">{t('title')}</h2>
-      <p className="text-on-primary-container mb-10">{t('subtitle')}</p>
-      <Link
-        href="/register"
-        className="inline-block bg-secondary-container text-on-secondary-container font-bold py-4 px-12 rounded-full shadow-2xl active:scale-95 transition-all"
-      >
-        {t('button')}
-      </Link>
+    <section
+      style={{
+        padding: '96px 0',
+        background:
+          'radial-gradient(800px 300px at 80% 100%, color-mix(in oklab, var(--accent) 8%, transparent), transparent 60%), var(--ls-ink-deep)',
+        color: 'var(--fg-on-ink)',
+      }}
+      className="border-b border-line"
+    >
+      <div className="container">
+        <SectionMark no="07 — Custody begins">
+          <h2
+            className="font-display"
+            style={{
+              fontSize: 'var(--t-3xl)',
+              lineHeight: 1.1,
+              letterSpacing: 'var(--tracking-snug)',
+              margin: '0 0 var(--s-7)',
+              color: 'var(--ls-bone-soft)',
+              maxWidth: '24ch',
+            }}
+          >
+            {t('title')}
+          </h2>
+          <p
+            style={{
+              fontSize: 'var(--t-md)',
+              lineHeight: 'var(--lh-loose)',
+              maxWidth: '52ch',
+              margin: '0 0 var(--s-9)',
+              color: 'var(--ls-bone-soft)',
+              opacity: 0.78,
+            }}
+          >
+            {t('subtitle')}
+          </p>
+          <div className="flex flex-wrap items-center gap-[var(--s-5)]">
+            <Link href="/register" className="ls-btn ls-btn--accent ls-btn--lg">
+              {t('button')}
+            </Link>
+            <Link
+              href="/continuity"
+              className="ls-btn ls-btn--tertiary ls-btn--lg"
+              style={{ color: 'var(--ls-bone-soft)' }}
+            >
+              Read the custody guide
+            </Link>
+          </div>
+        </SectionMark>
+      </div>
     </section>
   );
 }
@@ -329,38 +925,91 @@ function CTASection() {
 function Footer({ locale }: { locale: string }) {
   const t = useTranslations('homepage.footer');
   return (
-    <footer className="px-6 py-12 bg-primary-container border-t border-white/10 text-center">
-      <div className="flex flex-wrap justify-center gap-6 text-xs text-on-primary-container uppercase tracking-widest font-medium mb-8">
-        <Link href="/blog" className="hover:text-secondary-container transition-colors">{t('blog')}</Link>
-        {locale === 'nl' && (
-          <Link href="/notaris" className="hover:text-secondary-container transition-colors">{t('notary')}</Link>
-        )}
-        <Link href="/faq" className="hover:text-secondary-container transition-colors">{t('faq')}</Link>
-        <Link href="/continuity" className="hover:text-secondary-container transition-colors">{t('continuity')}</Link>
-        <Link href="/privacy" className="hover:text-secondary-container transition-colors">{t('privacy')}</Link>
-        <Link href="/terms" className="hover:text-secondary-container transition-colors">{t('terms')}</Link>
-        <Link href="/made-in-eu" className="hover:text-secondary-container transition-colors">{t('madeInEu')}</Link>
+    <footer style={{ padding: '64px 0 32px', color: 'var(--fg-subtle)' }}>
+      <div className="container">
+        <div
+          className="grid gap-[var(--s-9)] md:grid-cols-[2fr_1fr_1fr_1fr]"
+          style={{ borderTop: '1px solid var(--line-ink)', paddingTop: 'var(--s-8)' }}
+        >
+          <div>
+            <Logo size="sm" />
+            <p
+              className="mt-[var(--s-5)]"
+              style={{ maxWidth: '38ch', lineHeight: 'var(--lh-loose)', fontSize: 'var(--t-xs)' }}
+            >
+              A zero-knowledge vault for the documents that outlive their authors. Designed,
+              engineered, and hosted in the European Union.
+            </p>
+          </div>
+          <FooterCol heading="System">
+            <FooterLink href="/blog">{t('blog')}</FooterLink>
+            <FooterLink href="/faq">{t('faq')}</FooterLink>
+            <FooterLink href="/continuity">{t('continuity')}</FooterLink>
+          </FooterCol>
+          <FooterCol heading="Custody">
+            <FooterLink href="/made-in-eu">{t('madeInEu')}</FooterLink>
+            {locale === 'nl' && <FooterLink href="/notaris">{t('notary')}</FooterLink>}
+            <FooterLink href="/letter-of-wishes">Letter of Wishes</FooterLink>
+          </FooterCol>
+          <FooterCol heading="Document">
+            <FooterLink href="/privacy">{t('privacy')}</FooterLink>
+            <FooterLink href="/terms">{t('terms')}</FooterLink>
+            <li className="py-1 text-fg-subtle">
+              <span className="font-mono text-[11px]">© {new Date().getFullYear()}</span>
+            </li>
+          </FooterCol>
+        </div>
+        <p className="mt-[var(--s-9)] text-[11px]" style={{ color: 'var(--fg-subtle)' }}>
+          {t('tagline')}{' '}
+          <a
+            href="https://bitatlas.com"
+            target="_blank"
+            rel="noreferrer"
+            style={{ color: 'var(--accent)', textDecoration: 'none' }}
+          >
+            Encrypted by BitAtlas
+          </a>
+        </p>
       </div>
-      <p className="text-[10px] text-on-primary-container/50">
-        © {new Date().getFullYear()} LegacyShield. {t('tagline')} 🇪🇺 | <a href="https://bitatlas.com" target="_blank" className="hover:text-secondary-container underline">Encrypted by BitAtlas</a>
-      </p>
     </footer>
+  );
+}
+
+function FooterCol({ heading, children }: { heading: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <h5 className="t-eyebrow" style={{ color: 'var(--fg)', marginBottom: 'var(--s-5)' }}>
+        {heading}
+      </h5>
+      <ul className="m-0 list-none p-0">{children}</ul>
+    </div>
+  );
+}
+
+function FooterLink({ href, children }: { href: any; children: React.ReactNode }) {
+  return (
+    <li className="py-1" style={{ fontSize: 'var(--t-xs)' }}>
+      <Link href={href} className="text-fg-subtle no-underline transition-colors hover:text-accent">
+        {children}
+      </Link>
+    </li>
   );
 }
 
 export default function HomePage({ params }: { params: { locale: string } }) {
   return (
-    <main className="bg-surface text-on-surface">
+    <main className="bg-bg text-fg">
       <JsonLd locale={params.locale} />
-      <NavHeader />
-      <HeroSection />
-      <TrustBar />
-      <FeatureBentoSection />
-      <SentinelXSection />
+      <TopBar />
+      <Hero />
+      <WhatIfSection />
+      <PrinciplesSection />
+      <CustodySection />
       <HowItWorksSection />
+      <SentinelXSection />
       <UseCasesSection />
       <PricingSection locale={params.locale} />
-      <CTASection />
+      <ClosingCTA />
       <Footer locale={params.locale} />
     </main>
   );

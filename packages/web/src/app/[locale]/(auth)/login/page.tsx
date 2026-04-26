@@ -40,36 +40,53 @@ export default function LoginPage() {
 
   return (
     <Card>
-      <h1 className="text-2xl font-bold text-center mb-6">
-        {step === 'login' ? t('title') : 'Two-factor authentication'}
-      </h1>
+      <div className="mb-[var(--s-7)]">
+        <span className="t-eyebrow text-fg-subtle">
+          {step === 'login' ? '§ Sign in' : '§ Two-factor verification'}
+        </span>
+        <h1
+          className="mt-[var(--s-4)] font-display text-fg"
+          style={{
+            fontSize: 'var(--t-2xl)',
+            letterSpacing: 'var(--tracking-snug)',
+            lineHeight: 'var(--lh-snug)',
+            margin: 0,
+          }}
+        >
+          {step === 'login' ? t('title') : 'Confirm with your authenticator'}
+        </h1>
+      </div>
 
       {step === 'login' ? (
         <>
           <LoginForm onTwoFactor={handleTwoFactor} onSuccess={() => router.push('/dashboard')} />
-          <p className="mt-4 text-sm text-center">
-            <Link href="/forgot-password" className="text-gray-500 hover:text-gray-700">
+          <div
+            className="mt-[var(--s-7)] flex flex-col gap-[var(--s-4)] text-[13px]"
+            style={{ borderTop: '1px solid var(--line)', paddingTop: 'var(--s-6)' }}
+          >
+            <Link href="/forgot-password" className="text-fg-muted no-underline hover:text-accent">
               {t('forgotPassword')}
             </Link>
-          </p>
-          <p className="mt-3 text-sm text-center text-gray-600">
-            {t('noAccount')}{' '}
-            <Link href="/register" className="text-primary-600 hover:text-primary-700 font-medium">
-              {t('createAccount')}
-            </Link>
-          </p>
+            <p className="text-fg-muted">
+              {t('noAccount')}{' '}
+              <Link href="/register" className="font-medium text-fg no-underline hover:text-accent">
+                {t('createAccount')}
+              </Link>
+            </p>
+          </div>
         </>
       ) : (
         <>
-          <p className="text-sm text-gray-600 text-center mb-6">
+          <p className="mb-[var(--s-7)] text-[13px] text-fg-muted">
             Enter the 6-digit code from your authenticator app.
           </p>
           <TwoFactorInput onSubmit={handleVerify2FA} isLoading={isLoading} error={error} />
           <button
+            type="button"
             onClick={() => setStep('login')}
-            className="mt-4 w-full text-sm text-gray-500 hover:text-gray-700 text-center"
+            className="ls-btn ls-btn--tertiary ls-btn--block mt-[var(--s-6)]"
           >
-            Back to login
+            ← Back to sign in
           </button>
         </>
       )}

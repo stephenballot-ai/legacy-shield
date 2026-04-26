@@ -203,18 +203,18 @@ export function EmergencySetupWizard({ onComplete }: { onComplete: () => void })
               <div key={i} className="flex flex-col items-center flex-1">
                 <div className={cn(
                   'w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors',
-                  done ? 'bg-primary-600 text-white' : active ? 'bg-primary-100 text-primary-700 ring-2 ring-primary-600' : 'bg-gray-100 text-gray-400'
+                  done ? 'bg-primary-600 text-white' : active ? 'bg-primary-100 text-primary-700 ring-2 ring-primary-600' : 'bg-bg-sunken text-fg-subtle'
                 )}>
                   {done ? <Check className="h-4 w-4" /> : <Icon className="h-4 w-4" />}
                 </div>
-                <span className={cn('text-xs mt-1 hidden sm:block', active ? 'text-primary-700 font-medium' : 'text-gray-400')}>
+                <span className={cn('text-xs mt-1 hidden sm:block', active ? 'text-primary-700 font-medium' : 'text-fg-subtle')}>
                   {s.label}
                 </span>
               </div>
             );
           })}
         </div>
-        <div className="w-full bg-gray-200 rounded-full h-1.5">
+        <div className="w-full bg-bg-inset rounded-full h-1.5">
           <div className="bg-primary-600 h-1.5 rounded-full transition-all duration-300" style={{ width: `${progressPct}%` }} />
         </div>
       </div>
@@ -222,8 +222,8 @@ export function EmergencySetupWizard({ onComplete }: { onComplete: () => void })
       {/* Step 1: Create phrase */}
       {step === 0 && (
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">Create Your Unlock Phrase</h3>
-          <p className="text-sm text-gray-600">
+          <h3 className="text-lg font-semibold text-fg">Create Your Unlock Phrase</h3>
+          <p className="text-sm text-fg-muted">
             Choose a memorable phrase that your emergency contacts can use to access your vault.
             Make it something meaningful but not easily guessable. You&apos;ll need to share it with them separately — it&apos;s never stored in plain text.
           </p>
@@ -258,8 +258,8 @@ export function EmergencySetupWizard({ onComplete }: { onComplete: () => void })
       {/* Step 2: Derive key */}
       {step === 1 && (
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">Generate Emergency Key</h3>
-          <p className="text-sm text-gray-600">
+          <h3 className="text-lg font-semibold text-fg">Generate Emergency Key</h3>
+          <p className="text-sm text-fg-muted">
             We&apos;ll derive a secure encryption key from your phrase. This key will be used to encrypt copies of your file keys for emergency access.
           </p>
           {deriveError && <Alert variant="error">{deriveError}</Alert>}
@@ -277,19 +277,19 @@ export function EmergencySetupWizard({ onComplete }: { onComplete: () => void })
       {/* Step 3: Re-encrypt files */}
       {step === 2 && (
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">Encrypt Files for Emergency Access</h3>
-          <p className="text-sm text-gray-600">
+          <h3 className="text-lg font-semibold text-fg">Encrypt Files for Emergency Access</h3>
+          <p className="text-sm text-fg-muted">
             Each file&apos;s encryption key will be re-encrypted with your emergency key so it can be decrypted during emergency access.
           </p>
           {reencrypting && (
             <div className="space-y-2">
               <div className="flex items-center gap-3">
                 <LoadingSpinner size="sm" />
-                <span className="text-sm text-gray-600">
+                <span className="text-sm text-fg-muted">
                   Encrypting… {reencryptProgress.done} / {reencryptProgress.total}
                 </span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
+              <div className="w-full bg-bg-inset rounded-full h-2">
                 <div
                   className="bg-primary-600 h-2 rounded-full transition-all"
                   style={{ width: reencryptProgress.total ? `${(reencryptProgress.done / reencryptProgress.total) * 100}%` : '0%' }}
@@ -314,12 +314,12 @@ export function EmergencySetupWizard({ onComplete }: { onComplete: () => void })
         <div className="space-y-4">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <h3 className="text-lg font-semibold text-gray-900">Add Your First Emergency Contact</h3>
-              <p className="text-sm text-gray-600 mt-1">
+              <h3 className="text-lg font-semibold text-fg">Add Your First Emergency Contact</h3>
+              <p className="text-sm text-fg-muted mt-1">
                 Add someone you trust. You can add more contacts later from the emergency access dashboard.
               </p>
             </div>
-            <Button variant="ghost" size="sm" onClick={() => setStep(4)} className="text-gray-500 hover:text-gray-900">
+            <Button variant="ghost" size="sm" onClick={() => setStep(4)} className="text-fg-muted hover:text-fg">
               Skip
             </Button>
           </div>
@@ -337,11 +337,11 @@ export function EmergencySetupWizard({ onComplete }: { onComplete: () => void })
       {step === 4 && (
         <div className="space-y-6">
           <div className="text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
-              <CheckCircle2 className="h-8 w-8 text-green-600" />
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-ok-bg rounded-full mb-4">
+              <CheckCircle2 className="h-8 w-8 text-ok" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900">Emergency Access is Ready!</h3>
-            <p className="text-sm text-gray-600 mt-1">
+            <h3 className="text-lg font-semibold text-fg">Emergency Access is Ready!</h3>
+            <p className="text-sm text-fg-muted mt-1">
               Print the instructions below and share your unlock phrase separately with your emergency contacts.
             </p>
           </div>

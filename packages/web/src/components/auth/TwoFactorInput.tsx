@@ -66,7 +66,7 @@ export function TwoFactorInput({ onSubmit, isLoading, error }: TwoFactorInputPro
             value={d}
             onChange={(e) => handleChange(i, e.target.value)}
             onKeyDown={(e) => handleKeyDown(i, e)}
-            className="w-12 h-14 text-center text-xl font-semibold border border-gray-300 rounded-lg focus:border-primary-500 focus:ring-primary-500"
+            className="w-12 h-14 text-center text-xl font-semibold border border-line-strong rounded-lg focus:border-primary-500 focus:ring-primary-500"
             disabled={isLoading}
           />
         ))}

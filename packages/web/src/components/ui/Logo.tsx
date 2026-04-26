@@ -3,30 +3,46 @@ import { cn } from '@/lib/utils';
 interface LogoProps {
   size?: 'sm' | 'md' | 'lg';
   variant?: 'light' | 'dark';
+  showWordmark?: boolean;
   className?: string;
 }
 
 const sizeMap = {
-  sm: { icon: 'h-5 w-5', text: 'text-lg' },
-  md: { icon: 'h-7 w-7', text: 'text-xl' },
-  lg: { icon: 'h-9 w-9', text: 'text-2xl' },
+  sm: { crest: 'h-[22px] w-[19px] text-[11px]', word: 'text-base' },
+  md: { crest: 'h-[26px] w-[22px] text-[13px]', word: 'text-lg' },
+  lg: { crest: 'h-[34px] w-[28px] text-[16px]', word: 'text-2xl' },
 };
 
-export function Logo({ size = 'md', variant = 'light', className }: LogoProps) {
+export function Logo({ size = 'md', variant = 'light', showWordmark = true, className }: LogoProps) {
   const s = sizeMap[size];
   const isDark = variant === 'dark';
+
   return (
-    <div className={cn('flex items-center gap-2', className)}>
-      <span className={cn(
-        "material-symbols-outlined",
-        s.text === 'text-lg' ? 'text-xl' : s.text === 'text-xl' ? 'text-2xl' : 'text-3xl',
-        isDark ? 'text-white/80' : 'text-primary-900'
-      )}>
-        security
+    <span className={cn('inline-flex items-center gap-[10px]', className)} aria-label="LegacyShield">
+      <span
+        aria-hidden="true"
+        className={cn(
+          'grid place-items-center font-display leading-none tracking-[-0.02em]',
+          'rounded-t-[2px] rounded-b-[11px]',
+          s.crest,
+          isDark
+            ? 'bg-bone-soft text-ink-deep ring-1 ring-inset ring-seal/40'
+            : 'bg-ink-deep text-bone-soft ring-1 ring-inset ring-seal-soft'
+        )}
+      >
+        L
       </span>
-      <span className={cn(s.text, 'font-bold tracking-tight', isDark ? 'text-white' : 'text-primary-900')}>
-        LegacyShield
-      </span>
-    </div>
+      {showWordmark && (
+        <span
+          className={cn(
+            'font-display font-medium tracking-[-0.01em]',
+            s.word,
+            isDark ? 'text-bone-soft' : 'text-ink-deep'
+          )}
+        >
+          LegacyShield
+        </span>
+      )}
+    </span>
   );
 }

@@ -10,7 +10,7 @@ import { EmergencyInstructions } from '@/components/emergency/EmergencyInstructi
 import { emergencyAccessApi } from '@/lib/api/emergencyAccess';
 import { useAuthStore } from '@/store/authStore';
 import { EMERGENCY_CONTACT_LIMITS } from '@legacy-shield/shared';
-import { ShieldCheck, Printer, RotateCcw, Share2, Check } from 'lucide-react';
+import { Printer, RotateCcw, Share2, Check } from 'lucide-react';
 
 export default function EmergencyAccessPage() {
   const [status, setStatus] = useState<{ isSetUp: boolean; contactCount: number } | null>(null);
@@ -22,18 +22,19 @@ export default function EmergencyAccessPage() {
   const user = useAuthStore((s) => s.user);
 
   const sharePortal = async () => {
-    const shareUrl = `${window.location.origin}/emergency-portal?owner=${encodeURIComponent(user?.email || '')}`;
+    const shareUrl = `${window.location.origin}/emergency-portal?owner=${encodeURIComponent(
+      user?.email || ''
+    )}`;
     const shareData = {
       title: 'LegacyShield Emergency Access',
-      text: `In case of emergency, you can access my important documents here. You will need my unlock phrase.`,
+      text: 'In case of emergency, you can access my important documents here. You will need my unlock phrase.',
       url: shareUrl,
     };
 
     if (navigator.share && navigator.canShare?.(shareData)) {
       try {
         await navigator.share(shareData);
-      } catch (err) {
-        // Fallback to clipboard
+      } catch {
         copyToClipboard(shareUrl);
       }
     } else {
@@ -53,18 +54,19 @@ export default function EmergencyAccessPage() {
       const res = await emergencyAccessApi.getStatus();
       setStatus(res);
     } catch {
-      // If 404, not set up
       setStatus({ isSetUp: false, contactCount: 0 });
     } finally {
       setLoading(false);
     }
   }, []);
 
-  useEffect(() => { fetchStatus(); }, [fetchStatus]);
+  useEffect(() => {
+    fetchStatus();
+  }, [fetchStatus]);
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center py-20">
+      <div className="flex items-center justify-center py-[var(--s-13)]">
         <LoadingSpinner size="lg" />
       </div>
     );
@@ -73,97 +75,167 @@ export default function EmergencyAccessPage() {
   if (showSetup || !status?.isSetUp) {
     return (
       <div>
-        <h1 className="text-2xl font-bold text-gray-900 mb-6">Set Up Emergency Access</h1>
-        <EmergencySetupWizard onComplete={() => { setShowSetup(false); fetchStatus(); }} />
+        <header className="mb-[var(--s-9)]">
+          <span className="t-eyebrow text-fg-subtle">§ Designation</span>
+          <h1
+            className="mt-[var(--s-3)] font-display text-fg"
+            style={{
+              fontSize: 'var(--t-3xl)',
+              letterSpacing: 'var(--tracking-snug)',
+              lineHeight: 'var(--lh-snug)',
+              margin: 0,
+            }}
+          >
+            Set up emergency access
+          </h1>
+        </header>
+        <EmergencySetupWizard
+          onComplete={() => {
+            setShowSetup(false);
+            fetchStatus();
+          }}
+        />
       </div>
     );
   }
 
-  // Determine tier limits
-  const maxContacts = user?.tier === 'PRO' ? EMERGENCY_CONTACT_LIMITS.PRO_TIER : EMERGENCY_CONTACT_LIMITS.FREE_TIER;
+  const maxContacts =
+    user?.tier === 'PRO' ? EMERGENCY_CONTACT_LIMITS.PRO_TIER : EMERGENCY_CONTACT_LIMITS.FREE_TIER;
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">Emergency Access</h1>
+    <div className="space-y-[var(--s-9)]">
+      <header className="flex items-end justify-between gap-[var(--s-5)]">
+        <div>
+          <span className="t-eyebrow text-fg-subtle">§ Heirs</span>
+          <h1
+            className="mt-[var(--s-3)] font-display text-fg"
+            style={{
+              fontSize: 'var(--t-3xl)',
+              letterSpacing: 'var(--tracking-snug)',
+              lineHeight: 'var(--lh-snug)',
+              margin: 0,
+            }}
+          >
+            Emergency access
+          </h1>
+        </div>
         <button
+          type="button"
           onClick={sharePortal}
-          className="text-sm font-medium text-primary-600 hover:text-primary-700 flex items-center gap-1.5 bg-primary-50 px-3 py-1.5 rounded-lg transition-colors"
+          className="ls-btn ls-btn--secondary ls-btn--sm"
         >
           {copied ? (
-            <><Check className="h-4 w-4 text-green-600" /> Copied Link</>
+            <>
+              <Check className="h-3.5 w-3.5" strokeWidth={1.8} /> Link copied
+            </>
           ) : (
-            <><Share2 className="h-4 w-4" /> Share Access Link</>
+            <>
+              <Share2 className="h-3.5 w-3.5" strokeWidth={1.8} /> Share access link
+            </>
           )}
         </button>
-      </div>
+      </header>
 
-      {/* Status card */}
-      <Card className="flex items-start gap-4">
-        <div className="p-3 bg-green-100 rounded-lg">
-          <ShieldCheck className="h-6 w-6 text-green-600" />
-        </div>
-        <div className="flex-1">
-          <h2 className="font-semibold text-gray-900">Emergency Access Active</h2>
-          <p className="text-sm text-gray-500 mt-0.5">
-            {status.contactCount} emergency contact{status.contactCount !== 1 ? 's' : ''} configured
-          </p>
-        </div>
-        <div className="flex gap-2 flex-shrink-0">
-          <Button size="sm" variant="secondary" onClick={() => setShowInstructions(!showInstructions)}>
-            <Printer className="h-4 w-4 mr-1.5" /> {showInstructions ? 'Hide Kit' : 'Emergency Kit'}
+      <Card>
+        <div className="flex items-start justify-between gap-[var(--s-6)]">
+          <div className="flex-1">
+            <span className="ls-status">
+              <span className="pulse" />
+              Emergency access active
+            </span>
+            <h2
+              className="mt-[var(--s-5)] font-display text-fg"
+              style={{
+                fontSize: 'var(--t-lg)',
+                letterSpacing: 'var(--tracking-snug)',
+                margin: 0,
+              }}
+            >
+              {status.contactCount} heir{status.contactCount !== 1 ? 's' : ''} designated
+            </h2>
+            <p className="mt-[var(--s-3)] text-[13px] text-fg-muted">
+              They can request release of your vault using the unlock phrase you assigned.
+            </p>
+          </div>
+          <Button
+            size="sm"
+            variant="secondary"
+            onClick={() => setShowInstructions(!showInstructions)}
+          >
+            <Printer className="h-3.5 w-3.5" strokeWidth={1.8} />
+            {showInstructions ? 'Hide kit' : 'Emergency kit'}
           </Button>
         </div>
       </Card>
 
-      {/* Printable instructions */}
       {showInstructions && (
-        <Card className="animate-fade-in">
+        <Card>
           <EmergencyInstructions ownerEmail={user?.email} />
         </Card>
       )}
 
-      {/* Contacts list */}
       <EmergencyContactsList maxContacts={maxContacts} onContactsChange={fetchStatus} />
 
-      {/* Advanced / Danger Zone */}
-      <div className="pt-8 border-t border-gray-200">
-        <h3 className="text-sm font-semibold text-gray-900 mb-2">Advanced</h3>
-        <div className="flex items-center justify-between">
+      <section
+        className="pt-[var(--s-9)]"
+        style={{ borderTop: '1px solid var(--line-ink)' }}
+      >
+        <span className="t-eyebrow text-fg-subtle">§ Advanced</span>
+        <div className="mt-[var(--s-5)] flex items-center justify-between gap-[var(--s-5)]">
           <div>
-            <p className="text-sm font-medium text-gray-700">Change Unlock Phrase</p>
-            <p className="text-xs text-gray-500 mt-1">
-              Invalidates your current unlock phrase. Use this if your phrase has been compromised.
+            <p className="text-[13px] font-medium text-fg">Rotate unlock phrase</p>
+            <p className="mt-1 text-[12px] text-fg-muted">
+              Invalidates the current phrase. Use if it may have been compromised.
             </p>
           </div>
           <Button size="sm" variant="secondary" onClick={() => setShowRotateWarning(true)}>
-            Change Unlock Phrase
+            Rotate
           </Button>
         </div>
-      </div>
+      </section>
 
-      {/* Rotate warning modal/alert */}
       {showRotateWarning && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <Card className="max-w-md w-full p-6 space-y-4">
-            <div className="flex items-center gap-3 text-amber-600">
-              <RotateCcw className="h-6 w-6" />
-              <h3 className="text-lg font-semibold">Change Unlock Phrase?</h3>
+        <div className="ls-scrim">
+          <div className="ls-modal ls-modal--danger">
+            <div className="ls-modal__hd">
+              <div>
+                <span className="ls-modal__seal" style={{ color: 'var(--danger)' }}>
+                  <RotateCcw className="h-3 w-3" strokeWidth={1.8} />
+                  Destructive action
+                </span>
+                <h3 className="ls-modal__title" style={{ marginTop: 8 }}>
+                  Rotate the unlock phrase?
+                </h3>
+                <p className="ls-modal__sub">
+                  This creates a <strong>new unlock phrase</strong>. The old one stops working
+                  immediately.
+                </p>
+              </div>
             </div>
-            <p className="text-sm text-gray-600">
-              This will create a <strong>new unlock phrase</strong>. The old one will stop working immediately.
-            </p>
-            <ul className="list-disc pl-5 text-sm text-gray-600 space-y-1">
-              <li>You must share the new phrase with your contacts</li>
-              <li>All file keys will be re-encrypted (this may take a moment)</li>
-            </ul>
-            <div className="flex gap-3 justify-end mt-4">
-              <Button variant="secondary" onClick={() => setShowRotateWarning(false)}>Cancel</Button>
-              <Button variant="danger" onClick={() => { setShowRotateWarning(false); setShowSetup(true); }}>
-                Start Change
+            <div className="ls-modal__bd">
+              <ul
+                className="m-0 list-disc pl-5 text-[13px] text-fg-muted"
+                style={{ lineHeight: 'var(--lh-loose)' }}
+              >
+                <li>You must share the new phrase with your heirs.</li>
+                <li>All file keys will be re-encrypted — this may take a moment.</li>
+              </ul>
+            </div>
+            <div className="ls-modal__ft">
+              <Button variant="secondary" onClick={() => setShowRotateWarning(false)}>
+                Cancel
+              </Button>
+              <Button
+                variant="danger"
+                onClick={() => {
+                  setShowRotateWarning(false);
+                  setShowSetup(true);
+                }}
+              >
+                Begin rotation
               </Button>
             </div>
-          </Card>
+          </div>
         </div>
       )}
     </div>

@@ -142,16 +142,16 @@ export function AccountBuilder({ open, onClose }: AccountBuilderProps) {
       >
         <div className="flex items-center justify-between p-4 border-b">
           <div>
-            <h2 className="text-lg font-semibold text-gray-900">Build Online Accounts Summary</h2>
-            <p className="text-xs text-gray-500">List your essential accounts. We&apos;ll generate a secure PDF for your vault.</p>
+            <h2 className="text-lg font-semibold text-fg">Build Online Accounts Summary</h2>
+            <p className="text-xs text-fg-muted">List your essential accounts. We&apos;ll generate a secure PDF for your vault.</p>
           </div>
-          <button onClick={onClose} className="p-1 text-gray-400 hover:text-gray-600">
+          <button onClick={onClose} className="p-1 text-fg-subtle hover:text-fg-muted">
             <X className="h-5 w-5" />
           </button>
         </div>
 
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
-          <div className="hidden md:grid grid-cols-12 gap-4 px-2 text-xs font-bold text-gray-400 uppercase tracking-wider">
+          <div className="hidden md:grid grid-cols-12 gap-4 px-2 text-xs font-bold text-fg-subtle uppercase tracking-wider">
             <div className="col-span-2">Type</div>
             <div className="col-span-3">Provider / Company</div>
             <div className="col-span-3">Username / Email</div>
@@ -160,48 +160,48 @@ export function AccountBuilder({ open, onClose }: AccountBuilderProps) {
           </div>
 
           {entries.map((entry) => (
-            <div key={entry.id} className="grid grid-cols-1 md:grid-cols-12 gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100 items-start group">
+            <div key={entry.id} className="grid grid-cols-1 md:grid-cols-12 gap-3 p-3 bg-bg-sunken rounded-xl border border-line items-start group">
               <div className="md:col-span-2">
-                <label className="md:hidden text-xs font-bold text-gray-400 mb-1 block">Type</label>
+                <label className="md:hidden text-xs font-bold text-fg-subtle mb-1 block">Type</label>
                 <input
                   value={entry.type}
                   onChange={(e) => updateEntry(entry.id, 'type', e.target.value)}
                   placeholder="e.g. Bank"
-                  className="w-full bg-white border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none"
+                  className="w-full bg-white border border-line rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none"
                 />
               </div>
               <div className="md:col-span-3">
-                <label className="md:hidden text-xs font-bold text-gray-400 mb-1 block">Provider</label>
+                <label className="md:hidden text-xs font-bold text-fg-subtle mb-1 block">Provider</label>
                 <input
                   value={entry.provider}
                   onChange={(e) => updateEntry(entry.id, 'provider', e.target.value)}
                   placeholder="e.g. Rabobank"
-                  className="w-full bg-white border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none"
+                  className="w-full bg-white border border-line rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none"
                 />
               </div>
               <div className="md:col-span-3">
-                <label className="md:hidden text-xs font-bold text-gray-400 mb-1 block">ID / Email</label>
+                <label className="md:hidden text-xs font-bold text-fg-subtle mb-1 block">ID / Email</label>
                 <input
                   value={entry.identifier}
                   onChange={(e) => updateEntry(entry.id, 'identifier', e.target.value)}
                   placeholder="email or account #"
-                  className="w-full bg-white border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none"
+                  className="w-full bg-white border border-line rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none"
                 />
               </div>
               <div className="md:col-span-3">
-                <label className="md:hidden text-xs font-bold text-gray-400 mb-1 block">Notes</label>
+                <label className="md:hidden text-xs font-bold text-fg-subtle mb-1 block">Notes</label>
                 <input
                   value={entry.notes}
                   onChange={(e) => updateEntry(entry.id, 'notes', e.target.value)}
                   placeholder="Additional info..."
-                  className="w-full bg-white border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none"
+                  className="w-full bg-white border border-line rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none"
                 />
               </div>
               <div className="md:col-span-1 flex justify-end md:pt-2">
                 <button 
                   onClick={() => removeEntry(entry.id)}
                   disabled={entries.length === 1}
-                  className="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-30"
+                  className="p-1.5 text-fg-subtle hover:text-danger hover:bg-danger-bg rounded-lg transition-colors disabled:opacity-30"
                 >
                   <Trash2 className="h-4 w-4" />
                 </button>
@@ -211,14 +211,14 @@ export function AccountBuilder({ open, onClose }: AccountBuilderProps) {
 
           <button
             onClick={addEntry}
-            className="w-full py-3 border-2 border-dashed border-gray-200 rounded-xl text-sm font-medium text-gray-500 hover:border-primary-300 hover:text-primary-600 transition-all flex items-center justify-center gap-2"
+            className="w-full py-3 border-2 border-dashed border-line rounded-xl text-sm font-medium text-fg-muted hover:border-primary-300 hover:text-primary-600 transition-all flex items-center justify-center gap-2"
           >
             <Plus className="h-4 w-4" /> Add another account
           </button>
         </div>
 
-        <div className="p-4 border-t bg-gray-50 rounded-b-xl flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-xs text-gray-500">
+        <div className="p-4 border-t bg-bg-sunken rounded-b-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2 text-xs text-fg-muted">
             <ShieldCheck className="h-4 w-4 text-trust-500" />
             Generating this document will encrypt it locally using your master key.
           </div>

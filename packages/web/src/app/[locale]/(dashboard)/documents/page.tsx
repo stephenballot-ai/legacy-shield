@@ -80,23 +80,36 @@ export default function DocumentsPage() {
 
   if (!unlocked && !masterKey) {
     return (
-      <div className="max-w-md mx-auto mt-12">
+      <div className="mx-auto mt-[var(--s-12)] max-w-md">
         <PasswordPrompt onUnlocked={() => setUnlocked(true)} />
       </div>
     );
   }
 
   return (
-    <div className="space-y-6 animate-fade-in">
-      <div className="flex items-center justify-between">
+    <div className="space-y-[var(--s-9)]">
+      <header className="flex items-end justify-between gap-[var(--s-5)]">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Documents</h1>
-          <p className="text-sm text-gray-500 mt-1">Your encrypted document vault</p>
+          <span className="t-eyebrow text-fg-subtle">§ Vault</span>
+          <h1
+            className="mt-[var(--s-3)] font-display text-fg"
+            style={{
+              fontSize: 'var(--t-3xl)',
+              letterSpacing: 'var(--tracking-snug)',
+              lineHeight: 'var(--lh-snug)',
+              margin: 0,
+            }}
+          >
+            Documents in custody
+          </h1>
+          <p className="mt-[var(--s-3)] text-[13px] text-fg-muted">
+            Encrypted in your browser before they ever leave it.
+          </p>
         </div>
-        <Button onClick={() => setUploadOpen(true)} className="gap-2">
-          <Plus className="h-4 w-4" /> Upload
+        <Button onClick={() => setUploadOpen(true)} variant="accent">
+          <Plus className="h-4 w-4" strokeWidth={1.8} /> Upload
         </Button>
-      </div>
+      </header>
 
       <DocumentFilters />
 

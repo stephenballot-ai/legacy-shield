@@ -80,22 +80,38 @@ export default function BlogPostPage({ params: { locale, slug } }: Props) {
   } : null;
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-gradient-to-r from-primary-900 via-primary-800 to-navy-900 text-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex items-center justify-between">
-          <Link href="/">
-            <Logo size="sm" variant="dark" />
+    <div className="min-h-screen bg-bg text-fg">
+      <header
+        className="border-b border-line"
+        style={{
+          background: 'color-mix(in oklab, var(--bg) 88%, transparent)',
+          backdropFilter: 'blur(12px) saturate(140%)',
+        }}
+      >
+        <div
+          className="container flex items-center justify-between"
+          style={{ padding: '14px var(--gutter)' }}
+        >
+          <Link href="/" className="no-underline">
+            <Logo size="sm" />
           </Link>
-          <nav className="flex items-center gap-6 text-sm font-medium">
-            <Link href="/" className="hover:text-trust-300 transition-colors">Home</Link>
-            <Link href="/blog" className="text-accent-400 hover:text-accent-300 transition-colors">Blog</Link>
-            <Link href="/login" className="hover:text-trust-300 transition-colors">Sign In</Link>
+          <nav className="flex items-center gap-[var(--s-2)] text-[13px]">
+            <Link href="/" className="rounded-sm px-2.5 py-1.5 text-fg-muted no-underline transition-colors hover:bg-bg-sunken hover:text-fg">
+              Home
+            </Link>
+            <Link href="/blog" className="rounded-sm px-2.5 py-1.5 text-fg-muted no-underline transition-colors hover:bg-bg-sunken hover:text-fg">
+              Notes
+            </Link>
+            <Link href="/login" className="rounded-sm px-2.5 py-1.5 text-fg-muted no-underline transition-colors hover:bg-bg-sunken hover:text-fg">
+              Sign in
+            </Link>
+            <Link href="/register" className="ls-btn ls-btn--sm ml-2">
+              Open a vault
+            </Link>
           </nav>
         </div>
       </header>
 
-      {/* JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -107,17 +123,22 @@ export default function BlogPostPage({ params: { locale, slug } }: Props) {
         />
       )}
 
-      {/* Article */}
-      <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
-        {/* Back link */}
-        <Link href="/blog" className="inline-flex items-center gap-1.5 text-sm text-primary-600 hover:text-primary-800 font-medium mb-8">
-          ← {locale === 'nl' ? 'Terug naar blog' : 'Back to blog'}
+      <article className="container" style={{ padding: '64px 0 96px', maxWidth: 760 }}>
+        <Link
+          href="/blog"
+          className="t-eyebrow inline-flex items-center gap-2 text-fg-subtle no-underline transition-colors hover:text-accent"
+          style={{ marginBottom: 'var(--s-9)' }}
+        >
+          ← {locale === 'nl' ? 'Terug naar notities' : 'Back to notes'}
         </Link>
 
-        {/* Meta */}
-        <div className="flex items-center gap-3 text-sm text-gray-500 mb-4">
+        <div className="mb-[var(--s-6)] flex flex-wrap items-center gap-[var(--s-4)] font-mono text-[12px] uppercase tracking-[0.06em] text-fg-subtle">
           <time dateTime={post.date}>
-            {new Date(post.date).toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' })}
+            {new Date(post.date).toLocaleDateString(locale, {
+              year: 'numeric',
+              month: 'short',
+              day: '2-digit',
+            })}
           </time>
           <span>·</span>
           <span>{post.readingTime}</span>
@@ -125,54 +146,117 @@ export default function BlogPostPage({ params: { locale, slug } }: Props) {
           <span>{post.author}</span>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl font-bold text-navy-900 tracking-tight leading-tight">
+        <h1
+          className="font-display text-fg"
+          style={{
+            fontSize: 'clamp(34px, 4.6vw, 56px)',
+            letterSpacing: 'var(--tracking-tight)',
+            lineHeight: 1.05,
+            fontWeight: 400,
+            margin: 0,
+          }}
+        >
           {post.title}
         </h1>
-        <p className="mt-4 text-lg text-gray-600">
+        <p
+          className="mt-[var(--s-7)] text-fg-muted"
+          style={{ fontSize: 'var(--t-md)', lineHeight: 'var(--lh-loose)' }}
+        >
           {post.description}
         </p>
 
-        {/* Keywords */}
-        <div className="mt-6 flex flex-wrap gap-2">
-          {post.keywords.map((kw) => (
-            <span key={kw} className="text-xs bg-primary-50 text-primary-700 rounded-full px-3 py-1 font-medium">
-              {kw}
-            </span>
-          ))}
-        </div>
+        {post.keywords.length > 0 && (
+          <div className="mt-[var(--s-7)] flex flex-wrap gap-[var(--s-4)]">
+            {post.keywords.map((kw) => (
+              <span
+                key={kw}
+                className="font-mono text-[11px] uppercase tracking-[0.08em] text-fg-subtle"
+              >
+                {kw}
+              </span>
+            ))}
+          </div>
+        )}
 
-        <hr className="my-8 border-gray-200" />
+        <hr style={{ margin: 'var(--s-11) 0', border: 0, borderTop: '1px solid var(--line)' }} />
 
-        {/* Content */}
-        <div className="prose prose-lg prose-navy max-w-none prose-headings:text-navy-900 prose-headings:font-bold prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-navy-800">
+        <div
+          className="prose prose-lg max-w-none"
+          style={{
+            color: 'var(--fg)',
+            fontSize: 'var(--t-md)',
+            lineHeight: 'var(--lh-loose)',
+            fontFamily: 'var(--font-sans)',
+            ['--tw-prose-body' as any]: 'var(--fg)',
+            ['--tw-prose-headings' as any]: 'var(--fg)',
+            ['--tw-prose-links' as any]: 'var(--accent)',
+            ['--tw-prose-bold' as any]: 'var(--fg)',
+            ['--tw-prose-quotes' as any]: 'var(--fg-muted)',
+            ['--tw-prose-quote-borders' as any]: 'var(--accent)',
+            ['--tw-prose-captions' as any]: 'var(--fg-subtle)',
+            ['--tw-prose-code' as any]: 'var(--fg)',
+            ['--tw-prose-pre-bg' as any]: 'var(--bg-inset)',
+            ['--tw-prose-bullets' as any]: 'var(--fg-subtle)',
+            ['--tw-prose-counters' as any]: 'var(--fg-subtle)',
+            ['--tw-prose-hr' as any]: 'var(--line)',
+          }}
+        >
           <MDXRemote source={post.content} />
         </div>
 
-        {/* CTA */}
-        <div className="mt-16 rounded-2xl bg-gradient-to-br from-navy-900 to-primary-900 p-8 sm:p-10 text-center text-white">
-          <h2 className="text-2xl font-bold">
+        <div
+          className="mt-[var(--s-13)] ls-surface ls-surface--ink"
+          style={{ padding: 'var(--s-10)' }}
+        >
+          <span className="t-eyebrow" style={{ color: 'var(--accent)' }}>
+            § Custody begins
+          </span>
+          <h2
+            className="mt-[var(--s-5)] font-display"
+            style={{
+              fontSize: 'var(--t-2xl)',
+              letterSpacing: 'var(--tracking-snug)',
+              color: 'var(--ls-bone-soft)',
+              margin: 0,
+              lineHeight: 'var(--lh-snug)',
+            }}
+          >
             {locale === 'nl'
-              ? 'Beveilig je documenten gratis'
-              : 'Secure your documents for free'}
+              ? 'Beveilig je documenten — gratis.'
+              : 'Place your documents in custody — free.'}
           </h2>
-          <p className="mt-3 text-white/70 max-w-lg mx-auto">
+          <p
+            className="mt-[var(--s-5)]"
+            style={{
+              maxWidth: '52ch',
+              color: 'var(--ls-bone-soft)',
+              opacity: 0.78,
+              fontSize: 'var(--t-sm)',
+              lineHeight: 'var(--lh-loose)',
+            }}
+          >
             {locale === 'nl'
-              ? 'Begin vandaag met LegacyShield. Zero-knowledge encryptie, noodtoegang voor je dierbaren, en altijd gratis te gebruiken.'
-              : 'Start with LegacyShield today. Zero-knowledge encryption, emergency access for your loved ones, and always free to use.'}
+              ? 'Zero-knowledge encryptie, noodtoegang voor dierbaren, EU-hosting.'
+              : 'Zero-knowledge encryption, designated heirs, EU-only infrastructure.'}
           </p>
           <Link
             href="/register"
-            className="mt-6 inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-accent-400 text-primary-900 font-semibold text-lg hover:bg-accent-500 transition-colors shadow-lg shadow-black/20"
+            className="ls-btn ls-btn--accent ls-btn--lg mt-[var(--s-7)]"
           >
-            {locale === 'nl' ? 'Gratis beginnen' : 'Get Started Free'}
+            {locale === 'nl' ? 'Gratis beginnen' : 'Open a vault'}
           </Link>
         </div>
       </article>
 
-      {/* Footer */}
-      <footer className="border-t border-gray-200 bg-white py-8">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center text-sm text-gray-500">
-          © {new Date().getFullYear()} LegacyShield. All rights reserved.
+      <footer className="border-t border-line">
+        <div
+          className="container flex items-center justify-between text-[11px] uppercase tracking-[0.14em] text-fg-subtle"
+          style={{ padding: '32px var(--gutter)' }}
+        >
+          <span>© {new Date().getFullYear()} LegacyShield · EU custody</span>
+          <Link href="/blog" className="text-fg-subtle no-underline hover:text-accent">
+            More notes
+          </Link>
         </div>
       </footer>
     </div>

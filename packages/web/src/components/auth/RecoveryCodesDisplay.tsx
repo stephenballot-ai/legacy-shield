@@ -44,7 +44,7 @@ export function RecoveryCodesDisplay({ codes, onConfirm }: RecoveryCodesDisplayP
       <Card className="!p-4">
         <div className="grid grid-cols-2 gap-2">
           {codes.map((code) => (
-            <code key={code} className="text-sm font-mono text-center py-1.5 bg-gray-50 rounded">
+            <code key={code} className="text-sm font-mono text-center py-1.5 bg-bg-sunken rounded">
               {code}
             </code>
           ))}
@@ -61,9 +61,9 @@ export function RecoveryCodesDisplay({ codes, onConfirm }: RecoveryCodesDisplayP
           type="checkbox"
           checked={confirmed}
           onChange={(e) => setConfirmed(e.target.checked)}
-          className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+          className="rounded border-line-strong text-primary-600 focus:ring-primary-500"
         />
-        <span className="text-sm text-gray-700">I have saved my recovery codes</span>
+        <span className="text-sm text-fg">I have saved my recovery codes</span>
       </label>
 
       <Button onClick={onConfirm} disabled={!confirmed} className="w-full">

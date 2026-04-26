@@ -105,7 +105,7 @@ export function EmergencyContactsList({ maxContacts = 5, onContactsChange }: Eme
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gray-900">Emergency Contacts</h3>
+        <h3 className="text-lg font-semibold text-fg">Emergency Contacts</h3>
         {!showAddForm && !atLimit && (
           <Button size="sm" variant="secondary" onClick={() => setShowAddForm(true)}>
             <UserPlus className="h-4 w-4 mr-1.5" /> Add Contact
@@ -121,7 +121,7 @@ export function EmergencyContactsList({ maxContacts = 5, onContactsChange }: Eme
 
       {showAddForm && (
         <Card>
-          <h4 className="text-sm font-semibold text-gray-900 mb-4">New Emergency Contact</h4>
+          <h4 className="text-sm font-semibold text-fg mb-4">New Emergency Contact</h4>
           <EmergencyContactForm
             onSubmit={handleAdd}
             onCancel={() => setShowAddForm(false)}
@@ -133,9 +133,9 @@ export function EmergencyContactsList({ maxContacts = 5, onContactsChange }: Eme
 
       {contacts.length === 0 && !showAddForm ? (
         <Card className="text-center py-10">
-          <Users className="h-10 w-10 text-gray-300 mx-auto mb-3" />
-          <h4 className="text-sm font-semibold text-gray-700 mb-1">No emergency contacts yet</h4>
-          <p className="text-sm text-gray-500 mb-4">Add someone you trust to access your vault in an emergency.</p>
+          <Users className="h-10 w-10 text-fg-subtle mx-auto mb-3" />
+          <h4 className="text-sm font-semibold text-fg mb-1">No emergency contacts yet</h4>
+          <p className="text-sm text-fg-muted mb-4">Add someone you trust to access your vault in an emergency.</p>
           <Button size="sm" onClick={() => setShowAddForm(true)}>
             <UserPlus className="h-4 w-4 mr-1.5" /> Add First Contact
           </Button>
@@ -154,7 +154,7 @@ export function EmergencyContactsList({ maxContacts = 5, onContactsChange }: Eme
                 />
               ) : deletingId === contact.id ? (
                 <div>
-                  <p className="text-sm text-gray-700 mb-3">
+                  <p className="text-sm text-fg mb-3">
                     Remove <strong>{contact.name}</strong> as an emergency contact?
                   </p>
                   <div className="flex gap-2">
@@ -168,12 +168,12 @@ export function EmergencyContactsList({ maxContacts = 5, onContactsChange }: Eme
                 <div className="flex items-start justify-between">
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
-                      <h4 className="text-sm font-semibold text-gray-900">{contact.name}</h4>
-                      <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full capitalize">
+                      <h4 className="text-sm font-semibold text-fg">{contact.name}</h4>
+                      <span className="text-xs bg-bg-sunken text-fg-muted px-2 py-0.5 rounded-full capitalize">
                         {contact.relationship}
                       </span>
                     </div>
-                    <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500">
+                    <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-fg-muted">
                       {contact.email && (
                         <span className="flex items-center gap-1">
                           <Mail className="h-3 w-3" /> {contact.email}
@@ -186,16 +186,16 @@ export function EmergencyContactsList({ maxContacts = 5, onContactsChange }: Eme
                       )}
                     </div>
                     {contact.lastAccessedAt && (
-                      <p className="text-xs text-gray-400">
+                      <p className="text-xs text-fg-subtle">
                         Last accessed: {formatDate(contact.lastAccessedAt)} · {contact.accessCount} access{contact.accessCount !== 1 ? 'es' : ''}
                       </p>
                     )}
                   </div>
                   <div className="flex gap-1 flex-shrink-0">
-                    <button onClick={() => setEditingId(contact.id)} className="p-1.5 text-gray-400 hover:text-gray-600 rounded">
+                    <button onClick={() => setEditingId(contact.id)} className="p-1.5 text-fg-subtle hover:text-fg-muted rounded">
                       <Pencil className="h-4 w-4" />
                     </button>
-                    <button onClick={() => setDeletingId(contact.id)} className="p-1.5 text-gray-400 hover:text-red-600 rounded">
+                    <button onClick={() => setDeletingId(contact.id)} className="p-1.5 text-fg-subtle hover:text-danger rounded">
                       <Trash2 className="h-4 w-4" />
                     </button>
                   </div>

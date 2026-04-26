@@ -31,19 +31,19 @@ function InfrastructureSection() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <Server className="h-10 w-10 mx-auto mb-4 text-primary-700" />
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">{t('title')}</h2>
-          <p className="mt-4 text-lg text-gray-600">{t('subtitle')}</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-fg">{t('title')}</h2>
+          <p className="mt-4 text-lg text-fg-muted">{t('subtitle')}</p>
         </div>
 
         {/* Comparison visual */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-12">
           {/* AWS */}
-          <div className="rounded-2xl border-2 border-red-200 bg-red-50 p-8">
+          <div className="rounded-2xl border-2 border-danger/30 bg-danger-bg p-8">
             <div className="text-center">
               <div className="text-3xl mb-3">🇺🇸</div>
               <h3 className="text-lg font-bold text-red-900">{t('comparison.aws.title')}</h3>
-              <p className="text-sm text-red-700 mt-2">{t('comparison.aws.subtitle')}</p>
-              <ul className="mt-4 space-y-2 text-sm text-red-800 text-left">
+              <p className="text-sm text-danger mt-2">{t('comparison.aws.subtitle')}</p>
+              <ul className="mt-4 space-y-2 text-sm text-danger text-left">
                 <li className="flex items-start gap-2">
                   <span className="mt-0.5">✗</span>
                   <span>{t('comparison.aws.point1')}</span>
@@ -92,18 +92,18 @@ function ZeroKnowledgeSection() {
   const t = useTranslations('madeInEu.zeroKnowledge');
   const points = ['point1', 'point2', 'point3', 'point4'] as const;
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-bg-sunken">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <Lock className="h-10 w-10 mx-auto mb-4 text-primary-700" />
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">{t('title')}</h2>
-          <p className="mt-4 text-lg text-gray-600">{t('subtitle')}</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-fg">{t('title')}</h2>
+          <p className="mt-4 text-lg text-fg-muted">{t('subtitle')}</p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {points.map((key) => (
-            <div key={key} className="flex items-start gap-4 bg-white rounded-xl border border-gray-200 p-6">
+            <div key={key} className="flex items-start gap-4 bg-white rounded-xl border border-line p-6">
               <CheckCircle className="h-6 w-6 text-trust-500 flex-shrink-0 mt-0.5" />
-              <p className="text-gray-700">{t(key)}</p>
+              <p className="text-fg">{t(key)}</p>
             </div>
           ))}
         </div>
@@ -119,11 +119,11 @@ function HonestySection() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <AlertTriangle className="h-10 w-10 mx-auto mb-4 text-accent-500" />
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">{t('title')}</h2>
-          <p className="mt-4 text-lg text-gray-600">{t('subtitle')}</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-fg">{t('title')}</h2>
+          <p className="mt-4 text-lg text-fg-muted">{t('subtitle')}</p>
         </div>
         <div className="max-w-3xl mx-auto space-y-4">
-          <div className="bg-amber-50 border border-amber-200 rounded-xl p-6">
+          <div className="bg-warn-bg border border-warn/30 rounded-xl p-6">
             <p className="text-amber-900 font-medium">{t('point1')}</p>
           </div>
           <div className="bg-trust-50 border border-trust-200 rounded-xl p-6">
@@ -149,19 +149,19 @@ function PrivacyStackSection() {
   ] as const;
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-bg-sunken">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <Layers className="h-10 w-10 mx-auto mb-4 text-primary-700" />
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">{t('title')}</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-fg">{t('title')}</h2>
         </div>
         <div className="max-w-2xl mx-auto space-y-4">
           {stack.map((item) => (
-            <div key={item.key} className="flex items-center gap-4 bg-white rounded-xl border border-gray-200 p-5">
+            <div key={item.key} className="flex items-center gap-4 bg-white rounded-xl border border-line p-5">
               <span className="text-2xl">{item.icon}</span>
               <div>
-                <p className="font-semibold text-gray-900">{t(`${item.key}.label`)}</p>
-                <p className="text-sm text-gray-600">{t(`${item.key}.value`)}</p>
+                <p className="font-semibold text-fg">{t(`${item.key}.label`)}</p>
+                <p className="text-sm text-fg-muted">{t(`${item.key}.value`)}</p>
               </div>
             </div>
           ))}

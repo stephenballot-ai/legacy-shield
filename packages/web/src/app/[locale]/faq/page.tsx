@@ -57,28 +57,28 @@ export default function FAQPage() {
           ← Back to LegacyShield
         </Link>
 
-        <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        <h1 className="text-3xl font-bold tracking-tight text-fg sm:text-4xl">
           Frequently Asked Questions
         </h1>
-        <p className="mt-4 text-lg text-gray-600">
+        <p className="mt-4 text-lg text-fg-muted">
           Everything you need to know about LegacyShield.
         </p>
 
-        <div className="mt-12 divide-y divide-gray-200">
+        <div className="mt-12 divide-y divide-line">
           {faqs.map((faq, i) => (
             <div key={i} className="py-6">
-              <h2 className="text-base font-semibold text-gray-900">
+              <h2 className="text-base font-semibold text-fg">
                 {faq.q}
               </h2>
-              <p className="mt-3 text-sm leading-relaxed text-gray-600">
+              <p className="mt-3 text-sm leading-relaxed text-fg-muted">
                 {faq.a}
               </p>
             </div>
           ))}
         </div>
 
-        <div className="mt-12 rounded-2xl bg-gray-50 p-8 text-center">
-          <p className="text-sm text-gray-600">
+        <div className="mt-12 rounded-2xl bg-bg-sunken p-8 text-center">
+          <p className="text-sm text-fg-muted">
             Still have questions?{' '}
             <a href="mailto:support@legacyshield.eu" className="text-blue-600 hover:text-blue-800 font-medium">
               Get in touch

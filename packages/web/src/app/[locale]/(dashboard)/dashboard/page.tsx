@@ -8,8 +8,8 @@ import { useFilesStore } from '@/store/filesStore';
 import { DOCUMENT_LIMITS } from '@legacy-shield/shared';
 import { usersApi } from '@/lib/api/users';
 import { emergencyAccessApi } from '@/lib/api/emergencyAccess';
-import { FileText, ShieldAlert, Upload, Clock, ArrowRight, Gift, Copy, Check } from 'lucide-react';
-import { formatFileSize, formatDate, cn } from '@/lib/utils';
+import { FileText, ShieldAlert, Clock, ArrowRight, Gift, Copy, Check } from 'lucide-react';
+import { formatFileSize, formatDate } from '@/lib/utils';
 import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
 import { LegacyReadiness } from '@/components/dashboard/LegacyReadiness';
@@ -26,7 +26,7 @@ export default function DashboardPage() {
   const [referralCode, setReferralCode] = useState<string | null>(null);
   const [emergencyCount, setEmergencyCount] = useState<number | null>(null);
   const [copied, setCopied] = useState(false);
-  
+
   const [uploadOpen, setUploadOpen] = useState(false);
   const [accountBuilderOpen, setAccountBuilderOpen] = useState(false);
   const [financialBuilderOpen, setFinancialBuilderOpen] = useState(false);
@@ -43,17 +43,19 @@ export default function DashboardPage() {
   };
 
   useEffect(() => {
-    // Fetch user profile stats
-    usersApi.getMe().then((p) => {
-      setDocLimit(p.documentLimit);
-      if (p.referralCode) setReferralCode(p.referralCode);
-      if (p.foundingMember) setIsFoundingMember(true);
-    }).catch(() => {});
+    usersApi
+      .getMe()
+      .then((p) => {
+        setDocLimit(p.documentLimit);
+        if (p.referralCode) setReferralCode(p.referralCode);
+        if (p.foundingMember) setIsFoundingMember(true);
+      })
+      .catch(() => {});
 
-    // Fetch emergency status
-    emergencyAccessApi.getStatus().then((s) => {
-      setEmergencyCount(s.contactCount);
-    }).catch(() => setEmergencyCount(null));
+    emergencyAccessApi
+      .getStatus()
+      .then((s) => setEmergencyCount(s.contactCount))
+      .catch(() => setEmergencyCount(null));
   }, []);
 
   useEffect(() => {
@@ -65,141 +67,236 @@ export default function DashboardPage() {
     .slice(0, 5);
 
   const stats = [
-    { label: 'Documents', value: `${total} / ${maxFiles}`, icon: FileText, color: 'text-primary-600 bg-primary-50' },
-    { 
-      label: 'Emergency Contacts', 
-      value: emergencyCount !== null ? emergencyCount.toString() : 'Not set up', 
-      icon: ShieldAlert, 
-      color: 'text-trust-600 bg-trust-50' 
+    { label: 'Documents in custody', value: `${total} / ${maxFiles}`, icon: FileText },
+    {
+      label: 'Designated heirs',
+      value: emergencyCount !== null ? emergencyCount.toString() : 'Not set up',
+      icon: ShieldAlert,
     },
-    { label: 'Last Activity', value: recentFiles[0] ? formatDate(recentFiles[0].createdAt) : 'No activity', icon: Clock, color: 'text-amber-600 bg-amber-50' },
+    {
+      label: 'Last activity',
+      value: recentFiles[0] ? formatDate(recentFiles[0].createdAt) : 'No activity',
+      icon: Clock,
+    },
   ];
 
+  const usagePct = Math.min((total / maxFiles) * 100, 100);
+
   return (
-    <div className="space-y-6 animate-fade-in">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div className="space-y-[var(--s-9)]">
+      <header className="flex flex-col gap-[var(--s-5)] sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <span className="t-eyebrow text-fg-subtle">§ {user?.email?.split('@')[0]}</span>
+          <h1
+            className="mt-[var(--s-3)] font-display text-fg"
+            style={{
+              fontSize: 'var(--t-3xl)',
+              letterSpacing: 'var(--tracking-snug)',
+              lineHeight: 'var(--lh-snug)',
+              margin: 0,
+            }}
+          >
             {t('welcome')}
           </h1>
-          <p className="text-sm text-gray-500 mt-1">{t('subtitle')}</p>
+          <p className="mt-[var(--s-3)] text-[13px] text-fg-muted">{t('subtitle')}</p>
           {isFoundingMember && (
-            <div className="mt-2 inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200 rounded-full px-3 py-1">
-              <span className="text-amber-600 text-sm">⭐</span>
-              <span className="text-xs font-semibold text-amber-700 uppercase tracking-wider">Founding Member</span>
-            </div>
+            <span className="ls-badge ls-badge--seal mt-[var(--s-5)] inline-flex">
+              Founding member
+            </span>
           )}
         </div>
-        <div className="flex items-center gap-3">
-          <Button 
-            onClick={(e) => { e.preventDefault(); handleUploadClick(); }}
-            className={cn(files.length === 0 && "animate-pulse shadow-lg shadow-primary-500/50 ring-2 ring-primary-500 ring-offset-2")}
-          >
-            {files.length === 0 ? 'Secure Your First File' : 'Upload document'}
-          </Button>
-        </div>
-      </div>
+        <Button
+          onClick={(e) => {
+            e.preventDefault();
+            handleUploadClick();
+          }}
+          variant={files.length === 0 ? 'accent' : 'primary'}
+          size="md"
+        >
+          {files.length === 0 ? 'Begin custody — upload first document' : 'Upload document'}
+        </Button>
+      </header>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        {stats.map(({ label, value, icon: Icon, color }) => (
-          <Card key={label} className="flex items-center gap-4">
-            <div className={`p-3 rounded-lg ${color}`}>
-              <Icon className="h-5 w-5" />
-            </div>
-            <div>
-              <p className="text-2xl font-bold">{value}</p>
-              <p className="text-sm text-gray-500">{label}</p>
+      <div className="grid grid-cols-1 gap-[var(--s-6)] sm:grid-cols-3">
+        {stats.map(({ label, value, icon: Icon }) => (
+          <Card key={label} padded={false}>
+            <div className="flex items-start justify-between p-[var(--s-7)]">
+              <div>
+                <span className="t-eyebrow text-fg-subtle">{label}</span>
+                <p
+                  className="mt-[var(--s-4)] font-display text-fg"
+                  style={{
+                    fontSize: 'var(--t-2xl)',
+                    letterSpacing: 'var(--tracking-snug)',
+                    margin: 0,
+                  }}
+                >
+                  {value}
+                </p>
+              </div>
+              <Icon className="h-4 w-4 text-fg-subtle" strokeWidth={1.6} />
             </div>
           </Card>
         ))}
       </div>
 
-      <LegacyReadiness 
-        onUpload={handleUploadClick} 
-        onBuildAccounts={() => setAccountBuilderOpen(true)} 
+      <LegacyReadiness
+        onUpload={handleUploadClick}
+        onBuildAccounts={() => setAccountBuilderOpen(true)}
         onBuildFinancial={() => setFinancialBuilderOpen(true)}
       />
 
-      {/* Recent documents */}
       {recentFiles.length > 0 ? (
-        <Card>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold">Recent Documents</h2>
-            <Link href="/documents" className="text-sm text-primary-600 hover:text-primary-700 inline-flex items-center gap-1">
-              View all <ArrowRight className="h-3 w-3" />
+        <Card padded={false}>
+          <div
+            className="flex items-center justify-between p-[var(--s-7)]"
+            style={{ borderBottom: '1px solid var(--line)' }}
+          >
+            <div>
+              <span className="t-eyebrow text-fg-subtle">§ Custody log</span>
+              <h2
+                className="mt-[var(--s-2)] font-display text-fg"
+                style={{
+                  fontSize: 'var(--t-lg)',
+                  letterSpacing: 'var(--tracking-snug)',
+                  margin: 0,
+                }}
+              >
+                Recent documents
+              </h2>
+            </div>
+            <Link
+              href="/documents"
+              className="inline-flex items-center gap-[6px] text-[12px] text-fg-muted no-underline hover:text-accent"
+            >
+              View all <ArrowRight className="h-3 w-3" strokeWidth={1.8} />
             </Link>
           </div>
-          <div className="divide-y">
-            {recentFiles.map((file) => (
-              <Link key={file.id} href="/documents" className="flex items-center gap-3 py-3 hover:bg-gray-50 -mx-6 px-6 transition-colors">
-                <FileText className="h-5 w-5 text-gray-400 flex-shrink-0" />
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">{file.filename}</p>
-                  <p className="text-xs text-gray-400">{formatFileSize(file.fileSizeBytes)}</p>
-                </div>
-                <span className="text-xs text-gray-400">{formatDate(file.createdAt)}</span>
-              </Link>
+          <ul className="m-0 list-none p-0">
+            {recentFiles.map((file, i) => (
+              <li
+                key={file.id}
+                style={{ borderTop: i === 0 ? 'none' : '1px solid var(--line)' }}
+              >
+                <Link
+                  href="/documents"
+                  className="flex items-center gap-[var(--s-5)] px-[var(--s-7)] py-[var(--s-5)] no-underline transition-colors hover:bg-bg-sunken"
+                >
+                  <span className="font-mono text-[11px] text-fg-subtle" style={{ minWidth: 28 }}>
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <FileText className="h-4 w-4 flex-shrink-0 text-fg-subtle" strokeWidth={1.6} />
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-[13px] font-medium text-fg">{file.filename}</p>
+                    <p className="font-mono text-[11px] text-fg-subtle">
+                      {formatFileSize(file.fileSizeBytes)}
+                    </p>
+                  </div>
+                  <span className="font-mono text-[11px] text-fg-subtle">
+                    {formatDate(file.createdAt)}
+                  </span>
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
         </Card>
       ) : (
-        <Card className="flex flex-col items-center py-12 text-center">
-          <div className="p-4 bg-primary-50 rounded-full mb-4">
-            <Upload className="h-8 w-8 text-primary-600" />
-          </div>
-          <h2 className="text-lg font-semibold mb-2">Upload your first document</h2>
-          <p className="text-sm text-gray-500 mb-6 max-w-sm">
-            Your files are encrypted in the browser before upload. We never see your data.
+        <div className="ls-empty">
+          <div className="ls-empty__crest">L</div>
+          <h2 className="ls-empty__title">Your vault is awaiting its first document.</h2>
+          <p className="ls-empty__body">
+            Begin with a passport, a will, or a banking credential. Files are encrypted in your
+            browser before they ever leave it.
           </p>
-          <Link href="/documents">
-            <Button onClick={(e) => { e.preventDefault(); handleUploadClick(); }}>Upload document</Button>
-          </Link>
-        </Card>
+          <div className="ls-empty__cta">
+            <Button
+              variant="accent"
+              onClick={(e) => {
+                e.preventDefault();
+                handleUploadClick();
+              }}
+            >
+              Add a document
+            </Button>
+            <Link href="/continuity" className="ls-btn ls-btn--tertiary">
+              Read the custody guide
+            </Link>
+          </div>
+        </div>
       )}
 
-      <DocumentUpload 
-        open={uploadOpen} 
-        onClose={() => { setUploadOpen(false); fetchFiles(); }} 
+      <DocumentUpload
+        open={uploadOpen}
+        onClose={() => {
+          setUploadOpen(false);
+          fetchFiles();
+        }}
         initialCategory={initialCategory}
       />
 
       <AccountBuilder
         open={accountBuilderOpen}
-        onClose={() => { setAccountBuilderOpen(false); fetchFiles(); }}
+        onClose={() => {
+          setAccountBuilderOpen(false);
+          fetchFiles();
+        }}
       />
 
       <FinancialBuilder
         open={financialBuilderOpen}
-        onClose={() => { setFinancialBuilderOpen(false); fetchFiles(); }}
+        onClose={() => {
+          setFinancialBuilderOpen(false);
+          fetchFiles();
+        }}
       />
 
-      {/* Referral CTA — show when at limit on free tier */}
       {tier !== 'PRO' && referralCode && (
-        <Card className="bg-gradient-to-r from-primary-50 to-trust-50 border-primary-200">
-          <div className="flex items-start gap-4">
-            <div className="p-2.5 bg-white rounded-lg shadow-sm flex-shrink-0">
-              <Gift className="h-5 w-5 text-primary-600" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <h3 className="font-semibold text-gray-900">
-                {total >= maxFiles ? 'Need more space? Invite a friend!' : 'Share LegacyShield, earn more storage'}
+        <Card>
+          <div className="flex items-start gap-[var(--s-6)]">
+            <Gift className="mt-1 h-5 w-5 flex-shrink-0 text-accent" strokeWidth={1.6} />
+            <div className="min-w-0 flex-1">
+              <span className="t-eyebrow text-fg-subtle">§ Referral</span>
+              <h3
+                className="mt-[var(--s-2)] font-display text-fg"
+                style={{
+                  fontSize: 'var(--t-lg)',
+                  letterSpacing: 'var(--tracking-snug)',
+                  margin: 0,
+                }}
+              >
+                {total >= maxFiles
+                  ? 'Need more space? Invite a friend.'
+                  : 'Share LegacyShield, earn more storage.'}
               </h3>
-              <p className="text-sm text-gray-600 mt-1">
-                Get <strong>+5 documents</strong> for each friend who signs up and uploads a file. You can earn up to 25 docs free!
+              <p className="mt-[var(--s-3)] text-[13px] text-fg-muted">
+                Receive <strong className="text-fg">+5 documents</strong> for each person who signs
+                up and uploads a file. Up to 25 free.
               </p>
-              <div className="flex items-center gap-2 mt-3">
-                <code className="text-xs bg-white border border-gray-200 rounded-lg px-3 py-2 flex-1 truncate">
+              <div className="mt-[var(--s-5)] flex items-center gap-[var(--s-3)]">
+                <code
+                  className="flex-1 truncate font-mono text-[12px] text-fg-muted"
+                  style={{
+                    background: 'var(--bg-sunken)',
+                    border: '1px solid var(--line)',
+                    borderRadius: 'var(--r-sm)',
+                    padding: '8px 12px',
+                  }}
+                >
                   legacyshield.eu/r/{referralCode}
                 </code>
                 <button
+                  type="button"
                   onClick={() => {
-                    navigator.clipboard.writeText(`https://legacyshield.eu/r/${referralCode}`);
+                    navigator.clipboard.writeText(
+                      `https://legacyshield.eu/r/${referralCode}`
+                    );
                     setCopied(true);
                     setTimeout(() => setCopied(false), 2000);
                   }}
-                  className="p-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors flex-shrink-0"
+                  className="ls-btn ls-btn--secondary ls-btn--sm flex-shrink-0"
+                  aria-label="Copy referral link"
                 >
-                  {copied ? <Check className="h-4 w-4 text-trust-600" /> : <Copy className="h-4 w-4 text-gray-500" />}
+                  {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
                 </button>
               </div>
             </div>
@@ -207,21 +304,23 @@ export default function DashboardPage() {
         </Card>
       )}
 
-      {/* Usage bar */}
       <Card>
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-medium">Storage Usage</span>
-          <span className="text-xs text-gray-500">{total} of {maxFiles} documents</span>
+        <div className="flex items-baseline justify-between">
+          <span className="t-eyebrow text-fg-subtle">§ Storage</span>
+          <span className="font-mono text-[12px] text-fg-subtle">
+            {total} / {maxFiles}
+          </span>
         </div>
-        <div className="w-full bg-gray-200 rounded-full h-2">
-          <div
-            className="bg-primary-600 h-2 rounded-full transition-all"
-            style={{ width: `${Math.min((total / maxFiles) * 100, 100)}%` }}
-          />
+        <div className="ls-meter mt-[var(--s-5)]">
+          <div className="ls-meter__bar" style={{ width: `${usagePct}%` }} />
         </div>
         {total >= maxFiles && tier !== 'PRO' && (
-          <p className="text-xs text-amber-600 mt-2">
-            Limit reached. Invite a friend for +5 docs, or <Link href="/settings" className="underline font-medium">upgrade to Pro</Link> for {DOCUMENT_LIMITS.PRO_TIER}.
+          <p className="mt-[var(--s-4)] text-[12px]" style={{ color: 'var(--warn)' }}>
+            Limit reached. Invite a friend for +5 docs, or{' '}
+            <Link href="/settings" className="font-medium underline-offset-4 hover:underline">
+              engage Tier II
+            </Link>{' '}
+            for {DOCUMENT_LIMITS.PRO_TIER}.
           </p>
         )}
       </Card>

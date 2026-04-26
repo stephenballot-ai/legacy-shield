@@ -2,45 +2,50 @@
 
 import { forwardRef, type ButtonHTMLAttributes } from 'react';
 import { cn } from '@/lib/utils';
-import { Loader2 } from 'lucide-react';
 
-type Variant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+type Variant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'tertiary' | 'accent' | 'danger' | 'link';
 type Size = 'sm' | 'md' | 'lg';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;
   size?: Size;
   isLoading?: boolean;
+  block?: boolean;
 }
 
-const variants: Record<Variant, string> = {
-  primary: 'bg-accent-400 text-primary-900 hover:bg-accent-500 focus:ring-accent-400 font-semibold',
-  secondary: 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 focus:ring-primary-500',
-  outline: 'bg-transparent text-primary-600 border border-primary-600 hover:bg-primary-50 focus:ring-primary-500',
-  ghost: 'bg-transparent text-gray-600 hover:bg-gray-100 focus:ring-gray-500',
-  danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500',
+// Map legacy variant names to .ls-btn modifiers so callers don't all need to migrate at once.
+const variantClass: Record<Variant, string> = {
+  primary:   '',
+  accent:    'ls-btn--accent',
+  secondary: 'ls-btn--secondary',
+  outline:   'ls-btn--secondary',
+  ghost:     'ls-btn--tertiary',
+  tertiary:  'ls-btn--tertiary',
+  danger:    'ls-btn--danger',
+  link:      'ls-btn--link',
 };
 
-const sizes: Record<Size, string> = {
-  sm: 'px-3 py-1.5 text-sm',
-  md: 'px-5 py-2.5 text-sm',
-  lg: 'px-6 py-3 text-base',
+const sizeClass: Record<Size, string> = {
+  sm: 'ls-btn--sm',
+  md: '',
+  lg: 'ls-btn--lg',
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = 'primary', size = 'md', isLoading, disabled, children, ...props }, ref) => (
+  (
+    { className, variant = 'primary', size = 'md', isLoading, disabled, block, children, ...props },
+    ref
+  ) => (
     <button
       ref={ref}
-      className={cn(
-        'inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed',
-        variants[variant],
-        sizes[size],
-        className
-      )}
+      className={cn('ls-btn', variantClass[variant], sizeClass[size], block && 'ls-btn--block', className)}
       disabled={disabled || isLoading}
+      aria-busy={isLoading || undefined}
       {...props}
     >
-      {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+      {isLoading && (
+        <span className="ls-spin" style={{ borderColor: 'rgba(255,255,255,.3)', borderTopColor: '#fff' }} />
+      )}
       {children}
     </button>
   )

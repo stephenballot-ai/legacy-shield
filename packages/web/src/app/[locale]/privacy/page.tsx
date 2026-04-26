@@ -17,9 +17,9 @@ export default function PrivacyPage() {
         <h1 className="text-4xl font-bold text-navy-900 mb-2" style={{ color: '#1e3a5f' }}>
           Privacy Policy
         </h1>
-        <p className="text-gray-500 mb-12">Last updated: February 15, 2026</p>
+        <p className="text-fg-muted mb-12">Last updated: February 15, 2026</p>
 
-        <div className="prose prose-gray max-w-none space-y-8 text-gray-700 leading-relaxed">
+        <div className="prose prose-gray max-w-none space-y-8 text-fg leading-relaxed">
 
           <section>
             <h2 className="text-xl font-semibold mb-3" style={{ color: '#1e3a5f' }}>The short version</h2>

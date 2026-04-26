@@ -34,8 +34,8 @@ export function PricingCards() {
         <div className="mx-auto w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mb-6">
           <Zap className="h-8 w-8 text-primary-600 animate-pulse" />
         </div>
-        <h3 className="text-2xl font-bold text-gray-900 mb-4">LegacyShield Pro is almost here!</h3>
-        <p className="text-gray-600 mb-8 max-w-md mx-auto leading-relaxed">
+        <h3 className="text-2xl font-bold text-fg mb-4">LegacyShield Pro is almost here!</h3>
+        <p className="text-fg-muted mb-8 max-w-md mx-auto leading-relaxed">
           We&apos;re currently finalizing our secure European payment gateway. Pro accounts and expanded storage will be available in just a few days. 
           <br /><br />
           We&apos;ll notify you at your registered email address as soon as we launch!
@@ -54,16 +54,16 @@ export function PricingCards() {
         <Card className="relative flex flex-col">
           <div className="flex items-center gap-2 mb-4">
             <Zap className="h-5 w-5 text-primary-600" />
-            <h3 className="text-lg font-semibold text-gray-900">Monthly</h3>
+            <h3 className="text-lg font-semibold text-fg">Monthly</h3>
           </div>
           <div className="mb-4">
-            <span className="text-3xl font-bold text-gray-900">{currency.symbol}{currency.monthly}</span>
-            <span className="text-gray-500">/month</span>
+            <span className="text-3xl font-bold text-fg">{currency.symbol}{currency.monthly}</span>
+            <span className="text-fg-muted">/month</span>
           </div>
           <ul className="space-y-2 mb-6 flex-1">
             {features.map((f) => (
-              <li key={f} className="flex items-center gap-2 text-sm text-gray-600">
-                <Check className="h-4 w-4 text-green-500 flex-shrink-0" />
+              <li key={f} className="flex items-center gap-2 text-sm text-fg-muted">
+                <Check className="h-4 w-4 text-ok flex-shrink-0" />
                 {f}
               </li>
             ))}
@@ -84,21 +84,21 @@ export function PricingCards() {
           </div>
           <div className="flex items-center gap-2 mb-4">
             <Crown className="h-5 w-5 text-primary-600" />
-            <h3 className="text-lg font-semibold text-gray-900">Lifetime</h3>
+            <h3 className="text-lg font-semibold text-fg">Lifetime</h3>
           </div>
           <div className="mb-4">
-            <span className="text-3xl font-bold text-gray-900">{currency.symbol}{currency.lifetime}</span>
-            <span className="text-gray-500"> one-time</span>
+            <span className="text-3xl font-bold text-fg">{currency.symbol}{currency.lifetime}</span>
+            <span className="text-fg-muted"> one-time</span>
           </div>
           <ul className="space-y-2 mb-6 flex-1">
             {features.map((f) => (
-              <li key={f} className="flex items-center gap-2 text-sm text-gray-600">
-                <Check className="h-4 w-4 text-green-500 flex-shrink-0" />
+              <li key={f} className="flex items-center gap-2 text-sm text-fg-muted">
+                <Check className="h-4 w-4 text-ok flex-shrink-0" />
                 {f}
               </li>
             ))}
-            <li className="flex items-center gap-2 text-sm text-gray-600 font-medium">
-              <Check className="h-4 w-4 text-green-500 flex-shrink-0" />
+            <li className="flex items-center gap-2 text-sm text-fg-muted font-medium">
+              <Check className="h-4 w-4 text-ok flex-shrink-0" />
               Never pay again
             </li>
           </ul>
@@ -111,7 +111,7 @@ export function PricingCards() {
         </Card>
       </div>
 
-      <div className="flex items-center justify-center gap-4 text-xs text-gray-400 mt-4">
+      <div className="flex items-center justify-center gap-4 text-xs text-fg-subtle mt-4">
         <div className="flex items-center gap-1">
           <Shield className="h-3 w-3" />
           EU Hosted (Germany)

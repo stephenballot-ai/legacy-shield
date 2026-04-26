@@ -41,15 +41,15 @@ export function DeleteAccountModal({ open, onClose }: Props) {
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
       <div className="relative bg-white rounded-xl shadow-xl max-w-md w-full mx-4 p-6">
-        <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+        <button onClick={onClose} className="absolute top-4 right-4 text-fg-subtle hover:text-fg-muted">
           <X className="h-5 w-5" />
         </button>
 
         <div className="flex items-center gap-3 mb-4">
           <div className="p-2 bg-red-100 rounded-full">
-            <AlertTriangle className="h-6 w-6 text-red-600" />
+            <AlertTriangle className="h-6 w-6 text-danger" />
           </div>
-          <h2 className="text-lg font-semibold text-gray-900">Delete Account</h2>
+          <h2 className="text-lg font-semibold text-fg">Delete Account</h2>
         </div>
 
         <Alert variant="error" className="mb-4">
@@ -71,8 +71,8 @@ export function DeleteAccountModal({ open, onClose }: Props) {
           />
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Type <span className="font-mono text-red-600">DELETE MY ACCOUNT</span> to confirm
+            <label className="block text-sm font-medium text-fg mb-1">
+              Type <span className="font-mono text-danger">DELETE MY ACCOUNT</span> to confirm
             </label>
             <Input
               value={confirmation}

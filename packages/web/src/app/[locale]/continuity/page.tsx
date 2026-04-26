@@ -61,8 +61,8 @@ function ShutdownSection() {
             <AlertTriangle className="h-7 w-7 text-trust-700" />
           </div>
           <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('title')}</h2>
-            <p className="text-lg text-gray-600 mb-6">{t('intro')}</p>
+            <h2 className="text-3xl font-bold text-fg mb-4">{t('title')}</h2>
+            <p className="text-lg text-fg-muted mb-6">{t('intro')}</p>
           </div>
         </div>
 
@@ -70,40 +70,40 @@ function ShutdownSection() {
           <div className="flex items-start gap-4">
             <CheckCircle className="h-6 w-6 text-trust-600 flex-shrink-0 mt-1" />
             <div>
-              <h3 className="font-semibold text-gray-900 mb-1">{t('point1.title')}</h3>
-              <p className="text-gray-600">{t('point1.desc')}</p>
+              <h3 className="font-semibold text-fg mb-1">{t('point1.title')}</h3>
+              <p className="text-fg-muted">{t('point1.desc')}</p>
             </div>
           </div>
 
           <div className="flex items-start gap-4">
             <CheckCircle className="h-6 w-6 text-trust-600 flex-shrink-0 mt-1" />
             <div>
-              <h3 className="font-semibold text-gray-900 mb-1">{t('point2.title')}</h3>
-              <p className="text-gray-600">{t('point2.desc')}</p>
+              <h3 className="font-semibold text-fg mb-1">{t('point2.title')}</h3>
+              <p className="text-fg-muted">{t('point2.desc')}</p>
             </div>
           </div>
 
           <div className="flex items-start gap-4">
             <CheckCircle className="h-6 w-6 text-trust-600 flex-shrink-0 mt-1" />
             <div>
-              <h3 className="font-semibold text-gray-900 mb-1">{t('point3.title')}</h3>
-              <p className="text-gray-600">{t('point3.desc')}</p>
+              <h3 className="font-semibold text-fg mb-1">{t('point3.title')}</h3>
+              <p className="text-fg-muted">{t('point3.desc')}</p>
             </div>
           </div>
 
           <div className="flex items-start gap-4">
             <CheckCircle className="h-6 w-6 text-trust-600 flex-shrink-0 mt-1" />
             <div>
-              <h3 className="font-semibold text-gray-900 mb-1">{t('point4.title')}</h3>
-              <p className="text-gray-600">{t('point4.desc')}</p>
+              <h3 className="font-semibold text-fg mb-1">{t('point4.title')}</h3>
+              <p className="text-fg-muted">{t('point4.desc')}</p>
             </div>
           </div>
 
           <div className="flex items-start gap-4">
             <CheckCircle className="h-6 w-6 text-trust-600 flex-shrink-0 mt-1" />
             <div>
-              <h3 className="font-semibold text-gray-900 mb-1">{t('point5.title')}</h3>
-              <p className="text-gray-600">{t('point5.desc')}</p>
+              <h3 className="font-semibold text-fg mb-1">{t('point5.title')}</h3>
+              <p className="text-fg-muted">{t('point5.desc')}</p>
             </div>
           </div>
         </div>
@@ -115,15 +115,15 @@ function ShutdownSection() {
 function HackedSection() {
   const t = useTranslations('continuity.hacked');
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-bg-sunken">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         <div className="flex items-start gap-4 mb-8">
           <div className="flex-shrink-0 bg-primary-100 rounded-xl p-3">
             <Lock className="h-7 w-7 text-primary-700" />
           </div>
           <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('title')}</h2>
-            <p className="text-lg text-gray-600 mb-6">{t('intro')}</p>
+            <h2 className="text-3xl font-bold text-fg mb-4">{t('title')}</h2>
+            <p className="text-lg text-fg-muted mb-6">{t('intro')}</p>
           </div>
         </div>
 
@@ -131,32 +131,32 @@ function HackedSection() {
           <div className="flex items-start gap-4">
             <CheckCircle className="h-6 w-6 text-trust-600 flex-shrink-0 mt-1" />
             <div>
-              <h3 className="font-semibold text-gray-900 mb-1">{t('point1.title')}</h3>
-              <p className="text-gray-600">{t('point1.desc')}</p>
+              <h3 className="font-semibold text-fg mb-1">{t('point1.title')}</h3>
+              <p className="text-fg-muted">{t('point1.desc')}</p>
             </div>
           </div>
 
           <div className="flex items-start gap-4">
             <CheckCircle className="h-6 w-6 text-trust-600 flex-shrink-0 mt-1" />
             <div>
-              <h3 className="font-semibold text-gray-900 mb-1">{t('point2.title')}</h3>
-              <p className="text-gray-600">{t('point2.desc')}</p>
+              <h3 className="font-semibold text-fg mb-1">{t('point2.title')}</h3>
+              <p className="text-fg-muted">{t('point2.desc')}</p>
             </div>
           </div>
 
           <div className="flex items-start gap-4">
             <CheckCircle className="h-6 w-6 text-trust-600 flex-shrink-0 mt-1" />
             <div>
-              <h3 className="font-semibold text-gray-900 mb-1">{t('point3.title')}</h3>
-              <p className="text-gray-600">{t('point3.desc')}</p>
+              <h3 className="font-semibold text-fg mb-1">{t('point3.title')}</h3>
+              <p className="text-fg-muted">{t('point3.desc')}</p>
             </div>
           </div>
 
           <div className="flex items-start gap-4">
             <CheckCircle className="h-6 w-6 text-trust-600 flex-shrink-0 mt-1" />
             <div>
-              <h3 className="font-semibold text-gray-900 mb-1">{t('point4.title')}</h3>
-              <p className="text-gray-600">{t('point4.desc')}</p>
+              <h3 className="font-semibold text-fg mb-1">{t('point4.title')}</h3>
+              <p className="text-fg-muted">{t('point4.desc')}</p>
             </div>
           </div>
         </div>
@@ -175,8 +175,8 @@ function PrivacyLawsSection() {
             <Server className="h-7 w-7 text-navy-700" />
           </div>
           <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('title')}</h2>
-            <p className="text-lg text-gray-600 mb-6">{t('intro')}</p>
+            <h2 className="text-3xl font-bold text-fg mb-4">{t('title')}</h2>
+            <p className="text-lg text-fg-muted mb-6">{t('intro')}</p>
           </div>
         </div>
 
@@ -184,32 +184,32 @@ function PrivacyLawsSection() {
           <div className="flex items-start gap-4">
             <CheckCircle className="h-6 w-6 text-trust-600 flex-shrink-0 mt-1" />
             <div>
-              <h3 className="font-semibold text-gray-900 mb-1">{t('point1.title')}</h3>
-              <p className="text-gray-600">{t('point1.desc')}</p>
+              <h3 className="font-semibold text-fg mb-1">{t('point1.title')}</h3>
+              <p className="text-fg-muted">{t('point1.desc')}</p>
             </div>
           </div>
 
           <div className="flex items-start gap-4">
             <CheckCircle className="h-6 w-6 text-trust-600 flex-shrink-0 mt-1" />
             <div>
-              <h3 className="font-semibold text-gray-900 mb-1">{t('point2.title')}</h3>
-              <p className="text-gray-600">{t('point2.desc')}</p>
+              <h3 className="font-semibold text-fg mb-1">{t('point2.title')}</h3>
+              <p className="text-fg-muted">{t('point2.desc')}</p>
             </div>
           </div>
 
           <div className="flex items-start gap-4">
             <CheckCircle className="h-6 w-6 text-trust-600 flex-shrink-0 mt-1" />
             <div>
-              <h3 className="font-semibold text-gray-900 mb-1">{t('point3.title')}</h3>
-              <p className="text-gray-600">{t('point3.desc')}</p>
+              <h3 className="font-semibold text-fg mb-1">{t('point3.title')}</h3>
+              <p className="text-fg-muted">{t('point3.desc')}</p>
             </div>
           </div>
 
           <div className="flex items-start gap-4">
             <CheckCircle className="h-6 w-6 text-trust-600 flex-shrink-0 mt-1" />
             <div>
-              <h3 className="font-semibold text-gray-900 mb-1">{t('point4.title')}</h3>
-              <p className="text-gray-600">{t('point4.desc')}</p>
+              <h3 className="font-semibold text-fg mb-1">{t('point4.title')}</h3>
+              <p className="text-fg-muted">{t('point4.desc')}</p>
             </div>
           </div>
         </div>
@@ -221,14 +221,14 @@ function PrivacyLawsSection() {
 function CommitmentSection() {
   const t = useTranslations('continuity.commitment');
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-bg-sunken">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         <div className="flex items-start gap-4 mb-8">
           <div className="flex-shrink-0 bg-accent-100 rounded-xl p-3">
             <Eye className="h-7 w-7 text-accent-700" />
           </div>
           <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('title')}</h2>
+            <h2 className="text-3xl font-bold text-fg mb-4">{t('title')}</h2>
           </div>
         </div>
 
@@ -236,32 +236,32 @@ function CommitmentSection() {
           <div className="flex items-start gap-4">
             <CheckCircle className="h-6 w-6 text-trust-600 flex-shrink-0 mt-1" />
             <div>
-              <h3 className="font-semibold text-gray-900 mb-1">{t('point1.title')}</h3>
-              <p className="text-gray-600">{t('point1.desc')}</p>
+              <h3 className="font-semibold text-fg mb-1">{t('point1.title')}</h3>
+              <p className="text-fg-muted">{t('point1.desc')}</p>
             </div>
           </div>
 
           <div className="flex items-start gap-4">
             <CheckCircle className="h-6 w-6 text-trust-600 flex-shrink-0 mt-1" />
             <div>
-              <h3 className="font-semibold text-gray-900 mb-1">{t('point2.title')}</h3>
-              <p className="text-gray-600">{t('point2.desc')}</p>
+              <h3 className="font-semibold text-fg mb-1">{t('point2.title')}</h3>
+              <p className="text-fg-muted">{t('point2.desc')}</p>
             </div>
           </div>
 
           <div className="flex items-start gap-4">
             <CheckCircle className="h-6 w-6 text-trust-600 flex-shrink-0 mt-1" />
             <div>
-              <h3 className="font-semibold text-gray-900 mb-1">{t('point3.title')}</h3>
-              <p className="text-gray-600">{t('point3.desc')}</p>
+              <h3 className="font-semibold text-fg mb-1">{t('point3.title')}</h3>
+              <p className="text-fg-muted">{t('point3.desc')}</p>
             </div>
           </div>
 
           <div className="flex items-start gap-4">
             <CheckCircle className="h-6 w-6 text-trust-600 flex-shrink-0 mt-1" />
             <div>
-              <h3 className="font-semibold text-gray-900 mb-1">{t('point4.title')}</h3>
-              <p className="text-gray-600">{t('point4.desc')}</p>
+              <h3 className="font-semibold text-fg mb-1">{t('point4.title')}</h3>
+              <p className="text-fg-muted">{t('point4.desc')}</p>
             </div>
           </div>
         </div>
@@ -294,8 +294,8 @@ function CTASection() {
 
 function Footer() {
   return (
-    <footer className="border-t border-gray-200 bg-white py-8">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center text-sm text-gray-500">
+    <footer className="border-t border-line bg-white py-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center text-sm text-fg-muted">
         © {new Date().getFullYear()} LegacyShield. All rights reserved.
       </div>
     </footer>

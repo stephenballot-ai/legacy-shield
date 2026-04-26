@@ -27,11 +27,9 @@ export default function RegisterPage() {
     try {
       await authLogin(email, password);
     } catch {
-      // If auto-login fails, derive key manually so vault works
       const masterKey = await deriveMasterKey(password, salt);
       useCryptoStore.getState().setMasterKey(masterKey);
     }
-    // Meta Pixel conversion tracking
     const fbq = (window as unknown as { fbq?: (...args: unknown[]) => void }).fbq;
     if (typeof window !== 'undefined' && fbq) {
       fbq('track', 'CompleteRegistration');
@@ -42,17 +40,52 @@ export default function RegisterPage() {
   return (
     <Card>
       {isReferred && (
-        <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg text-center">
-          <p className="text-sm text-green-800">
-            🎉 {t('referred')}
-          </p>
+        <div
+          role="status"
+          className="mb-[var(--s-6)] flex items-center gap-[var(--s-4)] border p-[var(--s-5)]"
+          style={{
+            background: 'var(--ok-bg)',
+            color: 'var(--ok)',
+            borderColor: 'color-mix(in oklab, var(--ok) 25%, transparent)',
+            borderRadius: 'var(--r-md)',
+          }}
+        >
+          <span
+            aria-hidden="true"
+            className="inline-block h-2 w-2 rounded-full"
+            style={{ background: 'currentColor' }}
+          />
+          <span className="text-[13px]" style={{ color: 'var(--fg)' }}>{t('referred')}</span>
         </div>
       )}
-      <h1 className="text-2xl font-bold text-center mb-6">{t('title')}</h1>
+
+      <div className="mb-[var(--s-7)]">
+        <span className="t-eyebrow text-fg-subtle">§ Open a vault</span>
+        <h1
+          className="mt-[var(--s-4)] font-display text-fg"
+          style={{
+            fontSize: 'var(--t-2xl)',
+            letterSpacing: 'var(--tracking-snug)',
+            lineHeight: 'var(--lh-snug)',
+            margin: 0,
+          }}
+        >
+          {t('title')}
+        </h1>
+        <p className="mt-[var(--s-4)] text-[13px] leading-[var(--lh-loose)] text-fg-muted">
+          Your master key is derived in your browser and never leaves it. We hold the
+          ciphertext; you hold the only thing that can read it.
+        </p>
+      </div>
+
       <RegisterForm onSuccess={handleRegistered} />
-      <p className="mt-6 text-sm text-center text-gray-600">
+
+      <p
+        className="mt-[var(--s-7)] text-[13px] text-fg-muted"
+        style={{ borderTop: '1px solid var(--line)', paddingTop: 'var(--s-6)' }}
+      >
         {t('hasAccount')}{' '}
-        <Link href="/login" className="text-primary-600 hover:text-primary-700 font-medium">
+        <Link href="/login" className="font-medium text-fg no-underline hover:text-accent">
           {t('signIn')}
         </Link>
       </p>

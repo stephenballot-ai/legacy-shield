@@ -70,7 +70,7 @@ export function DocumentEdit({ file, onClose }: DocumentEditProps) {
       <div className="bg-white rounded-xl shadow-xl w-full max-w-md" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center justify-between p-4 border-b">
           <h2 className="text-lg font-semibold">Edit Document</h2>
-          <button onClick={onClose} className="p-1 text-gray-400 hover:text-gray-600">
+          <button onClick={onClose} className="p-1 text-fg-subtle hover:text-fg-muted">
             <X className="h-5 w-5" />
           </button>
         </div>
@@ -79,21 +79,21 @@ export function DocumentEdit({ file, onClose }: DocumentEditProps) {
           {error && <Alert variant="error">{error}</Alert>}
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Filename</label>
+            <label className="block text-sm font-medium text-fg mb-1">Filename</label>
             <input
               type="text"
               value={filename}
               onChange={(e) => setFilename(e.target.value)}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm"
+              className="block w-full rounded-lg border border-line-strong px-3 py-2.5 text-sm"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+            <label className="block text-sm font-medium text-fg mb-1">Category</label>
             <select
               value={category || ''}
               onChange={(e) => setCategory((e.target.value || null) as FileCategory | null)}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm bg-white"
+              className="block w-full rounded-lg border border-line-strong px-3 py-2.5 text-sm bg-white"
             >
               <option value="">No category</option>
               {ALL_CATEGORIES.map((c) => (
@@ -103,13 +103,13 @@ export function DocumentEdit({ file, onClose }: DocumentEditProps) {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Tags (comma separated)</label>
+            <label className="block text-sm font-medium text-fg mb-1">Tags (comma separated)</label>
             <input
               type="text"
               value={tags}
               onChange={(e) => setTags(e.target.value)}
               placeholder="e.g. passport, 2024"
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm"
+              className="block w-full rounded-lg border border-line-strong px-3 py-2.5 text-sm"
             />
           </div>
 
@@ -118,7 +118,7 @@ export function DocumentEdit({ file, onClose }: DocumentEditProps) {
               onClick={() => setIsFavorite(!isFavorite)}
               className={cn(
                 'flex items-center gap-2 px-3 py-2 rounded-lg border text-sm transition-colors',
-                isFavorite ? 'border-amber-300 bg-amber-50 text-amber-700' : 'border-gray-300 text-gray-600'
+                isFavorite ? 'border-amber-300 bg-warn-bg text-warn' : 'border-line-strong text-fg-muted'
               )}
             >
               <Star className={cn('h-4 w-4', isFavorite && 'fill-amber-400')} />
@@ -128,21 +128,21 @@ export function DocumentEdit({ file, onClose }: DocumentEditProps) {
               onClick={() => setIsEmergencyPriority(!isEmergencyPriority)}
               className={cn(
                 'flex items-center gap-2 px-3 py-2 rounded-lg border text-sm transition-colors',
-                isEmergencyPriority ? 'border-red-300 bg-red-50 text-red-700' : 'border-gray-300 text-gray-600'
+                isEmergencyPriority ? 'border-danger/40 bg-danger-bg text-danger' : 'border-line-strong text-fg-muted'
               )}
             >
-              <ShieldAlert className={cn('h-4 w-4', isEmergencyPriority && 'text-red-500')} />
+              <ShieldAlert className={cn('h-4 w-4', isEmergencyPriority && 'text-danger')} />
               Emergency
             </button>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Expiration Date</label>
+            <label className="block text-sm font-medium text-fg mb-1">Expiration Date</label>
             <input
               type="date"
               value={expiresAt}
               onChange={(e) => setExpiresAt(e.target.value)}
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm"
+              className="block w-full rounded-lg border border-line-strong px-3 py-2.5 text-sm"
             />
           </div>
         </div>

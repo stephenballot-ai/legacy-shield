@@ -76,34 +76,53 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Settings</h1>
+    <div className="mx-auto max-w-4xl">
+      <header className="mb-[var(--s-9)]">
+        <span className="t-eyebrow text-fg-subtle">§ Settings</span>
+        <h1
+          className="mt-[var(--s-3)] font-display text-fg"
+          style={{
+            fontSize: 'var(--t-3xl)',
+            letterSpacing: 'var(--tracking-snug)',
+            lineHeight: 'var(--lh-snug)',
+            margin: 0,
+          }}
+        >
+          Account &amp; custody
+        </h1>
+      </header>
 
       {checkoutResult === 'success' && (
-        <Alert variant="success" className="mb-6">
-          Your subscription has been activated! Welcome to Pro. 🎉
+        <Alert variant="success" className="mb-[var(--s-7)]">
+          Your subscription has been activated. Welcome to Tier II.
         </Alert>
       )}
       {checkoutResult === 'cancelled' && (
-        <Alert variant="info" className="mb-6">
-          Checkout was cancelled. You can try again anytime.
+        <Alert variant="info" className="mb-[var(--s-7)]">
+          Checkout was cancelled. You can try again any time.
         </Alert>
       )}
 
-      {/* Tabs */}
-      <div className="flex border-b border-gray-200 mb-6 overflow-x-auto">
+      <div
+        className="mb-[var(--s-7)] flex gap-[var(--s-2)] overflow-x-auto"
+        style={{ borderBottom: '1px solid var(--line)' }}
+      >
         {tabs.map(({ id, label, icon: Icon }) => (
           <button
             key={id}
+            type="button"
             onClick={() => setActiveTab(id)}
             className={cn(
-              'flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 transition-colors whitespace-nowrap',
-              activeTab === id
-                ? 'border-primary-600 text-primary-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
+              'flex items-center gap-2 whitespace-nowrap px-[var(--s-5)] py-[var(--s-5)] text-[13px] font-medium transition-colors',
+              activeTab === id ? 'text-fg' : 'text-fg-muted hover:text-fg'
             )}
+            style={{
+              borderBottom:
+                activeTab === id ? '2px solid var(--accent)' : '2px solid transparent',
+              marginBottom: -1,
+            }}
           >
-            <Icon className="h-4 w-4" />
+            <Icon className="h-4 w-4" strokeWidth={1.6} />
             {label}
           </button>
         ))}
@@ -145,13 +164,13 @@ function ReferralCard() {
           <Gift className="h-5 w-5 text-primary-600" />
         </div>
         <div>
-          <h2 className="text-lg font-semibold text-gray-900">Invite Friends</h2>
-          <p className="text-sm text-gray-500">Get +5 documents for each friend who signs up and uploads. Up to 25 docs free!</p>
+          <h2 className="text-lg font-semibold text-fg">Invite Friends</h2>
+          <p className="text-sm text-fg-muted">Get +5 documents for each friend who signs up and uploads. Up to 25 docs free!</p>
         </div>
       </div>
 
       <div className="flex gap-2 mb-4">
-        <div className="flex-1 bg-gray-50 rounded-lg px-3 py-2 text-sm font-mono text-gray-700 truncate">
+        <div className="flex-1 bg-bg-sunken rounded-lg px-3 py-2 text-sm font-mono text-fg truncate">
           {referral.referralLink}
         </div>
         <Button variant="secondary" onClick={copyLink} className="flex-shrink-0">
@@ -178,12 +197,12 @@ function ReferralCard() {
         </a>
       </div>
 
-      <div className="flex gap-6 text-sm text-gray-600">
-        <div><span className="font-semibold text-gray-900">{referral.referralCount}</span> friends invited</div>
+      <div className="flex gap-6 text-sm text-fg-muted">
+        <div><span className="font-semibold text-fg">{referral.referralCount}</span> friends invited</div>
         <div className="flex items-center gap-1.5">
-          <span className="font-semibold text-gray-900">+{referral.bonusDocs}</span> bonus documents
+          <span className="font-semibold text-fg">+{referral.bonusDocs}</span> bonus documents
           {referral.bonusDocs > 0 && (
-            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-green-100 text-green-700 text-[10px] font-bold animate-bounce">
+            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-ok-bg text-ok text-[10px] font-bold animate-bounce">
               <PartyPopper className="h-3 w-3" /> ACTIVE
             </span>
           )}
@@ -364,7 +383,7 @@ function AccountSection({ profile, onUpdate }: { profile: UserProfile; onUpdate:
 
       {/* Email */}
       <Card>
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Email Address</h2>
+        <h2 className="text-lg font-semibold text-fg mb-4">Email Address</h2>
         <div className="flex gap-3">
           <Input value={email} onChange={(e) => setEmail(e.target.value)} className="flex-1" />
           <Button
@@ -375,23 +394,23 @@ function AccountSection({ profile, onUpdate }: { profile: UserProfile; onUpdate:
             Update
           </Button>
         </div>
-        {emailMsg && <p className="text-sm mt-2 text-gray-600">{emailMsg}</p>}
+        {emailMsg && <p className="text-sm mt-2 text-fg-muted">{emailMsg}</p>}
       </Card>
 
       {/* Change Password */}
       <Card>
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Change Password</h2>
+        <h2 className="text-lg font-semibold text-fg mb-4">Change Password</h2>
         <Alert variant="info" className="mb-4">
           Changing your password will re-encrypt all your document keys. This may take a moment.
         </Alert>
         {pwMsg && <Alert variant={pwMsg.type} className="mb-4">{pwMsg.text}</Alert>}
         {pwProgress && (
           <div className="mb-4 space-y-1">
-            <div className="flex items-center justify-between text-sm text-gray-600">
+            <div className="flex items-center justify-between text-sm text-fg-muted">
               <span>Re-encrypting documents…</span>
               <span>{pwProgress.done} / {pwProgress.total}</span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+            <div className="w-full bg-bg-inset rounded-full h-2 overflow-hidden">
               <div
                 className="h-full bg-primary-500 rounded-full transition-all"
                 style={{ width: pwProgress.total ? `${(pwProgress.done / pwProgress.total) * 100}%` : '0%' }}
@@ -429,9 +448,9 @@ function AccountSection({ profile, onUpdate }: { profile: UserProfile; onUpdate:
       </Card>
 
       {/* Danger Zone */}
-      <Card className="border-red-200">
-        <h2 className="text-lg font-semibold text-red-600 mb-2">Danger Zone</h2>
-        <p className="text-sm text-gray-600 mb-4">
+      <Card className="border-danger/30">
+        <h2 className="text-lg font-semibold text-danger mb-2">Danger Zone</h2>
+        <p className="text-sm text-fg-muted mb-4">
           Permanently delete your account and all associated data. This action cannot be undone.
         </p>
         <Button variant="danger" onClick={() => setDeleteOpen(true)}>
@@ -506,10 +525,10 @@ function SecuritySection({ profile }: { profile: UserProfile }) {
       {/* 2FA */}
       <Card>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-gray-900">Two-Factor Authentication</h2>
+          <h2 className="text-lg font-semibold text-fg">Two-Factor Authentication</h2>
           <div className={cn(
             'flex items-center gap-1.5 text-sm font-medium',
-            profile.twoFactorEnabled ? 'text-green-600' : 'text-gray-400'
+            profile.twoFactorEnabled ? 'text-ok' : 'text-fg-subtle'
           )}>
             {profile.twoFactorEnabled ? (
               <><CheckCircle2 className="h-4 w-4" /> Enabled</>
@@ -529,14 +548,14 @@ function SecuritySection({ profile }: { profile: UserProfile }) {
 
         {setting2FA && qrData && (
           <div className="space-y-4">
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-fg-muted">
               Scan this QR code with your authenticator app, then enter the code below.
             </p>
             <div className="flex justify-center">
               {/* eslint-disable-next-line @next/next/no-img-element -- inline data: URI from QR generator, not optimizable */}
               <img src={qrData.qrCode} alt="2FA QR Code" className="w-48 h-48" />
             </div>
-            <p className="text-xs text-gray-500 font-mono text-center break-all">{qrData.secret}</p>
+            <p className="text-xs text-fg-muted font-mono text-center break-all">{qrData.secret}</p>
             <div className="flex gap-3 max-w-xs">
               <Input
                 value={code}
@@ -563,13 +582,13 @@ function SecuritySection({ profile }: { profile: UserProfile }) {
       {/* Recovery Codes */}
       {recoveryCodes && (
         <Card>
-          <h2 className="text-lg font-semibold text-gray-900 mb-2">Recovery Codes</h2>
+          <h2 className="text-lg font-semibold text-fg mb-2">Recovery Codes</h2>
           <Alert variant="warning" className="mb-4">
             Save these codes in a safe place. Each code can only be used once.
           </Alert>
           <div className="grid grid-cols-2 gap-2 max-w-sm">
             {recoveryCodes.map((code) => (
-              <code key={code} className="bg-gray-100 px-3 py-1.5 rounded text-sm font-mono text-center">
+              <code key={code} className="bg-bg-sunken px-3 py-1.5 rounded text-sm font-mono text-center">
                 {code}
               </code>
             ))}
@@ -579,8 +598,8 @@ function SecuritySection({ profile }: { profile: UserProfile }) {
 
       {/* Active Sessions (stub) */}
       <Card>
-        <h2 className="text-lg font-semibold text-gray-900 mb-2">Active Sessions</h2>
-        <p className="text-sm text-gray-500">Session management coming soon.</p>
+        <h2 className="text-lg font-semibold text-fg mb-2">Active Sessions</h2>
+        <p className="text-sm text-fg-muted">Session management coming soon.</p>
       </Card>
     </div>
   );
@@ -610,12 +629,12 @@ function SubscriptionSection({ profile }: { profile: UserProfile }) {
       {/* Current Plan */}
       <Card>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-gray-900">Current Plan</h2>
+          <h2 className="text-lg font-semibold text-fg">Current Plan</h2>
           {isPro && (
             <span className={cn(
               'inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium',
               isLifetime
-                ? 'bg-amber-100 text-amber-800'
+                ? 'bg-amber-100 text-warn'
                 : 'bg-primary-100 text-primary-700'
             )}>
               <Crown className="h-3.5 w-3.5" />
@@ -625,26 +644,26 @@ function SubscriptionSection({ profile }: { profile: UserProfile }) {
         </div>
 
         <div className="grid grid-cols-2 gap-4 mb-4">
-          <div className="bg-gray-50 rounded-lg p-4">
-            <p className="text-sm text-gray-500">Documents</p>
-            <p className="text-2xl font-bold text-gray-900">
+          <div className="bg-bg-sunken rounded-lg p-4">
+            <p className="text-sm text-fg-muted">Documents</p>
+            <p className="text-2xl font-bold text-fg">
               {profile.documentCount}
-              <span className="text-sm font-normal text-gray-400">/{profile.documentLimit}</span>
+              <span className="text-sm font-normal text-fg-subtle">/{profile.documentLimit}</span>
             </p>
-            <div className="mt-2 h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div className="mt-2 h-2 bg-bg-inset rounded-full overflow-hidden">
               <div
                 className="h-full bg-primary-500 rounded-full transition-all"
                 style={{ width: `${Math.min(100, (profile.documentCount / profile.documentLimit) * 100)}%` }}
               />
             </div>
           </div>
-          <div className="bg-gray-50 rounded-lg p-4">
-            <p className="text-sm text-gray-500">Emergency Contacts</p>
-            <p className="text-2xl font-bold text-gray-900">
+          <div className="bg-bg-sunken rounded-lg p-4">
+            <p className="text-sm text-fg-muted">Emergency Contacts</p>
+            <p className="text-2xl font-bold text-fg">
               {profile.emergencyContactCount}
-              <span className="text-sm font-normal text-gray-400">/{profile.emergencyContactLimit}</span>
+              <span className="text-sm font-normal text-fg-subtle">/{profile.emergencyContactLimit}</span>
             </p>
-            <div className="mt-2 h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div className="mt-2 h-2 bg-bg-inset rounded-full overflow-hidden">
               <div
                 className="h-full bg-primary-500 rounded-full transition-all"
                 style={{ width: `${Math.min(100, (profile.emergencyContactCount / profile.emergencyContactLimit) * 100)}%` }}
@@ -654,7 +673,7 @@ function SubscriptionSection({ profile }: { profile: UserProfile }) {
         </div>
 
         {isPro && !isLifetime && profile.subscription.subscriptionEndsAt && (
-          <p className="text-sm text-gray-500 mb-4">
+          <p className="text-sm text-fg-muted mb-4">
             Renews on {new Date(profile.subscription.subscriptionEndsAt).toLocaleDateString()}
           </p>
         )}
@@ -669,7 +688,7 @@ function SubscriptionSection({ profile }: { profile: UserProfile }) {
       {/* Upgrade */}
       {!isPro && (
         <Card>
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Upgrade to Pro</h2>
+          <h2 className="text-lg font-semibold text-fg mb-4">Upgrade to Pro</h2>
           <PricingCards />
         </Card>
       )}

@@ -71,12 +71,12 @@ const STEPS = [
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
 
-const inputClass = 'w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-colors';
+const inputClass = 'w-full rounded-lg border border-line-strong px-4 py-2.5 text-sm text-fg placeholder-gray-400 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-colors';
 const textareaClass = inputClass + ' min-h-[100px] resize-y';
-const labelClass = 'block text-sm font-medium text-gray-700 mb-1';
+const labelClass = 'block text-sm font-medium text-fg mb-1';
 const btnPrimary = 'inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-primary-600 text-white font-semibold hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed';
-const btnSecondary = 'inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-gray-300 text-gray-700 font-semibold hover:bg-gray-50 transition-colors';
-const btnDanger = 'p-1.5 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors';
+const btnSecondary = 'inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-line-strong text-fg font-semibold hover:bg-bg-sunken transition-colors';
+const btnDanger = 'p-1.5 rounded-lg text-fg-subtle hover:text-danger hover:bg-danger-bg transition-colors';
 const btnAdd = 'inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors mt-2';
 
 // ── PDF Generation ─────────────────────────────────────────────────────────────
@@ -248,7 +248,7 @@ function Step2({ data, update }: { data: FormData; update: (d: Partial<FormData>
               key={opt}
               type="button"
               onClick={() => update({ burialPreference: opt })}
-              className={`px-5 py-2.5 rounded-lg border text-sm font-medium transition-colors ${data.burialPreference === opt ? 'border-primary-500 bg-primary-50 text-primary-700' : 'border-gray-300 text-gray-600 hover:bg-gray-50'}`}
+              className={`px-5 py-2.5 rounded-lg border text-sm font-medium transition-colors ${data.burialPreference === opt ? 'border-primary-500 bg-primary-50 text-primary-700' : 'border-line-strong text-fg-muted hover:bg-bg-sunken'}`}
             >
               {opt.charAt(0).toUpperCase() + opt.slice(1)}
             </button>
@@ -274,7 +274,7 @@ function Step2({ data, update }: { data: FormData; update: (d: Partial<FormData>
 function Step3({ data, update }: { data: FormData; update: (d: Partial<FormData>) => void }) {
   return (
     <div className="space-y-4">
-      <p className="text-sm text-gray-500">These messages are optional. Write what you&apos;d like your loved ones to read.</p>
+      <p className="text-sm text-fg-muted">These messages are optional. Write what you&apos;d like your loved ones to read.</p>
       <div>
         <label className={labelClass}>Message to Partner / Spouse</label>
         <textarea className={textareaClass} value={data.messageToPartner} onChange={e => update({ messageToPartner: e.target.value })} placeholder="My dearest..." />
@@ -381,14 +381,14 @@ function ReviewSection({ title, children }: { title: string; children: React.Rea
   return (
     <div className="mb-6">
       <h3 className="text-sm font-semibold text-primary-700 uppercase tracking-wider mb-2">{title}</h3>
-      <div className="bg-gray-50 rounded-lg p-4 text-sm text-gray-700 space-y-1">{children}</div>
+      <div className="bg-bg-sunken rounded-lg p-4 text-sm text-fg space-y-1">{children}</div>
     </div>
   );
 }
 
 function ReviewField({ label, value }: { label: string; value: string }) {
   if (!value) return null;
-  return <p><span className="font-medium text-gray-900">{label}:</span> {value}</p>;
+  return <p><span className="font-medium text-fg">{label}:</span> {value}</p>;
 }
 
 function Step7({ data }: { data: FormData }) {
@@ -469,33 +469,33 @@ export default function LetterOfWishesPage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Header */}
-      <div className="border-b border-gray-200 bg-white">
+      <div className="border-b border-line bg-white">
         <div className="mx-auto max-w-3xl px-6 py-4 flex items-center justify-between">
           <Link href="/">
             <Logo size="sm" />
           </Link>
-          <span className="text-xs text-gray-400 flex items-center gap-1"><Lock className="h-3 w-3" /> 100% Private</span>
+          <span className="text-xs text-fg-subtle flex items-center gap-1"><Lock className="h-3 w-3" /> 100% Private</span>
         </div>
       </div>
 
       <div className="mx-auto max-w-3xl px-6 py-8 sm:py-12">
         {/* Title */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <h1 className="text-3xl font-bold tracking-tight text-fg sm:text-4xl">
             Letter of Wishes
           </h1>
-          <p className="mt-3 text-base text-gray-600 max-w-xl mx-auto">
+          <p className="mt-3 text-base text-fg-muted max-w-xl mx-auto">
             A guided template to document your wishes for your loved ones. Free, private, and entirely in your browser.
           </p>
         </div>
 
         {/* Progress Bar */}
         <div className="mb-8">
-          <div className="flex justify-between text-xs font-medium text-gray-500 mb-2">
+          <div className="flex justify-between text-xs font-medium text-fg-muted mb-2">
             <span>Step {step + 1} of {STEPS.length}</span>
             <span>{STEPS[step]}</span>
           </div>
-          <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+          <div className="h-2 bg-bg-inset rounded-full overflow-hidden">
             <div
               className="h-full bg-primary-600 rounded-full transition-all duration-300"
               style={{ width: `${((step + 1) / STEPS.length) * 100}%` }}
@@ -513,7 +513,7 @@ export default function LetterOfWishesPage() {
                     ? 'bg-primary-600 text-white'
                     : i < step
                     ? 'bg-primary-100 text-primary-700'
-                    : 'bg-gray-200 text-gray-500'
+                    : 'bg-bg-inset text-fg-muted'
                 }`}
                 title={s}
               >
@@ -524,8 +524,8 @@ export default function LetterOfWishesPage() {
         </div>
 
         {/* Card */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 sm:p-8">
-          <h2 className="text-xl font-semibold text-gray-900 mb-6">{STEPS[step]}</h2>
+        <div className="bg-white rounded-2xl shadow-sm border border-line p-6 sm:p-8">
+          <h2 className="text-xl font-semibold text-fg mb-6">{STEPS[step]}</h2>
           {stepComponents[step]}
         </div>
 
@@ -566,8 +566,8 @@ export default function LetterOfWishesPage() {
         {step === STEPS.length - 1 && (
           <div className="mt-6 rounded-2xl bg-primary-50 border border-primary-100 p-6 text-center">
             <Shield className="h-8 w-8 text-primary-600 mx-auto mb-3" />
-            <h3 className="text-lg font-semibold text-gray-900">Want to keep this safe?</h3>
-            <p className="text-sm text-gray-600 mt-1 mb-4">
+            <h3 className="text-lg font-semibold text-fg">Want to keep this safe?</h3>
+            <p className="text-sm text-fg-muted mt-1 mb-4">
               Store your Letter of Wishes in your encrypted LegacyShield vault — with emergency access for your loved ones.
             </p>
             <Link
@@ -581,7 +581,7 @@ export default function LetterOfWishesPage() {
 
         {/* Privacy Notice */}
         <div className="mt-8 text-center">
-          <p className="text-xs text-gray-400 flex items-center justify-center gap-1.5">
+          <p className="text-xs text-fg-subtle flex items-center justify-center gap-1.5">
             <Lock className="h-3.5 w-3.5" />
             Your data never leaves your browser. Nothing is stored on our servers.
           </p>

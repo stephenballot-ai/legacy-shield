@@ -66,14 +66,14 @@ export function EmergencyContactForm({ initial, onSubmit, onCancel, isLoading, s
       />
 
       <div className="w-full">
-        <label htmlFor="contact-relationship" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="contact-relationship" className="block text-sm font-medium text-fg mb-1">
           Relationship
         </label>
         <select
           id="contact-relationship"
           value={relationship}
           onChange={(e) => setRelationship(e.target.value)}
-          className="block w-full rounded-lg border border-gray-300 px-3 py-2.5 shadow-sm sm:text-sm focus:border-primary-500 focus:ring-primary-500"
+          className="block w-full rounded-lg border border-line-strong px-3 py-2.5 shadow-sm sm:text-sm focus:border-primary-500 focus:ring-primary-500"
         >
           {RELATIONSHIPS.map((r) => (
             <option key={r.value} value={r.value}>{r.label}</option>
@@ -100,7 +100,7 @@ export function EmergencyContactForm({ initial, onSubmit, onCancel, isLoading, s
       />
 
       <div className="w-full">
-        <label htmlFor="contact-notes" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="contact-notes" className="block text-sm font-medium text-fg mb-1">
           Notes
         </label>
         <textarea
@@ -109,11 +109,11 @@ export function EmergencyContactForm({ initial, onSubmit, onCancel, isLoading, s
           onChange={(e) => setNotes(e.target.value)}
           rows={3}
           placeholder="Any additional instructions or context…"
-          className="block w-full rounded-lg border border-gray-300 px-3 py-2.5 shadow-sm sm:text-sm focus:border-primary-500 focus:ring-primary-500"
+          className="block w-full rounded-lg border border-line-strong px-3 py-2.5 shadow-sm sm:text-sm focus:border-primary-500 focus:ring-primary-500"
         />
       </div>
 
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && <p className="text-sm text-danger">{error}</p>}
 
       <div className="flex gap-3 pt-2">
         <Button type="submit" isLoading={isLoading}>{submitLabel}</Button>

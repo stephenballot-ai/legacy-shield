@@ -50,38 +50,38 @@ function ActionMenu({ file, onEdit, onDownload, onDelete, onToggleFavorite }: {
     <div className="relative" ref={menuRef}>
       <button
         onClick={(e) => { e.stopPropagation(); setOpen(!open); }}
-        className="p-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100 transition-colors"
+        className="p-2 text-fg-subtle hover:text-fg-muted rounded-full hover:bg-bg-sunken transition-colors"
       >
         <MoreVertical className="h-4 w-4" />
       </button>
       
       {open && (
-        <div className="absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-20">
+        <div className="absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-lg border border-line py-1 z-20">
           <button
             onClick={(e) => { e.stopPropagation(); onToggleFavorite(); setOpen(false); }}
-            className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+            className="w-full px-4 py-2 text-left text-sm text-fg hover:bg-bg-sunken flex items-center gap-2"
           >
-            <Star className={cn("h-4 w-4", file.isFavorite ? "fill-amber-400 text-amber-400" : "text-gray-400")} />
+            <Star className={cn("h-4 w-4", file.isFavorite ? "fill-amber-400 text-amber-400" : "text-fg-subtle")} />
             {file.isFavorite ? 'Unfavorite' : 'Favorite'}
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); onEdit(); setOpen(false); }}
-            className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+            className="w-full px-4 py-2 text-left text-sm text-fg hover:bg-bg-sunken flex items-center gap-2"
           >
-            <Pencil className="h-4 w-4 text-gray-400" />
+            <Pencil className="h-4 w-4 text-fg-subtle" />
             Edit details
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); onDownload(); setOpen(false); }}
-            className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+            className="w-full px-4 py-2 text-left text-sm text-fg hover:bg-bg-sunken flex items-center gap-2"
           >
-            <Download className="h-4 w-4 text-gray-400" />
+            <Download className="h-4 w-4 text-fg-subtle" />
             Download
           </button>
-          <div className="h-px bg-gray-100 my-1" />
+          <div className="h-px bg-bg-sunken my-1" />
           <button
             onClick={(e) => { e.stopPropagation(); onDelete(); setOpen(false); }}
-            className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
+            className="w-full px-4 py-2 text-left text-sm text-danger hover:bg-danger-bg flex items-center gap-2"
           >
             <Trash2 className="h-4 w-4" />
             Delete
@@ -107,7 +107,7 @@ export function DocumentList({ onFileClick, onFileEdit, onFileDownload, onFileDe
   if (error) {
     return (
       <div className="text-center py-20">
-        <p className="text-red-600 text-sm">{error}</p>
+        <p className="text-danger text-sm">{error}</p>
         <Button variant="secondary" size="sm" className="mt-3" onClick={() => useFilesStore.getState().fetchFiles()}>
           Retry
         </Button>
@@ -122,7 +122,7 @@ export function DocumentList({ onFileClick, onFileEdit, onFileDownload, onFileDe
           <Upload className="h-8 w-8 text-primary-600" />
         </div>
         <h3 className="text-lg font-semibold mb-2">No documents yet</h3>
-        <p className="text-sm text-gray-500 mb-6 max-w-sm">
+        <p className="text-sm text-fg-muted mb-6 max-w-sm">
           Upload your first document. Everything is encrypted in your browser before it leaves your device.
         </p>
         <Button onClick={onUploadClick}>Upload document</Button>
@@ -140,20 +140,20 @@ export function DocumentList({ onFileClick, onFileEdit, onFileDownload, onFileDe
           <div
             key={file.id}
             onClick={() => onFileClick(file)}
-            className="bg-white rounded-lg border border-gray-200 px-4 py-3 flex items-center gap-4 hover:bg-gray-50 hover:border-gray-300 transition-colors cursor-pointer group"
+            className="bg-white rounded-lg border border-line px-4 py-3 flex items-center gap-4 hover:bg-bg-sunken hover:border-line-strong transition-colors cursor-pointer group"
           >
-            <div className="p-2.5 bg-gray-100 rounded-lg flex-shrink-0 text-gray-500 group-hover:bg-white group-hover:text-primary-600 transition-colors">
+            <div className="p-2.5 bg-bg-sunken rounded-lg flex-shrink-0 text-fg-muted group-hover:bg-white group-hover:text-primary-600 transition-colors">
               <MimeIcon className="h-6 w-6" />
             </div>
             
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-sm font-medium text-gray-900 truncate">{file.filename}</span>
+                <span className="text-sm font-medium text-fg truncate">{file.filename}</span>
                 {file.isFavorite && <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400 flex-shrink-0" />}
-                {file.isEmergencyPriority && <div title="Emergency Access Enabled"><ShieldAlert className="h-3.5 w-3.5 text-red-500 flex-shrink-0" /></div>}
+                {file.isEmergencyPriority && <div title="Emergency Access Enabled"><ShieldAlert className="h-3.5 w-3.5 text-danger flex-shrink-0" /></div>}
               </div>
               
-              <div className="flex items-center gap-3 text-xs text-gray-500">
+              <div className="flex items-center gap-3 text-xs text-fg-muted">
                 {file.category && (
                   <span className={cn('inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-medium', categoryColor[file.category])}>
                     {CategoryIcon && <CategoryIcon className="h-3 w-3" />}
@@ -169,7 +169,7 @@ export function DocumentList({ onFileClick, onFileEdit, onFileDownload, onFileDe
               <Button 
                 variant="ghost" 
                 size="sm" 
-                className="hidden sm:flex text-gray-400 hover:text-gray-600"
+                className="hidden sm:flex text-fg-subtle hover:text-fg-muted"
                 onClick={() => onFileDownload(file)}
               >
                 <Download className="h-4 w-4" />

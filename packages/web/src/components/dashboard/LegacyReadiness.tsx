@@ -40,8 +40,8 @@ export function LegacyReadiness({
   const score = (doneCount / ESSENTIAL_DOCS.length) * 100;
 
   let status = t('status.unprotected');
-  let color = 'text-gray-400';
-  let barColor = 'bg-gray-200';
+  let color = 'text-fg-subtle';
+  let barColor = 'bg-bg-inset';
 
   if (score >= 80) {
     status = t('status.shielded');
@@ -49,7 +49,7 @@ export function LegacyReadiness({
     barColor = 'bg-trust-500';
   } else if (score >= 40) {
     status = t('status.basic');
-    color = 'text-amber-600';
+    color = 'text-warn';
     barColor = 'bg-amber-500';
   } else if (score > 0) {
     status = t('status.gettingStarted');
@@ -61,21 +61,21 @@ export function LegacyReadiness({
     <Card className="overflow-hidden border-trust-100 bg-gradient-to-br from-white to-trust-50/30">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
-          <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+          <h2 className="text-lg font-bold text-fg flex items-center gap-2">
             {t('title')}
             {score === 100 && <ShieldCheck className="h-5 w-5 text-trust-500" />}
           </h2>
-          <p className="text-sm text-gray-500">{t('subtitle')}</p>
+          <p className="text-sm text-fg-muted">{t('subtitle')}</p>
         </div>
         <div className="text-right">
           <span className={cn('text-2xl font-black italic tracking-tighter uppercase', color)}>
             {status}
           </span>
-          <p className="text-xs font-medium text-gray-400 mt-0.5">{doneCount} {t('secured').toLowerCase()}</p>
+          <p className="text-xs font-medium text-fg-subtle mt-0.5">{doneCount} {t('secured').toLowerCase()}</p>
         </div>
       </div>
 
-      <div className="w-full bg-gray-100 rounded-full h-3 mb-8 overflow-hidden">
+      <div className="w-full bg-bg-sunken rounded-full h-3 mb-8 overflow-hidden">
         <div
           className={cn('h-full transition-all duration-1000 ease-out', barColor)}
           style={{ width: `${score}%` }}
@@ -92,19 +92,19 @@ export function LegacyReadiness({
                 'flex items-center md:flex-col md:text-center gap-3 p-3 rounded-xl border transition-all',
                 doc.isDone 
                   ? 'bg-white border-trust-200 shadow-sm' 
-                  : 'bg-gray-50/50 border-gray-100 opacity-60'
+                  : 'bg-bg-sunken/50 border-line opacity-60'
               )}
             >
               <div className={cn(
                 'p-2 rounded-lg',
-                doc.isDone ? 'bg-trust-50 text-trust-600' : 'bg-gray-100 text-gray-400'
+                doc.isDone ? 'bg-trust-50 text-trust-600' : 'bg-bg-sunken text-fg-subtle'
               )}>
                 <Icon className="h-5 w-5" />
               </div>
               <div className="flex-1">
                 <p className={cn(
                   'text-xs font-bold leading-tight',
-                  doc.isDone ? 'text-gray-900' : 'text-gray-500'
+                  doc.isDone ? 'text-fg' : 'text-fg-muted'
                 )}>
                   {doc.label}
                 </p>
@@ -121,7 +121,7 @@ export function LegacyReadiness({
                       >
                         {t('buildIt')}
                       </button>
-                      <span className="text-[10px] text-gray-300">|</span>
+                      <span className="text-[10px] text-fg-subtle">|</span>
                       <button 
                         onClick={() => onUpload(doc.categories[0])}
                         className="text-[10px] font-bold text-primary-600 hover:text-primary-700 uppercase tracking-wider underline"
@@ -137,7 +137,7 @@ export function LegacyReadiness({
                       >
                         {t('buildIt')}
                       </button>
-                      <span className="text-[10px] text-gray-300">|</span>
+                      <span className="text-[10px] text-fg-subtle">|</span>
                       <button 
                         onClick={() => onUpload(doc.categories[0])}
                         className="text-[10px] font-bold text-primary-600 hover:text-primary-700 uppercase tracking-wider underline"

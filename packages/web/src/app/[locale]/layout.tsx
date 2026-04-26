@@ -1,13 +1,16 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { Inter } from 'next/font/google';
 import { Toaster } from 'sonner';
 import { routing } from '@/i18n/routing';
 import { MetaPixel } from '@/components/MetaPixel';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+// Fonts: loaded via <link> in <head> below.
+// Geist isn't available in next/font/google on Next 14.1, so we keep all three on
+// Google Fonts CDN (matches the design system handover HTML).
+const FONTS_HREF =
+  'https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -62,13 +65,12 @@ export default async function LocaleLayout({
   const t = await getTranslations({ locale, namespace: 'metadata' });
 
   return (
-    <html lang={locale} className={inter.variable}>
+    <html lang={locale} data-theme="light" data-display="serif">
       <head>
-        {/* eslint-disable-next-line @next/next/no-page-custom-font -- Material Symbols icon font is intentionally global */}
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
-        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        {/* eslint-disable-next-line @next/next/no-page-custom-font -- design system fonts are intentionally global */}
+        <link rel="stylesheet" href={FONTS_HREF} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -94,7 +96,7 @@ export default async function LocaleLayout({
           }}
         />
       </head>
-      <body className="min-h-screen bg-gray-50 antialiased">
+      <body className="min-h-screen antialiased">
         <MetaPixel />
         <NextIntlClientProvider messages={messages}>
           {children}

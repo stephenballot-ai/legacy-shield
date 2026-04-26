@@ -1,21 +1,13 @@
 import { cn } from '@/lib/utils';
-import { AlertCircle, CheckCircle2, AlertTriangle, Info } from 'lucide-react';
 import type { ReactNode } from 'react';
 
 type AlertVariant = 'success' | 'error' | 'warning' | 'info';
 
-const styles: Record<AlertVariant, string> = {
-  success: 'bg-trust-50 border-trust-200 text-trust-800',
-  error: 'bg-red-50 border-red-200 text-red-800',
-  warning: 'bg-amber-50 border-amber-200 text-amber-800',
-  info: 'bg-blue-50 border-blue-200 text-blue-800',
-};
-
-const icons: Record<AlertVariant, ReactNode> = {
-  success: <CheckCircle2 className="h-5 w-5 text-trust-500" />,
-  error: <AlertCircle className="h-5 w-5 text-red-500" />,
-  warning: <AlertTriangle className="h-5 w-5 text-amber-500" />,
-  info: <Info className="h-5 w-5 text-blue-500" />,
+const variantStyle: Record<AlertVariant, React.CSSProperties> = {
+  success: { background: 'var(--ok-bg)',     color: 'var(--ok)',     borderColor: 'color-mix(in oklab, var(--ok) 25%, transparent)' },
+  error:   { background: 'var(--danger-bg)', color: 'var(--danger)', borderColor: 'color-mix(in oklab, var(--danger) 25%, transparent)' },
+  warning: { background: 'var(--warn-bg)',   color: 'var(--warn)',   borderColor: 'color-mix(in oklab, var(--warn) 25%, transparent)' },
+  info:    { background: 'var(--info-bg)',   color: 'var(--info)',   borderColor: 'color-mix(in oklab, var(--info) 25%, transparent)' },
 };
 
 interface AlertProps {
@@ -26,9 +18,19 @@ interface AlertProps {
 
 export function Alert({ variant, children, className }: AlertProps) {
   return (
-    <div className={cn('flex items-start gap-3 rounded-lg border p-4', styles[variant], className)}>
-      <div className="flex-shrink-0 mt-0.5">{icons[variant]}</div>
-      <div className="text-sm">{children}</div>
+    <div
+      role="status"
+      className={cn('flex items-start gap-[var(--s-5)] border p-[var(--s-6)] rounded-[var(--r-md)]', className)}
+      style={variantStyle[variant]}
+    >
+      <span
+        aria-hidden="true"
+        className="mt-[6px] inline-block h-[8px] w-[8px] flex-shrink-0 rounded-full"
+        style={{ background: 'currentColor' }}
+      />
+      <div className="text-[13px] leading-[var(--lh-base)]" style={{ color: 'var(--fg)' }}>
+        {children}
+      </div>
     </div>
   );
 }

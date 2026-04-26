@@ -33,22 +33,22 @@ export function PasswordStrengthIndicator({ password }: Props) {
 
   return (
     <div className="mt-2 space-y-2">
-      <div className="h-1.5 w-full rounded-full bg-gray-200 overflow-hidden">
+      <div className="h-1.5 w-full rounded-full bg-bg-inset overflow-hidden">
         <div
           className={cn('h-full rounded-full transition-all duration-300', color)}
           style={{ width: `${pct}%` }}
         />
       </div>
-      <p className="text-xs text-gray-500 font-medium">{label}</p>
+      <p className="text-xs text-fg-muted font-medium">{label}</p>
       <ul className="space-y-1">
         {results.map((r) => (
           <li key={r.label} className="flex items-center gap-2 text-xs">
             {r.passed ? (
               <Check className="h-3.5 w-3.5 text-trust-500 flex-shrink-0" />
             ) : (
-              <X className="h-3.5 w-3.5 text-gray-300 flex-shrink-0" />
+              <X className="h-3.5 w-3.5 text-fg-subtle flex-shrink-0" />
             )}
-            <span className={r.passed ? 'text-gray-700' : 'text-gray-400'}>{r.label}</span>
+            <span className={r.passed ? 'text-fg' : 'text-fg-subtle'}>{r.label}</span>
           </li>
         ))}
       </ul>
