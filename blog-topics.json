@@ -1,5 +1,5 @@
 {
-  "nextIndex": 23,
+  "nextIndex": 24,
   "topics": [
     {
       "slug": "why-you-need-a-digital-executor",
@@ -10,7 +10,7 @@
         "digital legacy planning",
         "appoint digital executor"
       ],
-      "brief": "Why everyone needs a digital executor \u2014 someone authorized to manage your digital accounts, passwords, and files after death or incapacity. Practical steps to appoint one."
+      "brief": "Why everyone needs a digital executor — someone authorized to manage your digital accounts, passwords, and files after death or incapacity. Practical steps to appoint one."
     },
     {
       "slug": "password-manager-not-enough-after-death",
@@ -20,7 +20,7 @@
         "Bitwarden estate planning",
         "password vault after death"
       ],
-      "brief": "Why a password manager alone won't save your family after you die \u2014 and what you actually need."
+      "brief": "Why a password manager alone won't save your family after you die — and what you actually need."
     },
     {
       "slug": "what-happens-to-your-spotify-when-you-die",
@@ -30,7 +30,7 @@
         "streaming accounts inheritance",
         "digital assets estate"
       ],
-      "brief": "Your Spotify playlists, Netflix profile, and subscriptions \u2014 what happens to them when you die, and why nobody thinks about this."
+      "brief": "Your Spotify playlists, Netflix profile, and subscriptions — what happens to them when you die, and why nobody thinks about this."
     },
     {
       "slug": "expat-estate-planning-mistakes",
@@ -40,7 +40,7 @@
         "cross-border inheritance",
         "EU succession regulation"
       ],
-      "brief": "The 5 most common estate planning mistakes expats make \u2014 and how to avoid them."
+      "brief": "The 5 most common estate planning mistakes expats make — and how to avoid them."
     },
     {
       "slug": "two-factor-authentication-nightmare-after-death",
@@ -50,7 +50,7 @@
         "authenticator app death",
         "recovery codes estate planning"
       ],
-      "brief": "2FA protects your accounts while you're alive \u2014 but locks everyone out when you die. How to plan for this."
+      "brief": "2FA protects your accounts while you're alive — but locks everyone out when you die. How to plan for this."
     },
     {
       "slug": "digital-will-vs-paper-will",
@@ -71,7 +71,7 @@
         "Google Photos death",
         "digital memories legacy"
       ],
-      "brief": "Your family photos are trapped in cloud accounts. Here's what happens to them when you die \u2014 and how to make sure they survive."
+      "brief": "Your family photos are trapped in cloud accounts. Here's what happens to them when you die — and how to make sure they survive."
     },
     {
       "slug": "gdpr-data-portability-estate-planning",
@@ -145,7 +145,7 @@
         "face ID digital estate",
         "biometric lock legacy access"
       ],
-      "brief": "You unlocked your phone with your fingerprint \u2014 but when you die, your family can't. The biometric security problem nobody talks about in digital estate planning."
+      "brief": "You unlocked your phone with your fingerprint — but when you die, your family can't. The biometric security problem nobody talks about in digital estate planning."
     },
     {
       "slug": "cryptocurrency-hardware-wallet-inheritance",
@@ -155,7 +155,7 @@
         "crypto legacy planning",
         "ledger trezor heir access"
       ],
-      "brief": "Your hardware wallet holds \u20ac100,000 in Bitcoin, but nobody knows the PIN. A brutal reality check for crypto estate planning in Europe."
+      "brief": "Your hardware wallet holds €100,000 in Bitcoin, but nobody knows the PIN. A brutal reality check for crypto estate planning in Europe."
     },
     {
       "slug": "expat-germany-erbrecht-digital-assets",
@@ -165,15 +165,15 @@
         "Nachlass online",
         "expat inheritance Germany"
       ],
-      "brief": "German Erbrecht is centuries old \u2014 but it wasn't written for cloud accounts, cryptocurrency, or digital businesses. What German law actually says about your online legacy."
+      "brief": "German Erbrecht is centuries old — but it wasn't written for cloud accounts, cryptocurrency, or digital businesses. What German law actually says about your online legacy."
     },
     {
       "slug": "expat-france-succession-numerique",
       "keywords": [
-        "succession num\u00e9rique France",
+        "succession numérique France",
         "French digital inheritance",
         "notaire succession online",
-        "expat France h\u00e9r\u00e9dit\u00e9"
+        "expat France hérédité"
       ],
       "brief": "French succession law requires a notaire, but what about your Gmail? How French law treats digital assets, and why notaires are scrambling to adapt."
     },
@@ -190,7 +190,7 @@
     {
       "slug": "expat-spain-herencia-digital",
       "keywords": [
-        "herencia digital Espa\u00f1a",
+        "herencia digital España",
         "Spanish digital inheritance",
         "notario succession Spain",
         "expat Spain digital assets"
@@ -215,7 +215,7 @@
         "Microsoft family account death",
         "shared subscriptions inheritance"
       ],
-      "brief": "Your family shares your Apple One subscription \u2014 but when you die, what happens to the shared Netflix, iCloud storage, and app library?"
+      "brief": "Your family shares your Apple One subscription — but when you die, what happens to the shared Netflix, iCloud storage, and app library?"
     },
     {
       "slug": "employment-pension-cross-border-eu-inheritance",
@@ -235,7 +235,7 @@
         "Headspace Calm accounts death",
         "online psychiatrist records legacy"
       ],
-      "brief": "Your therapist's notes, your psychiatric evaluations, your meditation app history \u2014 all in the cloud. Privacy, inheritance, and who should have access when you die."
+      "brief": "Your therapist's notes, your psychiatric evaluations, your meditation app history — all in the cloud. Privacy, inheritance, and who should have access when you die."
     },
     {
       "slug": "domain-names-intellectual-property-digital-assets-inheritance",
@@ -265,7 +265,7 @@
         "separating work and personal digital",
         "company data after death"
       ],
-      "brief": "You use your work Google account for personal files, photos, and documents. When you leave \u2014 or die \u2014 your employer can lock you out. How to separate work and life."
+      "brief": "You use your work Google account for personal files, photos, and documents. When you leave — or die — your employer can lock you out. How to separate work and life."
     },
     {
       "slug": "digital-legacy-power-of-attorney-versus-will",
@@ -275,7 +275,157 @@
         "POA for online accounts",
         "legal control after incapacity"
       ],
-      "brief": "Your will only works after you die. But what if you're incapacitated \u2014 in a coma, dementia, or just unreachable? A power of attorney for digital assets handles this, but most people don't have one."
+      "brief": "Your will only works after you die. But what if you're incapacitated — in a coma, dementia, or just unreachable? A power of attorney for digital assets handles this, but most people don't have one."
+    },
+    {
+      "slug": "apple-ecosystem-lock-in-after-death",
+      "keywords": [
+        "Apple ID inheritance",
+        "iCloud account death",
+        "Apple ecosystem succession",
+        "manage Apple account after death"
+      ],
+      "brief": "You own an iPhone, iPad, MacBook, Apple Watch, and subscriptions to Apple Music and iCloud. When you die, can your family keep using them or access your data? The Apple ecosystem inheritance problem."
+    },
+    {
+      "slug": "two-step-verification-recovery-codes-inheritance",
+      "keywords": [
+        "2FA recovery codes",
+        "backup authentication codes",
+        "store recovery codes safely",
+        "two-step verification legacy"
+      ],
+      "brief": "Recovery codes are your last-resort access to accounts when 2FA fails. But if you die and your family needs them, are they stored where they can find them? How to securely store and pass on your recovery codes."
+    },
+    {
+      "slug": "bank-account-dormancy-rules-europe",
+      "keywords": [
+        "dormant bank account",
+        "unclaimed money inheritance",
+        "bank account inactive period",
+        "European banking dormancy laws"
+      ],
+      "brief": "After how long does a European bank declare your account dormant? What happens to your money if you die and nobody claims it? A country-by-country guide."
+    },
+    {
+      "slug": "expat-will-conflicts-home-country-vs-residence",
+      "keywords": [
+        "conflicting wills",
+        "home country vs residence inheritance law",
+        "multiple wills cross-border",
+        "expat succession conflict"
+      ],
+      "brief": "You have a will in your home country and a will in your country of residence. They contradict each other. When you die, which one is valid? The nightmare scenario for expat estate planning."
+    },
+    {
+      "slug": "business-succession-freelancer-death",
+      "keywords": [
+        "freelancer death succession",
+        "self-employed digital assets",
+        "client contracts after death",
+        "freelance business inheritance"
+      ],
+      "brief": "You're a freelance designer, developer, or consultant. Your contracts are online, your clients pay through Stripe or PayPal, your invoices are in Wave. When you die, who gets access to finish projects and collect outstanding payments?"
+    },
+    {
+      "slug": "video-testimony-deepfake-protection-will",
+      "keywords": [
+        "video will testament",
+        "deepfake will authentication",
+        "video message death",
+        "recorded will legal validity"
+      ],
+      "brief": "More families are recording video wills to add context and emotional weight. But in an age of deepfakes, how do you authenticate that the video is really from you and not a forgery?"
+    },
+    {
+      "slug": "minor-children-digital-access-guardianship",
+      "keywords": [
+        "children digital accounts",
+        "minor inheritance digital assets",
+        "YouTube Kids account after death",
+        "guardian digital accounts"
+      ],
+      "brief": "If you die, your minor children's guardians will need access to your digital records, school accounts, and any money in Google Play or App Store. How do you grant this access safely without giving them your passwords?"
+    },
+    {
+      "slug": "long-term-care-insurance-digital-assets",
+      "keywords": [
+        "long-term care insurance",
+        "nursing home digital access",
+        "incapacity planning insurance",
+        "care facility account access"
+      ],
+      "brief": "Long-term care planning covers hospitals and nursing homes, but it rarely addresses digital asset access during your incapacity. How to coordinate your digital POA with your long-term care plan."
+    },
+    {
+      "slug": "privacy-invasion-after-death-funeral-notices",
+      "keywords": [
+        "death announcement privacy",
+        "funeral notice scams",
+        "post-death identity theft",
+        "obituary privacy protection"
+      ],
+      "brief": "You announce your death in an obituary, and suddenly scammers flood your family with fake invoices, phishing emails, and identity theft. How to protect your family's privacy after you die."
+    },
+    {
+      "slug": "smart-contracts-inheritance-blockchain",
+      "keywords": [
+        "smart contract will",
+        "blockchain inheritance",
+        "cryptocurrency smart contract legacy",
+        "decentralized estate execution"
+      ],
+      "brief": "Could a Ethereum smart contract execute your will automatically? Could blockchain replace traditional estate executors? The legal and technical realities of smart contract inheritance."
+    },
+    {
+      "slug": "durable-power-of-attorney-expat-enforcement",
+      "keywords": [
+        "durable power of attorney EU",
+        "cross-border POA recognition",
+        "enforcing POA abroad",
+        "international power of attorney"
+      ],
+      "brief": "Your durable POA is valid in Germany, but is it recognized in Portugal? When your agent lives in one country and your banks are in three others, how do you enforce your POA across borders?"
+    },
+    {
+      "slug": "zero-knowledge-proof-password-inheritance",
+      "keywords": [
+        "zero knowledge proof inheritance",
+        "encrypted password sharing heirs",
+        "cryptographic will secrets",
+        "shamir secret sharing legacy"
+      ],
+      "brief": "Can cryptographic techniques like zero-knowledge proofs and Shamir's secret sharing be used to securely share sensitive information (passwords, keys, coordinates) with heirs while keeping it hidden from everyone else during your life?"
+    },
+    {
+      "slug": "digital-asset-valuation-tax-implications",
+      "keywords": [
+        "digital asset inheritance tax",
+        "crypto tax inheritance",
+        "capital gains inheritance digital",
+        "valuation of digital assets"
+      ],
+      "brief": "Inheriting €10,000 in Bitcoin—what's the tax liability? How do EU countries value and tax the inheritance of digital assets like cryptocurrencies, domains, or online businesses?"
+    },
+    {
+      "slug": "cloud-storage-backup-offline-redundancy",
+      "keywords": [
+        "offline backup strategy",
+        "redundant storage digital will",
+        "cloud backup not enough",
+        "physical backup digital assets"
+      ],
+      "brief": "Storing everything in Google Drive or Dropbox is convenient, but it's a single point of failure. Your family needs an offline, physically redundant backup of critical documents. Here's how to set it up."
+    },
+    {
+      "slug": "linguistic-cultural-digital-assets-expat",
+      "keywords": [
+        "language barrier digital inheritance",
+        "multilingual accounts expat",
+        "cultural considerations digital legacy",
+        "foreign language online accounts"
+      ],
+      "brief": "You have accounts in 4 languages, communication history in languages your family doesn't speak, and documents scattered across regional services. How to organize your digital life for heirs who may not speak your languages."
     }
   ]
 }
