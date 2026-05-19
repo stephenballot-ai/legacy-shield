@@ -1,5 +1,5 @@
 {
-  "nextIndex": 40,
+  "nextIndex": 41,
   "topics": [
     {
       "slug": "why-you-need-a-digital-executor",
@@ -577,6 +577,116 @@
         "exchange account succession"
       ],
       "brief": "Your cryptocurrency holdings on Coinbase, Kraken, or Binance are tied to your account. When you die, your family can't access them without your login credentials."
+    },
+    {
+      "slug": "family-video-message-wishes-after-death",
+      "keywords": [
+        "video message inheritance",
+        "recorded wishes death",
+        "family video legacy",
+        "birthday message after death",
+        "personal video testament"
+      ],
+      "brief": "Record video messages for your children to watch on their 18th birthday, or messages to grandchildren they'll never meet. A deeply personal legacy that digital storage makes possible."
+    },
+    {
+      "slug": "chatgpt-conversations-ai-history-inheritance",
+      "keywords": [
+        "ChatGPT conversation history",
+        "AI chat history inheritance",
+        "Claude conversations death",
+        "AI assistant data legacy",
+        "machine learning data privacy"
+      ],
+      "brief": "Your ChatGPT and AI conversations contain years of thinking, brainstorming, and problem-solving. Are these stored safely? Can your family access them after you die?"
+    },
+    {
+      "slug": "linkedin-professional-network-legacy",
+      "keywords": [
+        "LinkedIn account death",
+        "professional network inheritance",
+        "LinkedIn memorial",
+        "career legacy management",
+        "business relationships after death"
+      ],
+      "brief": "Your LinkedIn profile represents your professional identity and years of business relationships. What happens to these connections when you pass? How to memorialize your career."
+    },
+    {
+      "slug": "reddit-anonymous-accounts-inheritance-privacy",
+      "keywords": [
+        "Reddit account death",
+        "anonymous account inheritance",
+        "Reddit privacy after death",
+        "pseudonymous accounts legacy",
+        "anonymous online identity"
+      ],
+      "brief": "Your Reddit account is pseudonymous, but contains personal thoughts and community history. Should your family know these accounts exist? Privacy and inheritance of anonymous accounts."
+    },
+    {
+      "slug": "medical-records-cloud-storage-inheritance",
+      "keywords": [
+        "medical records inheritance",
+        "GDPR health data death",
+        "hospital records access",
+        "patient data after death",
+        "healthcare data privacy"
+      ],
+      "brief": "Your medical records are in cloud systems and patient portals. After death, your family needs access to understand your health history and support their own care decisions. How to organize this."
+    },
+    {
+      "slug": "online-dating-profile-after-death",
+      "keywords": [
+        "Tinder profile death",
+        "dating app account after death",
+        "Bumble Match inheritance",
+        "online dating legacy",
+        "memorial dating profile"
+      ],
+      "brief": "You have active profiles on Tinder, Bumble, or Match. What happens to these when you die? Do you want your family to know they exist? How to handle digital dating presence."
+    },
+    {
+      "slug": "insurance-policy-digital-records-after-death",
+      "keywords": [
+        "digital insurance records",
+        "policy storage after death",
+        "insurance claim inheritance",
+        "policy beneficiary management",
+        "insurance documentation"
+      ],
+      "brief": "Your life insurance, disability, and property insurance policies are scattered across email, PDF files, and insurance company portals. How to organize these so your family can file claims."
+    },
+    {
+      "slug": "voicemail-messages-digital-archive-loss",
+      "keywords": [
+        "voicemail after death",
+        "saved voice messages",
+        "audio message archive",
+        "voice memo inheritance",
+        "audio legacy loss"
+      ],
+      "brief": "Your phone contains voicemails from loved ones and important voice messages. These are irreplaceable. How to preserve them as part of your digital legacy."
+    },
+    {
+      "slug": "photo-backup-family-cloud-inheritance",
+      "keywords": [
+        "cloud photo backup strategy",
+        "family photo inheritance",
+        "OneDrive Dropbox inheritance",
+        "photo storage redundancy",
+        "family photo access"
+      ],
+      "brief": "You back up family photos to multiple cloud services. When you die, who has access? How to ensure your family photos survive you across multiple backup locations."
+    },
+    {
+      "slug": "retirement-account-digital-access-beneficiary",
+      "keywords": [
+        "pension digital access",
+        "retirement account inheritance",
+        "401k beneficiary documentation",
+        "pension portal access",
+        "retirement account login"
+      ],
+      "brief": "Your pension and retirement accounts require portal access to check balances and manage distributions. Your heirs need to know about these accounts and have access to manage them."
     }
   ]
 }
