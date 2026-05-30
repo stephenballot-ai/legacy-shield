@@ -28,6 +28,11 @@ const app: Application = express();
 const PORT = process.env.PORT || 4000;
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
+// Trust the single nginx hop in front of us so req.ip and X-Forwarded-For
+// reflect the real client. Without this, every request appears to come from
+// the docker bridge gateway (172.18.0.1), breaking audit logs and rate limits.
+app.set('trust proxy', 1);
+
 // ============================================================================
 // MIDDLEWARE
 // ============================================================================

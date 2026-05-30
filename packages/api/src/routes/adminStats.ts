@@ -86,6 +86,8 @@ router.get('/', requireStatsToken, async (_req: Request, res: Response) => {
       verifiedUsers,
       signupsToday,
       signupsWeek,
+      verifiedSignupsToday,
+      verifiedSignupsWeek,
       activeFiles,
       totalFiles,
       emergencyContacts,
@@ -99,6 +101,10 @@ router.get('/', requireStatsToken, async (_req: Request, res: Response) => {
       prisma.user.count({ where: { emailVerified: true } }),
       prisma.user.count({ where: { createdAt: { gte: dayAgo } } }),
       prisma.user.count({ where: { createdAt: { gte: weekAgo } } }),
+      // Verified signups are the only ones that resist bot floods — track
+      // them separately so the daily report doesn't get fooled by raw counts.
+      prisma.user.count({ where: { createdAt: { gte: dayAgo }, emailVerified: true } }),
+      prisma.user.count({ where: { createdAt: { gte: weekAgo }, emailVerified: true } }),
       prisma.file.count({ where: { deletedAt: null } }),
       prisma.file.count(),
       prisma.emergencyContact.count(),
@@ -124,6 +130,8 @@ router.get('/', requireStatsToken, async (_req: Request, res: Response) => {
         verified: verifiedUsers,
         signups24h: signupsToday,
         signups7d: signupsWeek,
+        verifiedSignups24h: verifiedSignupsToday,
+        verifiedSignups7d: verifiedSignupsWeek,
       },
       files: { active: activeFiles, total: totalFiles },
       emergencyContacts,

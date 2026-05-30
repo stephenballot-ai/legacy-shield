@@ -18,6 +18,25 @@ export const loginLimiter = rateLimit({
 });
 
 /**
+ * Account registration rate limiter: 5 signups per hour per IP.
+ * Prior to this, /auth/register had no limiter and was hit by a
+ * gmail dot-permutation flood (~26 fake accounts in ~8 weeks).
+ */
+export const registerLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 5,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    error: {
+      code: 'SERVICE_UNAVAILABLE',
+      message: 'Too many account creation attempts. Please try again later.',
+    },
+  },
+  keyGenerator: (req) => req.ip ?? 'unknown',
+});
+
+/**
  * Agent self-registration rate limiter: 5 requests per hour per IP
  */
 export const agentRegisterLimiter = rateLimit({

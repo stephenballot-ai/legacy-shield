@@ -1,7 +1,8 @@
 import crypto from 'crypto';
 import { Router, Request, Response } from 'express';
 import { validate, registerSchema, loginSchema, twoFactorSchema, verifyEmailSchema, changePasswordSchema, recoveryCodeSchema } from '../middleware/validation';
-import { loginLimiter } from '../middleware/rateLimit';
+import { loginLimiter, registerLimiter } from '../middleware/rateLimit';
+import { normalizeEmail, isBlockedEmailDomain } from '../lib/emailHygiene';
 import { authenticate, requireOwner } from '../middleware/auth';
 import { prisma } from '../lib/prisma';
 import type { Prisma } from '@prisma/client';
@@ -37,11 +38,20 @@ function generateReferralCode(): string {
 // ============================================================================
 // POST /auth/register
 // ============================================================================
-router.post('/register', validate(registerSchema), async (req: Request, res: Response) => {
+router.post('/register', registerLimiter, validate(registerSchema), async (req: Request, res: Response) => {
   try {
-    const { email, password, referralCode: refCode } = req.body as { email: string; password: string; referralCode?: string };
+    const { email: rawEmail, password, referralCode: refCode } = req.body as { email: string; password: string; referralCode?: string };
+    const email = normalizeEmail(rawEmail);
 
-    // Check if user already exists
+    if (isBlockedEmailDomain(email)) {
+      res.status(422).json({
+        error: { code: 'VALIDATION_ERROR', message: 'This email domain is not allowed' },
+      });
+      return;
+    }
+
+    // Check if user already exists (against normalized form so dot-permutation
+    // and +suffix variants of the same gmail collide as expected)
     const existing = await prisma.user.findUnique({ where: { email } });
     if (existing) {
       res.status(409).json({
@@ -203,7 +213,8 @@ router.post('/resend-verification', authenticate, requireOwner, async (req: Requ
 // ============================================================================
 router.post('/login', loginLimiter, validate(loginSchema), async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body as { email: string; password: string };
+    const { email: rawEmail, password } = req.body as { email: string; password: string };
+    const email = normalizeEmail(rawEmail);
 
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user) {
@@ -773,7 +784,8 @@ router.post('/recovery/generate-codes', authenticate, requireOwner, async (req: 
 // ============================================================================
 router.post('/recovery/use-code', loginLimiter, validate(recoveryCodeSchema), async (req: Request, res: Response) => {
   try {
-    const { code, email } = req.body as { code: string; email: string };
+    const { code, email: rawEmail } = req.body as { code: string; email: string };
+    const email = normalizeEmail(rawEmail);
 
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user || user.recoveryCodes.length === 0) {
@@ -841,11 +853,12 @@ router.post('/recovery/use-code', loginLimiter, validate(recoveryCodeSchema), as
  */
 router.post('/headless/register', async (req: Request, res: Response) => {
   try {
-    const { email, agentName } = req.body as {
+    const { email: rawEmail, agentName } = req.body as {
       email: string;
       agentName: string;
       userPublicKey: string;
     };
+    const email = normalizeEmail(rawEmail);
 
     const existing = await prisma.user.findUnique({ where: { email } });
     if (existing) {
