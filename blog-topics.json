@@ -1,5 +1,5 @@
 {
-  "nextIndex": 50,
+  "nextIndex": 51,
   "topics": [
     {
       "slug": "why-you-need-a-digital-executor",
@@ -838,6 +838,61 @@
         "final messages family"
       ],
       "brief": "Write messages for your children to receive on their 18th birthday. Record videos for grandchildren you'll never meet. Use scheduled email to deliver final thoughts. Technology lets you communicate from beyond."
+    },
+    {
+      "slug": "dutch-testament-digital-assets-notaris",
+      "keywords": [
+        "Dutch testament digital assets",
+        "notaris digital planning",
+        "Netherlands digital inheritance",
+        "testament preparation digital",
+        "digital legacy notaris"
+      ],
+      "brief": "In the Netherlands, a notaris handles your testament and estate. But what about digital assets, cryptocurrency, and online accounts? A complete guide to integrating digital assets into your Dutch testament with the help of a notaris."
+    },
+    {
+      "slug": "german-vollmacht-digital-nacherbe",
+      "keywords": [
+        "Vollmacht digital assets Germany",
+        "German Nachlass digital",
+        "Erbrecht online accounts",
+        "Bevollmächtigter digital",
+        "Durable power of attorney Germany"
+      ],
+      "brief": "A German Vollmacht (power of attorney) lets someone act on your behalf while you're alive. But does it cover digital assets? A guide to Bevollmächtigung for your online legacy in Germany."
+    },
+    {
+      "slug": "french-donation-entre-vifs-digital",
+      "keywords": [
+        "donation entre vifs France digital",
+        "French lifetime gift digital assets",
+        "donation digital France",
+        "successional planning France",
+        "héritage numérique France"
+      ],
+      "brief": "A donation entre vifs (lifetime gift) can transfer some digital assets while you're alive. But French law is unclear about online accounts and data. A guide to succession planning for your digital life in France."
+    },
+    {
+      "slug": "spanish-testament-testador-digital",
+      "keywords": [
+        "testamento digital España",
+        "Spanish digital inheritance planning",
+        "herencia digital testador",
+        "digital assets Spain testament",
+        "notario digital Spain"
+      ],
+      "brief": "Your Spanish testament (testamento) might mention your house, but does it cover your digital assets? A guide for testadores planning a digital legacy in Spain."
+    },
+    {
+      "slug": "italian-testamento-olografo-digital",
+      "keywords": [
+        "testamento olografo digital Italia",
+        "Italian handwritten will digital",
+        "successione digitale Italia",
+        "notaio digital testamento",
+        "digital assets Italy will"
+      ],
+      "brief": "An Italian testamento olografo (handwritten will) is legally valid, but what about your digital assets? A guide to integrating online accounts and data into your Italian succession plan."
     }
   ]
 }
