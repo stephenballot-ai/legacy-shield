@@ -1,0 +1,131 @@
+---
+title: "Il Tuo Sito Muore Con Te — Su Vercel e Netlify"
+description: "Hai un progetto distribuito su Vercel o Netlify. Ha traffico reale. Quando muori, va offline. Nessun altro ha accesso. Ecco cosa succede realmente alla tua infrastruttura web e come puoi salvare il tuo sito."
+date: "2026-06-10"
+author: "LegacyShield Team"
+locale: "it"
+slug: "vercel-netlify-website-deployment-death"
+keywords: ["Vercel sito morte", "Netlify successione", "sito web eredità", "infrastruttura web morte", "sito va offline dopo morte", "eredità digitale sito"]
+readingTime: "6 min di lettura"
+---
+
+## La Crisi Silenziosa: Il Tuo Sito Dipende Da Te
+
+Hai costruito un progetto secondario nel tuo tempo libero. Forse è uno strumento SaaS, una piattaforma comunitaria, un sito portfolio, o un'utilità utile che migliaia di persone usano ogni mese.
+
+Funziona su Vercel o Netlify. Ha traffico reale. I tuoi utenti dipendono da esso.
+
+E quando muori, scompare.
+
+La tua famiglia non sa che esiste. Non sa come mantenerlo in funzione. I tuoi utenti scoprono che il sito è scomparso, e nessuno può ripristinarlo. Anni di lavoro, potenzialmente anni di entrate ricorrenti, svaniti perché nessun altro ha accesso alla tua piattaforma di distribuzione.
+
+Sta succedendo adesso. Accade a sviluppatori che non hanno mai pensato a cosa succede al loro codice dopo la loro morte.
+
+## Come Il Tuo Sito Rimane Veramente Vivo
+
+Quando distribuisci un sito su Vercel o Netlify, non stai semplicemente caricando file su un server che possiedi. Stai creando una catena di dipendenze complessa:
+
+1. **Il tuo account GitHub/GitLab** — il codice sorgente vive qui
+2. **Il tuo account Vercel/Netlify** — connesso al tuo repository Git, auto-distribuzione ad ogni commit
+3. **Il tuo registrar di dominio** — possiedi il dominio (solitamente)
+4. **Certificati SSL** — rinnovati automaticamente da Vercel/Netlify, ma legati al tuo account
+5. **Variabili d'ambiente & segreti** — credenziali del database, chiavi API, token del processore di pagamento, tutto memorizzato nella tua piattaforma di distribuzione
+6. **Integrazioni personalizzate** — notifiche Slack, analytics, strumenti di monitoraggio, tutto autenticato ai tuoi account
+
+Affinché il tuo sito rimanga online, tutte queste connessioni devono rimanere attive. La più critica: il tuo account Vercel o Netlify deve rimanere attivo, e qualcuno deve avere accesso ad esso.
+
+## Cosa Succede Veramente Quando Muori
+
+Ecco lo scenario, passo dopo passo:
+
+**Giorno 1-7: Nessuno se ne accorge**
+La tua famiglia trova il tuo laptop. Iniziano a chiudere i tuoi account (email, social media, storage cloud). Ma non sanno del tuo sito distribuito. Sta ancora funzionando. I tuoi utenti non sanno che sei scomparso.
+
+**Settimana 2-4: Piccole crepe appaiono**
+Il rinnovo del tuo dominio è scaduto. Lo hai impostato per rinnovarsi automaticamente dalla tua carta di credito. Ma la tua famiglia cancella le tue carte di credito. Il rinnovo fallisce. Il tuo dominio scade. Il tuo sito è ora irraggiungibile.
+
+O: Vercel o Netlify ti invia un'email su attività sospetta sul tuo account (la tua famiglia prova ad accedervi). Bloccano l'account per sicurezza. Il sito va offline. Nessuno può sbloccarlo senza la tua verifica personale.
+
+**Mese 2-3: Escalation**
+Il tuo codice sorgente è ora inaccessibile (il tuo account GitHub). Il tuo sito distribuito è inaccessibile (il tuo account Vercel/Netlify). I tuoi utenti hanno smesso di provare a visitarlo. Il sito è offline da settimane.
+
+Se il tuo sito aveva:
+- Un database MongoDB — continua a funzionare, accumula costi, potenzialmente esposto perché nessuno aggiorna le regole di sicurezza
+- Una chiave API Stripe per i pagamenti — un payment hook continua a tentare di eseguirsi, creando transazioni fallite e potenziali avvisi di frode
+- Una password del database backend memorizzata in variabili d'ambiente — bloccata in Vercel, impossibile reimpostare
+
+## Il Contesto Italiano
+
+In Italia, questo è particolarmente problematico dal punto di vista del diritto successorio. Secondo il codice civile italiano (articoli 456-661), sei libero di lasciare il tuo patrimonio — la tua casa, la tua azienda, i tuoi soldi.
+
+Ma il tuo sito distribuito? È più complicato.
+
+I termini di Vercel e Netlify stabiliscono che il tuo account non è trasferibile. Non puoi lasciarlo ai tuoi figli come lasceresti un'azienda. L'account è legalmente legato a te. Un notaio italiano ti direbbe: "Non puoi semplicemente trasferire questo come proprietà. È diverso."
+
+Ed è vero.
+
+Questo crea un problema legale dove il tuo patrimonio digitale (il tuo sito) e il tuo diritto di successione (il diritto di trasmetterlo) entrano in conflitto con i termini di servizio di Vercel.
+
+## Passi Pratici Adesso
+
+### 1. **Documenta tutto**
+Crea un documento che contenga:
+- La tua email dell'account Vercel/Netlify e come accedervi (email di recupero, password manager, ecc.)
+- Quali repository sono distribuiti dove
+- Il tuo registrar di dominio e credenziali di accesso
+- Tutte le chiavi API, credenziali del database e integrazioni di terze parti
+- Se il sito genera entrate, e come
+- Tutti i costi ricorrenti (dominio, hosting, database, ecc.)
+- Istruzioni per trasferire la proprietà o spegnere correttamente
+
+Lascia questo documento con il tuo testamento, o in un luogo sicuro che la tua famiglia conosce.
+
+### 2. **Usa account di team**
+Non distribuire sotto il tuo account Vercel/Netlify personale. Crea un account di team per il tuo progetto. Aggiungi un collega affidabile, un membro della famiglia o un partner commerciale come proprietario. In questo modo, se qualcosa ti accade, hanno accesso uguale.
+
+Per progetti seri: rendi l'account di team proprietà della tua azienda o entità legale, non il tuo account personale.
+
+### 3. **Assicura il rinnovo del dominio**
+Assicurati che il tuo dominio sia impostato per il rinnovo automatico. Usa una carta di credito che la tua famiglia conosce e manterrà attiva. Un dominio scaduto è il modo più veloce per rendere il tuo sito irraggiungibile.
+
+### 4. **Archivia i segreti in modo sicuro**
+Per le chiavi API critiche e le password del database, non lasciarle solo nelle variabili d'ambiente di Vercel. Conserva copie in un password manager (1Password, Bitwarden, KeePass) a cui la tua famiglia può accedere. Contrassegnale come "accesso di emergenza solo" ma assicurati che siano disponibili.
+
+### 5. **Pianifica la successione o lo spegnimento**
+Decidi: vuoi che questo sito continui dopo di te? O preferisci che si spenga correttamente?
+
+Se vuoi che continui:
+- Trasferisci la proprietà adesso a una persona o organizzazione affidabile
+- Documenta il modello di business e come mantenerlo in funzione
+- Assicurati che qualcun altro sappia come distribuire il codice
+
+Se preferisci che si spenga:
+- Documenta cosa deve succedere al codice (renderlo open-source? Archiviarlo?)
+- Pianifica il modo in cui gli utenti possono esportare i loro dati
+- Imposta una data di spegnimento nelle tue istruzioni testamentarie
+
+### 6. **Rendi i tuoi progetti open-source**
+Se il tuo sito distribuito è uno strumento utile, considera di rendere il codice open-source. In questo modo, anche se la tua distribuzione Vercel va offline, la comunità può mantenerla e ridistribuirla da sola.
+
+## Il Quadro Generale
+
+Il tuo sito distribuito è parte di un modello più ampio: **progetti digitali che creano valore ma non hanno un piano di successione**.
+
+Quando muori:
+- I tuoi repository GitHub diventano inaccessibili (a meno che non siano open-source)
+- I tuoi siti distribuiti vanno offline
+- La tua documentazione, tutorial e risorse condivise scompaiono
+- Tutti i ricavi che generano si fermano
+- La conoscenza e gli strumenti che hai costruito per la tua comunità sono persi
+
+Questo è evitabile. Richiede pianificazione, ma non è complicato.
+
+Inizia oggi:
+1. **Elenca i tuoi progetti distribuiti** — quali siti girano veramente su Vercel, Netlify o simili?
+2. **Documenta le dipendenze** — chi ha accesso? Cosa deve essere rinnovato? Cosa si rompe se scompari?
+3. **Fai un piano di successione** — sarà ereditato? Open-sourcizzato? Archiviato?
+4. **Condividi quel piano** — la tua famiglia deve sapere che questi progetti esistono e cosa vuoi che accada loro.
+
+I tuoi siti distribuiti sono il tuo patrimonio digitale. Possono sopravvivervi — ma solo se lo pianifichi.
+
+**[Pianifica il tuo patrimonio digitale oggi](/register)** — perché gli strumenti e la conoscenza che costruisci meritano di vivere.
