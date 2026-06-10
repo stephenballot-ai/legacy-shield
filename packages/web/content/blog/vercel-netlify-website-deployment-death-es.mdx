@@ -1,0 +1,131 @@
+---
+title: "Tu Sitio Muere Contigo — En Vercel y Netlify"
+description: "Tienes un proyecto desplegado en Vercel o Netlify. Recibe tráfico real. Cuando mueres, se desconecta. Nadie más tiene acceso. Esto es lo que realmente sucede con tu infraestructura web y cómo puedes salvar tu sitio."
+date: "2026-06-10"
+author: "LegacyShield Team"
+locale: "es"
+slug: "vercel-netlify-website-deployment-death"
+keywords: ["Vercel sitio muerte", "Netlify herencia", "sitio web legado", "infraestructura web muerte", "sitio se desconecta después de muerte", "patrimonio digital sitio"]
+readingTime: "6 min de lectura"
+---
+
+## La Crisis Silenciosa: Tu Sitio Depende De Ti
+
+Construiste un proyecto secundario en tu tiempo libre. Tal vez es una herramienta SaaS, una plataforma comunitaria, un sitio portfolio, o una utilidad útil que miles de personas usan cada mes.
+
+Se ejecuta en Vercel o Netlify. Recibe tráfico real. Tus usuarios dependen de él.
+
+Y cuando mueres, desaparece.
+
+Tu familia no sabe que existe. No sabe cómo mantenerlo funcionando. Tus usuarios descubren que el sitio ha desaparecido, y nadie puede restaurarlo. Años de trabajo, potencialmente años de ingresos recurrentes, desaparecidos porque nadie más tiene acceso a tu plataforma de despliegue.
+
+Esto está sucediendo ahora. Le sucede a desarrolladores que nunca pensaron en qué sucede con su código después de su muerte.
+
+## Cómo Tu Sitio Realmente Se Mantiene Vivo
+
+Cuando desplegas un sitio en Vercel o Netlify, no solo estás subiendo archivos a un servidor que posees. Estás creando una cadena de dependencias compleja:
+
+1. **Tu cuenta GitHub/GitLab** — el código fuente vive aquí
+2. **Tu cuenta Vercel/Netlify** — conectada a tu repositorio Git, auto-despliegue en cada commit
+3. **Tu registrador de dominio** — posees el dominio (generalmente)
+4. **Certificados SSL** — renovados automáticamente por Vercel/Netlify, pero vinculados a tu cuenta
+5. **Variables de entorno & secretos** — credenciales de base de datos, claves API, tokens del procesador de pagos, todo almacenado en tu plataforma de despliegue
+6. **Integraciones personalizadas** — notificaciones de Slack, análisis, herramientas de monitoreo, todo autenticado en tus cuentas
+
+Para que tu sitio se mantenga en línea, todas estas conexiones deben permanecer activas. La más crítica: tu cuenta Vercel o Netlify debe permanecer activa, y alguien debe tener acceso a ella.
+
+## Qué Sucede Realmente Cuando Mueres
+
+Aquí está el escenario, paso a paso:
+
+**Día 1-7: Nadie se da cuenta**
+Tu familia encuentra tu laptop. Comienzan a cerrar tus cuentas (correo, redes sociales, almacenamiento en la nube). Pero no saben sobre tu sitio desplegado. Sigue funcionando. Tus usuarios no saben que has desaparecido.
+
+**Semana 2-4: Pequeñas grietas aparecen**
+Tu renovación de dominio vence. Lo configuraste para renovarse automáticamente desde tu tarjeta de crédito. Pero tu familia cancela tus tarjetas de crédito. La renovación falla. Tu dominio vence. Tu sitio ahora es inaccesible.
+
+O: Vercel o Netlify te envía un correo sobre actividad sospechosa en tu cuenta (tu familia intenta acceder). Bloquean la cuenta por seguridad. El sitio se desconecta. Nadie puede desbloquearlo sin tu verificación personal.
+
+**Mes 2-3: Escalada**
+Tu código fuente ahora es inaccesible (tu cuenta GitHub). Tu sitio desplegado es inaccesible (tu cuenta Vercel/Netlify). Tus usuarios han dejado de intentar visitarlo. El sitio ha estado offline durante semanas.
+
+Si tu sitio tenía:
+- Una base de datos MongoDB — continúa ejecutándose, acumula cargos, potencialmente expuesta porque nadie actualiza las reglas de seguridad
+- Una clave API de Stripe para pagos — un gancho de pago sigue intentando dispararse, creando transacciones fallidas y posibles alertas de fraude
+- Una contraseña de base de datos backend almacenada en variables de entorno — bloqueada en Vercel, imposible de reiniciar
+
+## El Contexto Español
+
+En España, esto es particularmente problemático desde el punto de vista del derecho de sucesiones. Según el código civil español (artículos 658-1087), eres libre de dejar tu patrimonio — tu casa, tu negocio, tu dinero.
+
+Pero tu sitio desplegado? Es más complicado.
+
+Los términos de Vercel y Netlify establecen que tu cuenta no es transferible. No puedes dejársela a tus hijos como dejarías un negocio. La cuenta está legalmente vinculada a ti. Un notario español te diría: "No puedes simplemente transferir esto como propiedad. Es diferente."
+
+Y es verdad.
+
+Esto crea un problema legal donde tu patrimonio digital (tu sitio) y tu derecho de sucesión (el derecho de transmitirlo) entran en conflicto con los términos de servicio de Vercel.
+
+## Pasos Prácticos Ahora
+
+### 1. **Documenta todo**
+Crea un documento que contenga:
+- Tu correo de cuenta Vercel/Netlify y cómo acceder a él (correo de recuperación, gestor de contraseñas, etc.)
+- Qué repositorios se despliegan dónde
+- Tu registrador de dominio e credenciales de inicio de sesión
+- Todas las claves API, credenciales de base de datos e integraciones de terceros
+- Si el sitio genera ingresos, y cómo
+- Todos los costos recurrentes (dominio, alojamiento, base de datos, etc.)
+- Instrucciones para transferir la propiedad o apagar correctamente
+
+Deja este documento con tu testamento, o en un lugar seguro que tu familia conozca.
+
+### 2. **Usa cuentas de equipo**
+No despliegues bajo tu cuenta personal de Vercel/Netlify. Crea una cuenta de equipo para tu proyecto. Añade un colega de confianza, un miembro de la familia o un socio comercial como propietario. De esta manera, si algo te sucede, tienen acceso igual.
+
+Para proyectos serios: haz que la cuenta de equipo sea propiedad de tu empresa o entidad legal, no tu cuenta personal.
+
+### 3. **Asegura la renovación del dominio**
+Asegúrate de que tu dominio esté configurado para renovación automática. Usa una tarjeta de crédito que tu familia conoce y mantendrá activa. Un dominio vencido es la forma más rápida de hacer que tu sitio sea inaccesible.
+
+### 4. **Almacena secretos de forma segura**
+Para claves API críticas y contraseñas de base de datos, no las dejes solo en las variables de entorno de Vercel. Guarda copias en un gestor de contraseñas (1Password, Bitwarden, KeePass) al que tu familia pueda acceder. Márcalas como "acceso de emergencia solo" pero asegúrate de que estén disponibles.
+
+### 5. **Planifica la sucesión o el apagado**
+Decide: ¿quieres que este sitio continúe después de ti? ¿O prefieres que se apague correctamente?
+
+Si quieres que continúe:
+- Transfiere la propiedad ahora a una persona u organización de confianza
+- Documenta el modelo de negocio y cómo mantenerlo funcionando
+- Asegúrate de que alguien más sepa cómo desplegar código
+
+Si prefieres que se apague:
+- Documenta qué debe suceder con el código (¿hacerlo de código abierto? ¿Archivarlo?)
+- Planifica para que los usuarios puedan exportar sus datos
+- Establece una fecha de apagado en tus instrucciones testamentarias
+
+### 6. **Haz tus proyectos de código abierto**
+Si tu sitio desplegado es una herramienta útil, considera hacer el código de código abierto. De esta manera, incluso si tu despliegue de Vercel se desconecta, la comunidad puede mantenerlo y redistribuirlo por sí misma.
+
+## La Visión General
+
+Tu sitio desplegado es parte de un patrón más amplio: **proyectos digitales que crean valor pero no tienen un plan de sucesión**.
+
+Cuando mueres:
+- Tus repositorios GitHub se vuelven inaccesibles (a menos que sean de código abierto)
+- Tus sitios desplegados se desconectan
+- Tu documentación, tutoriales y recursos compartidos desaparecen
+- Todos los ingresos que generan se detienen
+- El conocimiento y las herramientas que construiste para tu comunidad se pierden
+
+Esto es evitable. Requiere planificación, pero no es complicado.
+
+Comienza hoy:
+1. **Lista tus proyectos desplegados** — ¿cuáles son realmente los sitios que se ejecutan en Vercel, Netlify o similar?
+2. **Documenta las dependencias** — ¿quién tiene acceso? ¿Qué necesita renovarse? ¿Qué se rompe si desapareces?
+3. **Haz un plan de sucesión** — ¿será heredado? ¿De código abierto? ¿Archivado?
+4. **Comparte ese plan** — tu familia debe saber que estos proyectos existen y qué quieres que suceda con ellos.
+
+Tus sitios desplegados son tu patrimonio digital. Pueden sobrevivirte — pero solo si lo planificas.
+
+**[Planifica tu patrimonio digital hoy](/register)** — porque las herramientas y el conocimiento que construyes merecen vivir.

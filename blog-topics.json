@@ -1,898 +1,898 @@
 {
-    "nextIndex": 52,
-    "topics": [
-        {
-            "slug": "why-you-need-a-digital-executor",
-            "keywords": [
-                "digital executor",
-                "digital estate planning",
-                "manage accounts after death",
-                "digital legacy planning",
-                "appoint digital executor"
-            ],
-            "brief": "Why everyone needs a digital executor \u2014 someone authorized to manage your digital accounts, passwords, and files after death or incapacity. Practical steps to appoint one."
-        },
-        {
-            "slug": "password-manager-not-enough-after-death",
-            "keywords": [
-                "password manager death",
-                "1Password inheritance",
-                "Bitwarden estate planning",
-                "password vault after death"
-            ],
-            "brief": "Why a password manager alone won't save your family after you die \u2014 and what you actually need."
-        },
-        {
-            "slug": "what-happens-to-your-spotify-when-you-die",
-            "keywords": [
-                "Spotify account death",
-                "digital subscriptions after death",
-                "streaming accounts inheritance",
-                "digital assets estate"
-            ],
-            "brief": "Your Spotify playlists, Netflix profile, and subscriptions \u2014 what happens to them when you die, and why nobody thinks about this."
-        },
-        {
-            "slug": "expat-estate-planning-mistakes",
-            "keywords": [
-                "expat estate planning",
-                "expat will mistakes",
-                "cross-border inheritance",
-                "EU succession regulation"
-            ],
-            "brief": "The 5 most common estate planning mistakes expats make \u2014 and how to avoid them."
-        },
-        {
-            "slug": "two-factor-authentication-nightmare-after-death",
-            "keywords": [
-                "2FA after death",
-                "two factor authentication inheritance",
-                "authenticator app death",
-                "recovery codes estate planning"
-            ],
-            "brief": "2FA protects your accounts while you're alive \u2014 but locks everyone out when you die. How to plan for this."
-        },
-        {
-            "slug": "digital-will-vs-paper-will",
-            "keywords": [
-                "digital will",
-                "electronic will",
-                "paper will vs digital",
-                "store will online",
-                "legal will digital"
-            ],
-            "brief": "Can you make a legally valid digital will? What's the difference between a digital will and storing your paper will digitally?"
-        },
-        {
-            "slug": "what-happens-to-your-photos-when-you-die",
-            "keywords": [
-                "photos after death",
-                "iCloud photos inheritance",
-                "Google Photos death",
-                "digital memories legacy"
-            ],
-            "brief": "Your family photos are trapped in cloud accounts. Here's what happens to them when you die \u2014 and how to make sure they survive."
-        },
-        {
-            "slug": "gdpr-data-portability-estate-planning",
-            "keywords": [
-                "GDPR data portability",
-                "right to data portability death",
-                "EU data rights inheritance",
-                "digital estate GDPR"
-            ],
-            "brief": "GDPR gives you the right to your data. But does that right transfer to your heirs? The legal grey zone that affects every European."
-        },
-        {
-            "slug": "inheriting-a-digital-business-stripe-shopify",
-            "keywords": [
-                "digital business inheritance",
-                "Stripe account death",
-                "Shopify store succession",
-                "e-commerce estate planning",
-                "transfer online business after death"
-            ],
-            "brief": "What happens to your Stripe balance or Shopify store when you die? For many entrepreneurs, their business is their biggest asset, yet its digital keys are often lost. How to ensure your online business survives you."
-        },
-        {
-            "slug": "social-media-memorialization-guide",
-            "keywords": [
-                "social media legacy",
-                "Facebook legacy contact",
-                "Instagram memorialized account",
-                "LinkedIn account after death",
-                "digital footprint inheritance"
-            ],
-            "brief": "A complete guide to setting up legacy contacts and memorialization settings on major social platforms. Don't leave your profile to chance."
-        },
-        {
-            "slug": "digital-nomad-digital-legacy-jurisdiction",
-            "keywords": [
-                "digital nomad estate planning",
-                "cross-border digital legacy",
-                "remote work inheritance",
-                "digital assets jurisdiction",
-                "international digital legacy"
-            ],
-            "brief": "Digital nomads live in one country, work in another, and have servers in a third. When they pass away, which laws apply to their digital assets? A guide to the jurisdictional complexity of digital legacy for the modern remote worker."
-        },
-        {
-            "slug": "digital-inheritance-laws-europe-2026",
-            "keywords": [
-                "digital inheritance laws Europe",
-                "EU digital legacy regulations",
-                "inheritance of digital assets",
-                "digital estate law 2026",
-                "EU succession digital data"
-            ],
-            "brief": "A 2026 update on digital inheritance laws across Europe. What's changed, what's still a grey area, and how the new EU regulations impact your digital estate. Comparing Germany, France, Netherlands, and Spain."
-        },
-        {
-            "slug": "whatsapp-messages-lost-after-death",
-            "keywords": [
-                "WhatsApp after death",
-                "Telegram inheritance",
-                "signal account death",
-                "messaging apps legacy"
-            ],
-            "brief": "Your WhatsApp chats vanish when you die. Unlike photos and emails, messaging apps offer zero options for legacy access. What this means for your digital footprint."
-        },
-        {
-            "slug": "biometric-authentication-digital-legacy-problem",
-            "keywords": [
-                "biometric unlock after death",
-                "fingerprint inheritance",
-                "face ID digital estate",
-                "biometric lock legacy access"
-            ],
-            "brief": "You unlocked your phone with your fingerprint \u2014 but when you die, your family can't. The biometric security problem nobody talks about in digital estate planning."
-        },
-        {
-            "slug": "cryptocurrency-hardware-wallet-inheritance",
-            "keywords": [
-                "bitcoin inheritance",
-                "cold storage wallet death",
-                "crypto legacy planning",
-                "ledger trezor heir access"
-            ],
-            "brief": "Your hardware wallet holds \u20ac100,000 in Bitcoin, but nobody knows the PIN. A brutal reality check for crypto estate planning in Europe."
-        },
-        {
-            "slug": "expat-germany-erbrecht-digital-assets",
-            "keywords": [
-                "Erbrecht digital assets",
-                "German inheritance law digital",
-                "Nachlass online",
-                "expat inheritance Germany"
-            ],
-            "brief": "German Erbrecht is centuries old \u2014 but it wasn't written for cloud accounts, cryptocurrency, or digital businesses. What German law actually says about your online legacy."
-        },
-        {
-            "slug": "expat-france-succession-numerique",
-            "keywords": [
-                "succession num\u00e9rique France",
-                "French digital inheritance",
-                "notaire succession online",
-                "expat France h\u00e9r\u00e9dit\u00e9"
-            ],
-            "brief": "French succession law requires a notaire, but what about your Gmail? How French law treats digital assets, and why notaires are scrambling to adapt."
-        },
-        {
-            "slug": "expat-italy-successione-digitale",
-            "keywords": [
-                "successione digitale Italia",
-                "Italian inheritance online assets",
-                "expat Italy inheritance",
-                "digital estate Italy"
-            ],
-            "brief": "Italian inheritance law (successione) is family-focused, but digital assets weren't invented yet. Where your digital estate fits in Italy's legal framework."
-        },
-        {
-            "slug": "expat-spain-herencia-digital",
-            "keywords": [
-                "herencia digital Espa\u00f1a",
-                "Spanish digital inheritance",
-                "notario succession Spain",
-                "expat Spain digital assets"
-            ],
-            "brief": "Spanish notarios traditionally handle inheritance (herencia). Now they're facing digital assets nobody planned for. A guide to inheritance law in Spain for digital-first expats."
-        },
-        {
-            "slug": "email-dead-reckoning-accessing-gmail-after-death",
-            "keywords": [
-                "Gmail after death recovery",
-                "Outlook account inheritance",
-                "email access after death legal",
-                "family email access"
-            ],
-            "brief": "Google lets you plan for your Gmail with the Inactive Account Manager. Microsoft is slower. Yahoo never replying. A country-by-country guide to email access after death."
-        },
-        {
-            "slug": "family-shared-plans-apple-google-break-after-death",
-            "keywords": [
-                "Apple family sharing after death",
-                "Google family group inheritance",
-                "Microsoft family account death",
-                "shared subscriptions inheritance"
-            ],
-            "brief": "Your family shares your Apple One subscription \u2014 but when you die, what happens to the shared Netflix, iCloud storage, and app library?"
-        },
-        {
-            "slug": "employment-pension-cross-border-eu-inheritance",
-            "keywords": [
-                "EU pension inheritance death",
-                "cross-border pension death benefit",
-                "employment pension succession EU",
-                "occupational pension heir"
-            ],
-            "brief": "You worked 15 years in Germany, 8 in the Netherlands, and now live in Spain. When you die, which country's pension laws apply? A guide to cross-border pension death benefits in the EU."
-        },
-        {
-            "slug": "digital-mental-health-records-therapy-accounts-after-death",
-            "keywords": [
-                "therapy notes after death",
-                "mental health records inheritance",
-                "Headspace Calm accounts death",
-                "online psychiatrist records legacy"
-            ],
-            "brief": "Your therapist's notes, your psychiatric evaluations, your meditation app history \u2014 all in the cloud. Privacy, inheritance, and who should have access when you die."
-        },
-        {
-            "slug": "domain-names-intellectual-property-digital-assets-inheritance",
-            "keywords": [
-                "domain name inheritance",
-                "intellectual property death succession",
-                "business domain death",
-                "trademark inheritance"
-            ],
-            "brief": "Your domain name (and everything on it) is your digital real estate. Unlike physical real estate, inheritance law barely touches it. How to ensure your domains pass to your heirs."
-        },
-        {
-            "slug": "self-hosted-servers-personal-vps-after-death",
-            "keywords": [
-                "self-hosted server death",
-                "personal VPS inheritance",
-                "home server legacy",
-                "cloud server account succession"
-            ],
-            "brief": "You run your own mail server, personal wiki, or side project on a VPS. When you die, who pays for the hosting? Who has the root password? A checklist for self-hosted digital assets."
-        },
-        {
-            "slug": "employer-data-separation-personal-digital-assets",
-            "keywords": [
-                "employer account cleanup death",
-                "work email vs personal",
-                "separating work and personal digital",
-                "company data after death"
-            ],
-            "brief": "You use your work Google account for personal files, photos, and documents. When you leave \u2014 or die \u2014 your employer can lock you out. How to separate work and life."
-        },
-        {
-            "slug": "digital-legacy-power-of-attorney-versus-will",
-            "keywords": [
-                "digital power of attorney",
-                "legal authority digital assets",
-                "POA for online accounts",
-                "legal control after incapacity"
-            ],
-            "brief": "Your will only works after you die. But what if you're incapacitated \u2014 in a coma, dementia, or just unreachable? A power of attorney for digital assets handles this, but most people don't have one."
-        },
-        {
-            "slug": "apple-ecosystem-lock-in-after-death",
-            "keywords": [
-                "Apple ID inheritance",
-                "iCloud account death",
-                "Apple ecosystem succession",
-                "manage Apple account after death"
-            ],
-            "brief": "You own an iPhone, iPad, MacBook, Apple Watch, and subscriptions to Apple Music and iCloud. When you die, can your family keep using them or access your data? The Apple ecosystem inheritance problem."
-        },
-        {
-            "slug": "two-step-verification-recovery-codes-inheritance",
-            "keywords": [
-                "2FA recovery codes",
-                "backup authentication codes",
-                "store recovery codes safely",
-                "two-step verification legacy"
-            ],
-            "brief": "Recovery codes are your last-resort access to accounts when 2FA fails. But if you die and your family needs them, are they stored where they can find them? How to securely store and pass on your recovery codes."
-        },
-        {
-            "slug": "bank-account-dormancy-rules-europe",
-            "keywords": [
-                "dormant bank account",
-                "unclaimed money inheritance",
-                "bank account inactive period",
-                "European banking dormancy laws"
-            ],
-            "brief": "After how long does a European bank declare your account dormant? What happens to your money if you die and nobody claims it? A country-by-country guide."
-        },
-        {
-            "slug": "expat-will-conflicts-home-country-vs-residence",
-            "keywords": [
-                "conflicting wills",
-                "home country vs residence inheritance law",
-                "multiple wills cross-border",
-                "expat succession conflict"
-            ],
-            "brief": "You have a will in your home country and a will in your country of residence. They contradict each other. When you die, which one is valid? The nightmare scenario for expat estate planning."
-        },
-        {
-            "slug": "business-succession-freelancer-death",
-            "keywords": [
-                "freelancer death succession",
-                "self-employed digital assets",
-                "client contracts after death",
-                "freelance business inheritance"
-            ],
-            "brief": "You're a freelance designer, developer, or consultant. Your contracts are online, your clients pay through Stripe or PayPal, your invoices are in Wave. When you die, who gets access to finish projects and collect outstanding payments?"
-        },
-        {
-            "slug": "video-testimony-deepfake-protection-will",
-            "keywords": [
-                "video will testament",
-                "deepfake will authentication",
-                "video message death",
-                "recorded will legal validity"
-            ],
-            "brief": "More families are recording video wills to add context and emotional weight. But in an age of deepfakes, how do you authenticate that the video is really from you and not a forgery?"
-        },
-        {
-            "slug": "minor-children-digital-access-guardianship",
-            "keywords": [
-                "children digital accounts",
-                "minor inheritance digital assets",
-                "YouTube Kids account after death",
-                "guardian digital accounts"
-            ],
-            "brief": "If you die, your minor children's guardians will need access to your digital records, school accounts, and any money in Google Play or App Store. How do you grant this access safely without giving them your passwords?"
-        },
-        {
-            "slug": "long-term-care-insurance-digital-assets",
-            "keywords": [
-                "long-term care insurance",
-                "nursing home digital access",
-                "incapacity planning insurance",
-                "care facility account access"
-            ],
-            "brief": "Long-term care planning covers hospitals and nursing homes, but it rarely addresses digital asset access during your incapacity. How to coordinate your digital POA with your long-term care plan."
-        },
-        {
-            "slug": "privacy-invasion-after-death-funeral-notices",
-            "keywords": [
-                "death announcement privacy",
-                "funeral notice scams",
-                "post-death identity theft",
-                "obituary privacy protection"
-            ],
-            "brief": "You announce your death in an obituary, and suddenly scammers flood your family with fake invoices, phishing emails, and identity theft. How to protect your family's privacy after you die."
-        },
-        {
-            "slug": "smart-contracts-inheritance-blockchain",
-            "keywords": [
-                "smart contract will",
-                "blockchain inheritance",
-                "cryptocurrency smart contract legacy",
-                "decentralized estate execution"
-            ],
-            "brief": "Could a Ethereum smart contract execute your will automatically? Could blockchain replace traditional estate executors? The legal and technical realities of smart contract inheritance."
-        },
-        {
-            "slug": "durable-power-of-attorney-expat-enforcement",
-            "keywords": [
-                "durable power of attorney EU",
-                "cross-border POA recognition",
-                "enforcing POA abroad",
-                "international power of attorney"
-            ],
-            "brief": "Your durable POA is valid in Germany, but is it recognized in Portugal? When your agent lives in one country and your banks are in three others, how do you enforce your POA across borders?"
-        },
-        {
-            "slug": "zero-knowledge-proof-password-inheritance",
-            "keywords": [
-                "zero knowledge proof inheritance",
-                "encrypted password sharing heirs",
-                "cryptographic will secrets",
-                "shamir secret sharing legacy"
-            ],
-            "brief": "Can cryptographic techniques like zero-knowledge proofs and Shamir's secret sharing be used to securely share sensitive information (passwords, keys, coordinates) with heirs while keeping it hidden from everyone else during your life?"
-        },
-        {
-            "slug": "digital-asset-valuation-tax-implications",
-            "keywords": [
-                "digital asset inheritance tax",
-                "crypto tax inheritance",
-                "capital gains inheritance digital",
-                "valuation of digital assets"
-            ],
-            "brief": "Inheriting \u20ac10,000 in Bitcoin\u2014what's the tax liability? How do EU countries value and tax the inheritance of digital assets like cryptocurrencies, domains, or online businesses?"
-        },
-        {
-            "slug": "cloud-storage-backup-offline-redundancy",
-            "keywords": [
-                "offline backup strategy",
-                "redundant storage digital will",
-                "cloud backup not enough",
-                "physical backup digital assets"
-            ],
-            "brief": "Storing everything in Google Drive or Dropbox is convenient, but it's a single point of failure. Your family needs an offline, physically redundant backup of critical documents. Here's how to set it up."
-        },
-        {
-            "slug": "linguistic-cultural-digital-assets-expat",
-            "keywords": [
-                "language barrier digital inheritance",
-                "multilingual accounts expat",
-                "cultural considerations digital legacy",
-                "foreign language online accounts"
-            ],
-            "brief": "You have accounts in 4 languages, communication history in languages your family doesn't speak, and documents scattered across regional services. How to organize your digital life for heirs who may not speak your languages."
-        },
-        {
-            "slug": "youtube-creator-death-channel-income-inheritance",
-            "keywords": [
-                "YouTube channel inheritance",
-                "creator income death",
-                "monetization inheritance",
-                "YouTube legacy",
-                "family income streams digital"
-            ],
-            "brief": "You built a YouTube channel that earns \u20ac5,000/month. When you die, what happens to the channel, the income, and your legacy? A guide for creators."
-        },
-        {
-            "slug": "twitch-streamer-inheritance-channel-death",
-            "keywords": [
-                "Twitch channel inheritance",
-                "streamer death succession",
-                "Twitch monetization heir",
-                "gaming income inheritance"
-            ],
-            "brief": "Twitch streamers build communities and income streams worth thousands monthly. But there's no standard process for inheriting or transferring a channel. What happens?"
-        },
-        {
-            "slug": "patreon-subscription-creator-income-death",
-            "keywords": [
-                "Patreon income death",
-                "creator subscription inheritance",
-                "patron support legacy",
-                "recurring income digital assets"
-            ],
-            "brief": "Creators on Patreon have recurring monthly income from subscribers. When they die, subscribers lose updates and creators' families lose income. How does Patreon handle death?"
-        },
-        {
-            "slug": "github-private-repositories-code-inheritance",
-            "keywords": [
-                "GitHub private repo inheritance",
-                "open source code death",
-                "developer assets legacy",
-                "proprietary code succession"
-            ],
-            "brief": "Your GitHub account holds years of private code, intellectual property, and proprietary projects. When you die, who gets access? How do you pass on your legacy?"
-        },
-        {
-            "slug": "slack-workspace-knowledge-death-team",
-            "keywords": [
-                "Slack workspace death",
-                "team knowledge loss",
-                "remote work digital assets",
-                "institutional knowledge inheritance"
-            ],
-            "brief": "Your Slack workspace contains years of team discussions, decisions, and institutional knowledge. If you die, can your team access it? Does your family have a claim?"
-        },
-        {
-            "slug": "amazon-kindle-library-inheritance-ebooks",
-            "keywords": [
-                "Kindle library inheritance",
-                "ebook collection death",
-                "Amazon book library heir",
-                "digital library succession"
-            ],
-            "brief": "You've spent thousands on your Kindle library. But Amazon's terms prohibit transfer. When you die, your family loses access to thousands of books you purchased."
-        },
-        {
-            "slug": "adobe-creative-cloud-license-death-inheritance",
-            "keywords": [
-                "Adobe Creative Cloud death",
-                "design software license inheritance",
-                "creator tools succession",
-                "subscription software legacy"
-            ],
-            "brief": "Your Adobe subscription is tied to your identity and contains years of design files. When you die, your family loses the software and potentially the files."
-        },
-        {
-            "slug": "notion-workspace-digital-will-knowledge",
-            "keywords": [
-                "Notion workspace death",
-                "knowledge base inheritance",
-                "digital notes legacy",
-                "second brain succession"
-            ],
-            "brief": "Notion workspaces often contain personal knowledge bases, family recipes, financial records. But Notion accounts are person-specific. How do you pass them on?"
-        },
-        {
-            "slug": "google-workspace-business-email-death",
-            "keywords": [
-                "Google Workspace email death",
-                "business email succession",
-                "G Suite inheritance",
-                "domain email access after death"
-            ],
-            "brief": "Your business runs on Google Workspace. When you die, your family loses the email account, documents, and business continuity. How to plan for this."
-        },
-        {
-            "slug": "figma-design-files-team-inheritance",
-            "keywords": [
-                "Figma design files death",
-                "UI/UX inheritance",
-                "design team succession",
-                "digital design assets legacy"
-            ],
-            "brief": "Figma stores your design work in the cloud. If you die, your design team loses the files, version history, and design system you built."
-        },
-        {
-            "slug": "vercel-netlify-website-deployment-death",
-            "keywords": [
-                "Vercel Netlify website death",
-                "website hosting inheritance",
-                "deployed site succession",
-                "web infrastructure legacy"
-            ],
-            "brief": "Your side project is deployed on Vercel/Netlify and gets traffic. When you die, the site goes offline because nobody else has access to the deployment."
-        },
-        {
-            "slug": "shopify-ecommerce-store-death-succession",
-            "keywords": [
-                "Shopify store death",
-                "ecommerce inheritance",
-                "online shop succession",
-                "small business digital assets"
-            ],
-            "brief": "You run a Shopify store with monthly revenue. When you die, it stops generating income and your family doesn't know how to manage it or sell it."
-        },
-        {
-            "slug": "substack-newsletter-subscriber-list-death",
-            "keywords": [
-                "Substack newsletter inheritance",
-                "email list death",
-                "creator subscriber legacy",
-                "newsletter succession"
-            ],
-            "brief": "Your Substack newsletter has 50,000 engaged subscribers and generates income. When you die, the list is gone unless you plan for succession."
-        },
-        {
-            "slug": "etsy-shop-digital-products-inheritance",
-            "keywords": [
-                "Etsy shop death",
-                "digital product sales inheritance",
-                "creative business legacy",
-                "passive income death"
-            ],
-            "brief": "You sell digital products (templates, designs, fonts) on Etsy. When you die, the shop closes and your family loses an income stream."
-        },
-        {
-            "slug": "crypto-exchange-account-access-death",
-            "keywords": [
-                "crypto exchange account death",
-                "Binance Kraken inheritance",
-                "digital currency access heir",
-                "exchange account succession"
-            ],
-            "brief": "Your cryptocurrency holdings on Coinbase, Kraken, or Binance are tied to your account. When you die, your family can't access them without your login credentials."
-        },
-        {
-            "slug": "family-video-message-wishes-after-death",
-            "keywords": [
-                "video message inheritance",
-                "recorded wishes death",
-                "family video legacy",
-                "birthday message after death",
-                "personal video testament"
-            ],
-            "brief": "Record video messages for your children to watch on their 18th birthday, or messages to grandchildren they'll never meet. A deeply personal legacy that digital storage makes possible."
-        },
-        {
-            "slug": "chatgpt-conversations-ai-history-inheritance",
-            "keywords": [
-                "ChatGPT conversation history",
-                "AI chat history inheritance",
-                "Claude conversations death",
-                "AI assistant data legacy",
-                "machine learning data privacy"
-            ],
-            "brief": "Your ChatGPT and AI conversations contain years of thinking, brainstorming, and problem-solving. Are these stored safely? Can your family access them after you die?"
-        },
-        {
-            "slug": "linkedin-professional-network-legacy",
-            "keywords": [
-                "LinkedIn account death",
-                "professional network inheritance",
-                "LinkedIn memorial",
-                "career legacy management",
-                "business relationships after death"
-            ],
-            "brief": "Your LinkedIn profile represents your professional identity and years of business relationships. What happens to these connections when you pass? How to memorialize your career."
-        },
-        {
-            "slug": "reddit-anonymous-accounts-inheritance-privacy",
-            "keywords": [
-                "Reddit account death",
-                "anonymous account inheritance",
-                "Reddit privacy after death",
-                "pseudonymous accounts legacy",
-                "anonymous online identity"
-            ],
-            "brief": "Your Reddit account is pseudonymous, but contains personal thoughts and community history. Should your family know these accounts exist? Privacy and inheritance of anonymous accounts."
-        },
-        {
-            "slug": "medical-records-cloud-storage-inheritance",
-            "keywords": [
-                "medical records inheritance",
-                "GDPR health data death",
-                "hospital records access",
-                "patient data after death",
-                "healthcare data privacy"
-            ],
-            "brief": "Your medical records are in cloud systems and patient portals. After death, your family needs access to understand your health history and support their own care decisions. How to organize this."
-        },
-        {
-            "slug": "online-dating-profile-after-death",
-            "keywords": [
-                "Tinder profile death",
-                "dating app account after death",
-                "Bumble Match inheritance",
-                "online dating legacy",
-                "memorial dating profile"
-            ],
-            "brief": "You have active profiles on Tinder, Bumble, or Match. What happens to these when you die? Do you want your family to know they exist? How to handle digital dating presence."
-        },
-        {
-            "slug": "insurance-policy-digital-records-after-death",
-            "keywords": [
-                "digital insurance records",
-                "policy storage after death",
-                "insurance claim inheritance",
-                "policy beneficiary management",
-                "insurance documentation"
-            ],
-            "brief": "Your life insurance, disability, and property insurance policies are scattered across email, PDF files, and insurance company portals. How to organize these so your family can file claims."
-        },
-        {
-            "slug": "voicemail-messages-digital-archive-loss",
-            "keywords": [
-                "voicemail after death",
-                "saved voice messages",
-                "audio message archive",
-                "voice memo inheritance",
-                "audio legacy loss"
-            ],
-            "brief": "Your phone contains voicemails from loved ones and important voice messages. These are irreplaceable. How to preserve them as part of your digital legacy."
-        },
-        {
-            "slug": "photo-backup-family-cloud-inheritance",
-            "keywords": [
-                "cloud photo backup strategy",
-                "family photo inheritance",
-                "OneDrive Dropbox inheritance",
-                "photo storage redundancy",
-                "family photo access"
-            ],
-            "brief": "You back up family photos to multiple cloud services. When you die, who has access? How to ensure your family photos survive you across multiple backup locations."
-        },
-        {
-            "slug": "retirement-account-digital-access-beneficiary",
-            "keywords": [
-                "pension digital access",
-                "retirement account inheritance",
-                "401k beneficiary documentation",
-                "pension portal access",
-                "retirement account login"
-            ],
-            "brief": "Your pension and retirement accounts require portal access to check balances and manage distributions. Your heirs need to know about these accounts and have access to manage them."
-        },
-        {
-            "slug": "passwordless-authentication-inheritance",
-            "keywords": [
-                "passwordless login inheritance",
-                "biometric authentication legacy",
-                "passkey death",
-                "authentication without passwords"
-            ],
-            "brief": "Passwordless authentication (passkeys, biometrics) is more secure \u2014 until you die. How do your heirs access accounts that don't use passwords? A guide to planning for the future of authentication."
-        },
-        {
-            "slug": "digital-will-executor-training-guide",
-            "keywords": [
-                "digital executor training",
-                "teaching family about digital assets",
-                "digital legacy responsibility",
-                "who should be your digital executor"
-            ],
-            "brief": "You've appointed a Digital Executor. But have you trained them? What do they actually need to know? A step-by-step guide to preparing your executor for their role."
-        },
-        {
-            "slug": "end-of-life-digital-checklist",
-            "keywords": [
-                "digital estate checklist",
-                "end of life planning digital",
-                "death preparation technology",
-                "what to do with digital assets"
-            ],
-            "brief": "A comprehensive checklist: accounts to close, data to preserve, passwords to share, documents to delete, and assets to transfer. Use this before it's too late."
-        },
-        {
-            "slug": "family-communication-secret-sharing",
-            "keywords": [
-                "secret sharing family",
-                "Shamir secret sharing inheritance",
-                "cryptographic key sharing heirs",
-                "distributed trust digital assets"
-            ],
-            "brief": "Instead of one person having all your passwords, distribute trust across multiple family members using cryptographic techniques. No single heir has everything; all must cooperate to access sensitive data."
-        },
-        {
-            "slug": "digital-legacy-insurance-options",
-            "keywords": [
-                "digital legacy insurance",
-                "cyber insurance inheritance",
-                "coverage for digital assets",
-                "insurance for digital risk"
-            ],
-            "brief": "Can you insure your digital assets? Should you? A look at emerging digital legacy insurance products and whether they're worth the cost."
-        },
-        {
-            "slug": "multi-country-digital-asset-map",
-            "keywords": [
-                "international digital assets",
-                "multi-country digital planning",
-                "expat asset location",
-                "cross-border digital documentation"
-            ],
-            "brief": "You have bank accounts in Germany, a crypto exchange in Switzerland, a domain in Ireland, and email with a US provider. Mapping all your assets across jurisdictions is the first step to protecting them."
-        },
-        {
-            "slug": "legacy-contact-selection-guide",
-            "keywords": [
-                "legacy contact selection",
-                "choosing digital executor",
-                "family responsibility digital",
-                "who to trust with accounts"
-            ],
-            "brief": "Your Legacy Contact has real power over your digital identity after you die. How do you choose the right person? What should you ask them? What could go wrong?"
-        },
-        {
-            "slug": "digital-assets-worth-tracking",
-            "keywords": [
-                "digital asset inventory",
-                "valuable digital assets",
-                "what digital assets have value",
-                "monetized digital presence"
-            ],
-            "brief": "Most people forget to track their most valuable digital assets: domain names, email addresses, social media accounts with large followings, cryptocurrency holdings, and digital storefronts. Here's what's worth tracking."
-        },
-        {
-            "slug": "expat-asset-discovery-checkup",
-            "keywords": [
-                "expat asset discovery",
-                "forgotten accounts cleanup",
-                "digital asset audit",
-                "account discovery after years"
-            ],
-            "brief": "You've lived in 5 countries, worked for 10 companies, and created accounts everywhere. You don't even remember half of them. A guide to discovering and cataloging your scattered digital presence."
-        },
-        {
-            "slug": "privacy-settings-family-readiness",
-            "keywords": [
-                "privacy settings inheritance",
-                "public vs private accounts",
-                "account visibility after death",
-                "digital privacy and family"
-            ],
-            "brief": "Your accounts might be set to private \u2014 which means your family can't find them or access them after you die. How to balance personal privacy with family access."
-        },
-        {
-            "slug": "business-succession-buy-sell-agreements",
-            "keywords": [
-                "business succession agreement",
-                "buy-sell clause digital business",
-                "partnership inheritance",
-                "business asset transfer"
-            ],
-            "brief": "If you own a business \u2014 especially a digital or online business \u2014 you need a buy-sell agreement that specifies what happens if you die. Without it, your heirs and your business partners could be in conflict."
-        },
-        {
-            "slug": "digital-inheritance-timeline-planning",
-            "keywords": [
-                "timeline digital inheritance",
-                "long-term succession planning",
-                "years-ahead digital planning",
-                "generational digital assets"
-            ],
-            "brief": "Should your digital legacy be accessed immediately? After 5 years? Only for your children, not grandchildren? Planning the timeline of access is as important as planning what to access."
-        },
-        {
-            "slug": "estate-executor-digital-training",
-            "keywords": [
-                "executor training digital assets",
-                "teaching executors about technology",
-                "non-technical executor help",
-                "simplifying digital complexity"
-            ],
-            "brief": "Your executor might be 75 years old and afraid of technology. How do you prepare a non-technical person to handle your digital legacy? Practical steps for simplifying the process."
-        },
-        {
-            "slug": "tax-implications-digital-inheritance",
-            "keywords": [
-                "capital gains tax digital assets",
-                "tax on inherited cryptocurrency",
-                "inheritance tax digital goods",
-                "GDPR tax implications"
-            ],
-            "brief": "Inheriting \u20ac50,000 in digital assets might trigger capital gains tax. Inheriting cryptocurrency, domains, or online businesses carries unexpected tax liabilities. A guide to the tax implications of digital inheritance."
-        },
-        {
-            "slug": "secure-communication-beyond-death",
-            "keywords": [
-                "messaging after death",
-                "communication from beyond",
-                "scheduled messages inheritance",
-                "letters for future",
-                "final messages family"
-            ],
-            "brief": "Write messages for your children to receive on their 18th birthday. Record videos for grandchildren you'll never meet. Use scheduled email to deliver final thoughts. Technology lets you communicate from beyond."
-        },
-        {
-            "slug": "dutch-testament-digital-assets-notaris",
-            "keywords": [
-                "Dutch testament digital assets",
-                "notaris digital planning",
-                "Netherlands digital inheritance",
-                "testament preparation digital",
-                "digital legacy notaris"
-            ],
-            "brief": "In the Netherlands, a notaris handles your testament and estate. But what about digital assets, cryptocurrency, and online accounts? A complete guide to integrating digital assets into your Dutch testament with the help of a notaris."
-        },
-        {
-            "slug": "german-vollmacht-digital-nacherbe",
-            "keywords": [
-                "Vollmacht digital assets Germany",
-                "German Nachlass digital",
-                "Erbrecht online accounts",
-                "Bevollm\u00e4chtigter digital",
-                "Durable power of attorney Germany"
-            ],
-            "brief": "A German Vollmacht (power of attorney) lets someone act on your behalf while you're alive. But does it cover digital assets? A guide to Bevollm\u00e4chtigung for your online legacy in Germany."
-        },
-        {
-            "slug": "french-donation-entre-vifs-digital",
-            "keywords": [
-                "donation entre vifs France digital",
-                "French lifetime gift digital assets",
-                "donation digital France",
-                "successional planning France",
-                "h\u00e9ritage num\u00e9rique France"
-            ],
-            "brief": "A donation entre vifs (lifetime gift) can transfer some digital assets while you're alive. But French law is unclear about online accounts and data. A guide to succession planning for your digital life in France."
-        },
-        {
-            "slug": "spanish-testament-testador-digital",
-            "keywords": [
-                "testamento digital Espa\u00f1a",
-                "Spanish digital inheritance planning",
-                "herencia digital testador",
-                "digital assets Spain testament",
-                "notario digital Spain"
-            ],
-            "brief": "Your Spanish testament (testamento) might mention your house, but does it cover your digital assets? A guide for testadores planning a digital legacy in Spain."
-        },
-        {
-            "slug": "italian-testamento-olografo-digital",
-            "keywords": [
-                "testamento olografo digital Italia",
-                "Italian handwritten will digital",
-                "successione digitale Italia",
-                "notaio digital testamento",
-                "digital assets Italy will"
-            ],
-            "brief": "An Italian testamento olografo (handwritten will) is legally valid, but what about your digital assets? A guide to integrating online accounts and data into your Italian succession plan."
-        }
-    ]
+  "nextIndex": 53,
+  "topics": [
+    {
+      "slug": "why-you-need-a-digital-executor",
+      "keywords": [
+        "digital executor",
+        "digital estate planning",
+        "manage accounts after death",
+        "digital legacy planning",
+        "appoint digital executor"
+      ],
+      "brief": "Why everyone needs a digital executor \u2014 someone authorized to manage your digital accounts, passwords, and files after death or incapacity. Practical steps to appoint one."
+    },
+    {
+      "slug": "password-manager-not-enough-after-death",
+      "keywords": [
+        "password manager death",
+        "1Password inheritance",
+        "Bitwarden estate planning",
+        "password vault after death"
+      ],
+      "brief": "Why a password manager alone won't save your family after you die \u2014 and what you actually need."
+    },
+    {
+      "slug": "what-happens-to-your-spotify-when-you-die",
+      "keywords": [
+        "Spotify account death",
+        "digital subscriptions after death",
+        "streaming accounts inheritance",
+        "digital assets estate"
+      ],
+      "brief": "Your Spotify playlists, Netflix profile, and subscriptions \u2014 what happens to them when you die, and why nobody thinks about this."
+    },
+    {
+      "slug": "expat-estate-planning-mistakes",
+      "keywords": [
+        "expat estate planning",
+        "expat will mistakes",
+        "cross-border inheritance",
+        "EU succession regulation"
+      ],
+      "brief": "The 5 most common estate planning mistakes expats make \u2014 and how to avoid them."
+    },
+    {
+      "slug": "two-factor-authentication-nightmare-after-death",
+      "keywords": [
+        "2FA after death",
+        "two factor authentication inheritance",
+        "authenticator app death",
+        "recovery codes estate planning"
+      ],
+      "brief": "2FA protects your accounts while you're alive \u2014 but locks everyone out when you die. How to plan for this."
+    },
+    {
+      "slug": "digital-will-vs-paper-will",
+      "keywords": [
+        "digital will",
+        "electronic will",
+        "paper will vs digital",
+        "store will online",
+        "legal will digital"
+      ],
+      "brief": "Can you make a legally valid digital will? What's the difference between a digital will and storing your paper will digitally?"
+    },
+    {
+      "slug": "what-happens-to-your-photos-when-you-die",
+      "keywords": [
+        "photos after death",
+        "iCloud photos inheritance",
+        "Google Photos death",
+        "digital memories legacy"
+      ],
+      "brief": "Your family photos are trapped in cloud accounts. Here's what happens to them when you die \u2014 and how to make sure they survive."
+    },
+    {
+      "slug": "gdpr-data-portability-estate-planning",
+      "keywords": [
+        "GDPR data portability",
+        "right to data portability death",
+        "EU data rights inheritance",
+        "digital estate GDPR"
+      ],
+      "brief": "GDPR gives you the right to your data. But does that right transfer to your heirs? The legal grey zone that affects every European."
+    },
+    {
+      "slug": "inheriting-a-digital-business-stripe-shopify",
+      "keywords": [
+        "digital business inheritance",
+        "Stripe account death",
+        "Shopify store succession",
+        "e-commerce estate planning",
+        "transfer online business after death"
+      ],
+      "brief": "What happens to your Stripe balance or Shopify store when you die? For many entrepreneurs, their business is their biggest asset, yet its digital keys are often lost. How to ensure your online business survives you."
+    },
+    {
+      "slug": "social-media-memorialization-guide",
+      "keywords": [
+        "social media legacy",
+        "Facebook legacy contact",
+        "Instagram memorialized account",
+        "LinkedIn account after death",
+        "digital footprint inheritance"
+      ],
+      "brief": "A complete guide to setting up legacy contacts and memorialization settings on major social platforms. Don't leave your profile to chance."
+    },
+    {
+      "slug": "digital-nomad-digital-legacy-jurisdiction",
+      "keywords": [
+        "digital nomad estate planning",
+        "cross-border digital legacy",
+        "remote work inheritance",
+        "digital assets jurisdiction",
+        "international digital legacy"
+      ],
+      "brief": "Digital nomads live in one country, work in another, and have servers in a third. When they pass away, which laws apply to their digital assets? A guide to the jurisdictional complexity of digital legacy for the modern remote worker."
+    },
+    {
+      "slug": "digital-inheritance-laws-europe-2026",
+      "keywords": [
+        "digital inheritance laws Europe",
+        "EU digital legacy regulations",
+        "inheritance of digital assets",
+        "digital estate law 2026",
+        "EU succession digital data"
+      ],
+      "brief": "A 2026 update on digital inheritance laws across Europe. What's changed, what's still a grey area, and how the new EU regulations impact your digital estate. Comparing Germany, France, Netherlands, and Spain."
+    },
+    {
+      "slug": "whatsapp-messages-lost-after-death",
+      "keywords": [
+        "WhatsApp after death",
+        "Telegram inheritance",
+        "signal account death",
+        "messaging apps legacy"
+      ],
+      "brief": "Your WhatsApp chats vanish when you die. Unlike photos and emails, messaging apps offer zero options for legacy access. What this means for your digital footprint."
+    },
+    {
+      "slug": "biometric-authentication-digital-legacy-problem",
+      "keywords": [
+        "biometric unlock after death",
+        "fingerprint inheritance",
+        "face ID digital estate",
+        "biometric lock legacy access"
+      ],
+      "brief": "You unlocked your phone with your fingerprint \u2014 but when you die, your family can't. The biometric security problem nobody talks about in digital estate planning."
+    },
+    {
+      "slug": "cryptocurrency-hardware-wallet-inheritance",
+      "keywords": [
+        "bitcoin inheritance",
+        "cold storage wallet death",
+        "crypto legacy planning",
+        "ledger trezor heir access"
+      ],
+      "brief": "Your hardware wallet holds \u20ac100,000 in Bitcoin, but nobody knows the PIN. A brutal reality check for crypto estate planning in Europe."
+    },
+    {
+      "slug": "expat-germany-erbrecht-digital-assets",
+      "keywords": [
+        "Erbrecht digital assets",
+        "German inheritance law digital",
+        "Nachlass online",
+        "expat inheritance Germany"
+      ],
+      "brief": "German Erbrecht is centuries old \u2014 but it wasn't written for cloud accounts, cryptocurrency, or digital businesses. What German law actually says about your online legacy."
+    },
+    {
+      "slug": "expat-france-succession-numerique",
+      "keywords": [
+        "succession num\u00e9rique France",
+        "French digital inheritance",
+        "notaire succession online",
+        "expat France h\u00e9r\u00e9dit\u00e9"
+      ],
+      "brief": "French succession law requires a notaire, but what about your Gmail? How French law treats digital assets, and why notaires are scrambling to adapt."
+    },
+    {
+      "slug": "expat-italy-successione-digitale",
+      "keywords": [
+        "successione digitale Italia",
+        "Italian inheritance online assets",
+        "expat Italy inheritance",
+        "digital estate Italy"
+      ],
+      "brief": "Italian inheritance law (successione) is family-focused, but digital assets weren't invented yet. Where your digital estate fits in Italy's legal framework."
+    },
+    {
+      "slug": "expat-spain-herencia-digital",
+      "keywords": [
+        "herencia digital Espa\u00f1a",
+        "Spanish digital inheritance",
+        "notario succession Spain",
+        "expat Spain digital assets"
+      ],
+      "brief": "Spanish notarios traditionally handle inheritance (herencia). Now they're facing digital assets nobody planned for. A guide to inheritance law in Spain for digital-first expats."
+    },
+    {
+      "slug": "email-dead-reckoning-accessing-gmail-after-death",
+      "keywords": [
+        "Gmail after death recovery",
+        "Outlook account inheritance",
+        "email access after death legal",
+        "family email access"
+      ],
+      "brief": "Google lets you plan for your Gmail with the Inactive Account Manager. Microsoft is slower. Yahoo never replying. A country-by-country guide to email access after death."
+    },
+    {
+      "slug": "family-shared-plans-apple-google-break-after-death",
+      "keywords": [
+        "Apple family sharing after death",
+        "Google family group inheritance",
+        "Microsoft family account death",
+        "shared subscriptions inheritance"
+      ],
+      "brief": "Your family shares your Apple One subscription \u2014 but when you die, what happens to the shared Netflix, iCloud storage, and app library?"
+    },
+    {
+      "slug": "employment-pension-cross-border-eu-inheritance",
+      "keywords": [
+        "EU pension inheritance death",
+        "cross-border pension death benefit",
+        "employment pension succession EU",
+        "occupational pension heir"
+      ],
+      "brief": "You worked 15 years in Germany, 8 in the Netherlands, and now live in Spain. When you die, which country's pension laws apply? A guide to cross-border pension death benefits in the EU."
+    },
+    {
+      "slug": "digital-mental-health-records-therapy-accounts-after-death",
+      "keywords": [
+        "therapy notes after death",
+        "mental health records inheritance",
+        "Headspace Calm accounts death",
+        "online psychiatrist records legacy"
+      ],
+      "brief": "Your therapist's notes, your psychiatric evaluations, your meditation app history \u2014 all in the cloud. Privacy, inheritance, and who should have access when you die."
+    },
+    {
+      "slug": "domain-names-intellectual-property-digital-assets-inheritance",
+      "keywords": [
+        "domain name inheritance",
+        "intellectual property death succession",
+        "business domain death",
+        "trademark inheritance"
+      ],
+      "brief": "Your domain name (and everything on it) is your digital real estate. Unlike physical real estate, inheritance law barely touches it. How to ensure your domains pass to your heirs."
+    },
+    {
+      "slug": "self-hosted-servers-personal-vps-after-death",
+      "keywords": [
+        "self-hosted server death",
+        "personal VPS inheritance",
+        "home server legacy",
+        "cloud server account succession"
+      ],
+      "brief": "You run your own mail server, personal wiki, or side project on a VPS. When you die, who pays for the hosting? Who has the root password? A checklist for self-hosted digital assets."
+    },
+    {
+      "slug": "employer-data-separation-personal-digital-assets",
+      "keywords": [
+        "employer account cleanup death",
+        "work email vs personal",
+        "separating work and personal digital",
+        "company data after death"
+      ],
+      "brief": "You use your work Google account for personal files, photos, and documents. When you leave \u2014 or die \u2014 your employer can lock you out. How to separate work and life."
+    },
+    {
+      "slug": "digital-legacy-power-of-attorney-versus-will",
+      "keywords": [
+        "digital power of attorney",
+        "legal authority digital assets",
+        "POA for online accounts",
+        "legal control after incapacity"
+      ],
+      "brief": "Your will only works after you die. But what if you're incapacitated \u2014 in a coma, dementia, or just unreachable? A power of attorney for digital assets handles this, but most people don't have one."
+    },
+    {
+      "slug": "apple-ecosystem-lock-in-after-death",
+      "keywords": [
+        "Apple ID inheritance",
+        "iCloud account death",
+        "Apple ecosystem succession",
+        "manage Apple account after death"
+      ],
+      "brief": "You own an iPhone, iPad, MacBook, Apple Watch, and subscriptions to Apple Music and iCloud. When you die, can your family keep using them or access your data? The Apple ecosystem inheritance problem."
+    },
+    {
+      "slug": "two-step-verification-recovery-codes-inheritance",
+      "keywords": [
+        "2FA recovery codes",
+        "backup authentication codes",
+        "store recovery codes safely",
+        "two-step verification legacy"
+      ],
+      "brief": "Recovery codes are your last-resort access to accounts when 2FA fails. But if you die and your family needs them, are they stored where they can find them? How to securely store and pass on your recovery codes."
+    },
+    {
+      "slug": "bank-account-dormancy-rules-europe",
+      "keywords": [
+        "dormant bank account",
+        "unclaimed money inheritance",
+        "bank account inactive period",
+        "European banking dormancy laws"
+      ],
+      "brief": "After how long does a European bank declare your account dormant? What happens to your money if you die and nobody claims it? A country-by-country guide."
+    },
+    {
+      "slug": "expat-will-conflicts-home-country-vs-residence",
+      "keywords": [
+        "conflicting wills",
+        "home country vs residence inheritance law",
+        "multiple wills cross-border",
+        "expat succession conflict"
+      ],
+      "brief": "You have a will in your home country and a will in your country of residence. They contradict each other. When you die, which one is valid? The nightmare scenario for expat estate planning."
+    },
+    {
+      "slug": "business-succession-freelancer-death",
+      "keywords": [
+        "freelancer death succession",
+        "self-employed digital assets",
+        "client contracts after death",
+        "freelance business inheritance"
+      ],
+      "brief": "You're a freelance designer, developer, or consultant. Your contracts are online, your clients pay through Stripe or PayPal, your invoices are in Wave. When you die, who gets access to finish projects and collect outstanding payments?"
+    },
+    {
+      "slug": "video-testimony-deepfake-protection-will",
+      "keywords": [
+        "video will testament",
+        "deepfake will authentication",
+        "video message death",
+        "recorded will legal validity"
+      ],
+      "brief": "More families are recording video wills to add context and emotional weight. But in an age of deepfakes, how do you authenticate that the video is really from you and not a forgery?"
+    },
+    {
+      "slug": "minor-children-digital-access-guardianship",
+      "keywords": [
+        "children digital accounts",
+        "minor inheritance digital assets",
+        "YouTube Kids account after death",
+        "guardian digital accounts"
+      ],
+      "brief": "If you die, your minor children's guardians will need access to your digital records, school accounts, and any money in Google Play or App Store. How do you grant this access safely without giving them your passwords?"
+    },
+    {
+      "slug": "long-term-care-insurance-digital-assets",
+      "keywords": [
+        "long-term care insurance",
+        "nursing home digital access",
+        "incapacity planning insurance",
+        "care facility account access"
+      ],
+      "brief": "Long-term care planning covers hospitals and nursing homes, but it rarely addresses digital asset access during your incapacity. How to coordinate your digital POA with your long-term care plan."
+    },
+    {
+      "slug": "privacy-invasion-after-death-funeral-notices",
+      "keywords": [
+        "death announcement privacy",
+        "funeral notice scams",
+        "post-death identity theft",
+        "obituary privacy protection"
+      ],
+      "brief": "You announce your death in an obituary, and suddenly scammers flood your family with fake invoices, phishing emails, and identity theft. How to protect your family's privacy after you die."
+    },
+    {
+      "slug": "smart-contracts-inheritance-blockchain",
+      "keywords": [
+        "smart contract will",
+        "blockchain inheritance",
+        "cryptocurrency smart contract legacy",
+        "decentralized estate execution"
+      ],
+      "brief": "Could a Ethereum smart contract execute your will automatically? Could blockchain replace traditional estate executors? The legal and technical realities of smart contract inheritance."
+    },
+    {
+      "slug": "durable-power-of-attorney-expat-enforcement",
+      "keywords": [
+        "durable power of attorney EU",
+        "cross-border POA recognition",
+        "enforcing POA abroad",
+        "international power of attorney"
+      ],
+      "brief": "Your durable POA is valid in Germany, but is it recognized in Portugal? When your agent lives in one country and your banks are in three others, how do you enforce your POA across borders?"
+    },
+    {
+      "slug": "zero-knowledge-proof-password-inheritance",
+      "keywords": [
+        "zero knowledge proof inheritance",
+        "encrypted password sharing heirs",
+        "cryptographic will secrets",
+        "shamir secret sharing legacy"
+      ],
+      "brief": "Can cryptographic techniques like zero-knowledge proofs and Shamir's secret sharing be used to securely share sensitive information (passwords, keys, coordinates) with heirs while keeping it hidden from everyone else during your life?"
+    },
+    {
+      "slug": "digital-asset-valuation-tax-implications",
+      "keywords": [
+        "digital asset inheritance tax",
+        "crypto tax inheritance",
+        "capital gains inheritance digital",
+        "valuation of digital assets"
+      ],
+      "brief": "Inheriting \u20ac10,000 in Bitcoin\u2014what's the tax liability? How do EU countries value and tax the inheritance of digital assets like cryptocurrencies, domains, or online businesses?"
+    },
+    {
+      "slug": "cloud-storage-backup-offline-redundancy",
+      "keywords": [
+        "offline backup strategy",
+        "redundant storage digital will",
+        "cloud backup not enough",
+        "physical backup digital assets"
+      ],
+      "brief": "Storing everything in Google Drive or Dropbox is convenient, but it's a single point of failure. Your family needs an offline, physically redundant backup of critical documents. Here's how to set it up."
+    },
+    {
+      "slug": "linguistic-cultural-digital-assets-expat",
+      "keywords": [
+        "language barrier digital inheritance",
+        "multilingual accounts expat",
+        "cultural considerations digital legacy",
+        "foreign language online accounts"
+      ],
+      "brief": "You have accounts in 4 languages, communication history in languages your family doesn't speak, and documents scattered across regional services. How to organize your digital life for heirs who may not speak your languages."
+    },
+    {
+      "slug": "youtube-creator-death-channel-income-inheritance",
+      "keywords": [
+        "YouTube channel inheritance",
+        "creator income death",
+        "monetization inheritance",
+        "YouTube legacy",
+        "family income streams digital"
+      ],
+      "brief": "You built a YouTube channel that earns \u20ac5,000/month. When you die, what happens to the channel, the income, and your legacy? A guide for creators."
+    },
+    {
+      "slug": "twitch-streamer-inheritance-channel-death",
+      "keywords": [
+        "Twitch channel inheritance",
+        "streamer death succession",
+        "Twitch monetization heir",
+        "gaming income inheritance"
+      ],
+      "brief": "Twitch streamers build communities and income streams worth thousands monthly. But there's no standard process for inheriting or transferring a channel. What happens?"
+    },
+    {
+      "slug": "patreon-subscription-creator-income-death",
+      "keywords": [
+        "Patreon income death",
+        "creator subscription inheritance",
+        "patron support legacy",
+        "recurring income digital assets"
+      ],
+      "brief": "Creators on Patreon have recurring monthly income from subscribers. When they die, subscribers lose updates and creators' families lose income. How does Patreon handle death?"
+    },
+    {
+      "slug": "github-private-repositories-code-inheritance",
+      "keywords": [
+        "GitHub private repo inheritance",
+        "open source code death",
+        "developer assets legacy",
+        "proprietary code succession"
+      ],
+      "brief": "Your GitHub account holds years of private code, intellectual property, and proprietary projects. When you die, who gets access? How do you pass on your legacy?"
+    },
+    {
+      "slug": "slack-workspace-knowledge-death-team",
+      "keywords": [
+        "Slack workspace death",
+        "team knowledge loss",
+        "remote work digital assets",
+        "institutional knowledge inheritance"
+      ],
+      "brief": "Your Slack workspace contains years of team discussions, decisions, and institutional knowledge. If you die, can your team access it? Does your family have a claim?"
+    },
+    {
+      "slug": "amazon-kindle-library-inheritance-ebooks",
+      "keywords": [
+        "Kindle library inheritance",
+        "ebook collection death",
+        "Amazon book library heir",
+        "digital library succession"
+      ],
+      "brief": "You've spent thousands on your Kindle library. But Amazon's terms prohibit transfer. When you die, your family loses access to thousands of books you purchased."
+    },
+    {
+      "slug": "adobe-creative-cloud-license-death-inheritance",
+      "keywords": [
+        "Adobe Creative Cloud death",
+        "design software license inheritance",
+        "creator tools succession",
+        "subscription software legacy"
+      ],
+      "brief": "Your Adobe subscription is tied to your identity and contains years of design files. When you die, your family loses the software and potentially the files."
+    },
+    {
+      "slug": "notion-workspace-digital-will-knowledge",
+      "keywords": [
+        "Notion workspace death",
+        "knowledge base inheritance",
+        "digital notes legacy",
+        "second brain succession"
+      ],
+      "brief": "Notion workspaces often contain personal knowledge bases, family recipes, financial records. But Notion accounts are person-specific. How do you pass them on?"
+    },
+    {
+      "slug": "google-workspace-business-email-death",
+      "keywords": [
+        "Google Workspace email death",
+        "business email succession",
+        "G Suite inheritance",
+        "domain email access after death"
+      ],
+      "brief": "Your business runs on Google Workspace. When you die, your family loses the email account, documents, and business continuity. How to plan for this."
+    },
+    {
+      "slug": "figma-design-files-team-inheritance",
+      "keywords": [
+        "Figma design files death",
+        "UI/UX inheritance",
+        "design team succession",
+        "digital design assets legacy"
+      ],
+      "brief": "Figma stores your design work in the cloud. If you die, your design team loses the files, version history, and design system you built."
+    },
+    {
+      "slug": "vercel-netlify-website-deployment-death",
+      "keywords": [
+        "Vercel Netlify website death",
+        "website hosting inheritance",
+        "deployed site succession",
+        "web infrastructure legacy"
+      ],
+      "brief": "Your side project is deployed on Vercel/Netlify and gets traffic. When you die, the site goes offline because nobody else has access to the deployment."
+    },
+    {
+      "slug": "shopify-ecommerce-store-death-succession",
+      "keywords": [
+        "Shopify store death",
+        "ecommerce inheritance",
+        "online shop succession",
+        "small business digital assets"
+      ],
+      "brief": "You run a Shopify store with monthly revenue. When you die, it stops generating income and your family doesn't know how to manage it or sell it."
+    },
+    {
+      "slug": "substack-newsletter-subscriber-list-death",
+      "keywords": [
+        "Substack newsletter inheritance",
+        "email list death",
+        "creator subscriber legacy",
+        "newsletter succession"
+      ],
+      "brief": "Your Substack newsletter has 50,000 engaged subscribers and generates income. When you die, the list is gone unless you plan for succession."
+    },
+    {
+      "slug": "etsy-shop-digital-products-inheritance",
+      "keywords": [
+        "Etsy shop death",
+        "digital product sales inheritance",
+        "creative business legacy",
+        "passive income death"
+      ],
+      "brief": "You sell digital products (templates, designs, fonts) on Etsy. When you die, the shop closes and your family loses an income stream."
+    },
+    {
+      "slug": "crypto-exchange-account-access-death",
+      "keywords": [
+        "crypto exchange account death",
+        "Binance Kraken inheritance",
+        "digital currency access heir",
+        "exchange account succession"
+      ],
+      "brief": "Your cryptocurrency holdings on Coinbase, Kraken, or Binance are tied to your account. When you die, your family can't access them without your login credentials."
+    },
+    {
+      "slug": "family-video-message-wishes-after-death",
+      "keywords": [
+        "video message inheritance",
+        "recorded wishes death",
+        "family video legacy",
+        "birthday message after death",
+        "personal video testament"
+      ],
+      "brief": "Record video messages for your children to watch on their 18th birthday, or messages to grandchildren they'll never meet. A deeply personal legacy that digital storage makes possible."
+    },
+    {
+      "slug": "chatgpt-conversations-ai-history-inheritance",
+      "keywords": [
+        "ChatGPT conversation history",
+        "AI chat history inheritance",
+        "Claude conversations death",
+        "AI assistant data legacy",
+        "machine learning data privacy"
+      ],
+      "brief": "Your ChatGPT and AI conversations contain years of thinking, brainstorming, and problem-solving. Are these stored safely? Can your family access them after you die?"
+    },
+    {
+      "slug": "linkedin-professional-network-legacy",
+      "keywords": [
+        "LinkedIn account death",
+        "professional network inheritance",
+        "LinkedIn memorial",
+        "career legacy management",
+        "business relationships after death"
+      ],
+      "brief": "Your LinkedIn profile represents your professional identity and years of business relationships. What happens to these connections when you pass? How to memorialize your career."
+    },
+    {
+      "slug": "reddit-anonymous-accounts-inheritance-privacy",
+      "keywords": [
+        "Reddit account death",
+        "anonymous account inheritance",
+        "Reddit privacy after death",
+        "pseudonymous accounts legacy",
+        "anonymous online identity"
+      ],
+      "brief": "Your Reddit account is pseudonymous, but contains personal thoughts and community history. Should your family know these accounts exist? Privacy and inheritance of anonymous accounts."
+    },
+    {
+      "slug": "medical-records-cloud-storage-inheritance",
+      "keywords": [
+        "medical records inheritance",
+        "GDPR health data death",
+        "hospital records access",
+        "patient data after death",
+        "healthcare data privacy"
+      ],
+      "brief": "Your medical records are in cloud systems and patient portals. After death, your family needs access to understand your health history and support their own care decisions. How to organize this."
+    },
+    {
+      "slug": "online-dating-profile-after-death",
+      "keywords": [
+        "Tinder profile death",
+        "dating app account after death",
+        "Bumble Match inheritance",
+        "online dating legacy",
+        "memorial dating profile"
+      ],
+      "brief": "You have active profiles on Tinder, Bumble, or Match. What happens to these when you die? Do you want your family to know they exist? How to handle digital dating presence."
+    },
+    {
+      "slug": "insurance-policy-digital-records-after-death",
+      "keywords": [
+        "digital insurance records",
+        "policy storage after death",
+        "insurance claim inheritance",
+        "policy beneficiary management",
+        "insurance documentation"
+      ],
+      "brief": "Your life insurance, disability, and property insurance policies are scattered across email, PDF files, and insurance company portals. How to organize these so your family can file claims."
+    },
+    {
+      "slug": "voicemail-messages-digital-archive-loss",
+      "keywords": [
+        "voicemail after death",
+        "saved voice messages",
+        "audio message archive",
+        "voice memo inheritance",
+        "audio legacy loss"
+      ],
+      "brief": "Your phone contains voicemails from loved ones and important voice messages. These are irreplaceable. How to preserve them as part of your digital legacy."
+    },
+    {
+      "slug": "photo-backup-family-cloud-inheritance",
+      "keywords": [
+        "cloud photo backup strategy",
+        "family photo inheritance",
+        "OneDrive Dropbox inheritance",
+        "photo storage redundancy",
+        "family photo access"
+      ],
+      "brief": "You back up family photos to multiple cloud services. When you die, who has access? How to ensure your family photos survive you across multiple backup locations."
+    },
+    {
+      "slug": "retirement-account-digital-access-beneficiary",
+      "keywords": [
+        "pension digital access",
+        "retirement account inheritance",
+        "401k beneficiary documentation",
+        "pension portal access",
+        "retirement account login"
+      ],
+      "brief": "Your pension and retirement accounts require portal access to check balances and manage distributions. Your heirs need to know about these accounts and have access to manage them."
+    },
+    {
+      "slug": "passwordless-authentication-inheritance",
+      "keywords": [
+        "passwordless login inheritance",
+        "biometric authentication legacy",
+        "passkey death",
+        "authentication without passwords"
+      ],
+      "brief": "Passwordless authentication (passkeys, biometrics) is more secure \u2014 until you die. How do your heirs access accounts that don't use passwords? A guide to planning for the future of authentication."
+    },
+    {
+      "slug": "digital-will-executor-training-guide",
+      "keywords": [
+        "digital executor training",
+        "teaching family about digital assets",
+        "digital legacy responsibility",
+        "who should be your digital executor"
+      ],
+      "brief": "You've appointed a Digital Executor. But have you trained them? What do they actually need to know? A step-by-step guide to preparing your executor for their role."
+    },
+    {
+      "slug": "end-of-life-digital-checklist",
+      "keywords": [
+        "digital estate checklist",
+        "end of life planning digital",
+        "death preparation technology",
+        "what to do with digital assets"
+      ],
+      "brief": "A comprehensive checklist: accounts to close, data to preserve, passwords to share, documents to delete, and assets to transfer. Use this before it's too late."
+    },
+    {
+      "slug": "family-communication-secret-sharing",
+      "keywords": [
+        "secret sharing family",
+        "Shamir secret sharing inheritance",
+        "cryptographic key sharing heirs",
+        "distributed trust digital assets"
+      ],
+      "brief": "Instead of one person having all your passwords, distribute trust across multiple family members using cryptographic techniques. No single heir has everything; all must cooperate to access sensitive data."
+    },
+    {
+      "slug": "digital-legacy-insurance-options",
+      "keywords": [
+        "digital legacy insurance",
+        "cyber insurance inheritance",
+        "coverage for digital assets",
+        "insurance for digital risk"
+      ],
+      "brief": "Can you insure your digital assets? Should you? A look at emerging digital legacy insurance products and whether they're worth the cost."
+    },
+    {
+      "slug": "multi-country-digital-asset-map",
+      "keywords": [
+        "international digital assets",
+        "multi-country digital planning",
+        "expat asset location",
+        "cross-border digital documentation"
+      ],
+      "brief": "You have bank accounts in Germany, a crypto exchange in Switzerland, a domain in Ireland, and email with a US provider. Mapping all your assets across jurisdictions is the first step to protecting them."
+    },
+    {
+      "slug": "legacy-contact-selection-guide",
+      "keywords": [
+        "legacy contact selection",
+        "choosing digital executor",
+        "family responsibility digital",
+        "who to trust with accounts"
+      ],
+      "brief": "Your Legacy Contact has real power over your digital identity after you die. How do you choose the right person? What should you ask them? What could go wrong?"
+    },
+    {
+      "slug": "digital-assets-worth-tracking",
+      "keywords": [
+        "digital asset inventory",
+        "valuable digital assets",
+        "what digital assets have value",
+        "monetized digital presence"
+      ],
+      "brief": "Most people forget to track their most valuable digital assets: domain names, email addresses, social media accounts with large followings, cryptocurrency holdings, and digital storefronts. Here's what's worth tracking."
+    },
+    {
+      "slug": "expat-asset-discovery-checkup",
+      "keywords": [
+        "expat asset discovery",
+        "forgotten accounts cleanup",
+        "digital asset audit",
+        "account discovery after years"
+      ],
+      "brief": "You've lived in 5 countries, worked for 10 companies, and created accounts everywhere. You don't even remember half of them. A guide to discovering and cataloging your scattered digital presence."
+    },
+    {
+      "slug": "privacy-settings-family-readiness",
+      "keywords": [
+        "privacy settings inheritance",
+        "public vs private accounts",
+        "account visibility after death",
+        "digital privacy and family"
+      ],
+      "brief": "Your accounts might be set to private \u2014 which means your family can't find them or access them after you die. How to balance personal privacy with family access."
+    },
+    {
+      "slug": "business-succession-buy-sell-agreements",
+      "keywords": [
+        "business succession agreement",
+        "buy-sell clause digital business",
+        "partnership inheritance",
+        "business asset transfer"
+      ],
+      "brief": "If you own a business \u2014 especially a digital or online business \u2014 you need a buy-sell agreement that specifies what happens if you die. Without it, your heirs and your business partners could be in conflict."
+    },
+    {
+      "slug": "digital-inheritance-timeline-planning",
+      "keywords": [
+        "timeline digital inheritance",
+        "long-term succession planning",
+        "years-ahead digital planning",
+        "generational digital assets"
+      ],
+      "brief": "Should your digital legacy be accessed immediately? After 5 years? Only for your children, not grandchildren? Planning the timeline of access is as important as planning what to access."
+    },
+    {
+      "slug": "estate-executor-digital-training",
+      "keywords": [
+        "executor training digital assets",
+        "teaching executors about technology",
+        "non-technical executor help",
+        "simplifying digital complexity"
+      ],
+      "brief": "Your executor might be 75 years old and afraid of technology. How do you prepare a non-technical person to handle your digital legacy? Practical steps for simplifying the process."
+    },
+    {
+      "slug": "tax-implications-digital-inheritance",
+      "keywords": [
+        "capital gains tax digital assets",
+        "tax on inherited cryptocurrency",
+        "inheritance tax digital goods",
+        "GDPR tax implications"
+      ],
+      "brief": "Inheriting \u20ac50,000 in digital assets might trigger capital gains tax. Inheriting cryptocurrency, domains, or online businesses carries unexpected tax liabilities. A guide to the tax implications of digital inheritance."
+    },
+    {
+      "slug": "secure-communication-beyond-death",
+      "keywords": [
+        "messaging after death",
+        "communication from beyond",
+        "scheduled messages inheritance",
+        "letters for future",
+        "final messages family"
+      ],
+      "brief": "Write messages for your children to receive on their 18th birthday. Record videos for grandchildren you'll never meet. Use scheduled email to deliver final thoughts. Technology lets you communicate from beyond."
+    },
+    {
+      "slug": "dutch-testament-digital-assets-notaris",
+      "keywords": [
+        "Dutch testament digital assets",
+        "notaris digital planning",
+        "Netherlands digital inheritance",
+        "testament preparation digital",
+        "digital legacy notaris"
+      ],
+      "brief": "In the Netherlands, a notaris handles your testament and estate. But what about digital assets, cryptocurrency, and online accounts? A complete guide to integrating digital assets into your Dutch testament with the help of a notaris."
+    },
+    {
+      "slug": "german-vollmacht-digital-nacherbe",
+      "keywords": [
+        "Vollmacht digital assets Germany",
+        "German Nachlass digital",
+        "Erbrecht online accounts",
+        "Bevollm\u00e4chtigter digital",
+        "Durable power of attorney Germany"
+      ],
+      "brief": "A German Vollmacht (power of attorney) lets someone act on your behalf while you're alive. But does it cover digital assets? A guide to Bevollm\u00e4chtigung for your online legacy in Germany."
+    },
+    {
+      "slug": "french-donation-entre-vifs-digital",
+      "keywords": [
+        "donation entre vifs France digital",
+        "French lifetime gift digital assets",
+        "donation digital France",
+        "successional planning France",
+        "h\u00e9ritage num\u00e9rique France"
+      ],
+      "brief": "A donation entre vifs (lifetime gift) can transfer some digital assets while you're alive. But French law is unclear about online accounts and data. A guide to succession planning for your digital life in France."
+    },
+    {
+      "slug": "spanish-testament-testador-digital",
+      "keywords": [
+        "testamento digital Espa\u00f1a",
+        "Spanish digital inheritance planning",
+        "herencia digital testador",
+        "digital assets Spain testament",
+        "notario digital Spain"
+      ],
+      "brief": "Your Spanish testament (testamento) might mention your house, but does it cover your digital assets? A guide for testadores planning a digital legacy in Spain."
+    },
+    {
+      "slug": "italian-testamento-olografo-digital",
+      "keywords": [
+        "testamento olografo digital Italia",
+        "Italian handwritten will digital",
+        "successione digitale Italia",
+        "notaio digital testamento",
+        "digital assets Italy will"
+      ],
+      "brief": "An Italian testamento olografo (handwritten will) is legally valid, but what about your digital assets? A guide to integrating online accounts and data into your Italian succession plan."
+    }
+  ]
 }

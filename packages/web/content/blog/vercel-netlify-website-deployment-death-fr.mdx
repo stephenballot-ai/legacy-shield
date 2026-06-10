@@ -1,0 +1,131 @@
+---
+title: "Ton Site Meurt Avec Toi — Sur Vercel et Netlify"
+description: "Tu as un projet déployé sur Vercel ou Netlify. Il reçoit du trafic réel. Quand tu meurs, il se débranche. Personne d'autre n'a accès. Voici ce qui arrive vraiment à ton infrastructure web, et comment tu peux sauver ton site."
+date: "2026-06-10"
+author: "LegacyShield Team"
+locale: "fr"
+slug: "vercel-netlify-website-deployment-death"
+keywords: ["Vercel site décès", "Netlify succession", "site web héritage", "infrastructure web mort", "site va offline après décès", "patrimoine numérique site"]
+readingTime: "6 min de lecture"
+---
+
+## La Crise Silencieuse : Ton Site Dépend De Toi
+
+Tu as construit un projet secondaire pendant ton temps libre. C'est peut-être un outil SaaS, une plateforme communautaire, un site portfolio, ou un utilitaire utile que des milliers de personnes utilisent chaque mois.
+
+Il tourne sur Vercel ou Netlify. Il reçoit du trafic réel. Tes utilisateurs en dépendent.
+
+Et quand tu meurs, il disparaît.
+
+Ta famille ne sait pas qu'il existe. Elle ne sait pas comment le maintenir en vie. Tes utilisateurs découvrent que le site a disparu, et personne ne peut le restaurer. Des années de travail, potentiellement des années de revenus récurrents, volatilisées parce que personne d'autre n'a accès à ta plateforme de déploiement.
+
+C'est en train de se passer maintenant. Cela arrive à des développeurs qui n'ont jamais pensé à ce qui advient de leur code après leur décès.
+
+## Comment Ton Site Reste Vraiment Vivant
+
+Quand tu déploies un site sur Vercel ou Netlify, tu ne fais pas simplement télécharger des fichiers sur un serveur que tu possèdes. Tu crées une chaîne de dépendances complexe :
+
+1. **Ton compte GitHub/GitLab** — le code source vit ici
+2. **Ton compte Vercel/Netlify** — connecté à ton dépôt Git, auto-déploiement à chaque commit
+3. **Ton registraire de domaine** — tu possèdes le domaine (généralement)
+4. **Certificats SSL** — renouvelés automatiquement par Vercel/Netlify, mais liés à ton compte
+5. **Variables d'environnement & secrets** — identifiants de base de données, clés API, tokens de processeur de paiement, tous stockés dans ta plateforme de déploiement
+6. **Intégrations personnalisées** — notifications Slack, analytics, outils de monitoring, tous authentifiés pour tes comptes
+
+Pour que ton site reste en ligne, toutes ces connexions doivent rester actives. Le plus critique : ton compte Vercel ou Netlify doit rester actif, et quelqu'un doit y avoir accès.
+
+## Ce Qui Se Passe Réellement Quand Tu Meurs
+
+Voici le scénario, étape par étape :
+
+**Jour 1-7 : Personne ne remarque**
+Ta famille trouve ton ordinateur portable. Elle commence à fermer tes comptes (e-mail, réseaux sociaux, stockage en nuage). Mais elle ne sait rien de ton site déployé. Il fonctionne toujours. Tes utilisateurs ne savent pas que tu as disparu.
+
+**Semaine 2-4 : De petites fissures apparaissent**
+Le renouvellement de ton domaine est dû. Tu l'as configuré pour se renouveler automatiquement à partir de ta carte de crédit. Mais ta famille annule tes cartes de crédit. Le renouvellement échoue. Ton domaine expire. Ton site est maintenant inaccessible.
+
+Ou : Vercel ou Netlify te envoie un e-mail à propos d'une activité suspecte sur ton compte (ta famille essaie d'y accéder). Ils verrouillent le compte pour la sécurité. Le site se débranche. Personne ne peut le déverrouiller sans ta vérification personnelle.
+
+**Mois 2-3 : Escalade**
+Ton code source est maintenant inaccessible (ton compte GitHub). Ton site déployé est inaccessible (ton compte Vercel/Netlify). Tes utilisateurs ont abandonné d'essayer de visiter. Le site est hors ligne depuis des semaines.
+
+Si ton site avait :
+- Une base de données MongoDB — elle continue à fonctionner, accumule des frais, potentiellement exposée parce que personne ne met à jour les règles de sécurité
+- Une clé API Stripe pour les paiements — un hook de paiement essaie toujours de s'exécuter, créant des transactions échouées et des alertes à fraude potentielle
+- Un mot de passe de base de données backend stocké dans les variables d'environnement — verrouillé dans Vercel, impossible à réinitialiser
+
+## Le Contexte Français
+
+En France, c'est particulièrement problématique du point de vue du droit des successions. Selon le code civil français (articles 871-906), tu es libre de laisser ton patrimoine — ta maison, ton entreprise, ton argent.
+
+Mais ton site déployé ? C'est plus compliqué.
+
+Les conditions de Vercel et Netlify stipulent que ton compte n'est pas transférable. Tu ne peux pas le léguer à tes enfants comme tu laisserais une entreprise. Le compte est légalement lié à toi. Un notaire français te dirait : "Tu ne peux pas simplement transmettre cela comme une propriété. C'est différent."
+
+Et c'est vrai.
+
+Cela crée un problème légal où ton patrimoine numérique (ton site) et ton droit de succession (le droit de le transmettre) entrent en conflit avec les conditions d'utilisation de Vercel.
+
+## Étapes Pratiques Maintenant
+
+### 1. **Documente tout**
+Crée un document contenant :
+- Ton e-mail de compte Vercel/Netlify et comment y accéder (e-mail de récupération, gestionnaire de mots de passe, etc.)
+- Quels dépôts sont déployés où
+- Ton registraire de domaine et identifiants de connexion
+- Toutes les clés API, données de base de données et intégrations tierces
+- Si le site génère des revenus, et comment
+- Tous les coûts récurrents (domaine, hébergement, base de données, etc.)
+- Instructions pour transférer la propriété ou fermer proprement
+
+Laisse ce document avec ton testament, ou dans un endroit sûr que ta famille connaît.
+
+### 2. **Utilise des comptes d'équipe**
+Ne déploie pas sous ton compte Vercel/Netlify personnel. Crée un compte d'équipe pour ton projet. Ajoute un collègue de confiance, un membre de la famille ou un partenaire commercial comme propriétaire. De cette façon, si quelque chose t'arrive, il a un accès égal.
+
+Pour les projets sérieux : rends le compte d'équipe propriété de ton entreprise ou entité juridique, pas ton compte personnel.
+
+### 3. **Assure le renouvellement du domaine**
+Assure-toi que ton domaine est configuré pour renouvellement automatique. Utilise une carte de crédit que ta famille connaît et tiendra active. Un domaine expiré est le moyen le plus rapide de rendre ton site inaccessible.
+
+### 4. **Stocke les secrets en sécurité**
+Pour les clés API critiques et les mots de passe de base de données, ne les laisse pas seulement dans les variables d'environnement de Vercel. Conserve des copies dans un gestionnaire de mots de passe (1Password, Bitwarden, KeePass) auquel ta famille peut accéder. Marque-les comme "accès d'urgence uniquement" mais assure-toi qu'ils sont disponibles.
+
+### 5. **Prévois succession ou fermeture**
+Décide : veux-tu que ce site continue après toi ? Ou préfères-tu qu'il se ferme proprement ?
+
+Si tu veux qu'il continue :
+- Transfère la propriété maintenant à une personne ou organisation de confiance
+- Documente le modèle commercial et comment le maintenir en vie
+- Assure-toi que quelqu'un d'autre sait comment déployer le code
+
+Si tu préfères qu'il se ferme :
+- Documente ce qui doit arriver au code (l'open-sourcer ? L'archiver ?)
+- Prévois que les utilisateurs puissent exporter leurs données
+- Fixe une date d'arrêt dans tes instructions testamentaires
+
+### 6. **Rends tes projets open-source**
+Si ton site déployé est un outil utile, envisage de rendre le code open-source. De cette façon, même si ton déploiement Vercel se débranche, la communauté peut le maintenir et le redéployer elle-même.
+
+## La Vue D'Ensemble
+
+Ton site déployé est partie d'un pattern plus large : **les projets numériques qui créent de la valeur mais n'ont pas de plan de succession**.
+
+Quand tu meurs :
+- Tes dépôts GitHub deviennent inaccessibles (sauf s'ils sont open-source)
+- Tes sites déployés se débranchent
+- Ta documentation, tutoriels et ressources partagées disparaissent
+- Tous les revenus qu'ils génèrent s'arrêtent
+- Le savoir et les outils que tu as construits pour ta communauté sont perdus
+
+C'est évitable. Cela nécessite de la planification, mais ce n'est pas compliqué.
+
+Commence aujourd'hui :
+1. **Liste tes projets déployés** — quels sites tournent réellement sur Vercel, Netlify ou similaire ?
+2. **Documente les dépendances** — qui a accès ? Qu'est-ce qui doit être renouvelé ? Qu'est-ce qui casse si tu disparais ?
+3. **Fais un plan de succession** — sera-t-il hérité ? Open-sourcé ? Archivé ?
+4. **Partage ce plan** — ta famille doit savoir que ces projets existent et ce que tu veux qu'il advienne d'eux.
+
+Tes sites déployés sont ton patrimoine numérique. Ils peuvent te survivre — mais seulement si tu le planifies.
+
+**[Planifie ton patrimoine numérique aujourd'hui](/register)** — car les outils et le savoir que tu construis méritent de vivre au-delà.

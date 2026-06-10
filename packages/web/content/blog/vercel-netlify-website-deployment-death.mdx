@@ -1,0 +1,145 @@
+---
+title: "Your Deployed Website Will Die With You — Here's Why"
+description: "Your side project is live on Vercel or Netlify with real traffic. When you die, it goes offline. Nobody else has access. Here's what actually happens to your web infrastructure, and how to prevent your site from vanishing."
+date: "2026-06-10"
+author: "LegacyShield Team"
+locale: "en"
+slug: "vercel-netlify-website-deployment-death"
+keywords: ["Vercel website death", "Netlify inheritance", "website deployment succession", "web infrastructure legacy", "website goes offline after death", "digital legacy website"]
+readingTime: "6 min read"
+---
+
+## The Silent Crisis: Your Website Depends on You
+
+You built a side project in your spare time. Maybe it's a SaaS tool, a community directory, a portfolio site, or a useful utility that thousands of people use every month.
+
+It's deployed on Vercel or Netlify. It gets real traffic. Your users depend on it.
+
+And when you die, it will disappear.
+
+Your family won't know it exists. They won't know how to keep it running. Your users will discover the site is gone, and no one will be able to restore it. Years of work, potentially years of recurring revenue, gone because nobody else has access to your deployment platform.
+
+This isn't hypothetical. It's happening right now to developers who never thought about what happens to their code after they're gone.
+
+## How Your Website Actually Stays Alive
+
+When you deploy a website to Vercel or Netlify, you're not just uploading files to a server you own. You're creating a complex dependency chain:
+
+1. **Your GitHub/GitLab account** — the source code lives here
+2. **Your Vercel/Netlify account** — connected to your Git repository, auto-deploys on every commit
+3. **Your domain registrar** — you own the domain (usually)
+4. **SSL certificates** — auto-renewed by Vercel/Netlify, but tied to your account
+5. **Environment variables & secrets** — database credentials, API keys, payment processor tokens, all stored in your deployment platform
+6. **Custom integrations** — Slack notifications, analytics, monitoring tools, all authenticated to your accounts
+
+For your site to stay online, all of these connections must remain active. Most critically: your Vercel or Netlify account must remain active, and someone must have access to it.
+
+## What Actually Happens When You Die
+
+Here's the scenario, step by step:
+
+**Day 1-7: Nobody notices**
+Your family finds your laptop. They start closing your accounts (email, social media, cloud storage). But they don't know about your deployed website. It's still running. Your users don't know you've passed away.
+
+**Week 2-4: Small cracks appear**
+Your domain's renewal is due. You set it to auto-renew from your credit card. But your family cancels your credit cards. The renewal fails. Your domain expires. Your website is now unreachable.
+
+Alternatively: Vercel or Netlify sends you an email about suspicious activity on your account (your family trying to access it). They lock the account for security. The site goes offline. No one can unlock it without your personal verification.
+
+**Month 2-3: Escalation**
+Your source code is now inaccessible (your GitHub account). Your deployed site is inaccessible (your Vercel/Netlify account). Your users have given up trying to visit. The site has been offline for weeks.
+
+If your website had:
+- A MongoDB database — it's still running, accruing charges, potentially exposed because nobody updates the security rules
+- A Stripe API key for payments — a payment hook is still trying to fire, creating failed transactions and potential fraud alerts
+- A backend database password stored in environment variables — locked away in Vercel, impossible to reset
+
+**Year 1+: The long-term damage**
+Your domain is re-registered by a cybersquatter or reseller. Your users are confused about why the site disappeared. If your site had affiliate revenue or advertising, that revenue stream is simply lost. Your intellectual property — the actual code, the product, the service — is effectively abandoned.
+
+## The Human Cost
+
+This isn't just about technical infrastructure. It's about real people:
+
+**Scenario 1: The SaaS founder**
+You built a small but profitable SaaS tool. It generates €2,000/month in subscription revenue. Customers are using it daily for their business. When you die, the site goes offline immediately. Your customers lose access to their data. You had no succession plan. The revenue stops. Your family gets nothing.
+
+**Scenario 2: The community builder**
+You created a community directory website — a resource for people in your niche. Thousands of people visit it monthly. It's a public service, but you built it because you cared. When you die, the site vanishes. The community loses an important resource.
+
+**Scenario 3: The tutorial author**
+You wrote a technical tutorial site deployed on Vercel. It's become the reference guide for a specific technology. Developers link to it. Universities assign it as reading. When your account is closed, thousands of broken links appear across the internet. Your knowledge contribution disappears.
+
+## Why This Isn't Covered in Estate Planning
+
+Traditional estate planning covers bank accounts, property, and tangible assets. Your lawyer can help you will your house, your car, your investments.
+
+But a Vercel deployment? That's not in the estate planning playbook.
+
+Vercel and Netlify's terms of service say your account is non-transferable. You can't will it to your children like you'd will a business. The account is legally tied to you. When you die, it should be closed.
+
+This creates a problem: **your digital work is legally tied to your personal account, but it has real value and real dependents**.
+
+## What You Can Do Right Now
+
+### 1. **Document everything**
+Create a document that lists:
+- Your Vercel/Netlify account email and a way to access it (recovery email, password manager, etc.)
+- Which repositories are deployed where
+- Your domain registrar and login credentials
+- All API keys, database credentials, and third-party integrations
+- Whether the site generates revenue, and how
+- Any recurring costs (domain, hosting, database, etc.)
+- Instructions for transferring ownership or shutting down gracefully
+
+Leave this document with your will, or in a secure location your family knows about.
+
+### 2. **Use team accounts**
+Instead of deploying under your personal Vercel/Netlify account, create a team account for your project. Add a trusted colleague, family member, or business partner as an owner. This way, if something happens to you, they have equal access.
+
+For serious projects, make the team account owned by your company or legal entity, not your personal account.
+
+### 3. **Automate domain renewal**
+Make sure your domain is set to auto-renew. Use a credit card that your family knows about and will keep active. A lapsed domain is the fastest way to make your website unreachable.
+
+### 4. **Store secrets securely**
+For critical API keys and database passwords, don't just leave them in Vercel's environment variables. Store copies in a password manager (1Password, Bitwarden, KeePass) that your family can access. Mark them as "emergency access only" but make sure they're available if your site needs to be recovered.
+
+### 5. **Plan for succession or shutdown**
+Decide: do you want this site to live on after you? Or would you prefer it to shut down gracefully?
+
+If you want it to continue:
+- Transfer ownership to a trusted person or organization now
+- Document the business model and how to keep it running
+- Make sure someone else knows how to deploy code
+
+If you prefer it to shut down:
+- Document what should happen to the code (open-source it? archive it?)
+- Plan for users to get export their data
+- Set a shutdown date in your will instructions
+
+### 6. **Open-source your projects**
+If your deployed site is a useful tool, consider making the code open-source. That way, even if your Vercel deployment goes offline, the community can maintain and redeploy it themselves.
+
+## The Bigger Picture
+
+Your Vercel or Netlify deployment is part of a larger pattern: **digital projects that create value but have no succession plan**.
+
+When you die:
+- Your GitHub repositories become inaccessible (unless open-sourced)
+- Your deployed websites go offline
+- Your documentation, tutorials, and shared resources disappear
+- Any revenue they generate stops
+- The knowledge and tools you built for your community are lost
+
+This is preventable. It requires planning, but it's not complicated.
+
+Start today:
+1. **List your deployed projects** — what sites are actually running on Vercel, Netlify, or similar platforms?
+2. **Document the dependencies** — who has access? What needs to be renewed? What breaks if you disappear?
+3. **Make a succession plan** — will it be inherited? Open-sourced? Archived?
+4. **Share that plan** — your family needs to know these projects exist and what you want to happen to them.
+
+Your deployed websites are your digital legacy. They can outlive you — but only if you plan for it.
+
+**[Plan your digital legacy today](/register)** — because the tools and knowledge you build deserve to live on.

@@ -1,0 +1,124 @@
+---
+title: "Je Website Sterft Met Je — Op Vercel en Netlify"
+description: "Je hebt een project gedeployd op Vercel of Netlify. Het krijgt daadwerkelijk verkeer. Als je sterft, gaat het offline. Niemand anders heeft toegang. Hier is wat er werkelijk gebeurt met je web-infrastructuur, en hoe je je site kunt redden."
+date: "2026-06-10"
+author: "LegacyShield Team"
+locale: "nl"
+slug: "vercel-netlify-website-deployment-death"
+keywords: ["Vercel website erven", "Netlify nalatenschap", "website deployment erfenis", "web-infrastructuur dood", "website gaat offline na dood", "digitale erfenis website"]
+readingTime: "6 min leestijd"
+---
+
+## De Stille Crisis: Je Website Hangt Van Je Af
+
+Je hebt een sidebusiness gebouwd in je vrije tijd. Misschien is het een SaaS-tool, een community platform, een portfolio site, of een handige utility die duizenden mensen maandelijks gebruiken.
+
+Het draait op Vercel of Netlify. Het krijgt echt verkeer. Je gebruikers vertrouwen erop.
+
+En als je sterft, verdwijnt het.
+
+Je familie weet niet dat het bestaat. Ze weten niet hoe ze het draaiende kunnen houden. Je gebruikers ontdekken dat de site weg is, en niemand kan het herstellen. Jaren aan werk, mogelijk jaren aan terugkerende inkomsten, weg omdat niemand anders toegang heeft tot je deployment-platform.
+
+Dit gebeurt nu. Het gebeurt met developers die nooit hebben nagedacht over wat er met hun code gebeurt nadat zij er niet meer zijn.
+
+## Hoe Je Website Echt Blijft Draaien
+
+Wanneer je een website naar Vercel of Netlify deployt, laad je niet gewoon bestanden naar een server die je bezit. Je creëert een complexe afhankelijkheidsketen:
+
+1. **Je GitHub/GitLab account** — de broncode leeft hier
+2. **Je Vercel/Netlify account** — verbonden met je Git repository, auto-deploy op elke commit
+3. **Je domeinregistrar** — je bezit het domein (meestal)
+4. **SSL-certificaten** — automatisch verlengd door Vercel/Netlify, maar aan je account gebonden
+5. **Omgevingsvariabelen & geheimen** — databasegegevens, API-sleutels, payment processor tokens, allemaal opgeslagen in je deployment-platform
+6. **Aangepaste integraties** — Slack-berichten, analytics, monitoring tools, alles geverifieerd voor je accounts
+
+Om je site online te houden, moeten al deze verbindingen actief blijven. Het meest kritisch: je Vercel of Netlify account moet actief blijven, en iemand moet er toegang toe hebben.
+
+## Wat Werkelijk Gebeurt Als Je Sterft
+
+Hier is het scenario, stap voor stap:
+
+**Dag 1-7: Niemand merkt het**
+Je familie vindt je laptop. Ze beginnen je accounts te sluiten (e-mail, social media, cloud opslag). Maar ze weten niet van je deployed website. Het draait nog. Je gebruikers weten niet dat je bent overleden.
+
+**Week 2-4: Kleine scheuren verschijnen**
+Je domeinverlenging is voltooid. Je hebt het ingesteld op automatische verlenging van je creditcard. Maar je familie annuleert je creditcards. De verlenging mislukt. Je domein vervalt. Je website is nu onbereikbaar.
+
+Of: Vercel of Netlify stuurt je een e-mail over verdachte activiteiten op je account (je familie probeert toegang te krijgen). Ze vergrendelen het account voor veiligheid. De site gaat offline. Niemand kan het ontgrendelen zonder jouw persoonlijke verificatie.
+
+**Maand 2-3: Escalatie**
+Je broncode is nu ontoegankelijk (je GitHub-account). Je deployed site is ontoegankelijk (je Vercel/Netlify account). Je gebruikers hebben het opgegeven om te bezoeken. De site is weken offline.
+
+Als je website had:
+- Een MongoDB-database — deze draait nog, accumuleert kosten, potentieel blootgesteld omdat niemand de beveiligingsregels bijwerkt
+- Een Stripe API-sleutel voor betalingen — een payment hook probeert nog steeds te vuren, wat mislukte transacties en mogelijke fraudewaarschuwingen creëert
+- Een backend database-wachtwoord opgeslagen in omgevingsvariabelen — opgesloten in Vercel, onmogelijk om opnieuw in te stellen
+
+## De Nederlandse Context
+
+In Nederland is dit bijzonder problematisch vanuit erfrechtsoog. Onder Nederlands erfrecht (artikel 3:92-95 BW) ben je vrij om je bezittingen na te laten — je huis, je bedrijf, je geld.
+
+Maar je deployed website? Dat zit ingewikkelder.
+
+Vercel en Netlify's voorwaarden zeggen dat je account niet overdraagbaar is. Je kunt het niet aan je kinderen nalaten zoals je een bedrijf zou nalaten. De account is wettelijk aan jou gebonden. 
+
+Een Nederlander zou zijn notaris raadplegen en horen: "Je kunt dit niet gewoon doorgeven zoals eigendom. Dit is anders." En dat klopt.
+
+## Praktische Stappen Nu
+
+### 1. **Documenteer alles**
+Maak een document met:
+- Je Vercel/Netlify account-e-mail en hoe je erin kunt komen (herstel-e-mail, password manager, etc.)
+- Welke repositories waar zijn gedeployd
+- Je domeinregistrar en inloggegevens
+- Alle API-sleutels, databasegegevens, en derde integraties
+- Of de site inkomsten genereert, en hoe
+- Eventuele terugkerende kosten (domein, hosting, database, etc.)
+- Instructies voor eigendomsoverdracht of ordelijke afsluiting
+
+Laat dit document achter met je testament, of op een veilige plaats die je familie kent.
+
+### 2. **Gebruik team-accounts**
+Plaats je project niet onder je persoonlijke Vercel/Netlify-account. Maak een team-account voor je project. Voeg een vertrouwde collega, familielid, of zakenpartner toe als eigenaar. Dit geeft hun gelijke toegang.
+
+Voor serieuze projecten: maak het team-account eigendom van je bedrijf of rechtspersoon, niet je persoonlijke account.
+
+### 3. **Zorg voor domeinverlenging**
+Zorg ervoor dat je domein is ingesteld op automatische verlenging. Gebruik een creditcard die je familie kent en actief zal houden. Een verlopen domein is de snelste manier om je website onbereikbaar te maken.
+
+### 4. **Sla secrets veilig op**
+Voor kritieke API-sleutels en databasewachtwoorden, laat ze niet alleen in Vercels omgevingsvariabelen. Bewaar kopieën in een password manager (1Password, Bitwarden, KeePass) die je familie kan openen. Markeer ze als "noodsituatie alleen" maar zorg dat ze beschikbaar zijn.
+
+### 5. **Plan opvolging of afsluiting**
+Beslis: wil je dat deze site na je verder leeft? Of wil je dat het ordelijk wordt afgesloten?
+
+Als je wilt dat het voortduurt:
+- Overdracht eigendom nu aan een vertrouwd persoon of organisatie
+- Documenteer het bedrijfsmodel en hoe het draaiende blijft
+- Zorg dat iemand anders weet hoe je code deployt
+
+### 6. **Open-source je projecten**
+Als je deployed site een handige tool is, overweeg dan de code open-source te maken. Op die manier, zelfs als je Vercel-deployment offline gaat, kan de community het onderhouden en zelf opnieuw deployen.
+
+## Het Grote Beeld
+
+Je deployed website is onderdeel van een groter patroon: **digitale projecten die waarde creëren maar geen opvolgingsplan hebben**.
+
+Wanneer je sterft:
+- Je GitHub repositories worden ontoegankelijk (tenzij open-source)
+- Je deployed websites gaan offline
+- Je documentatie, tutorials en gedeelde bronnen verdwijnen
+- Eventuele inkomsten stoppen
+- De kennis en tools die je voor je community hebt gebouwd, zijn weg
+
+Dit is voorkoombaar. Het vereist planning, maar het is niet ingewikkeld.
+
+Begin vandaag:
+1. **Lijster je deployed projecten** — welke websites draaien eigenlijk op Vercel, Netlify, of soortgelijk?
+2. **Documenteer de afhankelijkheden** — wie heeft toegang? Wat moet verlengd worden? Wat breekt als je verdwijnt?
+3. **Maak een opvolgingsplan** — wordt het overgenomen? Open-source? Gearchiveerd?
+4. **Deel dat plan** — je familie moet weten dat deze projecten bestaan en wat je ervan wilt.
+
+Je deployed websites zijn je digitale erfenis. Ze kunnen voorbij je bestaan — maar alleen als je dit plant.
+
+**[Plan je digitale erfenis vandaag](/register)** — want de tools en kennis die je bouwt, verdienen het om voort te bestaan.
