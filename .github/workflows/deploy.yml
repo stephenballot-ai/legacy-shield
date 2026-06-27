@@ -4,6 +4,12 @@ on:
   push:
     branches: [main]
 
+# One deploy at a time — two overlapping SSH sessions race on the build dir
+# and pm2. Newer push wins; in-flight deploy is cancelled.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
 jobs:
   deploy:
     name: Deploy to Production
@@ -77,7 +83,10 @@ jobs:
 
             # Web (Standalone Build)
             cd /opt/legacyshield/app/packages/web
-            rm -rf .next
+            # Keep .next/cache so Next re-renders only changed pages instead of
+            # all 650+ every deploy (that's what overran the timeout). Wipe
+            # everything else for a clean standalone output.
+            find .next -mindepth 1 -maxdepth 1 ! -name cache -exec rm -rf {} + 2>/dev/null || true
             NEXT_PUBLIC_API_URL=https://api.legacyshield.eu npm run build
 
             # Prepare Standalone output

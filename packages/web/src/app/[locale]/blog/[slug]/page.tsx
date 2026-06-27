@@ -2,15 +2,20 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { Link } from '@/i18n/routing';
-import { getPostBySlug, getAllSlugs } from '@/lib/blog';
+import { getPostBySlug } from '@/lib/blog';
 import { Logo } from '@/components/ui/Logo';
 
 interface Props {
   params: { locale: string; slug: string };
 }
 
+// ISR: don't prerender posts at build (it grew to 650+ pages and overran the
+// deploy). Render on first request, then cache. content/ is shipped to the
+// runtime dir so getPostBySlug works on-demand.
+export const dynamicParams = true;
+export const revalidate = 3600;
 export function generateStaticParams() {
-  return getAllSlugs().map(({ slug, locale }) => ({ slug, locale }));
+  return [];
 }
 
 export async function generateMetadata({ params: { locale, slug } }: Props): Promise<Metadata> {
