@@ -2,20 +2,19 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { Link } from '@/i18n/routing';
-import { getPostBySlug } from '@/lib/blog';
+import { getPostBySlug, getAllSlugs } from '@/lib/blog';
 import { Logo } from '@/components/ui/Logo';
 
 interface Props {
   params: { locale: string; slug: string };
 }
 
-// ISR: don't prerender posts at build (it grew to 650+ pages and overran the
-// deploy). Render on first request, then cache. content/ is shipped to the
-// runtime dir so getPostBySlug works on-demand.
-export const dynamicParams = true;
-export const revalidate = 3600;
+// Prerender posts at build: next-mdx-remote/rsc compiles MDX, and the pm2
+// standalone runtime doesn't bundle the MDX compiler — rendering on-demand
+// 500s. Build time is kept in check by preserving .next/cache between deploys
+// (deploy.yml), so unchanged posts restore from cache instead of re-rendering.
 export function generateStaticParams() {
-  return [];
+  return getAllSlugs().map(({ slug, locale }) => ({ slug, locale }));
 }
 
 export async function generateMetadata({ params: { locale, slug } }: Props): Promise<Metadata> {
