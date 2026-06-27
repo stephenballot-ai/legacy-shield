@@ -79,6 +79,10 @@ jobs:
             mkdir -p .next/standalone/packages/web/.next
             cp -r .next/static .next/standalone/packages/web/.next/static
             cp -r public .next/standalone/packages/web/public 2>/dev/null || true
+            # Blog reads content/blog at runtime (next-intl renders [locale] pages
+            # dynamically); standalone doesn't bundle it, so copy it in or the blog
+            # and sitemap come up empty.
+            cp -r content .next/standalone/packages/web/content
 
             # Restart with PM2
             cd .next/standalone/packages/web
