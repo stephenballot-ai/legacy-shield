@@ -15,6 +15,11 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
+          # Default command_timeout is 10m; the web build now prerenders 650+
+          # static pages (grows ~6/day) and overran it, killing the deploy
+          # mid-build so nothing shipped. ponytail: bump the ceiling — revisit
+          # with ISR/on-demand rendering if page count keeps climbing.
+          command_timeout: "30m"
           script: |
             # NOTE: deliberately not using `set -e` — prior deploys have been
             # silently tolerating a prisma migrate warning ("DATABASE_URL not
