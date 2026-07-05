@@ -80,3 +80,23 @@ memory/
 
 # MemPalace local index (secondary, regenerable)
 .mempalace/
+
+# --- Housekeeping (2026-06): keep cross-project files & secrets out of legacy-shield ---
+# Secret credential files — never commit these
+.mcpregistry_github_token
+.mcpregistry_registry_token
+
+# Separate projects dumped/nested in this checkout (BitAtlas, anti-hr, cron jobs)
+/bitatlas/
+/bitatlas-p1/
+/anti-hr/
+/cron-jobs/
+
+# Cross-project stragglers sitting under otherwise-tracked dirs
+/Specs/bitatlas-*
+/assets/bitatlas-*
+/assets/music/
+/skills/answeroverflow/
+
+# Half-finished pnpm switch — this repo uses npm (package-lock.json is authoritative)
+pnpm-lock.yaml
