@@ -1,5 +1,5 @@
 {
-  "nextIndex": 98,
+  "nextIndex": 99,
   "topics": [
     {
       "slug": "why-you-need-a-digital-executor",
@@ -1058,6 +1058,171 @@
         "medical directive inheritance"
       ],
       "brief": "Some countries allow euthanasia or assisted dying under strict conditions. How to document your wishes digitally and ensure your family honors them."
+    },
+    {
+      "slug": "ai-assistant-data-siri-alexa-after-death",
+      "keywords": [
+        "Siri data after death",
+        "Alexa voice history inheritance",
+        "Google Assistant digital legacy",
+        "AI assistant privacy estate",
+        "voice data deletion death"
+      ],
+      "brief": "Your AI assistants — Siri, Alexa, Google Assistant — hold years of voice queries, routines, and personal data. What happens to that data when you die, and who can access it?"
+    },
+    {
+      "slug": "health-wearable-data-apple-watch-fitbit-death",
+      "keywords": [
+        "Apple Watch data after death",
+        "Fitbit health data inheritance",
+        "Garmin health records estate",
+        "wearable health data privacy death",
+        "digital health records inheritance"
+      ],
+      "brief": "Apple Watch, Fitbit, Garmin and other wearables collect years of intimate health data. Can your family inherit that data? Should they? And what happens if no plan is in place?"
+    },
+    {
+      "slug": "cloud-gaming-subscription-inheritance",
+      "keywords": [
+        "PlayStation Plus inheritance",
+        "Xbox Game Pass after death",
+        "Nintendo Switch account death",
+        "digital game library inheritance",
+        "gaming account estate planning"
+      ],
+      "brief": "Cloud gaming subscriptions and digital game libraries can't legally be transferred at death under most Terms of Service. What expats and privacy-aware gamers need to know."
+    },
+    {
+      "slug": "signal-telegram-encrypted-messages-death",
+      "keywords": [
+        "Signal after death",
+        "Telegram account inheritance",
+        "encrypted messages estate planning",
+        "disappearing messages digital legacy",
+        "privacy app accounts after death"
+      ],
+      "brief": "Signal, Telegram, and similar end-to-end encrypted apps are designed so that no one — not even the company — can read your messages. That same privacy can erase years of precious family conversations after death."
+    },
+    {
+      "slug": "digital-prenuptial-expat-couples-cloud-assets",
+      "keywords": [
+        "digital prenuptial agreement",
+        "expat couple digital assets",
+        "who owns cloud storage marriage",
+        "joint digital accounts inheritance",
+        "digital assets divorce death"
+      ],
+      "brief": "Expat couples in Europe face a unique challenge: who owns the shared cloud storage, the joint domain name, the crypto wallet? Digital prenuptials and cohabitation agreements that plan for digital assets are still rare — but essential."
+    },
+    {
+      "slug": "eu-digital-identity-wallet-death-eidas",
+      "keywords": [
+        "EU Digital Identity Wallet death",
+        "eIDAS 2.0 estate planning",
+        "European digital ID inheritance",
+        "digital identity expiry after death",
+        "EUDI wallet deceased"
+      ],
+      "brief": "The EU Digital Identity Wallet (eIDAS 2.0) will become the digital spine of European life. What happens to your EUDI wallet when you die? How should expats plan for a unified digital ID that disappears at death?"
+    },
+    {
+      "slug": "memorial-website-digital-obituary-guide",
+      "keywords": [
+        "memorial website creation",
+        "digital obituary guide",
+        "online memorial for loved ones",
+        "create memorial page after death",
+        "digital legacy tribute site"
+      ],
+      "brief": "A memorial website gives family and friends a permanent place to gather memories, share stories, and keep a legacy alive. A practical guide to creating one — what to include, where to host it, and how to secure it long-term."
+    },
+    {
+      "slug": "online-banking-pin-debit-card-family-access",
+      "keywords": [
+        "bank PIN family after death",
+        "debit card access deceased",
+        "safe deposit box death",
+        "low-tech banking access inheritance",
+        "cash access deceased spouse"
+      ],
+      "brief": "In a crisis, families often need immediate cash access before legal processes catch up. A practical, low-tech guide to ensuring your family can access funds in the first days after death — legally and without trauma."
+    },
+    {
+      "slug": "digital-trust-minor-children-structured-access",
+      "keywords": [
+        "digital trust minor children",
+        "structured digital inheritance children",
+        "children digital assets trust",
+        "age-gated digital legacy access",
+        "digital executor minor beneficiary"
+      ],
+      "brief": "Leaving digital assets to minor children requires more than a will — it requires a structure that releases the right assets at the right ages, with guidance, not just a dump of passwords they can't use."
+    },
+    {
+      "slug": "newspaper-magazine-subscription-death",
+      "keywords": [
+        "news subscription death cancellation",
+        "FT subscription estate",
+        "Economist account after death",
+        "digital reading history inheritance",
+        "magazine subscription deceased"
+      ],
+      "brief": "Your digital newspaper and magazine subscriptions expire at death — and with them, years of saved articles, reading history, and sometimes shared family plans. What your heirs need to know, and how to plan for it."
+    },
+    {
+      "slug": "expat-tax-residency-digital-assets-inheritance-eu",
+      "keywords": [
+        "expat tax residency death digital assets",
+        "EU inheritance tax digital",
+        "cross-border digital estate tax",
+        "foreign resident death tax implications",
+        "digital assets dual tax treaty death"
+      ],
+      "brief": "Your country of tax residency at death determines which country's inheritance rules apply to your digital assets. For expats in Europe, this can mean double taxation, unexpected levies, or missed exemptions — and most don't know until it's too late."
+    },
+    {
+      "slug": "three-two-one-backup-rule-digital-legacy",
+      "keywords": [
+        "3-2-1 backup rule digital legacy",
+        "offline backup estate planning",
+        "redundant storage digital will",
+        "physical backup digital assets",
+        "USB drive emergency family access"
+      ],
+      "brief": "The 3-2-1 backup rule — three copies, two media types, one offsite — is standard IT wisdom. Applied to your digital legacy, it's the difference between a family that can recover your data and one that cannot."
+    },
+    {
+      "slug": "facebook-instagram-tiktok-memorial-mode-guide",
+      "keywords": [
+        "Facebook memorial account setup",
+        "Instagram legacy contact guide",
+        "TikTok account death policy",
+        "social media memorial mode",
+        "memorialization request social media"
+      ],
+      "brief": "Every major platform handles death differently. A step-by-step guide to activating legacy mode on Facebook, Instagram, and TikTok — before you need it — so your account reflects your wishes, not their defaults."
+    },
+    {
+      "slug": "pension-private-retirement-digital-access-europe",
+      "keywords": [
+        "pension account digital access death",
+        "private retirement account Europe inheritance",
+        "AOW pension death Netherlands",
+        "Deutsche Rentenversicherung beneficiary digital",
+        "pension beneficiary update expat"
+      ],
+      "brief": "European pension systems — AOW in the Netherlands, Deutsche Rentenversicherung in Germany, the French régime général — have specific digital access rules for beneficiaries at death. Most expats have never updated their beneficiary records in their host country."
+    },
+    {
+      "slug": "digital-asset-inventory-annual-review-checklist",
+      "keywords": [
+        "digital asset inventory checklist",
+        "annual digital estate review",
+        "update digital legacy plan",
+        "digital asset audit annual",
+        "digital will review schedule"
+      ],
+      "brief": "Your digital life changes every year — new subscriptions, new accounts, new crypto wallets. An annual digital asset inventory is the difference between a legacy plan that works and one that's three years out of date when it matters most."
     }
   ]
 }
