@@ -1,5 +1,5 @@
 {
-  "nextIndex": 114,
+  "nextIndex": 115,
   "topics": [
     {
       "slug": "why-you-need-a-digital-executor",
@@ -1223,6 +1223,171 @@
         "digital will review schedule"
       ],
       "brief": "Your digital life changes every year — new subscriptions, new accounts, new crypto wallets. An annual digital asset inventory is the difference between a legacy plan that works and one that's three years out of date when it matters most."
+    },
+    {
+      "slug": "joint-account-survivorship-rules-expat-europe",
+      "keywords": [
+        "joint bank account death Europe",
+        "survivorship rights expat",
+        "gemeenschappelijke rekening overlijden",
+        "compte joint décès",
+        "joint account inheritance rules EU"
+      ],
+      "brief": "What happens to your joint bank account when one partner dies — and why the rules differ wildly across EU countries. Dutch joint accounts, French 'compte joint', German Gemeinschaftskonto. How to protect the surviving partner from account freezes."
+    },
+    {
+      "slug": "advance-care-directive-digital-access",
+      "keywords": [
+        "advance care directive digital",
+        "living will digital storage",
+        "advance directive access emergency",
+        "levenstestament digitaal",
+        "wilsverklaring online opslaan"
+      ],
+      "brief": "A medical advance directive is useless if doctors can't find it in an emergency. How to store and share your healthcare wishes digitally — with HIPAA-compliant access, in the EU and beyond."
+    },
+    {
+      "slug": "european-succession-regulation-expat-choice",
+      "keywords": [
+        "EU succession regulation 650/2012",
+        "Brussels IV expat will",
+        "EU inheritance law choice",
+        "habitual residence succession EU",
+        "expat inheritance law election"
+      ],
+      "brief": "EU Regulation 650/2012 (Brussels IV) lets expats choose which country's law governs their estate — but few know it exists. How to use this election to protect your family and reduce inheritance tax."
+    },
+    {
+      "slug": "digital-assets-probate-process-europe",
+      "keywords": [
+        "probate digital assets Europe",
+        "estate administration digital accounts",
+        "nalatenschap digitale bezittingen",
+        "succession numérique procédure",
+        "Erbschaft digitale Assets"
+      ],
+      "brief": "Probate is already slow and expensive — add digital accounts, crypto, and cloud subscriptions and it gets worse. What executors face when closing a digital estate across EU jurisdictions."
+    },
+    {
+      "slug": "emergency-contact-digital-vault-setup",
+      "keywords": [
+        "emergency contact digital vault",
+        "digital access emergency plan",
+        "break-glass access digital estate",
+        "emergency digital information card",
+        "critical account access emergency"
+      ],
+      "brief": "If you were in an accident today, could your family access your health insurance, home insurance, bank accounts? A step-by-step guide to setting up emergency digital access without compromising your security."
+    },
+    {
+      "slug": "inheritance-tax-digital-assets-netherlands",
+      "keywords": [
+        "erfbelasting digitale bezittingen",
+        "Netherlands inheritance tax digital",
+        "Dutch estate tax crypto",
+        "Box 3 digitale assets overlijden",
+        "erfbelasting Nederland 2026"
+      ],
+      "brief": "The Dutch Belastingdienst taxes digital assets just like physical ones — but most people don't report them. What counts, how they're valued, and how to plan to minimize erfbelasting on your digital estate."
+    },
+    {
+      "slug": "funeral-director-digital-notification-guide",
+      "keywords": [
+        "notify accounts after death",
+        "death notification digital accounts",
+        "digital estate administration checklist",
+        "closing accounts after death EU",
+        "executor digital notification guide"
+      ],
+      "brief": "After a death, someone has to close dozens of accounts — streaming, banking, social media, utilities. A practical timeline and toolkit for executors, with country-specific guidance for the Netherlands, Germany, France, and Spain."
+    },
+    {
+      "slug": "icloud-photos-shared-albums-death",
+      "keywords": [
+        "iCloud photos after death",
+        "Apple shared album inheritance",
+        "photo library estate planning",
+        "iPhone photos death family access",
+        "digital photo archive inheritance"
+      ],
+      "brief": "Your iCloud Photo Library may contain tens of thousands of irreplaceable photos. But Apple's policies make it nearly impossible for families to access them after death. What you can do now."
+    },
+    {
+      "slug": "gaming-accounts-steam-playstation-xbox-death",
+      "keywords": [
+        "Steam account death inheritance",
+        "PlayStation library after death",
+        "Xbox digital games inheritance",
+        "gaming digital assets estate",
+        "video game library inheritance"
+      ],
+      "brief": "You spent thousands on Steam games, PlayStation Plus, and Xbox achievements. None of it can legally be inherited — because you never owned the games, just a license. What gaming platforms say about death, and what you can actually do."
+    },
+    {
+      "slug": "life-insurance-digital-policy-access",
+      "keywords": [
+        "life insurance digital policy access",
+        "insurance after death online",
+        "digital insurance documents estate",
+        "levensverzekering overlijden digitaal",
+        "assurance vie numérique succession"
+      ],
+      "brief": "Life insurance is supposed to pay out fast — but if your family can't find the policy, weeks turn into months. How to store, organize, and share your insurance documents digitally so the right people find them when it matters."
+    },
+    {
+      "slug": "estate-planning-for-freelancers-digital-income",
+      "keywords": [
+        "freelancer estate planning digital",
+        "self-employed digital income inheritance",
+        "freelance business succession plan",
+        "sole trader death digital assets",
+        "ZZP overlijden nalatenschapplanning"
+      ],
+      "brief": "Freelancers and solo entrepreneurs have the most to lose when it comes to estate planning — no HR department, no corporate safety net. How to protect your clients, income streams, and digital work when you can no longer work."
+    },
+    {
+      "slug": "medical-power-of-attorney-digital-component",
+      "keywords": [
+        "medical power of attorney digital records",
+        "healthcare proxy digital access",
+        "incapacity digital account access",
+        "mental incapacity digital estate",
+        "volmacht digitale toegang Nederland"
+      ],
+      "brief": "A medical power of attorney gives someone authority over your healthcare — but not your digital accounts. What happens to your online banking, email, and documents if you become incapacitated — and how to bridge the gap."
+    },
+    {
+      "slug": "browser-saved-passwords-death-problem",
+      "keywords": [
+        "Chrome saved passwords after death",
+        "browser password vault inheritance",
+        "Google Chrome death account access",
+        "saved passwords estate planning",
+        "browser password manager death"
+      ],
+      "brief": "Billions of people store passwords in Chrome or Safari — and their families can never retrieve them after death. Why browser-saved passwords are a false sense of security for estate planning, and what to do instead."
+    },
+    {
+      "slug": "linkedin-professional-legacy-profile-management",
+      "keywords": [
+        "LinkedIn death profile management",
+        "professional legacy LinkedIn",
+        "LinkedIn memorialization request",
+        "LinkedIn account after death",
+        "professional network estate planning"
+      ],
+      "brief": "LinkedIn lets connections memorialize or remove your profile — but your professional legacy, recommendations, and articles can all disappear. How to manage your LinkedIn presence for after death, including a template message for your executor."
+    },
+    {
+      "slug": "cross-border-estate-planning-checklist-expat",
+      "keywords": [
+        "cross-border estate planning expat checklist",
+        "multinational inheritance planning",
+        "expat multi-country will checklist",
+        "international estate plan review",
+        "expat estate checklist Europe"
+      ],
+      "brief": "A practical, printable checklist for expats with assets in multiple countries — covering wills, power of attorney, digital assets, tax elections, and beneficiary designations. Built for European expat life."
     }
   ]
 }
